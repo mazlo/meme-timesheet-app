@@ -14,7 +14,7 @@
 Route::get( '/', function()
 {
 	//if ( Auth::check() )
-		return Redirect::to( 'tisheet' );
+		return Redirect::to( 'tisheets' );
 	//else 
 	//	return Redirect::to( 'login' );
 });
@@ -34,18 +34,10 @@ Route::get( '/', function()
 //{
 
 	Route::get( '/tisheets', 'TisheetController@index' );
+	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
 	Route::get( '/tisheets/{day}/summary', 'TisheetController@summary' );
 
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
-
-	Route::post( '/tisheet', 'PostController@add' );
-	Route::put( '/tisheet/{id}', 'PostController@update' );
-	Route::delete( '/tisheet/{id}', 'PostController@delete' );
-
-	Route::get( '/tisheet/{id}/next', 'PostController@next' );
-	Route::get( '/tisheet/{id}/next/{lastId}', 'PostController@next' );
-	Route::get( '/tisheet/{id}/previous', 'PostController@previous' );
-	Route::get( '/tisheet/{id}/previous/{lastId}', 'PostController@previous' );
 
 //});

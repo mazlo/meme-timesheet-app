@@ -6,9 +6,12 @@ class TisheetController extends BaseController
     /**
     *   Retrieves all tisheets from the database.
     */
-    public function index()
+    public function index( $day = '' )
     {
-        $tisheet = Tisheet::where( 'day', date( 'Y-m-d', time() ) )->get();
+        if ( empty( $day ) )
+            $day = date( 'Y-m-d', time() );
+        
+        $tisheet = Tisheet::where( 'day', $day )->get();
 
         return View::make( 'index' )->with( 'tisheets', $tisheet );
     }
