@@ -84,6 +84,13 @@ a.option-active {
 	color: #505050;
 }
 
+.octicon {
+	float: right; 
+	padding-left: 23px;
+	
+	cursor: pointer;
+}
+
 /* -------------- */
 
 input {

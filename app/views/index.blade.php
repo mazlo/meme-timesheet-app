@@ -12,6 +12,11 @@
 
 @section( 'content' )
 
+	<div class='title'>
+		<span class='octicon octicon-arrow-right'></span>
+		<span class='octicon octicon-arrow-left'></span>
+	</div>
+	
 	<h2>Timesheet for Today: {{ date( 'dS, M.', time() ) }}</h2>
 
 	<div id='timesheet-create-div' style='margin: 32px 0;'>
