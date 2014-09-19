@@ -1,0 +1,193 @@
+
+/*
+*	GLOBAL HTML COMPONENTS
+*/
+
+body {
+	overflow-y: scroll;
+	
+	margin: 0; 
+	padding: 0; 
+	
+	font-size: 13px;
+	line-height: 23px;
+	font-family: sans-serif;
+	color: #565656;
+}
+
+a,
+a:visited {
+	text-decoration: underline;
+	color: inherit;
+}
+
+h2 {
+	font-size: 23px;
+}
+
+h4 {
+	margin-bottom: 4px;
+}
+
+h4 > .created-at {
+	margin-left: 13px;
+
+	font-size: 13px;
+
+	font-weight: lighter;
+}
+
+p {
+	margin-top: 4px;
+}
+
+#wrapper {
+	width: 1124px; 
+	margin: auto;
+}
+
+#header {
+	overflow: hidden; 
+	height: 102px;
+}
+
+#content {
+	margin-top: 23px;
+	margin-bottom: 48px; 
+	padding: 0 48px;
+}
+
+#options {
+	margin-top: 32px;
+}
+
+#summary {
+	margin-top: 48px;
+}
+
+/* -------------- */
+
+a.option {
+	font-size: 13px;
+	font-weight: lighter;
+	
+	text-decoration: none;
+	color: #c0c0c0;
+	cursor: pointer;
+}
+
+a.option-active {
+	font-size: 13px;
+	font-weight: lighter;
+	
+	text-decoration: none;
+	color: #505050;
+}
+
+/* -------------- */
+
+input {
+	border: 1px solid #bbb; 
+	
+	width: 94%; 
+	height: 21px; 
+	padding: 3px 6px; 
+	
+	font-size: 13px;
+}
+
+button.button-submit,
+input.button-submit {
+	display: block;
+	margin-top: 8px;
+}
+
+button.button-margin,
+input.button-margin {
+	margin-top: 23px;
+}
+
+button.button,
+input.button {
+	background: #f8f8f8;
+	border: 1px solid #ccc;
+
+	width: 80px;
+	height: auto;
+	padding: 4px;
+}
+
+button.post-delete {
+	float: right;
+
+	background: #f8f8f8;
+	border: 1px solid #ccc;
+
+	width: 21px;
+	height: 21px;
+}
+
+textarea {
+	border: 1px solid #bbb; 
+	
+	width: 70%; 
+	height: 128px; 
+	padding: 3px 6px; 
+	
+	font-size: 13px;
+}
+
+ul.list-inline {
+	list-style-type: none; 
+	
+	margin: 0; 
+	padding: 0; 
+
+	font-size: 13px; 
+	color: #c0c0c0;
+}
+
+ul.list-inline li {
+	display: inline-block; 
+	margin-right: 23px;
+}
+
+.time-spent-quarter {
+	display: inline-block;
+	border: 1px #ccc solid;
+	background-color: #fff;
+	
+	width: 8px;
+	height: 18px;
+
+	cursor: pointer;
+}
+
+.time-spent-quarter-active {
+	background-color: #006699;
+}
+
+.time-spent-blank {
+	display: inline-block;
+	background-color: #fff;
+	
+	width: 8px;
+	height: 18px;
+}
+
+.tisheet-col-time-spent {
+	padding: 0 13px 0 0;
+}
+
+.tisheet-col-total {
+}
+
+/* -------------- */
+
+.element-hidden {
+	display: none;
+}
+
+.element-invisible {
+	visibility: hidden;
+}
