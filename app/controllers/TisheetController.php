@@ -15,7 +15,11 @@ class TisheetController extends BaseController
 
         return View::make( 'index' )
             ->with( 'tisheets', $tisheet )
-            ->with( 'today', $day );
+            // for yesterday substract 24h of the day given
+            ->with( 'yesterday', date( "Y-m-d", strtotime( $day ) - 60*60*24 ) )
+            ->with( 'today', $day )
+            // for tomorrow add 24h of the day given
+            ->with( 'tomorrow', date( "Y-m-d", strtotime( $day ) + 60*60*24 ) );
     }
 
     /**

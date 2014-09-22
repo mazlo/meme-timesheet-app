@@ -13,9 +13,9 @@
 @section( 'content' )
 
 	<div class='title'>
-		<span class='octicon octicon-arrow-right'></span>
+		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
 		<span class='octicon js-tisheet-today' style='font-size: 13px'>today</span>
-		<span class='octicon octicon-arrow-left'></span>
+		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
 	<h2>Timesheet for Today: {{ date( 'dS, M.', strtotime( $today ) ) }}</h2>
