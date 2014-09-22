@@ -173,6 +173,13 @@
 		});
 	});
 
+	//
+	$jQ( document ).on( 'click', '.js-tisheet-today', function() 
+	{
+		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}';
+		window.location = url;
+	});
+
 </script>
 
 </body>

@@ -14,7 +14,7 @@
 
 	<div class='title'>
 		<span class='octicon octicon-arrow-right'></span>
-		<span class='octicon' style='font-size: 13px'>today</span>
+		<span class='octicon js-tisheet-today' style='font-size: 13px'>today</span>
 		<span class='octicon octicon-arrow-left'></span>
 	</div>
 	
