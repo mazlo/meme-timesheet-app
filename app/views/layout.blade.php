@@ -46,7 +46,7 @@
 
 	$jQ( document ).on( 'keydown', '.description', function( event )
 	{
-		if ( event.which != 9 )
+		if ( event.keyCode != 9 || event.shiftKey )
 			return;
 
 		var tr = $jQ( '.item.element-hidden:last' );
