@@ -44,12 +44,6 @@
 
 <script type='text/javascript'>
 
-	$jQ( function()
-	{
-		var url = '{{ url( "tisheets" ) }}/' + '{{ date( "Y-m-d", time() ) }}';
-		window.history.pushState( {}, 'Timesheet for today', url );
-	});
-
 	$jQ( document ).on( 'keydown', '.description', function( event )
 	{
 		if ( event.which != 9 )

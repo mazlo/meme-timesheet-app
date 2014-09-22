@@ -13,7 +13,9 @@ class TisheetController extends BaseController
         
         $tisheet = Tisheet::where( 'day', $day )->get();
 
-        return View::make( 'index' )->with( 'tisheets', $tisheet );
+        return View::make( 'index' )
+            ->with( 'tisheets', $tisheet )
+            ->with( 'today', $day );
     }
 
     /**

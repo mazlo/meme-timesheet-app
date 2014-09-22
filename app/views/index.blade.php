@@ -14,10 +14,11 @@
 
 	<div class='title'>
 		<span class='octicon octicon-arrow-right'></span>
+		<span class='octicon' style='font-size: 13px'>today</span>
 		<span class='octicon octicon-arrow-left'></span>
 	</div>
 	
-	<h2>Timesheet for Today: {{ date( 'dS, M.', time() ) }}</h2>
+	<h2>Timesheet for Today: {{ date( 'dS, M.', strtotime( $today ) ) }}</h2>
 
 	<div id='timesheet-create-div' style='margin: 32px 0;'>
 

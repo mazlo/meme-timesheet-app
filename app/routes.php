@@ -33,7 +33,12 @@ Route::get( '/', function()
 //Route::group( array( 'before' => 'auth' ), function()
 //{
 
-	Route::get( '/tisheets', 'TisheetController@index' );
+	Route::get( '/tisheets', function()
+	{
+		$time = date( 'Y-m-d', time() );
+		return Redirect::to( '/tisheets/'. $time );
+	});
+
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
 	Route::get( '/tisheets/{day}/summary', 'TisheetController@summary' );
