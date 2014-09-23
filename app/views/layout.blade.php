@@ -44,21 +44,39 @@
 
 <script type='text/javascript'>
 
-	$jQ( document ).on( 'keydown', '.description', function( event )
+	// add new line to table or focus next textfield of next line
+	$jQ( document ).keydown( function( event )
 	{
-		if ( event.keyCode != 9 || event.shiftKey )
+		if ( event.keyCode != 13 )
 			return;
 
+		var item = $jQ( event.target ).closest( '.item' );
+
+		// the line to clone
 		var tr = $jQ( '.item.element-hidden:last' );
+		
+		if ( item.hasClass( 'item' ) )
+		{
+			// event was fired in textarea
+			
+			if ( $jQ( event.target ).attr( 'value' ) == '' )
+				// ignore when fired from empty textfield
+				return;
 
-		if ( tr.index() - $jQ(this).closest( '.item' ).index() > 1 )
-			return;
+			if ( tr.index() - item.index() > 1 )
+			{
+				// focus next textfield when fired NOT from the last textfield
+				item.next().find( '.description' ).focus();
+				return;
+			}
+		} 
 
 		var trClone = tr.clone();
 
 		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
 		trClone.insertBefore( tr );
 		trClone.removeClass( 'element-hidden' );
+		trClone.find( '.description' ).focus();
 	});
 
 	$jQ( document ).on( 'focusout', '.description', function()
@@ -66,7 +84,7 @@
 		var value = $jQ(this).val();
 		var item = $jQ(this).closest( '.item' );
 
-		if ( value == '' )
+		if ( value.trim() == '' )
 			return;
 
 		// iterate words of the textfield
