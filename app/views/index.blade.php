@@ -60,7 +60,7 @@
 
 				{{-- print remaining time spent --}}
 				@for( $i=$tisheet->time_spent; $i<16; $i++ )
-					@if( $i % 4 == 0 )
+					@if( $i != 0 && $i % 4 == 0 )
 						<span class='time-spent-blank'></span>
 					@endif
 
