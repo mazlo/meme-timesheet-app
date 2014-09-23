@@ -119,6 +119,7 @@ class TisheetController extends BaseController
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
+            ->where( 'tisheets.day', $day )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
 
