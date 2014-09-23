@@ -20,7 +20,7 @@
 	
 	<h2>Timesheet for Today: {{ date( 'dS, M.', strtotime( $today ) ) }}</h2>
 
-	<div id='timesheet-create-div' style='margin: 32px 0;'>
+	<div id='timesheet' style='margin: 32px 0;'>
 
 		{{ Form::open( array( 'id' => 'tisheet-form' ) ) }}
 
