@@ -53,7 +53,7 @@ class TisheetController extends BaseController
             $tisheet->description = $value;
         }
         
-        $tisheet->day = date( 'Y-m-d', time() );
+        $tisheet->day = $day;
         $tisheet->save();
 
         return $tisheet->id;
