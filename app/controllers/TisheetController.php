@@ -112,6 +112,17 @@ class TisheetController extends BaseController
     /**
     *
     */
+    public function delete( $day, $id )
+    {
+        $tisheet = Tisheet::find( $id );
+        $tisheet->delete();
+
+        return 'true';
+    }
+
+    /**
+    *
+    */
     public function summary( $day )
     {
         // select c.prefLabel, sum(t.time_spent) from tisheets t join contexts c on t.context_id=c.id group by c.prefLabel;

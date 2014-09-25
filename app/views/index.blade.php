@@ -27,14 +27,16 @@
 		<table style='border: 0; width: 100%; font-size: 13px; text-align: left'>
 			
 			<colgroup>
+				<col width='2%'>
 				<col width='4%'>
-				<col width='58%'>
+				<col width='56%'>
 				<col width='28%'>
 				<col width='6%'>
 				<col width='4%'>
 			</colgroup>
 			
 			<tr>
+				<th></th>
 				<th>No.</th>
 				<th>Task Description</th>
 				<th>Time Spent</th>
@@ -44,6 +46,8 @@
 
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item' id='{{ $tisheet->id}}'>
+				<td class='js-tisheet-delete'><span class='octicon octicon-trashcan' style='padding:0'></span></td>
+				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>{{ Form::text( 'description', $tisheet->description, array( 'class' => 'description' ) ) }}</td>
 				
@@ -76,6 +80,7 @@
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
 			<tr class='item' id='undefined'>
+				<td class='js-tisheet-delete'><span class="octicon octicon-trashcan"></span></td>
 				<td class='js-tisheet-no'>1.</td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
 				<td>
@@ -105,6 +110,7 @@
 		@endif
 
 			<tr class='item element-hidden' id='undefined'>
+				<td class='js-tisheet-delete'><span class="octicon octicon-trashcan"></span></td>
 				<td class='js-tisheet-no'></td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
 				<td>

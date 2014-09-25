@@ -177,11 +177,34 @@
 	// 
 	var firePostUpdateActions = function( item )
 	{
+		// invoke callbacks
+		for ( var i=0; i<callbacksTisheet.length; i++ )
+			callbacksTisheet.pop()(item);
+
+		// 
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
 
 		$jQ( '.js-show-summary' ).click();
 	};
+
+	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
+	{
+		var item = $jQ(this).closest( '.item' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.attr( 'id' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'delete',
+			success: function( data )
+			{
+				if ( data != 'true' )
+					return;
+
+				item.remove();
+			}
+		});
+	});
 
 	//
 	$jQ( document ).on( 'click', '.js-show-summary', function()
