@@ -101,7 +101,7 @@
 			return;
 		});
 
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/tisheet/'+ item.attr( 'id' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
 
 		$jQ.ajax({
 			url: url,
