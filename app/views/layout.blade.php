@@ -79,13 +79,21 @@
 		trClone.find( '.description' ).focus();
 	});
 
+	$jQ( document ).on( 'focusin', '.description', function()
+	{
+		oldDescription = $jQ( this ).val();
+	});
+
 	$jQ( document ).on( 'focusout', '.description', function()
 	{
 		var value = $jQ(this).val();
 		var item = $jQ(this).closest( '.item' );
 
+		if ( oldDescription == value )
+			return;	// ignore if nothing changed
+
 		if ( value.trim() == '' )
-			return;
+			return;	// ignore empty values
 
 		// iterate words of the textfield
 		var contexts;
