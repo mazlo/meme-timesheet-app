@@ -43,6 +43,9 @@ Route::get( '/', function()
 
 	Route::get( '/tisheets/{day}/summary', 'TisheetController@summary' );
 
+	Route::post( '/tisheets/{day}', 'TisheetController@add' );
+	
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
+	Route::delete( '/tisheets/{day}/tisheet/{id}', 'TisheetController@delete' );
 
 //});

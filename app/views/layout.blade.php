@@ -44,6 +44,8 @@
 
 <script type='text/javascript'>
 
+	callbacksTisheet = [];
+
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
 	{
@@ -84,6 +86,7 @@
 		oldDescription = $jQ( this ).val();
 	});
 
+	//
 	$jQ( document ).on( 'focusout', '.description', function()
 	{
 		var value = $jQ(this).val();
@@ -109,11 +112,14 @@
 			return;
 		});
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
+		var hasId = item.attr( 'id' ) != 'undefined' ? true : false;
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ item.attr( 'id' ) : '' );
+		var type = hasId ? 'put' : 'post';
 
 		$jQ.ajax({
 			url: url,
-			type: 'put',
+			type: type,
 			data: {
 				vl: value,
 				cx: contexts
@@ -145,23 +151,29 @@
 		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;
 		$jQ(this).closest( '.item' ).find( '.tisheet-col-total' ).text( count/4 + 'h');
 
-		// update object
 		var item = $jQ(this).closest( '.item' );
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/tisheet/'+ item.attr( 'id' );
 		
+		if ( item.attr( 'id' ) == 'undefined' )
+			callbacksTisheet.push( updateTisheetTimeSpent );
+		else
+			updateTisheetTimeSpent( item );
+	});
+
+	//
+	var updateTisheetTimeSpent = function( item )
+	{
+		// update object
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
+		var count = item.find( '.time-spent-quarter-active' ).length;
+
 		$jQ.ajax({
 			url: url,
 			type: 'put',
 			data: {
 				ts: count
-			},
-			success: function( data )
-			{
-				if ( data == 'true' )
-					itemUpdateConfirmation( item );
 			}
 		});
-	});
+	};
 
 	//
 	var itemUpdateConfirmation = function( item )
@@ -177,11 +189,34 @@
 	// 
 	var firePostUpdateActions = function( item )
 	{
+		// invoke callbacks
+		for ( var i=0; i<callbacksTisheet.length; i++ )
+			callbacksTisheet.pop()(item);
+
+		// 
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
 
 		$jQ( '.js-show-summary' ).click();
 	};
+
+	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
+	{
+		var item = $jQ(this).closest( '.item' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.attr( 'id' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'delete',
+			success: function( data )
+			{
+				if ( data != 'true' )
+					return;
+
+				item.remove();
+			}
+		});
+	});
 
 	//
 	$jQ( document ).on( 'click', '.js-show-summary', function()
@@ -190,7 +225,7 @@
 
 		$jQ.ajax({
 			url: url,
-			method: 'get',
+			type: 'get',
 			success: function( data )
 			{
 				$jQ( '#summary' ).html( data );
