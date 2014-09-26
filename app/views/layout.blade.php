@@ -217,6 +217,11 @@
 	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
 	{
 		var item = $jQ(this).closest( '.item' );
+
+		// do not delete items with no id
+		if ( item.attr( 'id' ) == 'undefined' )
+			return;
+
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.attr( 'id' );
 
 		$jQ.ajax({
