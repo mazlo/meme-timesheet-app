@@ -23,6 +23,11 @@ a:visited {
 
 h2 {
 	font-size: 23px;
+	font-weight: lighter;
+}
+
+h3 {
+	font-weight: lighter;
 }
 
 h4 {
