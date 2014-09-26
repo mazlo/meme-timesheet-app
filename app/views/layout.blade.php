@@ -56,7 +56,7 @@
 
 		// the line to clone
 		var tr = $jQ( '.item.element-hidden:last' );
-		
+
 		if ( item.hasClass( 'item' ) )
 		{
 			// event was fired in textarea
@@ -72,6 +72,20 @@
 				return;
 			}
 		} 
+		
+		else if ( tr.index() == 2 ) 
+		{
+			// event was fired from document
+
+			// focus first textfield if it is empty
+			var textfield = tr.prev().find( '.description' );
+			
+			if ( textfield.val() == '' )
+			{
+				textfield.focus();
+				return;
+			}
+		}
 
 		var trClone = tr.clone();
 
