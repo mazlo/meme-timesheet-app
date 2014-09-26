@@ -253,6 +253,20 @@
 		});
 	});
 
+	//
+	$jQ( document ).on( 'click', '.js-button', function()
+	{
+		$jQ( this ).closest( '.js-button-group' ).find( '.js-button' ).each( function()
+		{
+			if( !$jQ( this ).hasClass( 'js-button-active' ) )
+				return;
+
+			$jQ( this ).toggleClass( 'js-button-active' );
+		});
+
+		$jQ( this ).toggleClass( 'js-button-active' );
+	});
+
 </script>
 
 </body>

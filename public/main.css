@@ -156,12 +156,27 @@ ul.list-inline {
 	padding: 0; 
 
 	font-size: 13px; 
-	color: #c0c0c0;
 }
 
 ul.list-inline li {
 	display: inline-block; 
 	margin-right: 23px;
+}
+
+ul.list-inline-padded {
+	margin: 13px;
+}
+
+ul.list-inline li span.js-button, 
+ul.list-inline-padded li span.js-button {
+	padding: 4px 13px;
+
+	color: #c0c0c0;
+	cursor: pointer;
+}
+
+ul.list-inline-padded li span.js-button-active {
+	color: #565656;
 }
 
 .time-spent-quarter {
