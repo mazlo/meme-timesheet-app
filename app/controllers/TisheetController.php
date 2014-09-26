@@ -8,7 +8,7 @@ class TisheetController extends BaseController
     */
     public function index( $day = '' )
     {
-        if ( empty( $day ) )
+        if ( empty( $day ) || $day == 'today' )
             $day = date( 'Y-m-d', time() );
         
         $tisheet = Tisheet::where( 'day', $day )->get();

@@ -14,7 +14,7 @@
 
 	<div class='title'>
 		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
-		<span class='octicon js-tisheet-today' style='font-size: 13px'>today</span>
+		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon js-tisheet-today' style='font-size: 13px'>today</span></a>
 		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
