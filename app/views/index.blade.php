@@ -18,7 +18,7 @@
 		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
-	<h2>ya timesheet for today: {{ date( 'dS, M.', strtotime( $today ) ) }}</h2>
+	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', strtotime( $today ) ) }}</h2>
 
 	<div id='timesheet' day='{{ $today }}' style='margin: 32px 0;'>
 
@@ -138,14 +138,28 @@
 				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
 			</tr>
 
+			<tr>
+				<td colspan='4'>&nbsp;</td>
+				<td class='js-tisheet-today-total' style='border-top: 1px solid #ccc'></td>
+			</tr>
+
 		</table>
 
 		{{ Form::close() }}
 
 	</div>
 
-	<div id='summary' class='element-hidden'>
+	<div id='summaryWrapper' class='element-hidden'>
+		<h3>Summary</h3>
 
+		<ul class='list-inline list-inline-padded js-button-group'>
+			<li><span class='js-button js-button-active js-get-summary' for='today'>today</span></li>
+			<li><span class='js-button js-get-summary' for='week'>last week</span></li>
+		</ul>
+
+		<div id='summary'>
+			<img src='{{ url( "loading.gif" ) }}' />
+		</div>
 	</div>
 
 @stop

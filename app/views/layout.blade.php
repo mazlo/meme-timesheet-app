@@ -46,6 +46,11 @@
 
 	callbacksTisheet = [];
 
+	$jQ( function()
+	{
+		updateTisheetTotalTimeSpent();
+	});
+
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
 	{
@@ -171,6 +176,9 @@
 			callbacksTisheet.push( updateTisheetTimeSpent );
 		else
 			updateTisheetTimeSpent( item );
+
+		// update total time spent for the day
+		updateTisheetTotalTimeSpent();
 	});
 
 	//
@@ -188,6 +196,13 @@
 			}
 		});
 	};
+
+	//
+	var updateTisheetTotalTimeSpent = function()
+	{
+		count = $jQ( '#timesheet' ).find( '.time-spent-quarter-active' ).length;
+		$jQ( '.js-tisheet-today-total' ).text( count/4 + 'h');
+	}
 
 	//
 	var itemUpdateConfirmation = function( item )
@@ -233,6 +248,9 @@
 					return;
 
 				item.remove();
+
+				// update total time spent for the day
+				updateTisheetTotalTimeSpent();
 			}
 		});
 	});
@@ -240,7 +258,9 @@
 	//
 	$jQ( document ).on( 'click', '.js-show-summary', function()
 	{
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/summary'
+		$jQ( '#summaryWrapper' ).show();
+
+		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/summary/today'
 
 		$jQ.ajax({
 			url: url,
@@ -248,9 +268,37 @@
 			success: function( data )
 			{
 				$jQ( '#summary' ).html( data );
-				$jQ( '#summary' ).show();
 			}
 		});
+	});
+
+	//
+	$jQ( document ).on( 'click', '.js-get-summary', function()
+	{
+		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' +'/summary/'+ $jQ(this).attr( 'for' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'get',
+			success: function( data )
+			{
+				$jQ( '#summary' ).html( data );
+			}
+		});
+	});
+
+	//
+	$jQ( document ).on( 'click', '.js-button', function()
+	{
+		$jQ( this ).closest( '.js-button-group' ).find( '.js-button' ).each( function()
+		{
+			if( !$jQ( this ).hasClass( 'js-button-active' ) )
+				return;
+
+			$jQ( this ).toggleClass( 'js-button-active' );
+		});
+
+		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 
 </script>
