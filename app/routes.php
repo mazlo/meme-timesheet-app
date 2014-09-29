@@ -41,7 +41,8 @@ Route::get( '/', function()
 
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
-	Route::get( '/tisheets/{day}/summary', 'TisheetController@summary' );
+	Route::get( '/tisheets/{day}/summary/today', 'TisheetController@summaryForToday' );
+	Route::get( '/tisheets/{day}/summary/week', 'TisheetController@summaryForWeek' );
 
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
 	

@@ -123,14 +123,27 @@ class TisheetController extends BaseController
     /**
     *
     */
-    public function summary( $day )
+    public function summaryForToday( $day )
     {
-        // select c.prefLabel, sum(t.time_spent) from tisheets t join contexts c on t.context_id=c.id group by c.prefLabel;
-
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
             ->where( 'tisheets.day', $day )
+            ->groupBy( 'contexts.prefLabel' )
+            ->get();
+
+        return View::make( 'ajax.summary' )->with( 'summary', $sum );
+    }
+
+    /**
+    *
+    */
+    public function summaryForWeek( $day )
+    {
+        $sum = DB::table( 'tisheets' )
+            ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
+            ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
+            ->where( 'tisheets.day', '>', date( "Y-m-d", strtotime( $day ) - 60*60*24*7 ) )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
 

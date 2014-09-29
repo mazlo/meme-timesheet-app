@@ -258,7 +258,9 @@
 	//
 	$jQ( document ).on( 'click', '.js-show-summary', function()
 	{
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/summary'
+		$jQ( '#summaryWrapper' ).show();
+
+		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/summary/today'
 
 		$jQ.ajax({
 			url: url,
@@ -266,7 +268,21 @@
 			success: function( data )
 			{
 				$jQ( '#summary' ).html( data );
-				$jQ( '#summary' ).show();
+			}
+		});
+	});
+
+	//
+	$jQ( document ).on( 'click', '.js-get-summary', function()
+	{
+		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' +'/summary/'+ $jQ(this).attr( 'for' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'get',
+			success: function( data )
+			{
+				$jQ( '#summary' ).html( data );
 			}
 		});
 	});

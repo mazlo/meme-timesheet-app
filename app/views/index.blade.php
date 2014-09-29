@@ -149,8 +149,17 @@
 
 	</div>
 
-	<div id='summary' class='element-hidden'>
+	<div id='summaryWrapper' class='element-hidden'>
+		<h3>Summary</h3>
 
+		<ul class='list-inline list-inline-padded js-button-group'>
+			<li><span class='js-button js-button-active js-get-summary' for='today'>today</span></li>
+			<li><span class='js-button js-get-summary' for='week'>last week</span></li>
+		</ul>
+
+		<div id='summary'>
+			<img src='{{ url( "loading.gif" ) }}' />
+		</div>
 	</div>
 
 @stop
