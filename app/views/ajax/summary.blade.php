@@ -18,7 +18,7 @@
 
 @foreach( $summary as $key => $object )
 
-	<tr style='border-bottom: 1px #ccc solid'>
+	<tr>
 		<td>{{ $object->prefLabel }}</td>
 		<td>{{ $object->total_time_spent/4 }}h</td>
 	</tr>

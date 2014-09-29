@@ -138,6 +138,11 @@
 				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
 			</tr>
 
+			<tr>
+				<td colspan='4'>&nbsp;</td>
+				<td class='js-tisheet-today-total' style='border-top: 1px solid #ccc'></td>
+			</tr>
+
 		</table>
 
 		{{ Form::close() }}

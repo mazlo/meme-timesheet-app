@@ -46,6 +46,11 @@
 
 	callbacksTisheet = [];
 
+	$jQ( function()
+	{
+		updateTisheetTotalTimeSpent();
+	});
+
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
 	{
@@ -171,6 +176,9 @@
 			callbacksTisheet.push( updateTisheetTimeSpent );
 		else
 			updateTisheetTimeSpent( item );
+
+		// update total time spent for the day
+		updateTisheetTotalTimeSpent();
 	});
 
 	//
@@ -188,6 +196,13 @@
 			}
 		});
 	};
+
+	//
+	var updateTisheetTotalTimeSpent = function()
+	{
+		count = $jQ( '#timesheet' ).find( '.time-spent-quarter-active' ).length;
+		$jQ( '.js-tisheet-today-total' ).text( count/4 + 'h');
+	}
 
 	//
 	var itemUpdateConfirmation = function( item )
@@ -233,6 +248,9 @@
 					return;
 
 				item.remove();
+
+				// update total time spent for the day
+				updateTisheetTotalTimeSpent();
 			}
 		});
 	});
