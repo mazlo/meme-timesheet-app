@@ -30,9 +30,9 @@
 				<col width='3%'>
 				<col width='3%'>
 				<col width='57%'>
-				<col width='26%'>
-				<col width='4%'>
+				<col width='25%'>
 				<col width='3%'>
+				<col width='4%'>
 			</colgroup>
 			
 			<tr>
