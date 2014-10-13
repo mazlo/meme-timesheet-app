@@ -13,9 +13,9 @@
 @section( 'content' )
 
 	<div class='title'>
-		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
-		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon js-tisheet-today' style='font-size: 13px'>today</span></a>
-		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
+		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-float-right octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
+		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon octicon-float-right js-tisheet-today' style='font-size: 13px'>today</span></a>
+		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-float-right octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
 	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', strtotime( $today ) ) }}</h2>
@@ -24,14 +24,14 @@
 
 		{{ Form::open( array( 'id' => 'tisheet-form' ) ) }}
 
-		<table style='border: 0; width: 100%; font-size: 13px; text-align: left'>
+		<table cellpadding='0' cellspacing='0' style='border: 0; width: 100%; font-size: 13px; text-align: left'>
 			
 			<colgroup>
-				<col width='3%'>
+				<col width='2%'>
 				<col width='3%'>
 				<col width='57%'>
 				<col width='25%'>
-				<col width='3%'>
+				<col width='4%'>
 				<col width='4%'>
 			</colgroup>
 			
@@ -45,8 +45,8 @@
 			</tr>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='item' id='{{ $tisheet->id}}'>
-				<td class='js-tisheet-delete'><span class='octicon octicon-trashcan' style='padding:0'></span></td>
+			<tr class='item js-enable-trashcan' id='{{ $tisheet->id}}'>
+				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>{{ Form::text( 'description', $tisheet->description, array( 'class' => 'description' ) ) }}</td>
@@ -80,7 +80,7 @@
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
 			<tr class='item' id='undefined'>
-				<td class='js-tisheet-delete'><span class='octicon octicon-trashcan' style='padding:0'></span></td>
+				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'>1.</td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
 				<td>
@@ -110,7 +110,7 @@
 		@endif
 
 			<tr class='item element-hidden' id='undefined'>
-				<td class='js-tisheet-delete'><span class='octicon octicon-trashcan' style='padding:0'></span></td>
+				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'></td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
 				<td>

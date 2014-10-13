@@ -91,10 +91,13 @@ a.option-active {
 }
 
 .octicon {
-	float: right; 
 	padding-left: 23px;
 	
 	cursor: pointer;
+}
+
+.octicon-float-right {
+	float: right; 
 }
 
 /* -------------- */
@@ -104,7 +107,7 @@ input {
 	
 	width: 94%; 
 	height: 21px; 
-	padding: 3px 6px; 
+	padding: 2px 6px 3px; 
 	
 	font-size: 13px;
 }
@@ -181,6 +184,10 @@ ul.list-inline-padded li .js-button-active {
 	color: #565656;
 }
 
+tr.item td {
+	padding: 4px 0;
+}
+
 .time-spent-quarter {
 	display: inline-block;
 	border: 1px #ccc solid;
@@ -188,6 +195,8 @@ ul.list-inline-padded li .js-button-active {
 	
 	width: 8px;
 	height: 18px;
+
+	margin-top: 3px;
 
 	cursor: pointer;
 }
@@ -205,7 +214,7 @@ ul.list-inline-padded li .js-button-active {
 }
 
 .tisheet-col-time-spent {
-	padding: 0 13px 0 0;
+	padding-right: 13px;
 }
 
 .tisheet-col-total {

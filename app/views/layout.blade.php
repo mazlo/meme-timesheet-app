@@ -308,6 +308,12 @@
 		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 
+	//
+	$jQ( document ).on( 'hover', '.js-enable-trashcan', function() 
+	{
+		$jQ(this).find( '.js-tisheet-delete' ).toggleClass( 'element-invisible' );
+	});
+
 </script>
 
 </body>
