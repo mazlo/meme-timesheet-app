@@ -4,7 +4,7 @@
 
 	<div id='options' style='float: right'>
 		<ul class='list-inline'>
-			<li><a class='js-show-summary option'>show summary</a></li>
+			<li><a href='{{ url( "tisheets/". $today ."/summary/today" ) }}' class='js-show-summary option'>show summary</a></li>
 		</ul>
 	</div>
 
@@ -153,8 +153,8 @@
 		<h3>Summary</h3>
 
 		<ul class='list-inline list-inline-padded js-button-group'>
-			<li><span class='js-button js-button-active js-get-summary' for='today'>today</span></li>
-			<li><span class='js-button js-get-summary' for='week'>last week</span></li>
+			<li><a href='{{ url( "tisheets/". $today ."/summary/today" ) }}' class='js-button js-button-active js-get-summary'>today</a></li>
+			<li><a href='{{ url( "tisheets/". $today ."/summary/week" ) }}' class='js-button js-get-summary'>last week</a></li>
 		</ul>
 
 		<div id='summary'>

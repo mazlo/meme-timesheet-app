@@ -260,7 +260,7 @@
 	{
 		$jQ( '#summaryWrapper' ).show();
 
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' + '/summary/today'
+		var url = $jQ(this).attr( 'href' );
 
 		$jQ.ajax({
 			url: url,
@@ -270,12 +270,14 @@
 				$jQ( '#summary' ).html( data );
 			}
 		});
+
+		return false;
 	});
 
 	//
 	$jQ( document ).on( 'click', '.js-get-summary', function()
 	{
-		var url = '{{ url( "tisheets" ) }}' + '/{{ date( "Y-m-d", time() ) }}' +'/summary/'+ $jQ(this).attr( 'for' );
+		var url = $jQ(this).attr( 'href' );
 
 		$jQ.ajax({
 			url: url,
@@ -285,6 +287,8 @@
 				$jQ( '#summary' ).html( data );
 			}
 		});
+
+		return false;
 	});
 
 	//
@@ -292,12 +296,15 @@
 	{
 		$jQ( this ).closest( '.js-button-group' ).find( '.js-button' ).each( function()
 		{
+			// remove js-button-active class for all elements
+
 			if( !$jQ( this ).hasClass( 'js-button-active' ) )
 				return;
 
 			$jQ( this ).toggleClass( 'js-button-active' );
 		});
 
+		// active js-button-active class for current element
 		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 

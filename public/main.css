@@ -17,7 +17,7 @@ body {
 
 a,
 a:visited {
-	text-decoration: underline;
+	text-decoration: none;
 	color: inherit;
 }
 
@@ -168,15 +168,16 @@ ul.list-inline-padded {
 	margin: 13px;
 }
 
-ul.list-inline li span.js-button, 
-ul.list-inline-padded li span.js-button {
+ul.list-inline li .js-button, 
+ul.list-inline-padded li .js-button {
 	padding: 4px 13px;
 
+	font-weight: lighter;
 	color: #c0c0c0;
 	cursor: pointer;
 }
 
-ul.list-inline-padded li span.js-button-active {
+ul.list-inline-padded li .js-button-active {
 	color: #565656;
 }
 
