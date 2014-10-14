@@ -14,7 +14,7 @@ class UserController extends Controller
 
         // check if user is logged in
         if ( Auth::check() )
-            return Redirect::to( 'minutes' );
+            return Redirect::to( 'tisheets/today' );
 
         $validator = Validator::make( Input::all(), array(
             'email' => 'required|email',
@@ -34,7 +34,7 @@ class UserController extends Controller
             {
                 Auth::user()->touch();
                 
-                return Redirect::intended( 'minutes' );
+                return Redirect::intended( 'tisheets/today' );
             }
         }
 

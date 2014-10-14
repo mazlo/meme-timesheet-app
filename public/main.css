@@ -112,6 +112,10 @@ input {
 	font-size: 13px;
 }
 
+input.textfield-narrow {
+	width: 420px;
+}
+
 button.button-submit,
 input.button-submit {
 	display: block;
