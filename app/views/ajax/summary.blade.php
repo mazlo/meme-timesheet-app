@@ -9,13 +9,19 @@
 		<th>Total Time Spent</th>
 	</tr>
 
-@foreach( $summary as $key => $object )
+@if ( count( $summary ) > 0 )
+	@foreach( $summary as $key => $object )
 
 	<tr>
 		<td>{{ $object->prefLabel }}</td>
 		<td>{{ $object->total_time_spent/4 }}h</td>
 	</tr>
 
-@endforeach
+	@endforeach
+@else
+	<tr>
+		<td colspan='2'>No entries for today.</td>
+	</tr>
+@endif
 
 </table>
