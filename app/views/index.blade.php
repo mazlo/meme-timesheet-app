@@ -1,5 +1,9 @@
 @extends( 'layout' )
 
+<?php
+	$todayAsTime = strtotime( $today );
+?>
+
 @section( 'header' )
 
 	<div id='options' style='float: right'>
@@ -18,7 +22,11 @@
 		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-float-right octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
-	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', strtotime( $today ) ) }}</h2>
+	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
+
+	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
+		<div>Jeez, it's Sunday, why are you working at all?</div>
+	@endif
 
 	<div id='timesheet' day='{{ $today }}' style='margin: 32px 0;'>
 
