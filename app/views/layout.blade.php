@@ -118,17 +118,23 @@
 			return;	// ignore empty values
 
 		// iterate words of the textfield
+		var startTime;
 		var contexts;
 		var words = value.split( ' ' );
 
-		// and collect all contexts, starting with an @
+		// and collect all startTime, starting with an @
 		words.forEach( function( word )
 		{
-			if ( word.indexOf( '@' ) != 0 )
+			if ( word.indexOf( '@' ) == 0 )
+			{
+				startTime = word;
 				return;
-
-			contexts = word;
-			return;
+			}
+			else if ( word.indexOf( '#' ) == 0 )
+			{
+				contexts = word;
+				return;
+			}
 		});
 
 		var hasId = item.attr( 'id' ) != 'undefined' ? true : false;
@@ -141,6 +147,7 @@
 			type: type,
 			data: {
 				vl: value,
+				st: startTime,
 				cx: contexts
 			},
 			success: function( data )

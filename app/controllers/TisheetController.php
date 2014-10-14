@@ -50,6 +50,12 @@ class TisheetController extends BaseController
                 $tisheet->context()->associate( $context );
             }
 
+            $startTime = Input::get( 'st' );
+
+            // check if start time is already available
+            if ( !empty( $startTime ) )
+                $tisheet->start_time = $startTime;
+
             $tisheet->description = $value;
         }
         
@@ -97,6 +103,12 @@ class TisheetController extends BaseController
             // remove relation to context if contextLabel is empty
             else 
                 $tisheet->context_id = null;
+
+            $startTime = Input::get( 'st' );
+            
+            // check if start time is already available
+            if ( !empty( $startTime ) )
+                $tisheet->start_time = $startTime;
 
             $tisheet->description = $value;
         }
