@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $data = array();
 
-        // check if user is logged in
+        // user authenticated -> do not continue! redirect to base (light security check)
         if ( Auth::check() )
             return Redirect::to( 'tisheets/today' );
 

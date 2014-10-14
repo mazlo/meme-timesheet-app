@@ -14,7 +14,8 @@
 Route::get( '/', function()
 {
 	if ( Auth::check() )
-		return Redirect::to( 'tisheets' );
+		// user authenticated -> redirect to base url
+		return Redirect::to( 'tisheets/today' );
 	else 
 		return Redirect::to( 'login' );
 });
