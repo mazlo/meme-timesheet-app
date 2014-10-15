@@ -61,7 +61,7 @@
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
-					<input class='js-tisheet-planned' type='checkbox' />
+					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
 				</td>
 				
 				<td class='tisheet-col-time-spent'>

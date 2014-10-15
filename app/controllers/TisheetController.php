@@ -117,6 +117,8 @@ class TisheetController extends BaseController
         
         else if ( Input::has( 'ts' ) )
             $tisheet->time_spent = Input::get( 'ts' );
+        else if ( Input::has( 'pl' ) )
+            $tisheet->planned = Input::get( 'pl' ) == 'true' ? true : false;
 
         $tisheet->save();
 
