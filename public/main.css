@@ -48,6 +48,16 @@ p {
 	margin-top: 4px;
 }
 
+span.notification-positiv {
+	display: block;
+	color: #67A921;
+}
+
+span.notification-negativ {
+	display: block;
+	color: #E56952;
+}
+
 #wrapper {
 	width: 1124px; 
 	margin: auto;
