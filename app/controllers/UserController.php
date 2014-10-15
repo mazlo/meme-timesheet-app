@@ -74,7 +74,7 @@ class UserController extends Controller
             $rules = array(
                 'username' => 'required|unique:users',
                 'email' => 'required|email|min:8|unique:users',
-                'password' => 'required|min:4|confirmed'
+                'password' => 'required|min:6|confirmed'
             );
             
             // messages for validation errors
