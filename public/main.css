@@ -21,6 +21,12 @@ a:visited {
 	color: inherit;
 }
 
+p a,
+p a:visited {
+	border-bottom: 1px #565656 dotted;
+	text-decoration: none;
+}
+
 h2 {
 	margin-bottom: 32px;
 	font-size: 25px;
