@@ -7,4 +7,9 @@ class Tisheet extends Eloquent
 	{
 		return $this->belongsTo( 'Context', 'context_id' );
 	}
+
+	public function user()
+	{
+		return $this->belongsTo( 'User', 'user_id' );
+	}
 }
