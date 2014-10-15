@@ -89,7 +89,7 @@
 
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
-			<tr class='item' id='undefined'>
+			<tr class='item js-enable-trashcan' id='undefined'>
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'>1.</td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
@@ -119,7 +119,7 @@
 			</tr>
 		@endif
 
-			<tr class='item element-hidden' id='undefined'>
+			<tr class='item js-enable-trashcan element-hidden' id='undefined'>
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'></td>
 				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
