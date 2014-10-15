@@ -8,6 +8,7 @@
 
 	<div id='options' style='float: right'>
 		<ul class='list-inline'>
+			<li>Hello {{ Auth::user()->username }}</li>
 			<li><a href='{{ url( "tisheets/". $today ."/summary/today" ) }}' class='js-show-summary option'>show summary</a></li>
 			<li><a href='{{ url( "logout" ) }}' class='option'>logout</a></li>
 		</ul>
