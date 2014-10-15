@@ -73,7 +73,7 @@
 			if ( tr.index() - item.index() > 1 )
 			{
 				// focus next textfield when fired NOT from the last textfield
-				item.next().find( '.description' ).focus();
+				item.next().find( 'input.tisheet-description' ).focus();
 				return;
 			}
 		} 
@@ -83,7 +83,7 @@
 			// event was fired from document
 
 			// focus first textfield if it is empty
-			var textfield = tr.prev().find( '.description' );
+			var textfield = tr.prev().find( 'input.tisheet-description' );
 			
 			if ( textfield.val() == '' )
 			{
@@ -97,16 +97,16 @@
 		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
 		trClone.insertBefore( tr );
 		trClone.removeClass( 'element-hidden' );
-		trClone.find( '.description' ).focus();
+		trClone.find( 'input.tisheet-description' ).focus();
 	});
 
-	$jQ( document ).on( 'focusin', '.description', function()
+	$jQ( document ).on( 'focusin', 'input.tisheet-description', function()
 	{
 		oldDescription = $jQ( this ).val();
 	});
 
 	//
-	$jQ( document ).on( 'focusout', '.description', function()
+	$jQ( document ).on( 'focusout', 'input.tisheet-description', function()
 	{
 		var value = $jQ(this).val();
 		var item = $jQ(this).closest( '.item' );
@@ -163,6 +163,17 @@
 		});
 	});
 
+	// 
+	$jQ( document ).on( 'change', '.js-tisheet-planned', function()
+	{
+		var item = $jQ(this).closest( '.item' );
+
+		if ( item.attr( 'id' ) == 'undefined' )
+			callbacksTisheet.push( updateTisheetIsPlanned );
+		else
+			updateTisheetIsPlanned( item );
+	});
+
 	$jQ( document ).on( 'click', '.time-spent-quarter', function()
 	{
 		// reset all coming quarters
@@ -187,6 +198,22 @@
 		// update total time spent for the day
 		updateTisheetTotalTimeSpent();
 	});
+
+	//
+	var updateTisheetIsPlanned = function( item )
+	{
+		// update object
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
+		var planned = item.find( '.js-tisheet-planned' ).is( ':checked' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'put',
+			data: {
+				pl: planned
+			}
+		});
+	};
 
 	//
 	var updateTisheetTimeSpent = function( item )
