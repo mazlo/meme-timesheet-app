@@ -15,10 +15,10 @@
     {{ Form::open( array( 'url' => 'login' )) }}
 
     <h4>E-Mail</h4>
-    {{ Form::text( 'email', '', array( 'placeholder' => 'john@smithy.com', 'class' => 'textfield-narrow' ) ) }}
+    {{ Form::text( 'email', '', array( 'placeholder' => 'john@smithy.com', 'class' => 'textfield textfield-narrow' ) ) }}
     
     <h4>Password</h4>
-    {{ Form::password( 'password', array( 'placeholder' => '●●●●●●●●', 'class' => 'textfield-narrow' ) ) }}
+    {{ Form::password( 'password', array( 'placeholder' => '●●●●●●●●', 'class' => 'textfield textfield-narrow' ) ) }}
 
     <div>
         {{ Form::submit( 'Sign in', array( 'class' => 'button button-submit button-margin' ) ) }}
