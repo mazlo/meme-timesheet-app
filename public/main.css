@@ -21,7 +21,14 @@ a:visited {
 	color: inherit;
 }
 
+p a,
+p a:visited {
+	border-bottom: 1px #565656 dotted;
+	text-decoration: none;
+}
+
 h2 {
+	margin-bottom: 32px;
 	font-size: 25px;
 	font-weight: lighter;
 }
@@ -45,6 +52,16 @@ h4 > .created-at {
 
 p {
 	margin-top: 4px;
+}
+
+span.notification-positiv {
+	display: block;
+	color: #67A921;
+}
+
+span.notification-negativ {
+	display: block;
+	color: #E56952;
 }
 
 #wrapper {
@@ -102,14 +119,18 @@ a.option-active {
 
 /* -------------- */
 
-input {
+input.textfield {
 	border: 1px solid #bbb; 
 	
-	width: 94%; 
+	width: 90%; 
 	height: 21px; 
 	padding: 2px 6px 3px; 
 	
 	font-size: 13px;
+}
+
+input.textfield-narrow {
+	width: 420px;
 }
 
 button.button-submit,

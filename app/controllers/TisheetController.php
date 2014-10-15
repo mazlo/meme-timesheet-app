@@ -11,7 +11,7 @@ class TisheetController extends BaseController
         if ( empty( $day ) || $day == 'today' )
             $day = date( 'Y-m-d', time() );
         
-        $tisheet = Tisheet::where( 'day', $day )->get();
+        $tisheet = Tisheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->get();
 
         return View::make( 'index' )
             ->with( 'tisheets', $tisheet )
@@ -28,6 +28,8 @@ class TisheetController extends BaseController
     public function add( $day )
     {
         $tisheet = new Tisheet();
+
+        $tisheet->user()->associate( Auth::user() );
 
         if ( Input::has( 'vl' ) )
         {
@@ -77,7 +79,7 @@ class TisheetController extends BaseController
 
         // update
         
-        $tisheet = Tisheet::where( 'id', '=', $id )->first();
+        $tisheet = Tisheet::where( 'id', '=', $id )->where( 'user_id', Auth::user()->id )->first();
 
         if ( Input::has( 'vl' ) )
         {
@@ -140,6 +142,7 @@ class TisheetController extends BaseController
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
+            ->where( 'tisheets.user_id', Auth::user()->id )
             ->where( 'tisheets.day', $day )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
@@ -155,6 +158,7 @@ class TisheetController extends BaseController
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
+            ->where( 'tisheets.user_id', Auth::user()->id )
             ->where( 'tisheets.day', '>', date( "Y-m-d", strtotime( $day ) - 60*60*24*7 ) )
             ->groupBy( 'contexts.prefLabel' )
             ->get();

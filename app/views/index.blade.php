@@ -8,7 +8,9 @@
 
 	<div id='options' style='float: right'>
 		<ul class='list-inline'>
+			<li>Hello {{ Auth::user()->username }}</li>
 			<li><a href='{{ url( "tisheets/". $today ."/summary/today" ) }}' class='js-show-summary option'>show summary</a></li>
+			<li><a href='{{ url( "logout" ) }}' class='option'>logout</a></li>
 		</ul>
 	</div>
 
@@ -46,8 +48,8 @@
 			<tr>
 				<th></th>
 				<th>No.</th>
-				<th>Task Description</th>
-				<th>Time Spent</th>
+				<th>Task Description (planned?)</th>
+				<th>Time Spent / Estimate Time</th>
 				<th>Total</th>
 				<th></th>
 			</tr>
@@ -57,7 +59,10 @@
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
-				<td>{{ Form::text( 'description', $tisheet->description, array( 'class' => 'description' ) ) }}</td>
+				<td>
+					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
+					<input class='js-tisheet-planned' type='checkbox' />
+				</td>
 				
 				<td class='tisheet-col-time-spent'>
 
@@ -87,10 +92,13 @@
 
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
-			<tr class='item' id='undefined'>
+			<tr class='item js-enable-trashcan' id='undefined'>
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'>1.</td>
-				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
+				<td>
+					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
+					<input class='js-tisheet-planned' type='checkbox' />
+				</td>
 				<td>
 					<span class='time-spent-quarter'></span>
 					<span class='time-spent-quarter'></span>
@@ -117,10 +125,13 @@
 			</tr>
 		@endif
 
-			<tr class='item element-hidden' id='undefined'>
+			<tr class='item js-enable-trashcan element-hidden' id='undefined'>
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'></td>
-				<td>{{ Form::text( 'description', '', array( 'class' => 'description' ) ) }}</td>
+				<td>
+					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
+					<input class='js-tisheet-planned' type='checkbox' />
+				</td>
 				<td>
 					<span class='time-spent-quarter'></span>
 					<span class='time-spent-quarter'></span>

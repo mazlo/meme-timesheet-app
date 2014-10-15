@@ -37,5 +37,4 @@ class User extends Eloquent implements UserInterface {
 	{
 		return $this->password;
 	}
-
 }

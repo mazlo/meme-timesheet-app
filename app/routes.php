@@ -13,25 +13,26 @@
 
 Route::get( '/', function()
 {
-	//if ( Auth::check() )
-		return Redirect::to( 'tisheets' );
-	//else 
-	//	return Redirect::to( 'login' );
+	if ( Auth::check() )
+		// user authenticated -> redirect to base url
+		return Redirect::to( 'tisheets/today' );
+	else 
+		return Redirect::to( 'login' );
 });
 
-//Route::get( '/login', function() { return View::make( 'user.login' ); } );
-//Route::post( '/login', 'UserController@login' );
+Route::get( '/login', function() { return View::make( 'user.login' ); } );
+Route::post( '/login', 'UserController@login' );
 
-//Route::get( '/logout', 'UserController@logout' );
+Route::get( '/logout', 'UserController@logout' );
 
-//Route::get( '/signup', function() { return View::make( 'user.signup' ); } );
-//Route::post( '/signup', 'UserController@signup' );
+Route::get( '/signup', function() { return View::make( 'user.signup' ); } );
+Route::post( '/signup', 'UserController@signup' );
 
 /*
 	Authentication neccessary
 */
-//Route::group( array( 'before' => 'auth' ), function()
-//{
+Route::group( array( 'before' => 'auth' ), function()
+{
 
 	Route::get( '/tisheets', function()
 	{
@@ -49,4 +50,4 @@ Route::get( '/', function()
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}', 'TisheetController@delete' );
 
-//});
+});

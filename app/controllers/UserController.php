@@ -12,9 +12,9 @@ class UserController extends Controller
     {
         $data = array();
 
-        // check if user is logged in
+        // user authenticated -> do not continue! redirect to base (light security check)
         if ( Auth::check() )
-            return Redirect::to( 'minutes' );
+            return Redirect::to( 'tisheets/today' );
 
         $validator = Validator::make( Input::all(), array(
             'email' => 'required|email',
@@ -28,13 +28,13 @@ class UserController extends Controller
                 'password' => Input::get( 'password' )
             );
 
-            // successful login redirects
-
-            if ( Auth::attempt( $credentials ) )
+            // attempt to login user with credentials
+            if ( Auth::attempt( $credentials, true ) )
             {
                 Auth::user()->touch();
                 
-                return Redirect::intended( 'minutes' );
+                // successful login redirects
+                return Redirect::intended( 'tisheets/today' );
             }
         }
 
@@ -74,7 +74,7 @@ class UserController extends Controller
             $rules = array(
                 'username' => 'required|unique:users',
                 'email' => 'required|email|min:8|unique:users',
-                'password' => 'required|min:4|confirmed'
+                'password' => 'required|min:6|confirmed'
             );
             
             // messages for validation errors
