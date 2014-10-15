@@ -28,12 +28,12 @@ class UserController extends Controller
                 'password' => Input::get( 'password' )
             );
 
-            // successful login redirects
-
-            if ( Auth::attempt( $credentials ) )
+            // attempt to login user with credentials
+            if ( Auth::attempt( $credentials, true ) )
             {
                 Auth::user()->touch();
                 
+                // successful login redirects
                 return Redirect::intended( 'tisheets/today' );
             }
         }
