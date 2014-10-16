@@ -10,6 +10,7 @@
 
 	<p>
 		This document was created using a Contractology template available at http://www.freenetlaw.com.
+		favicon was made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
 	</p>
 
 	<h4>Introduction</h4>
@@ -209,7 +210,6 @@
 
 	<p>
 		yatimesheet.de was programmed by Matthäus Zloch, <a href='mailto:matthaeus@mazlo.de'>matthaeus@mazlo.de</a>, <a href='http://github.com/mazlo'>github.com/mazlo</a>.
-		favicon was made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>.
 	</p>
 
 	<p>
