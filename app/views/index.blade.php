@@ -20,7 +20,7 @@
 
 	<div class='title'>
 		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-float-right octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
-		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon octicon-float-right js-tisheet-today' style='font-size: 13px'>today</span></a>
+		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text octicon-float-right js-tisheet-today'>today</span></a>
 		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-float-right octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	

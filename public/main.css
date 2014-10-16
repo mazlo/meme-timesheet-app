@@ -118,6 +118,12 @@ a.option-active {
 	cursor: pointer;
 }
 
+.octicon-text {
+	padding-left: 23px;
+	line-height: 15px;
+	cursor: pointer;
+}
+
 .octicon-float-right {
 	float: right; 
 }
