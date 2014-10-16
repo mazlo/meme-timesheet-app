@@ -38,7 +38,7 @@
 		@yield( 'footer' )
 		
 	</div>
-
+	
 </div> 
 {{-- end wrapper --}}
 

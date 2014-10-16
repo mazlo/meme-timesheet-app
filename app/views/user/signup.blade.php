@@ -36,6 +36,16 @@
         
         {{ Form::password( 'password_confirmation', array( 'class' => 'textfield textfield-narrow' ) ) }}
 
+        <p>
+            @if( $errors->has( 'terms' ) )
+                <? $error = $errors->get( 'terms' ) ?>
+                <span class='notification-negativ'>{{ $error[0] }}</span>
+            @endif
+
+            <input type='checkbox' name='terms' id='terms' />
+            <label for='terms'>I accept the <a href='{{ url("terms-and-conditions") }}'>terms and conditions</a> of yatimesheet.de.</label>
+        </p>
+
         {{ Form::submit( 'Sign up', array( 'class' => 'button button-submit button-margin' ) ) }}
         
     {{ Form::close() }}

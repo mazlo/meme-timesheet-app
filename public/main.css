@@ -88,6 +88,11 @@ span.notification-negativ {
 	margin-top: 48px;
 }
 
+#footer {
+	margin-top: 144px;
+	padding: 0 32px;
+}
+
 /* -------------- */
 
 a.option {

@@ -28,6 +28,8 @@ Route::get( '/logout', 'UserController@logout' );
 Route::get( '/signup', function() { return View::make( 'user.signup' ); } );
 Route::post( '/signup', 'UserController@signup' );
 
+Route::any( '/terms-and-conditions', 'BaseController@terms' );
+
 /*
 	Authentication neccessary
 */
