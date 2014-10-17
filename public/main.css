@@ -216,6 +216,10 @@ ul.list-inline-padded li .js-button-active {
 	color: #565656;
 }
 
+tr.item {
+	vertical-align: top;
+}
+
 tr.item td {
 	padding: 4px 0;
 }

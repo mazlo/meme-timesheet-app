@@ -65,6 +65,10 @@
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea style='width: 90%'></textarea>
+					</div>
 				</td>
 				
 				<td class='tisheet-col-time-spent'>
@@ -91,12 +95,6 @@
 				<td class='tisheet-col-total'>{{ $tisheet->time_spent*0.25 }}h</td>
 				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
 			</tr>
-
-			<tr class='js-tisheet-note element-hidden'>
-				<td colspan='2'></td>
-				<td><textarea style='width: 90%'></textarea></td>
-				<td colspan='3'></td>
-			</tr>
 		@endforeach
 
 		{{-- if there are no tisheets, print an initial empty one --}}
@@ -107,6 +105,10 @@
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea style='width: 90%'></textarea>
+					</div>
 				</td>
 				<td>
 					<span class='time-spent-quarter'></span>
@@ -140,6 +142,10 @@
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea style='width: 90%'></textarea>
+					</div>
 				</td>
 				<td>
 					<span class='time-spent-quarter'></span>
