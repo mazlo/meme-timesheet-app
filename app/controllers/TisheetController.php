@@ -136,6 +136,8 @@ class TisheetController extends BaseController
     public function delete( $day, $id )
     {
         $tisheet = Tisheet::find( $id );
+        
+        $tisheet->note->delete();
         $tisheet->delete();
 
         return 'true';
