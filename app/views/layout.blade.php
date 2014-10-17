@@ -98,7 +98,7 @@
 		var trClone = tr.clone();
 
 		trClone.insertBefore( tr );
-		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
+		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-item-clonable element-hidden' );
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
