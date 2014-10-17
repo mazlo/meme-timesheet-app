@@ -166,6 +166,36 @@
 		});
 	});
 
+	//
+	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
+	{
+		var value = $jQ(this).val();
+		var item = $jQ(this).closest( '.item' );
+
+		if ( oldNote == value )
+			return;	// ignore if nothing changed
+
+		var type = value.trim() == '' ? 'delete' : 'put';
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
+
+		$jQ.ajax({
+			url: url,
+			type: type,
+			data: {
+				nt: value.trim()
+			},
+			success: function( data )
+			{
+				if ( data == 'true' )
+					itemUpdateConfirmation( item );
+
+				else if ( data > 0 )
+					item.attr( 'id', data );
+			}
+		});
+	});
+
 	// 
 	$jQ( document ).on( 'change', '.js-tisheet-planned', function()
 	{
