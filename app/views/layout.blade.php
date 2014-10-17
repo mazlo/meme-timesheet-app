@@ -267,7 +267,7 @@
 	};
 
 	//
-	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
+	$jQ( document ).on( 'click', '.octicon-trashcan', function()
 	{
 		var item = $jQ(this).closest( '.item' );
 
@@ -294,11 +294,13 @@
 	});
 
 	//
-	$jQ( document ).on( 'click', '.js-tisheet-note', function()
+	$jQ( document ).on( 'click', '.octicon-info', function()
 	{
 		var item = $jQ(this).closest( '.item' );
+		var note = item.find( '.js-tisheet-note' );
 
-		item.next().toggleClass( 'element-hidden' );
+		note.toggleClass( 'element-hidden' );
+		note.find( 'textarea' ).focus();
 	});
 
 	//
@@ -357,7 +359,7 @@
 	//
 	$jQ( document ).on( 'hover', '.js-enable-trashcan', function() 
 	{
-		$jQ(this).find( '.js-tisheet-delete, .js-tisheet-note' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
 	});
 
 </script>
