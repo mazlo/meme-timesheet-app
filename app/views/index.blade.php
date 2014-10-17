@@ -125,7 +125,7 @@
 			</tr>
 		@endif
 
-			<tr class='item js-enable-trashcan element-hidden' id='undefined'>
+			<tr class='item js-enable-trashcan js-item-clonable element-hidden' id='undefined'>
 				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
 				<td class='js-tisheet-no'></td>
 				<td>

@@ -63,7 +63,7 @@
 		var item = $jQ( event.target ).closest( '.item' );
 
 		// the line to clone
-		var tr = $jQ( '.item.element-hidden:last' );
+		var tr = $jQ( 'tr.js-item-clonable' );
 
 		if ( item.hasClass( 'item' ) )
 		{
@@ -99,7 +99,7 @@
 
 		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
 		trClone.insertBefore( tr );
-		trClone.removeClass( 'element-hidden' );
+		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
 
