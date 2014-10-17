@@ -110,7 +110,7 @@
 					<input class='js-tisheet-planned' type='checkbox' />
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
-						<textarea style='width: 90%'></textarea>
+						<textarea class='tisheet-note'></textarea>
 					</div>
 				</td>
 				<td>
@@ -150,7 +150,7 @@
 					<input class='js-tisheet-planned' type='checkbox' />
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
-						<textarea style='width: 90%'></textarea>
+						<textarea class='tisheet-note'></textarea>
 					</div>
 				</td>
 				<td>
