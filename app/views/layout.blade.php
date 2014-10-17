@@ -97,9 +97,9 @@
 
 		var trClone = tr.clone();
 
-		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
 		trClone.insertBefore( tr );
-		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
+		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
+		trClone.removeClass( 'js-item-clonable element-hidden' );
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
 
@@ -266,6 +266,7 @@
 		$jQ( '.js-show-summary' ).click();
 	};
 
+	//
 	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
 	{
 		var item = $jQ(this).closest( '.item' );
@@ -290,6 +291,14 @@
 				updateTisheetTotalTimeSpent();
 			}
 		});
+	});
+
+	//
+	$jQ( document ).on( 'click', '.js-tisheet-note', function()
+	{
+		var item = $jQ(this).closest( '.item' );
+
+		item.next().toggleClass( 'element-hidden' );
 	});
 
 	//
@@ -348,7 +357,7 @@
 	//
 	$jQ( document ).on( 'hover', '.js-enable-trashcan', function() 
 	{
-		$jQ(this).find( '.js-tisheet-delete' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.js-tisheet-delete, .js-tisheet-note' ).toggleClass( 'element-invisible' );
 	});
 
 </script>

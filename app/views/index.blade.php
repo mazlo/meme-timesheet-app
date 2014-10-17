@@ -37,9 +37,9 @@
 		<table cellpadding='0' cellspacing='0' style='border: 0; width: 100%; font-size: 13px; text-align: left'>
 			
 			<colgroup>
-				<col width='2%'>
+				<col width='4%'>
 				<col width='3%'>
-				<col width='57%'>
+				<col width='55%'>
 				<col width='25%'>
 				<col width='4%'>
 				<col width='4%'>
@@ -56,7 +56,10 @@
 
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item js-enable-trashcan' id='{{ $tisheet->id}}'>
-				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
+				<td>
+					<span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding-left: 3px'></span>
+					<span class='octicon octicon-info element-invisible js-tisheet-note' style='padding-left: 3px'></span>
+				</td>
 				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>
@@ -87,6 +90,12 @@
 
 				<td class='tisheet-col-total'>{{ $tisheet->time_spent*0.25 }}h</td>
 				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
+			</tr>
+
+			<tr class='js-tisheet-note element-hidden'>
+				<td colspan='2'></td>
+				<td><textarea style='width: 90%'></textarea></td>
+				<td colspan='3'></td>
 			</tr>
 		@endforeach
 
