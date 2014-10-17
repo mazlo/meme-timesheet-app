@@ -108,6 +108,11 @@
 		oldDescription = $jQ( this ).val();
 	});
 
+	$jQ( document ).on( 'focusin', 'textarea.tisheet-note', function()
+	{
+		oldNote = $jQ( this ).val();
+	});
+
 	//
 	$jQ( document ).on( 'focusout', 'input.tisheet-description', function()
 	{
