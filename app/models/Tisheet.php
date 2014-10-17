@@ -12,4 +12,9 @@ class Tisheet extends Eloquent
 	{
 		return $this->belongsTo( 'User', 'user_id' );
 	}
+
+	public function note()
+	{
+		return $this->hasOne( 'Note', 'tisheet_id' );
+	}
 }

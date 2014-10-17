@@ -37,9 +37,9 @@
 		<table cellpadding='0' cellspacing='0' style='border: 0; width: 100%; font-size: 13px; text-align: left'>
 			
 			<colgroup>
-				<col width='2%'>
+				<col width='4%'>
 				<col width='3%'>
-				<col width='57%'>
+				<col width='55%'>
 				<col width='25%'>
 				<col width='4%'>
 				<col width='4%'>
@@ -56,12 +56,19 @@
 
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item js-enable-trashcan' id='{{ $tisheet->id}}'>
-				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
+				<td>
+					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
+				</td>
 				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
+					</div>
 				</td>
 				
 				<td class='tisheet-col-time-spent'>
@@ -93,11 +100,18 @@
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
 			<tr class='item js-enable-trashcan' id='undefined'>
-				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
+				<td>
+					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
+				</td>
 				<td class='js-tisheet-no'>1.</td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea class='tisheet-note'></textarea>
+					</div>
 				</td>
 				<td>
 					<span class='time-spent-quarter'></span>
@@ -126,11 +140,18 @@
 		@endif
 
 			<tr class='item js-enable-trashcan js-item-clonable element-hidden' id='undefined'>
-				<td><span class='octicon octicon-trashcan element-invisible js-tisheet-delete' style='padding:0'></span></td>
+				<td>
+					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
+				</td>
 				<td class='js-tisheet-no'></td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' />
+
+					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+						<textarea class='tisheet-note'></textarea>
+					</div>
 				</td>
 				<td>
 					<span class='time-spent-quarter'></span>

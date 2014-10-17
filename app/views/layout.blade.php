@@ -97,15 +97,20 @@
 
 		var trClone = tr.clone();
 
-		trClone.find( '.js-tisheet-no' ).text( tr.index()+ '.' );
 		trClone.insertBefore( tr );
-		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
+		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
+		trClone.removeClass( 'js-item-clonable element-hidden' );
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
 
 	$jQ( document ).on( 'focusin', 'input.tisheet-description', function()
 	{
 		oldDescription = $jQ( this ).val();
+	});
+
+	$jQ( document ).on( 'focusin', 'textarea.tisheet-note', function()
+	{
+		oldNote = $jQ( this ).val();
 	});
 
 	//
@@ -162,6 +167,36 @@
 					item.attr( 'id', data );
 
 				firePostUpdateActions( item );
+			}
+		});
+	});
+
+	//
+	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
+	{
+		var value = $jQ(this).val();
+		var item = $jQ(this).closest( '.item' );
+
+		if ( oldNote == value )
+			return;	// ignore if nothing changed
+
+		var type = value.trim() == '' ? 'delete' : 'put';
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
+
+		$jQ.ajax({
+			url: url,
+			type: type,
+			data: {
+				nt: value.trim()
+			},
+			success: function( data )
+			{
+				if ( data == 'true' )
+					itemUpdateConfirmation( item );
+
+				else if ( data > 0 )
+					item.attr( 'id', data );
 			}
 		});
 	});
@@ -266,7 +301,8 @@
 		$jQ( '.js-show-summary' ).click();
 	};
 
-	$jQ( document ).on( 'click', '.js-tisheet-delete', function()
+	//
+	$jQ( document ).on( 'click', '.octicon-trashcan', function()
 	{
 		var item = $jQ(this).closest( '.item' );
 
@@ -290,6 +326,16 @@
 				updateTisheetTotalTimeSpent();
 			}
 		});
+	});
+
+	//
+	$jQ( document ).on( 'click', '.octicon-info', function()
+	{
+		var item = $jQ(this).closest( '.item' );
+		var note = item.find( '.js-tisheet-note' );
+
+		note.toggleClass( 'element-hidden' );
+		note.find( 'textarea' ).focus();
 	});
 
 	//
@@ -348,7 +394,7 @@
 	//
 	$jQ( document ).on( 'hover', '.js-enable-trashcan', function() 
 	{
-		$jQ(this).find( '.js-tisheet-delete' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
 	});
 
 </script>

@@ -52,4 +52,7 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}', 'TisheetController@delete' );
 
+	Route::put( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@update' );
+	Route::delete( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@delete' );
+
 });

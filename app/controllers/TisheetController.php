@@ -115,10 +115,15 @@ class TisheetController extends BaseController
             $tisheet->description = $value;
         }
         
+        // update time spent
         else if ( Input::has( 'ts' ) )
             $tisheet->time_spent = Input::get( 'ts' );
+        
+        // update planned flag
         else if ( Input::has( 'pl' ) )
             $tisheet->planned = Input::get( 'pl' ) == 'true' ? true : false;
+        
+        // note of tisheet will be updated via NoteController
 
         $tisheet->save();
 
@@ -131,6 +136,8 @@ class TisheetController extends BaseController
     public function delete( $day, $id )
     {
         $tisheet = Tisheet::find( $id );
+        
+        $tisheet->note->delete();
         $tisheet->delete();
 
         return 'true';
