@@ -137,7 +137,9 @@ class TisheetController extends BaseController
     {
         $tisheet = Tisheet::find( $id );
         
-        $tisheet->note->delete();
+        if ( $tisheet->note )
+            $tisheet->note->delete();
+        
         $tisheet->delete();
 
         return 'true';
