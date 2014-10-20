@@ -47,6 +47,8 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::get( '/tisheets/{day}/summary/today', 'TisheetController@summaryForToday' );
 	Route::get( '/tisheets/{day}/summary/week', 'TisheetController@summaryForWeek' );
 
+	Route::get( '/tisheets/{day}/summary/week/byDay', 'TisheetController@summaryOfLastWeekByDay' );
+
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
 	
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
