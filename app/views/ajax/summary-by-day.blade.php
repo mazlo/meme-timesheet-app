@@ -27,9 +27,9 @@
 			<? $summaryPerDay = 0 ?>
 			@foreach( $contexts as $tisheet )
 			
-			<div style='display: table'>
-				<div style='display: table-cell; width: 120px'>{{ $tisheet->prefLabel }}</div>
-				<div style='display: table-cell; width: 20px'>{{ $tisheet->time_spent/4 }}h</div>
+			<div style='display: table; padding: 0'>
+				<div style='display: table-cell; width: 96px; padding: 0 8px 0 4px'>{{ $tisheet->prefLabel }}</div>
+				<div style='display: table-cell; padding: 0 8px'>{{ $tisheet->time_spent/4 }}h</div>
 				<? $summaryPerDay += $tisheet->time_spent/4 ?>
 			</div>
 
@@ -46,7 +46,7 @@
 
 		@foreach( $summariesPerDay as $day => $summaryPerDay )
 			<td></td>
-			<td style='border-top: 1px #ccc solid'>{{ $summaryPerDay }}h</td>
+			<td style='border-top: 1px #ccc solid; padding: 0 11px 0 0'>{{ $summaryPerDay }}h</td>
 		@endforeach
 
 	</tr>
