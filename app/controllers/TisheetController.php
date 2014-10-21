@@ -148,22 +148,6 @@ class TisheetController extends BaseController
     /**
     *
     */
-    public function summaryForWeek( $day )
-    {
-        $sum = DB::table( 'tisheets' )
-            ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
-            ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
-            ->where( 'tisheets.user_id', Auth::user()->id )
-            ->where( 'tisheets.day', '>', date( "Y-m-d", strtotime( $day ) - 60*60*24*7 ) )
-            ->groupBy( 'contexts.prefLabel' )
-            ->get();
-
-        return View::make( 'ajax.summary' )->with( 'summary', $sum );
-    }
-
-    /**
-    *
-    */
     public function next( $tefTisheetId, $tastTisheetId = 0 )
     {
         $tefTisheet = Tisheet::find( $tefTisheetId );
