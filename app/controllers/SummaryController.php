@@ -57,7 +57,7 @@ class SummaryController extends BaseController
             ->select( 'tisheets.day', DB::raw( 'sum( tisheets.time_spent ) as time_spent' ), 'contexts.prefLabel' )
             ->where( 'tisheets.user_id', Auth::user()->id )
             ->where( 'tisheets.day', '>', date( 'Y-m-d', strtotime( '-1 week', $dayAsTime ) ) )
-            ->where( 'tisheets.day', '<=', date( 'Y-m-d', $dayAsTime ) )
+            ->where( 'tisheets.day', '<=', $day )
             ->groupBy( 'tisheets.day' )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
