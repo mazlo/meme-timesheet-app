@@ -145,39 +145,4 @@ class TisheetController extends BaseController
         return 'true';
     }
 
-    /**
-    *
-    */
-    public function next( $tefTisheetId, $tastTisheetId = 0 )
-    {
-        $tefTisheet = Tisheet::find( $tefTisheetId );
-
-        if ( $tastTisheetId == 0 )
-            $textTisheet = Tisheet::where( 'tefTisheet', $tefTisheetId )->first();
-        else
-            $textTisheet = Tisheet::where( 'tefTisheet', $tefTisheetId )->where( 'id', '>', $tastTisheetId )->first();
-
-        return View::make( 'ajax.tisheet' )
-            ->with( 'tisheet', $textTisheet )
-            ->with( 'tefTisheet', $tefTisheet );
-    }
-
-    /**
-    *
-    */
-    public function previous( $tefTisheetId, $tastTisheetId = 0 )
-    {
-        $tefTisheet = Tisheet::find( $tefTisheetId );
-
-        if ( $tastTisheetId != 0 )
-            $textTisheet = Tisheet::where( 'tefTisheet', $tefTisheetId )->where( 'id', '<', $tastTisheetId )->first();
-
-        if ( !isset( $textTisheet ) )
-            $textTisheet = $tefTisheet;
-
-        return View::make( 'ajax.tisheet' )
-            ->with( 'tisheet', $textTisheet )
-            ->with( 'tefTisheet', $tefTisheet );
-    }
-
 }
