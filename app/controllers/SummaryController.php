@@ -16,7 +16,10 @@ class SummaryController extends BaseController
             ->groupBy( 'contexts.prefLabel' )
             ->get();
 
-        return View::make( 'ajax.summary' )->with( 'summary', $sum );
+        return View::make( 'ajax.summary' )
+            ->with( 'summary', $sum )
+            ->with( 'today', $day )
+            ->with( 'option', 'today' );
     }
 
     /**
