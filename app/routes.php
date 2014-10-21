@@ -44,9 +44,10 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
-	Route::get( '/tisheets/{day}/summary/today', 'TisheetController@summaryForToday' );
-	Route::get( '/tisheets/{day}/summary/week', 'TisheetController@summaryForWeek' );
 
+	Route::get( '/tisheets/{day}/summary/today/groupby/contexts', 'SummaryController@summaryForTodayGroupByContexts' );
+	Route::get( '/tisheets/{day}/summary/week/groupby/contexts', 'SummaryController@summaryForWeekGroupByContexts' );
+	
 	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@summaryForWeekGroupByDaysAndContexts' );
 
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
