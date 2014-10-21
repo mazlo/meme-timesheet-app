@@ -26,6 +26,12 @@
 
 	<div id='header'>
 
+		<div id='options' style='float: left'>
+			<ul class='list-inline'>
+				<li><a href='{{ url( "terms-and-conditions" ) }}' class='option'>about yatimesheet.de</a></li>
+			</ul>
+		</div>
+
 		@yield( 'header' )
 
 	</div>

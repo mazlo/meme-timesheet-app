@@ -44,9 +44,6 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
-	Route::get( '/tisheets/{day}/summary/today', 'TisheetController@summaryForToday' );
-	Route::get( '/tisheets/{day}/summary/week', 'TisheetController@summaryForWeek' );
-
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
 	
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
@@ -55,4 +52,8 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::put( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@delete' );
 
+	Route::get( '/tisheets/{day}/summary/today/groupby/contexts', 'SummaryController@summaryForTodayGroupByContexts' );
+	Route::get( '/tisheets/{day}/summary/week/groupby/contexts', 'SummaryController@summaryForWeekGroupByContexts' );
+
+	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@summaryForWeekGroupByDaysAndContexts' );
 });
