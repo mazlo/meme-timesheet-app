@@ -32,7 +32,7 @@
 			@foreach( $contexts as $tisheet )
 			
 			<div style='display: table; padding: 0'>
-				<div style='display: table-cell; width: 96px; padding: 0 8px 0 4px'>{{ $tisheet->prefLabel }}</div>
+				<div style='display: table-cell; width: 120px; padding: 0 8px 0 4px'>{{ $tisheet->prefLabel }}</div>
 				<div style='display: table-cell; padding: 0 8px'>{{ $tisheet->time_spent/4 }}h</div>
 				<? $summaryPerDay += $tisheet->time_spent/4 ?>
 			</div>
