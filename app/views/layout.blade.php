@@ -156,6 +156,9 @@
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ item.attr( 'id' ) : '' );
 		var type = hasId ? 'put' : 'post';
 
+		// active loading icon
+		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+
 		$jQ.ajax({
 			url: url,
 			type: type,
@@ -288,7 +291,9 @@
 		if ( item == undefined )
 			return;
 
-		var check = item.find( '.js-tisheet-check' );
+		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+
+		var check = item.find( '.octicon-check' );
 		check.show();
 		check.fadeOut( 2000 );
 	};

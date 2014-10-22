@@ -92,7 +92,10 @@
 				</td>
 
 				<td class='tisheet-col-total'>{{ $tisheet->time_spent*0.25 }}h</td>
-				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
+				<td>
+					<span class='octicon octicon-check element-hidden'></span>
+					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+				</td>
 			</tr>
 		@endforeach
 
@@ -134,7 +137,10 @@
 					<span class='time-spent-quarter'></span>
 				</td>
 				<td class='tisheet-col-total'></td>
-				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
+				<td>
+					<span class='octicon octicon-check element-hidden'></span>
+					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+				</td>
 			</tr>
 		@endif
 
@@ -174,7 +180,10 @@
 					<span class='time-spent-quarter'></span>
 				</td>
 				<td class='tisheet-col-total'></td>
-				<td class='js-tisheet-check element-hidden'><span class="octicon octicon-check"></span></td>
+				<td>
+					<span class='octicon octicon-check element-hidden'></span>
+					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+				</td>
 			</tr>
 
 			<tr>
