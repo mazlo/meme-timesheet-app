@@ -169,11 +169,13 @@
 			},
 			success: function( data )
 			{
-				if ( data == 'true' )
-					itemUpdateConfirmation( item );
+				if ( data == 'false' )
+					alert( 'error' );
 
-				else if ( data > 0 )
+				if ( data > 0 )
 					item.attr( 'id', data );
+
+				itemUpdateConfirmation( item );
 
 				firePostUpdateActions( item );
 			}
