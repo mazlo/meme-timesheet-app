@@ -2,6 +2,10 @@
 	
 	<tr>
 
+@if ( count( $summary ) == 0 )
+	<td colspan='2'>No entries found.</td>
+@else
+
 	<? $lastDay = '' ?>
 	@foreach( $summary as $key => $tisheet )
 
