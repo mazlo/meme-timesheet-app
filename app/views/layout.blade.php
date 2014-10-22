@@ -191,9 +191,11 @@
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
 
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
+		// active loading icon
+		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -203,11 +205,13 @@
 			},
 			success: function( data )
 			{
-				if ( data == 'true' )
-					itemUpdateConfirmation( item );
+				if ( data == 'false' )
+					alert( 'error' );
 
-				else if ( data > 0 )
-					item.attr( 'id', data );
+				itemUpdateConfirmation( item );
+
+				// we do not need to firePostUpdateActions here, since the note 
+				// does not change any tisheet properties
 			}
 		});
 	});
