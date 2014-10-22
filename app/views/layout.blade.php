@@ -7,9 +7,9 @@
 	<!-- browser icon -->
 	<link rel="shortcut icon" href='{{ url( "favicon.ico" ) }}' />
 
-    <link rel='stylesheet' type='text/css' href='{{ url( "main.css" ) }}' />
 	<link rel='stylesheet' type='text/css' href='{{ url( "jquery-ui.css" ) }}' }} />
 	<link rel='stylesheet' type='text/css' href='{{ url( "octicons.css" ) }}' }} />
+    <link rel='stylesheet' type='text/css' href='{{ url( "main.css" ) }}' />
 	
 	<script type='text/javascript' src='{{ url( "jquery-1.8.2.js" ) }}'></script>
 	<script type='text/javascript' src='{{ url( "jquery-ui-1.9.2.custom.js" ) }}'></script>
