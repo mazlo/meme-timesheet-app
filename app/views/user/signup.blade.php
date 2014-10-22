@@ -46,8 +46,30 @@
             <label for='terms'>I accept the <a href='{{ url("terms-and-conditions") }}'>terms and conditions</a> of yatimesheet.de.</label>
         </p>
 
-        {{ Form::submit( 'Sign up', array( 'class' => 'button button-submit button-margin' ) ) }}
+        <div>
+            {{ Form::submit( 'Sign up', array( 'class' => 'button button-submit button-margin' ) ) }}
+            <span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+        </div>
         
     {{ Form::close() }}
+
+<script type='text/javascript'>
+
+    //
+    $jQ( function()
+    {
+        $jQ( 'input[name="username"]' ).focus();
+    });
+
+    //
+    $jQ( 'form' ).submit( function()
+    {
+        $jQ( this ).find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+        $jQ( this ).attr( 'disabled', 'disabled' );
+
+        return true;
+    });
+
+</script>
 
 @stop

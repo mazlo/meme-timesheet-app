@@ -53,6 +53,8 @@
 			<td style='border-top: 1px #ccc solid; padding: 0 11px 0 0'>{{ $summaryPerDay }}h</td>
 		@endforeach
 
+@endif
+
 	</tr>
 
 </table>

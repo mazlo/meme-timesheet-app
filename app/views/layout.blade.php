@@ -348,6 +348,7 @@
 	$jQ( document ).on( 'click', '.js-show-summary', function()
 	{
 		$jQ( '#summaryWrapper' ).show();
+		$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		var url = $jQ(this).attr( 'href' );
 
@@ -356,6 +357,7 @@
 			type: 'get',
 			success: function( data )
 			{
+				$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'element-hidden' );
 				$jQ( '#summary' ).html( data );
 			}
 		});

@@ -198,10 +198,10 @@
 	</div>
 
 	<div id='summaryWrapper' class='element-hidden'>
-		<h3>Summary</h3>
+		<h3>Summary <span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span></h3>
 
 		<div id='summary'>
-			<img src='{{ url( "loading.gif" ) }}' />
+			{{-- ajax content here --}}
 		</div>
 	</div>
 

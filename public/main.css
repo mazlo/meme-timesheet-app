@@ -123,6 +123,10 @@ a.option-active {
 	float: right; 
 }
 
+.ajax-loader {
+	margin: 23px 23px 0;
+}
+
 /* -------------- */
 
 input.textfield {
@@ -141,7 +145,6 @@ input.textfield-narrow {
 
 button.button-submit,
 input.button-submit {
-	display: block;
 	margin-top: 8px;
 }
 
