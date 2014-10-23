@@ -1,0 +1,4 @@
+
+* add ajax-loader on note
+* remove inline styles on div's of Summary
+* consolidate firePostUpdateActions() on focus out of description and note fields
