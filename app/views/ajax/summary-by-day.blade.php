@@ -58,3 +58,18 @@
 	</tr>
 
 </table>
+
+<table style='border: 1px #ccc solid; padding: 3px 13px; text-align: left'>
+	
+	<? $lastDay = '' ?>
+	@foreach( $summary as $key => $tisheet )
+	<tr>
+		
+		<? $day = date( 'Y-m-d', strtotime( $tisheet->day ) ) ?>
+		<td>{{ $day }}</td>
+		<td style='width: 500px'><div style='background-color: #c0c0c0; width: {{ $tisheet->time_spent != 0 ? $tisheet->time_spent/4 * 100: 0 }}px'><span style='padding: 0 8px'>{{ $tisheet->prefLabel }}</span></div></td>
+
+	</tr>
+	@endforeach
+
+</table>
