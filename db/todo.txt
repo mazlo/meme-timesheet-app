@@ -3,9 +3,11 @@
 
 ## features
 
-* show bar chart of days selected a context
 
 ## enhancements
 
-* remove inline styles on div's of Summary
+* Summary
+   - remove inline styles on div's
+   - think about new names for attributes and css classes
+
 * consolidate firePostUpdateActions() on focus out of description and note fields
