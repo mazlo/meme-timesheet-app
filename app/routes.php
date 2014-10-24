@@ -56,4 +56,5 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::get( '/tisheets/{day}/summary/week/groupby/contexts', 'SummaryController@summaryForWeekGroupByContexts' );
 
 	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@summaryForWeekGroupByDaysAndContexts' );
+	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts/{context}', 'SummaryController@summaryForWeekGroupByDaysAndContextsByContext' );
 });

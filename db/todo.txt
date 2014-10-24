@@ -1,4 +1,11 @@
 
-* add ajax-loader on note
+# yaTimesheet
+
+## features
+
+* show bar chart of days selected a context
+
+## enhancements
+
 * remove inline styles on div's of Summary
 * consolidate firePostUpdateActions() on focus out of description and note fields

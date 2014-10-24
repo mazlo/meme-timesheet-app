@@ -394,6 +394,27 @@
 	});
 
 	//
+	$jQ( document ).on( 'click', '.js-get-summary-by-context', function()
+	{
+		var url = $jQ(this).attr( 'href' );
+		var time = $jQ(this).attr( 'ts' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'get',
+			data: {
+				tts: time
+			},
+			success: function( data )
+			{
+				$jQ( '#summary-by-context-details' ).html( data );
+			}
+		});
+
+		return false;
+	});
+
+	//
 	$jQ( document ).on( 'click', '.js-button', function()
 	{
 		$jQ( this ).closest( '.js-button-group' ).find( '.js-button' ).each( function()
