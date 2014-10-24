@@ -18,9 +18,9 @@
 @section( 'content' )
 
 	<div class='title'>
-		<a href='{{ url( "tisheets/". $tomorrow ) }}'><span class='octicon octicon-float-right octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
+		<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-float-right octicon-arrow-right' title='{{ $tomorrow }}'></span></a>
 		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text octicon-float-right js-tisheet-today'>today</span></a>
-		<a href='{{ url( "tisheets/". $yesterday ) }}'><span class='octicon octicon-float-right octicon-arrow-left' title='{{ $yesterday }}'></span></a>
+		<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-float-right octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 	</div>
 	
 	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
@@ -200,8 +200,8 @@
 	<div>
 		<div id='options'>
 			<ul class='list-inline'>
-				<li><a href='{{ url( "tisheets/". $today ."/summary/today/groupby/contexts" ) }}' class='js-show-summary option'>show summary by contexts</a></li>
-				<li><a href='{{ url( "tisheets/". $today ."/summary/week/groupby/days/contexts" ) }}' class='js-show-summary option'>show summary by days</a></li>
+				<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-show-summary option'>show summary by contexts</a></li>
+				<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-show-summary option'>show summary by days</a></li>
 			</ul>
 		</div>
 	</div>
