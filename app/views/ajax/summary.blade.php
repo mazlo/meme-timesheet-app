@@ -18,18 +18,27 @@
 
 	<? $tts = 0 ?>
 	@if ( count( $summary ) > 0 )
-		@foreach( $summary as $key => $object )
+		@foreach( $summary as $key => $tisheet )
 
 		<tr>
-			<td><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts/". substr( $object->prefLabel, 1 ) ) }}' ts='{{ $object->total_time_spent }}' class='js-get-summary-by-context'>{{ $object->prefLabel }}</a></td>
 			<td>
-				<div class='js-background-variable' ts='{{ $object->total_time_spent }}' style='background-color: #c0c0c0'>
-					<span style='padding: 0 8px'>{{ $object->total_time_spent/4 }}h</span>
+				{{-- display link only in option 'week' --}}
+				@if( $option == 'week' )
+				<a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts/". substr( $tisheet->prefLabel, 1 ) ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-get-summary-by-context'>{{ $tisheet->prefLabel }}</a>
+				@else
+				{{ $tisheet->prefLabel }}
+				@endif
+			</td>
+			
+			<td>
+				<div class='js-background-variable' ts='{{ $tisheet->total_time_spent }}' style='background-color: #c0c0c0'>
+					<span style='padding: 0 8px'>{{ $tisheet->total_time_spent/4 }}h</span>
 				</div>
 			</td>
 		</tr>
 
-		<? $tts += $object->total_time_spent ?>
+		{{-- sum up all tisheets to total time spent --}}
+		<? $tts += $tisheet->total_time_spent ?>
 
 		@endforeach
 
@@ -56,6 +65,7 @@
 			$jQ(this).css( 'width', width + '%' );
 		});
 
+		{{-- save summed up total time spent in attribute of div --}}
 		$jQ( '#summary-by-context' ).attr( 'tts', {{ $tts }} );
 	});
 
