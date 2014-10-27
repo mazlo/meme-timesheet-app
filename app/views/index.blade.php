@@ -183,7 +183,3 @@
 @endif
 
 @stop
-
-@section( 'footer' )
-	@include( 'footer' )
-@stop
