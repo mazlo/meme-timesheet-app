@@ -29,7 +29,8 @@
 
 	$jQ( function()
 	{
-		$jQ( '#summary-by-context-details .js-background-variable' ).each( function()
+		{{-- set background to proportional with of total time spent --}}
+		$jQ( '#summary-by-context-details .js-variable-background' ).each( function()
 		{
 			var width = ($jQ(this).attr( 'ts' ) / {{ $tts }}) * 100;
 			$jQ(this).css( 'width', width + '%' );

@@ -31,8 +31,8 @@
 			</td>
 			
 			<td>
-				<div class='js-background-variable' ts='{{ $tisheet->total_time_spent }}' style='background-color: #c0c0c0'>
-					<span style='padding: 0 8px'>{{ $tisheet->total_time_spent/4 }}h</span>
+				<div class='js-variable-background variable-background' ts='{{ $tisheet->total_time_spent }}'>
+					<span>{{ $tisheet->total_time_spent/4 }}h</span>
 				</div>
 			</td>
 		</tr>
@@ -59,7 +59,8 @@
 
 	$jQ( function()
 	{
-		$jQ( '#summary-by-context .js-background-variable' ).each( function()
+		{{-- set background to proportional with of total time spent --}}
+		$jQ( '#summary-by-context .js-variable-background' ).each( function()
 		{
 			var width = ($jQ(this).attr( 'ts' ) / {{ $tts }}) * 100;
 			$jQ(this).css( 'width', width + '%' );
