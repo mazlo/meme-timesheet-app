@@ -6,8 +6,4 @@
 
 ## enhancements
 
-* Summary
-   - remove inline styles on div's
-   - think about new names for attributes and css classes
-
 * consolidate firePostUpdateActions() on focus out of description and note fields
