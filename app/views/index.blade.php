@@ -96,51 +96,7 @@
 			</tr>
 		@endforeach
 
-		{{-- if there are no tisheets, print an initial empty one --}}
-		@if ( count( $tisheets ) == 0 )
-			<tr class='item js-tisheet-options' id='undefined'>
-				<td>
-					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
-					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
-				</td>
-				<td class='js-tisheet-no'>1.</td>
-				<td>
-					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
-					<input class='js-tisheet-planned' type='checkbox' />
-
-					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
-						<textarea class='tisheet-note'></textarea>
-					</div>
-				</td>
-				<td>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='time-spent-blank'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='time-spent-blank'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='time-spent-blank'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-					<span class='js-tisheet-time time-spent-quarter'></span>
-				</td>
-				<td class='tisheet-col-total'></td>
-				<td>
-					<span class='octicon octicon-check element-hidden'></span>
-					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
-				</td>
-			</tr>
-		@endif
-
+			{{-- insert an empty cloneable tr that is cloned when needed --}}
 			<tr class='item js-tisheet-options js-item-clonable element-hidden' id='undefined'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
@@ -206,6 +162,25 @@
 			{{-- ajax content here --}}
 		</div>
 	</div>
+
+{{-- if there are no tisheets, print an initial empty one --}}
+@if ( count( $tisheets ) == 0 )
+<script type='text/javascript'>
+
+	$jQ( function()
+	{
+		// find the cloneable tr and clone it
+		var trEmpty = $jQ( '.js-item-clonable' );
+		var trClone = trEmpty.clone();
+
+		// insert before the cloneable tr and show
+		trClone.insertBefore( trEmpty );
+		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
+		trClone.removeClass( 'js-item-clonable element-hidden' );
+	});
+
+</script>
+@endif
 
 @stop
 
