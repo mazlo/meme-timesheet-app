@@ -4,8 +4,8 @@
 	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-get-summary'>last month</a></li>
 </ul>
 
-<div id='summary-by-context' tts='' style='float: left; vertical-align: top; width: 48%'>
-	<table style='border: 1px #ccc solid; width: 100%; padding: 3px 13px; text-align: left'>
+<div id='summary-by-context' tts='' class='summary-table element-float-left'>
+	<table>
 		<colgroup>
 			<col width='50%'>
 			<col width='50%'>
@@ -51,7 +51,7 @@
 	</table>
 </div>
 
-<div id='summary-by-context-details' style='float: right; vertical-align: top; width: 48%'>
+<div id='summary-by-context-details' class='summary-table element-float-right'>
 	{{-- ajax response here --}}
 </div>
 

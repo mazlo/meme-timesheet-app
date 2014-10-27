@@ -256,6 +256,26 @@ tr.item td {
 .tisheet-col-total {
 }
 
+div.summary-table {
+	vertical-align: top; 
+	width: 48%;
+}
+div.summary-table table {
+	border: 1px #ccc solid; 
+	
+	width: 100%; 
+	padding: 3px 13px; 
+	
+	text-align: left;
+}
+
+div.summary-table div.variable-background {
+	background-color: #c0c0c0;
+}
+div.summary-table div.variable-background span {
+	padding: 0 8px;
+}
+
 /* -------------- */
 
 .element-hidden {

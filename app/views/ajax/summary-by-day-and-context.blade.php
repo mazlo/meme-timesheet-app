@@ -1,4 +1,4 @@
-<table style='border: 1px #ccc solid; width: 100%; padding: 3px 13px; text-align: left'>
+<table>
 	<colgroup>
 		<col width='50%'>
 		<col width='50%'>
@@ -14,9 +14,9 @@
 
 		<? $day = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
 		<td>{{ $day }}</td>
-		<td style='width: 300px'>
-			<div class='js-background-variable' ts='{{ $tisheet->time_spent }}' style='background-color: #c0c0c0'>
-				<span style='padding: 0 8px'>{{ $tisheet->time_spent/4 }}h</span>
+		<td>
+			<div class='js-variable-background variable-background' ts='{{ $tisheet->time_spent }}'>
+				<span>{{ $tisheet->time_spent/4 }}h</span>
 			</div>
 		</td>
 
