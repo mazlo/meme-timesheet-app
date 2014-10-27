@@ -245,7 +245,7 @@
 
 		// update ui
 		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;
-		$jQ(this).closest( '.item' ).find( '.tisheet-col-total' ).text( count/4 + 'h');
+		$jQ(this).closest( '.item' ).find( '.tisheet-total-time-spent' ).text( count/4 + 'h');
 
 		var item = $jQ(this).closest( '.item' );
 		

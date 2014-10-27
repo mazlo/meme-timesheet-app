@@ -88,7 +88,7 @@
 				@endfor
 				</td>
 
-				<td class='tisheet-col-total'>{{ $tisheet->time_spent*0.25 }}h</td>
+				<td class='tisheet-total-time-spent'>{{ $tisheet->time_spent*0.25 }}h</td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
