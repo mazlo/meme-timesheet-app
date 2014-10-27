@@ -67,7 +67,7 @@
 					</div>
 				</td>
 				
-				<td class='tisheet-col-time-spent'>
+				<td class='tisheet-time-spent'>
 
 				{{-- render actual time spent --}}
 				@for( $i=0; $i<$tisheet->time_spent; $i++ )
@@ -132,7 +132,7 @@
 					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='js-tisheet-time time-spent-quarter'></span>
 				</td>
-				<td class='tisheet-col-total'></td>
+				<td class='tisheet-total-time-spent'></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>

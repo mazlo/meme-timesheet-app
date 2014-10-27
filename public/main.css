@@ -257,11 +257,11 @@ tr.item td {
 	height: 18px;
 }
 
-.tisheet-col-time-spent {
+.tisheet-time-spent {
 	padding-right: 13px;
 }
 
-.tisheet-col-total {
+.tisheet-total-time-spent {
 }
 
 div.summary-table {
