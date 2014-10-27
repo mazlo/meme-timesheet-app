@@ -106,6 +106,7 @@ class SummaryController extends BaseController
 
         return View::make( 'ajax.summary-by-day-and-context' )
             ->with( 'summary', $sum )
-            ->with( 'tts', $tts );
+            ->with( 'tts', $tts )
+            ->with( 'context', '#'. $context );
     }
 }

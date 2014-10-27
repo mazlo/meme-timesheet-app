@@ -12,7 +12,7 @@
 		</colgroup>
 		
 		<tr>
-			<th>Context</th>
+			<th>Contexts of Last Week</th>
 			<th>Total Time Spent</th>
 		</tr>
 

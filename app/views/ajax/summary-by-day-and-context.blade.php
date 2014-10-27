@@ -1,11 +1,11 @@
-<table style='border: 1px #ccc solid; width: 480px; padding: 3px 13px; text-align: left'>
+<table style='border: 1px #ccc solid; width: 100%; padding: 3px 13px; text-align: left'>
 	<colgroup>
 		<col width='50%'>
 		<col width='50%'>
 	</colgroup>
 
 	<tr>
-		<th>Day</th>
+		<th>Days Spent at Context {{ $context }}</th>
 		<th>Time Spent</th>
 	</tr>
 
