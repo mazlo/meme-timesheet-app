@@ -66,7 +66,13 @@
 		if ( event.keyCode != 13 )
 			return;
 
-		var item = $jQ( event.target ).closest( '.item' );
+		var target = $jQ( event.target );
+
+		// ignore textareas
+		if ( target.hasClass( 'tisheet-note' ) )
+			return;
+
+		var item = target.closest( '.item' );
 
 		// the line to clone
 		var tr = $jQ( 'tr.js-item-clonable' );
@@ -75,7 +81,7 @@
 		{
 			// event was fired in textarea
 			
-			if ( $jQ( event.target ).attr( 'value' ) == '' )
+			if ( target.attr( 'value' ) == '' )
 				// ignore when fired from empty textfield
 				return;
 
