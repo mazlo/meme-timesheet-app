@@ -227,15 +227,15 @@
 			updateTisheetIsPlanned( item );
 	});
 
-	$jQ( document ).on( 'click', '.time-spent-quarter', function()
+	$jQ( document ).on( 'click', '.js-tisheet-time', function()
 	{
 		// reset all coming quarters
-		$jQ(this).nextAll( '.time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
+		$jQ(this).nextAll( '.js-tisheet-time' ).removeClass( 'time-spent-quarter-active' );
 
 		// update current
 		$jQ(this).addClass( 'time-spent-quarter-active' );
 		// update all previous quarters
-		$jQ(this).prevAll( '.time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
+		$jQ(this).prevAll( '.js-tisheet-time' ).addClass( 'time-spent-quarter-active' );
 
 		// update ui
 		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;

@@ -78,7 +78,7 @@
 						<span class='time-spent-blank'></span>
 					@endif
 
-					<span class='time-spent-quarter time-spent-quarter-active'></span>
+					<span class='js-tisheet-time time-spent-quarter time-spent-quarter-active'></span>
 				@endfor
 
 				{{-- print remaining time spent --}}
@@ -87,7 +87,7 @@
 						<span class='time-spent-blank'></span>
 					@endif
 
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 				@endfor
 				</td>
 
@@ -116,25 +116,25 @@
 					</div>
 				</td>
 				<td>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 				</td>
 				<td class='tisheet-col-total'></td>
 				<td>
@@ -159,25 +159,25 @@
 					</div>
 				</td>
 				<td>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='time-spent-blank'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
-					<span class='time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'></span>
 				</td>
 				<td class='tisheet-col-total'></td>
 				<td>
