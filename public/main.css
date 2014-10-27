@@ -85,6 +85,7 @@ span.notification-negativ {
 }
 
 #summaryWrapper {
+	overflow: hidden;
 	margin: 32px 0 64px;
 }
 
