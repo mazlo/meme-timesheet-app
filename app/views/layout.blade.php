@@ -432,7 +432,7 @@
 	});
 
 	//
-	$jQ( document ).on( 'hover', '.js-enable-trashcan', function() 
+	$jQ( document ).on( 'hover', '.js-tisheet-options', function() 
 	{
 		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
 	});

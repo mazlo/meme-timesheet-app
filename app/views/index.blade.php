@@ -54,7 +54,7 @@
 			</tr>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='item js-enable-trashcan' id='{{ $tisheet->id}}'>
+			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
@@ -101,7 +101,7 @@
 
 		{{-- if there are no tisheets, print an initial empty one --}}
 		@if ( count( $tisheets ) == 0 )
-			<tr class='item js-enable-trashcan' id='undefined'>
+			<tr class='item js-tisheet-options' id='undefined'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
@@ -144,7 +144,7 @@
 			</tr>
 		@endif
 
-			<tr class='item js-enable-trashcan js-item-clonable element-hidden' id='undefined'>
+			<tr class='item js-tisheet-options js-item-clonable element-hidden' id='undefined'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
