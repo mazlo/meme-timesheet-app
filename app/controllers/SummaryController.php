@@ -27,13 +27,29 @@ class SummaryController extends BaseController
     */
     public function summaryForWeekGroupByContexts( $day )
     {
+        return $this->getSummaryGroupByContexts( $day, 'week' );
+    }
+
+    /**
+    *
+    */
+    public function summaryForMonthGroupByContexts( $day )
+    {
+        return $this->getSummaryGroupByContexts( $day, 'month' );
+    }
+
+    /**
+    *
+    */
+    private function getSummaryGroupByContexts( $day, $period )
+    {
         $dayAsTime = strtotime( $day );
 
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
             ->where( 'tisheets.user_id', Auth::user()->id )
-            ->where( 'tisheets.day', '>', date( 'Y-m-d', strtotime( '-1 week', $dayAsTime ) ) )
+            ->where( 'tisheets.day', '>', date( 'Y-m-d', strtotime( '-1 '. $period, $dayAsTime ) ) )
             ->where( 'tisheets.day', '<=', $day )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
@@ -41,7 +57,7 @@ class SummaryController extends BaseController
         return View::make( 'ajax.summary' )
             ->with( 'summary', $sum )
             ->with( 'today', $day )
-            ->with( 'option', 'week' );
+            ->with( 'option', $period );
     }
 
     /**

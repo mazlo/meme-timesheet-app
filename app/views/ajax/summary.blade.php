@@ -1,6 +1,7 @@
 <ul class='list-inline list-inline-padded js-button-group'>
 	<li><a href='{{ url( "tisheets/$today/summary/today/groupby/contexts" ) }}' class='js-button @if( $option == "today" ) js-button-active @endif js-get-summary'>today</a></li>
 	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-get-summary'>last week</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-get-summary'>last month</a></li>
 </ul>
 
 <div id='summary-by-context' tts='' style='display: inline-block; vertical-align: top; margin-right: 32px;'>
