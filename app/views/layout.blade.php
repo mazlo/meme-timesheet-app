@@ -26,7 +26,7 @@
 
 	<div id='header'>
 
-		<div id='options' style='float: left'>
+		<div class='options element-float-left'>
 			<ul class='list-inline'>
 				<li><a href='{{ url( "terms-and-conditions" ) }}' class='option'>about yatimesheet.de</a></li>
 			</ul>

@@ -120,10 +120,6 @@ a.option-active {
 	cursor: pointer;
 }
 
-.octicon-float-right {
-	float: right; 
-}
-
 .ajax-loader {
 	margin: 23px 23px 0;
 }
@@ -284,4 +280,12 @@ div.summary-table div.variable-background span {
 
 .element-invisible {
 	visibility: hidden;
+}
+
+.element-float-left {
+	float: left;
+}
+
+.element-float-right {
+	float: right;
 }
