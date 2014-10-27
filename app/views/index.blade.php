@@ -29,11 +29,8 @@
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
 
-	<div id='timesheet' day='{{ $today }}' style='margin: 32px 0;'>
-
-		{{ Form::open( array( 'id' => 'tisheet-form' ) ) }}
-
-		<table cellpadding='0' cellspacing='0' style='border: 0; width: 100%; font-size: 13px; text-align: left'>
+	<div id='timesheet' class='timesheet' day='{{ $today }}'>
+		<table cellpadding='0' cellspacing='0'>
 			
 			<colgroup>
 				<col width='4%'>
@@ -192,8 +189,6 @@
 			</tr>
 
 		</table>
-
-		{{ Form::close() }}
 
 	</div>
 

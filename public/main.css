@@ -84,6 +84,18 @@ span.notification-negativ {
 	margin-top: 32px;
 }
 
+#timesheet.timesheet {
+	margin: 32px 0;
+}
+
+#timesheet.timesheet table {
+	border: 0; 
+	width: 100%; 
+
+	font-size: 13px; 
+	text-align: left;
+}
+
 #summaryWrapper {
 	overflow: hidden;
 	margin: 32px 0 64px;
