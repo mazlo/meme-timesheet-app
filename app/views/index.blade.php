@@ -41,7 +41,7 @@
 				<col width='4%'>
 			</colgroup>
 			
-			<tr>
+			<tr class='timesheet-header'>
 				<th></th>
 				<th>No.</th>
 				<th>Task Description (planned?)</th>
@@ -139,7 +139,7 @@
 				</td>
 			</tr>
 
-			<tr>
+			<tr class='timesheet-footer'>
 				<td colspan='4'>&nbsp;</td>
 				<td class='js-tisheet-today-total' style='border-top: 1px solid #ccc'></td>
 			</tr>
