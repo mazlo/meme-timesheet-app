@@ -313,7 +313,7 @@
 	// 
 	var firePostUpdateActions = function( item )
 	{
-		// invoke callbacks
+		// invoke all registered callbacks
 		for ( var i=0; i<callbacksTisheet.length; i++ )
 			callbacksTisheet.pop()(item);
 
