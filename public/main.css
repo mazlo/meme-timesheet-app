@@ -206,26 +206,25 @@ ul.list-inline {
 	font-size: 13px; 
 }
 
-ul.list-inline li {
-	display: inline-block; 
-	margin-right: 23px;
-}
-
+/* additional class to give more space */
 ul.list-inline-padded {
 	margin: 13px;
 }
 
-ul.list-inline li .js-button, 
-ul.list-inline-padded li .js-button {
+ul.list-inline li {
+	display: inline-block; 
+	
+	margin-right: 23px;
 	padding: 4px 13px;
+}
 
+ul.list-inline li .js-button {
 	font-weight: lighter;
 	color: #c0c0c0;
 	cursor: pointer;
 }
 
-ul.list-inline li .js-button-active,
-ul.list-inline-padded li .js-button-active {
+ul.list-inline li .js-button-active {
 	color: #565656;
 }
 
