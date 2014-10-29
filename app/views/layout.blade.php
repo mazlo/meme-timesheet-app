@@ -181,7 +181,7 @@
 				if ( data > 0 )
 					item.attr( 'id', data );
 
-				itemUpdateConfirmation( item );
+				notifyUserOfChange( item );
 
 				firePostUpdateActions( item );
 			}
@@ -214,7 +214,7 @@
 				if ( data == 'false' )
 					alert( 'error' );
 
-				itemUpdateConfirmation( item );
+				notifyUserOfChange( item );
 
 				// we do not need to firePostUpdateActions here, since the note 
 				// does not change any tisheet properties
@@ -299,7 +299,7 @@
 	}
 
 	//
-	var itemUpdateConfirmation = function( item )
+	var notifyUserOfChange = function( item )
 	{
 		if ( item == undefined )
 			return;
