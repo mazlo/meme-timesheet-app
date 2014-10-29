@@ -321,7 +321,7 @@
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
 
-		$jQ( '.js-show-summary' ).click();
+		$jQ( '.js-button-summary.js-button-active' ).click();
 	};
 
 	//
@@ -362,7 +362,7 @@
 	});
 
 	//
-	$jQ( document ).on( 'click', '.js-show-summary', function()
+	$jQ( document ).on( 'click', '.js-button-summary', function()
 	{
 		$jQ( '#summaryWrapper' ).show();
 		$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'element-hidden' );

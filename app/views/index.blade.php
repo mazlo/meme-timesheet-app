@@ -148,12 +148,10 @@
 
 	</div>
 
-	<div class='options'>
-		<ul class='list-inline'>
-			<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-show-summary option'>show summary by contexts</a></li>
-			<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-show-summary option'>show summary by days</a></li>
-		</ul>
-	</div>
+	<ul class='list-inline js-button-group'>
+		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button js-button-summary'>show summary by contexts</a></li>
+		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
+	</ul>
 
 	<div id='summaryWrapper' class='element-hidden'>
 		<h3>Summary <span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span></h3>

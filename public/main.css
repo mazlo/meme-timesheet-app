@@ -220,6 +220,7 @@ ul.list-inline-padded li .js-button {
 	cursor: pointer;
 }
 
+ul.list-inline li .js-button-active,
 ul.list-inline-padded li .js-button-active {
 	color: #565656;
 }
