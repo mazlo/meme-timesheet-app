@@ -9,7 +9,7 @@
 	<? $lastDay = '' ?>
 	@foreach( $summary as $key => $tisheet )
 
-		<? $day = date( 'Y-m-d', strtotime( $tisheet->day ) ) ?>
+		<? $day = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
 		@if ( $lastDay != $day )
 			<th>{{ $day }}</th>
 			<th></th>
