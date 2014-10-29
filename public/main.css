@@ -21,6 +21,10 @@ a:visited {
 	color: inherit;
 }
 
+a:hover {
+	border-bottom: 1px #565656 dotted;
+}
+
 p a,
 p a:visited {
 	border-bottom: 1px #565656 dotted;
