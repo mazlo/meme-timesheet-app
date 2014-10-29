@@ -53,7 +53,7 @@
 
 <script type='text/javascript'>
 
-	callbacksTisheet = [];
+	invokeAfterTimesheetAjaxSuccess = [];
 
 	$jQ( function()
 	{
@@ -228,7 +228,7 @@
 		var item = $jQ(this).closest( '.item' );
 
 		if ( item.attr( 'id' ) == 'undefined' )
-			callbacksTisheet.push( updateTisheetIsPlanned );
+			invokeAfterTimesheetAjaxSuccess.push( updateTisheetIsPlanned );
 		else
 			updateTisheetIsPlanned( item );
 	});
@@ -250,7 +250,8 @@
 		var item = $jQ(this).closest( '.item' );
 		
 		if ( item.attr( 'id' ) == 'undefined' )
-			callbacksTisheet.push( updateTisheetTimeSpent );
+			// tisheet without an id -> update when tisheet was saved
+			invokeAfterTimesheetAjaxSuccess.push( updateTisheetTimeSpent );
 		else
 			updateTisheetTimeSpent( item );
 
@@ -314,8 +315,8 @@
 	var firePostUpdateActions = function( item )
 	{
 		// invoke all registered callbacks
-		for ( var i=0; i<callbacksTisheet.length; i++ )
-			callbacksTisheet.pop()(item);
+		for ( var i=0; i<invokeAfterTimesheetAjaxSuccess.length; i++ )
+			invokeAfterTimesheetAjaxSuccess.pop()(item);
 
 		// 
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
