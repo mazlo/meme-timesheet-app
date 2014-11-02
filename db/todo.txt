@@ -3,7 +3,10 @@
 
 ## features
 
+* shortcut application to send wget calls to post new tisheets
+   + use application key for that, not user login
 
 ## enhancements
 
+* all ajax calls should only be possible with the currently logged in user
 * consolidate firePostUpdateActions() on focus out of description and note fields
