@@ -58,6 +58,22 @@
 	$jQ( function()
 	{
 		updateTisheetTotalTimeSpent();
+
+		$jQ( '#timesheet tbody' ).sortable(
+		{ 
+			cursor: 'move',
+			items: $jQ( '.item' ).not( '.js-item-clonable, .timesheet-footer' ),
+			helper: function( e, ui ) 
+			{
+				// Return a helper with preserved width of cells
+				ui.children().each( function() 
+				{
+					$jQ(this).width( $jQ(this).width() );
+				});
+
+				return ui;
+			}
+		});
 	});
 
 	// add new line to table or focus next textfield of next line

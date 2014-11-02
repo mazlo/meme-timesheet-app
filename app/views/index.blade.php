@@ -41,6 +41,7 @@
 				<col width='4%'>
 			</colgroup>
 			
+			<tbody>
 			<tr class='timesheet-header'>
 				<th></th>
 				<th>No.</th>
@@ -144,6 +145,7 @@
 				<td class='js-tisheet-today-total' style='border-top: 1px solid #ccc'></td>
 			</tr>
 
+			</tbody>
 		</table>
 
 	</div>
