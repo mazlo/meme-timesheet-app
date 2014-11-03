@@ -24,7 +24,7 @@
 			<td>
 				{{-- display link only in option 'week' --}}
 				@if( $option == 'week' )
-				<a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts/". substr( $tisheet->prefLabel, 1 ) ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-get-summary-by-context'>{{ $tisheet->prefLabel }}</a>
+				<a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts/". substr( $tisheet->prefLabel, 1 ) ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-button-summary-by-context'>{{ $tisheet->prefLabel }}</a>
 				@else
 				{{ $tisheet->prefLabel }}
 				@endif
