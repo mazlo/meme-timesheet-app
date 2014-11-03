@@ -17,13 +17,15 @@ class TisheetController extends BaseController
             ->orderBy( 'created_at' )
             ->get();
 
+        $oneDay = 60*60*24;
+
         return View::make( 'index' )
             ->with( 'tisheets', $tisheet )
             // for yesterday substract 24h of the day given
-            ->with( 'yesterday', date( "Y-m-d", strtotime( $day ) - 60*60*24 ) )
+            ->with( 'yesterday', date( 'Y-m-d', strtotime( $day ) - $oneDay ) )
             ->with( 'today', $day )
             // for tomorrow add 24h of the day given
-            ->with( 'tomorrow', date( "Y-m-d", strtotime( $day ) + 60*60*24 ) );
+            ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) );
     }
 
     /**
@@ -34,6 +36,7 @@ class TisheetController extends BaseController
         $tisheet = new Tisheet();
 
         $tisheet->user()->associate( Auth::user() );
+        $tisheet->day = $day;
 
         if ( Input::has( 'vl' ) )
         {
@@ -65,7 +68,6 @@ class TisheetController extends BaseController
             $tisheet->description = $value;
         }
         
-        $tisheet->day = $day;
         $tisheet->save();
 
         return $tisheet->id;
