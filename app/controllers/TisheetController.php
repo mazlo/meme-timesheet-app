@@ -141,11 +141,10 @@ class TisheetController extends BaseController
     {
         $tids = Input::get( 'tids' );
 
-        $tisheets = Tisheet::where( 'day', $day )->get();
-
         for( $i=0; $i<count( $tids ); $i++ )
         {
-            $tisheet = $tisheets[$i];
+            // TODO ZL restrict to user
+            $tisheet = Tisheet::where( 'id', $tids[$i] )->first();
             
             $tisheet->index_ = $i;
             $tisheet->save();
