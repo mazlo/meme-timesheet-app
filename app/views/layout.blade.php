@@ -420,24 +420,7 @@
 	});
 
 	//
-	$jQ( document ).on( 'click', '.js-get-summary', function()
-	{
-		var url = $jQ(this).attr( 'href' );
-
-		$jQ.ajax({
-			url: url,
-			type: 'get',
-			success: function( data )
-			{
-				$jQ( '#summary' ).html( data );
-			}
-		});
-
-		return false;
-	});
-
-	//
-	$jQ( document ).on( 'click', '.js-get-summary-by-context', function()
+	$jQ( document ).on( 'click', '.js-button-summary-by-context', function()
 	{
 		var url = $jQ(this).attr( 'href' );
 		var time = $jQ(this).attr( 'ts' );

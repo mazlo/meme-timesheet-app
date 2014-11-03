@@ -1,7 +1,7 @@
 <ul class='list-inline list-inline-padded js-button-group'>
-	<li><a href='{{ url( "tisheets/$today/summary/today/groupby/contexts" ) }}' class='js-button @if( $option == "today" ) js-button-active @endif js-get-summary'>today</a></li>
-	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-get-summary'>last week</a></li>
-	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-get-summary'>last month</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/today/groupby/contexts" ) }}' class='js-button @if( $option == "today" ) js-button-active @endif js-button-summary'>today</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-button-summary'>last week</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-button-summary'>last month</a></li>
 </ul>
 
 <div id='summary-by-context' tts='' class='summary-table element-float-left'>
@@ -59,7 +59,7 @@
 
 	$jQ( function()
 	{
-		{{-- set background to proportional with of total time spent --}}
+		{{-- set background color width proportional to total time spent --}}
 		$jQ( '#summary-by-context .js-variable-background' ).each( function()
 		{
 			var width = ($jQ(this).attr( 'ts' ) / {{ $tts }}) * 100;
