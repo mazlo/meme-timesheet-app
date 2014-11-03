@@ -45,7 +45,10 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
-	
+
+	// to update position of items
+	Route::put( '/tisheets/{day}', 'TisheetController@updatePositions' );
+
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}', 'TisheetController@delete' );
 

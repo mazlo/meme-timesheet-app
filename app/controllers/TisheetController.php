@@ -133,6 +133,26 @@ class TisheetController extends BaseController
     /**
     *
     */
+    public function updatePositions( $day )
+    {
+        $tids = Input::get( 'tids' );
+
+        $tisheets = Tisheet::where( 'day', $day )->get();
+
+        for( $i=0; $i<count( $tids ); $i++ )
+        {
+            $tisheet = $tisheets[$i];
+            
+            $tisheet->index_ = $i;
+            $tisheet->save();
+        }
+
+        return 'true';
+    }
+
+    /**
+    *
+    */
     public function delete( $day, $id )
     {
         $tisheet = Tisheet::find( $id );

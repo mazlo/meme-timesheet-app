@@ -62,16 +62,36 @@
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
 			cursor: 'move',
-			items: $jQ( '.item' ).not( '.js-item-clonable, .timesheet-footer' ),
-			helper: function( e, ui ) 
+			items: $jQ( '#timesheet .item' ).not( '.js-item-clonable, .timesheet-footer' ),
+			helper: function( e, element ) 
 			{
 				// Return a helper with preserved width of cells
-				ui.children().each( function() 
+				element.children().each( function() 
 				{
 					$jQ(this).width( $jQ(this).width() );
 				});
 
-				return ui;
+				return element;
+			},
+			update: function( e, ui )
+			{
+				var tids = [];
+				var items = $jQ(this).find( '.item' ).not( '.js-item-clonable, .timesheet-footer' );
+
+				// collect all ids in the correct order
+				items.each( function()
+				{
+					tids.push( $jQ(this).attr( 'id' ) );
+				});
+
+				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
+
+				// send put request
+				$jQ.ajax({
+					url: url,
+					type: 'put',
+					data: { tids: tids }
+				});
 			}
 		});
 	});
