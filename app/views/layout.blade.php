@@ -78,15 +78,18 @@
 				var tids = [];
 				var items = $jQ(this).find( '.item' ).not( '.js-item-clonable, .timesheet-footer' );
 
-				// collect all ids in the correct order
+				// collect all ids in the correct order and btw. reset position value
+				var position = 1;
 				items.each( function()
 				{
 					tids.push( $jQ(this).attr( 'id' ) );
+					// update position value in column 1
+					$jQ(this).find( '.js-tisheet-no' ).text( position++ +'.' );
 				});
 
 				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
 
-				// send put request
+				// update backend
 				$jQ.ajax({
 					url: url,
 					type: 'put',
