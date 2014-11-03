@@ -11,7 +11,11 @@ class TisheetController extends BaseController
         if ( empty( $day ) || $day == 'today' )
             $day = date( 'Y-m-d', time() );
         
-        $tisheet = Tisheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->get();
+        $tisheet = Tisheet::where( 'day', $day )
+            ->where( 'user_id', Auth::user()->id )
+            ->orderBy( 'index_' )
+            ->orderBy( 'created_at' )
+            ->get();
 
         return View::make( 'index' )
             ->with( 'tisheets', $tisheet )
