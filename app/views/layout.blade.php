@@ -473,6 +473,16 @@
 	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
 	{
 		var stopwatch = $jQ(this);
+		var currentStopwachId = getTisheetId( stopwatch );
+
+		// start only if id was already assigned
+		if ( currentStopwachId == 'undefined' )
+		{
+			// focus textarea instead
+			stopwatch.closest( 'tr.item' ).find( 'input.tisheet-description' ).focus();
+
+			return;
+		}
 
 		// change status of running stopwatch
 
@@ -480,7 +490,6 @@
 		if ( runningStopwatch.length > 0 )
 		{
 			var activeStopwatchId = getTisheetId( runningStopwatch );
-			var currentStopwachId = getTisheetId( stopwatch );
 			
 			// only if it's not the current stopwatch
 			if ( activeStopwatchId != currentStopwachId )
