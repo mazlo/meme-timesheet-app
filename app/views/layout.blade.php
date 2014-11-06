@@ -473,16 +473,17 @@
 	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
 	{
 		var stopwatch = $jQ(this);
-		var tisheet = stopwatch.closest( 'tr.item' );
 
 		// change status of running stopwatch
 
 		var runningStopwatch = $jQ( '#timesheet' ).find( '.octicon-playback-pause' );
 		if ( runningStopwatch.length > 0 )
 		{
-			var runningStopwatchId = runningStopwatch.closest( 'tr.item' ).attr( 'id' );
-				
-			if ( runningStopwatchId != tisheet.attr( 'id' ) )
+			var activeStopwatchId = getTisheetId( runningStopwatch );
+			var currentStopwachId = getTisheetId( stopwatch );
+			
+			// only if it's not the current stopwatch
+			if ( activeStopwatchId != currentStopwachId )
 				stopwatchToggleStatus( runningStopwatch );
 		}
 
@@ -491,27 +492,7 @@
 		stopwatchToggleStatus( stopwatch );
 	});
 
-	var updateTime = function( tisheet )
-	{	
-		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ]++;
-		
-		if ( minutesCounter != 2 )
-			return;
-
-		var nextQuarter = updateQuarterTimeSpent( tisheet );
-
-		if ( nextQuarter == undefined )
-		{
-			clearInterval( interval );
-
-			stopwatchToggleStatus( tisheet.find( '.js-octicon-stopwatch' ) );
-
-			return;
-		}
-
-		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
-	};
-	
+	// starts or stops the given stopwatch
 	var stopwatchToggleStatus = function ( stopwatch )
 	{
 		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
@@ -527,7 +508,7 @@
 			interval = setInterval( function()
 			{
 				updateTime( tisheet );
-			}, 1000 );
+			}, 1000*60 );
 
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
 				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
@@ -537,21 +518,54 @@
 		stopwatch.toggleClass( 'octicon-playback-pause' );
 	};
 
-	var updateQuarterTimeSpent = function( item )
-	{
-		var nextQuarter = item.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
+	// check whether a quarter of an hour has passed
+	var updateTime = function( tisheet )
+	{	
+		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
 
-		if ( nextQuarter.length == 0 )
+		if ( minutesCounter < 15 )
 		{
-			// TODO
-			alert( 'end' );
-			return undefined;
+			minutesByTisheets[ tisheet.attr( 'id' ) ] = minutesCounter;
+			return;
 		}
 
-		nextQuarter.addClass( 'time-spent-quarter-active' );
+		var nextQuarter = updateQuarterTimeSpent( tisheet );
+
+		// if the end was reached reset the interval and stopwatch icon
+		if ( nextQuarter == undefined )
+		{
+			clearInterval( interval );
+
+			stopwatchToggleStatus( tisheet.find( '.js-octicon-stopwatch' ) );
+
+			// TODO ZL write email or something
+
+			return;
+		}
+
+		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+	};
+	
+	// updates the next time spent quarter
+	var updateQuarterTimeSpent = function( tisheet )
+	{
+		// find the next not active quarter
+		var nextQuarter = tisheet.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
+
+		// if we've reached the end return undefined
+		if ( nextQuarter.length == 0 )
+			return undefined;
+
+		nextQuarter.click();
 
 		return nextQuarter;
 	};
+
+	// 
+	var getTisheetId = function( element )
+	{
+		return $jQ( element ).closest( 'tr.item' ).attr( 'id' );
+	}
 
 </script>
 
