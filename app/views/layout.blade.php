@@ -467,19 +467,19 @@
 	});
 
 	var interval;
-	var tisheet;
-	var minutesCounter = 0;
+	var minutesByTisheets = [];
 
 	//
 	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
 	{
-		tisheet = $jQ(this);
+		var stopwatch = $jQ(this);
+		var tisheet = stopwatch.closest( 'tr.item' );
 
-		// TODO ZL save minutesCounter for each clicked item in a map to save already spent minutes
-
-		if ( tisheet.hasClass( 'octicon-playback-pause' ) )
+		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
+		{
 			// reset stopwatch
 			clearInterval( interval );
+		}
 		else 
 		{
 			// start stopwatch with handler
@@ -488,21 +488,22 @@
 				updateTime( tisheet );
 			}, 1000 );
 
+			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
+				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 		}
 		
-		tisheet.toggleClass( 'octicon-playback-play' );
-		tisheet.toggleClass( 'octicon-playback-pause' );
+		stopwatch.toggleClass( 'octicon-playback-play' );
+		stopwatch.toggleClass( 'octicon-playback-pause' );
 	});
 
 	var updateTime = function( tisheet )
-	{
-		minutesCounter++;
-
-		if ( minutesCounter != 4 )
+	{	
+		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ]++;
+		
+		if ( minutesCounter != 2 )
 			return;
 
-		var item = tisheet.closest( 'tr.item' );
-		var nextQuarter = updateQuarterTimeSpent( item );
+		var nextQuarter = updateQuarterTimeSpent( tisheet );
 
 		if ( nextQuarter == undefined )
 		{
@@ -511,7 +512,7 @@
 			return;
 		}
 
-		minutesCounter = 0;
+		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 	};
 	
 	var updateQuarterTimeSpent = function( item )
