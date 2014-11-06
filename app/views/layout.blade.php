@@ -475,25 +475,20 @@
 		var stopwatch = $jQ(this);
 		var tisheet = stopwatch.closest( 'tr.item' );
 
-		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
-		{
-			// reset stopwatch
-			clearInterval( interval );
-		}
-		else 
-		{
-			// start stopwatch with handler
-			interval = setInterval( function()
-			{
-				updateTime( tisheet );
-			}, 1000 );
+		// change status of running stopwatch
 
-			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
-				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		var runningStopwatch = $jQ( '#timesheet' ).find( '.octicon-playback-pause' );
+		if ( runningStopwatch.length > 0 )
+		{
+			var runningStopwatchId = runningStopwatch.closest( 'tr.item' ).attr( 'id' );
+				
+			if ( runningStopwatchId != tisheet.attr( 'id' ) )
+				stopwatchToggleStatus( runningStopwatch );
 		}
-		
-		stopwatch.toggleClass( 'octicon-playback-play' );
-		stopwatch.toggleClass( 'octicon-playback-pause' );
+
+		// change status of pressed stopwatch
+
+		stopwatchToggleStatus( stopwatch );
 	});
 
 	var updateTime = function( tisheet )
@@ -507,14 +502,41 @@
 
 		if ( nextQuarter == undefined )
 		{
-			// TODO ZL some action
 			clearInterval( interval );
+
+			stopwatchToggleStatus( tisheet.find( '.js-octicon-stopwatch' ) );
+
 			return;
 		}
 
 		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 	};
 	
+	var stopwatchToggleStatus = function ( stopwatch )
+	{
+		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
+		{
+			// reset stopwatch
+			clearInterval( interval );
+		}
+		else 
+		{
+			var tisheet = stopwatch.closest( 'tr.item' );
+
+			// start stopwatch with handler
+			interval = setInterval( function()
+			{
+				updateTime( tisheet );
+			}, 1000 );
+
+			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
+				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		}
+
+		stopwatch.toggleClass( 'octicon-playback-play' );
+		stopwatch.toggleClass( 'octicon-playback-pause' );
+	};
+
 	var updateQuarterTimeSpent = function( item )
 	{
 		var nextQuarter = item.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
