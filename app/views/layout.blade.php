@@ -466,6 +466,70 @@
 		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
 	});
 
+	var interval;
+	var tisheet;
+	var minutesCounter = 0;
+
+	//
+	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
+	{
+		tisheet = $jQ(this);
+
+		// TODO ZL save minutesCounter for each clicked item in a map to save already spent minutes
+
+		if ( tisheet.hasClass( 'octicon-playback-pause' ) )
+			// reset stopwatch
+			clearInterval( interval );
+		else 
+		{
+			// start stopwatch with handler
+			interval = setInterval( function()
+			{
+				updateTime( tisheet );
+			}, 1000 );
+
+		}
+		
+		tisheet.toggleClass( 'octicon-playback-play' );
+		tisheet.toggleClass( 'octicon-playback-pause' );
+	});
+
+	var updateTime = function( tisheet )
+	{
+		minutesCounter++;
+
+		if ( minutesCounter != 4 )
+			return;
+
+		var item = tisheet.closest( 'tr.item' );
+		var nextQuarter = updateQuarterTimeSpent( item );
+
+		if ( nextQuarter == undefined )
+		{
+			// TODO ZL some action
+			clearInterval( interval );
+			return;
+		}
+
+		minutesCounter = 0;
+	};
+	
+	var updateQuarterTimeSpent = function( item )
+	{
+		var nextQuarter = item.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
+
+		if ( nextQuarter.length == 0 )
+		{
+			// TODO
+			alert( 'end' );
+			return undefined;
+		}
+
+		nextQuarter.addClass( 'time-spent-quarter-active' );
+
+		return nextQuarter;
+	};
+
 </script>
 
 </body>

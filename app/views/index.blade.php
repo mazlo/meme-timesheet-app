@@ -62,6 +62,7 @@
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
+					<span class='octicon octicon-playback-play js-octicon-stopwatch' style='padding-left: 3px'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
