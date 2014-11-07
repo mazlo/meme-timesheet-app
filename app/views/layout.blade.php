@@ -239,7 +239,7 @@
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
-		// active loading icon
+		// show loading icon
 		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
@@ -254,6 +254,10 @@
 					alert( 'error' );
 
 				notifyUserOfChange( item );
+
+				// show/hide octicon-info
+				if ( value == '' || ( value != '' && oldNote == '' ) )
+					item.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
 
 				// we do not need to firePostUpdateActions here, since the note 
 				// does not change any tisheet properties
@@ -463,8 +467,120 @@
 	//
 	$jQ( document ).on( 'hover', '.js-tisheet-options', function() 
 	{
-		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.octicon-trashcan, .octicon-info, .js-octicon-stopwatch' ).not( 'element-visible' ).toggleClass( 'element-invisible' );
 	});
+
+	var interval;
+	var minutesByTisheets = [];
+
+	//
+	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
+	{
+		var stopwatch = $jQ(this);
+		var tisheet = stopwatch.closest( 'tr.item' );
+		var currentStopwachId = getTisheetId( stopwatch );
+
+		// start only if id was already assigned
+		if ( currentStopwachId == 'undefined' )
+		{
+			// register for post update
+			invokeAfterTimesheetAjaxSuccess.push( stopwatchToggleStatus );
+
+			return;
+		}
+
+		// change status of running stopwatch
+
+		var runningStopwatch = $jQ( '#timesheet' ).find( 'span.octicon-playback-pause' );
+		if ( runningStopwatch.length > 0 )
+		{
+			var activeStopwatchId = getTisheetId( runningStopwatch );
+			
+			// only if it's not the current stopwatch
+			if ( activeStopwatchId != currentStopwachId )
+				stopwatchToggleStatus( runningStopwatch.closest( 'tr.item' ) );
+		}
+
+		// change status of pressed stopwatch
+
+		stopwatchToggleStatus( tisheet );
+	});
+
+	// starts or stops the stopwatch for the given tisheet
+	var stopwatchToggleStatus = function ( tisheet )
+	{
+		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+
+		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
+		{
+			// reset stopwatch
+			clearInterval( interval );
+		}
+		else 
+		{
+			var tisheet = stopwatch.closest( 'tr.item' );
+
+			// start stopwatch with handler
+			interval = setInterval( function()
+			{
+				updateTime( tisheet );
+			}, 1000*60 );
+
+			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
+				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		}
+
+		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+	};
+
+	// check whether a quarter of an hour has passed
+	var updateTime = function( tisheet )
+	{	
+		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
+
+		if ( minutesCounter < 15 )
+		{
+			minutesByTisheets[ tisheet.attr( 'id' ) ] = minutesCounter;
+			return;
+		}
+
+		var nextQuarter = updateQuarterTimeSpent( tisheet );
+
+		// if the end was reached reset the interval and stopwatch icon
+		if ( nextQuarter == undefined )
+		{
+			clearInterval( interval );
+
+			stopwatchToggleStatus( tisheet );
+
+			// TODO ZL write email or something
+
+			return;
+		}
+
+		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+	};
+	
+	// updates the next time spent quarter
+	var updateQuarterTimeSpent = function( tisheet )
+	{
+		// find the next not active quarter
+		var nextQuarter = tisheet.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
+
+		// if we've reached the end return undefined
+		if ( nextQuarter.length == 0 )
+			return undefined;
+
+		nextQuarter.click();
+
+		return nextQuarter;
+	};
+
+	// 
+	var getTisheetId = function( element )
+	{
+		return $jQ( element ).closest( 'tr.item' ).attr( 'id' );
+	}
 
 </script>
 

@@ -298,6 +298,10 @@ div.summary-table div.variable-background span {
 	visibility: hidden;
 }
 
+.element-visible {
+	visibility: visible;
+}
+
 .element-float-left {
 	float: left;
 }

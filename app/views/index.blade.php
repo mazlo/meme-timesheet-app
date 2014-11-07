@@ -55,13 +55,14 @@
 			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
-					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif' style='padding-left: 3px'></span>
 				</td>
 				
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
@@ -107,6 +108,7 @@
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<input class='js-tisheet-planned' type='checkbox' />
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'></textarea>
