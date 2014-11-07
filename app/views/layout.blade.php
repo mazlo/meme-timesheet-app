@@ -524,7 +524,7 @@
 			interval = setInterval( function()
 			{
 				updateTime( tisheet );
-			}, 1000*60 );
+			}, 1000 );
 
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
 				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
@@ -538,7 +538,7 @@
 	{	
 		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
 
-		if ( minutesCounter < 15 )
+		if ( minutesCounter < 1 )
 		{
 			minutesByTisheets[ tisheet.attr( 'id' ) ] = minutesCounter;
 			return;
@@ -565,7 +565,16 @@
 	var updateQuarterTimeSpent = function( tisheet )
 	{
 		// find the next not active quarter
-		var nextQuarter = tisheet.find( '.js-tisheet-time.time-spent-quarter-active:last' ).nextAll( '.js-tisheet-time:first' );
+		var nextQuarter = tisheet.find( '.js-tisheet-time' ).filter( function()
+		{
+			if ( !$jQ(this).hasClass( 'js-tisheet-time' ) )
+				return false;
+
+			if ( $jQ(this).hasClass( 'time-spent-quarter-active' ) )
+				return false;
+
+			return true;
+		}).first();
 
 		// if we've reached the end return undefined
 		if ( nextQuarter.length == 0 )
