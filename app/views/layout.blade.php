@@ -239,7 +239,7 @@
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
-		// active loading icon
+		// show loading icon
 		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
@@ -254,6 +254,10 @@
 					alert( 'error' );
 
 				notifyUserOfChange( item );
+
+				// show/hide octicon-info
+				if ( value == '' || ( value != '' && oldNote == '' ) )
+					item.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
 
 				// we do not need to firePostUpdateActions here, since the note 
 				// does not change any tisheet properties
