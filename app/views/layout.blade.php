@@ -530,9 +530,7 @@
 				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 		}
 
-		stopwatch.toggleClass( 'octicon-playback-play' );
-		stopwatch.toggleClass( 'octicon-playback-pause' );
-		stopwatch.toggleClass( 'element-visible' );
+		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
 	};
 
 	// check whether a quarter of an hour has passed
