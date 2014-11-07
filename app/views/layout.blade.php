@@ -463,7 +463,7 @@
 	//
 	$jQ( document ).on( 'hover', '.js-tisheet-options', function() 
 	{
-		$jQ(this).find( '.octicon-trashcan, .octicon-info' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.octicon-trashcan, .octicon-info, .js-octicon-stopwatch' ).not( 'element-visible' ).toggleClass( 'element-invisible' );
 	});
 
 	var interval;
@@ -528,6 +528,7 @@
 
 		stopwatch.toggleClass( 'octicon-playback-play' );
 		stopwatch.toggleClass( 'octicon-playback-pause' );
+		stopwatch.toggleClass( 'element-visible' );
 	};
 
 	// check whether a quarter of an hour has passed
