@@ -473,37 +473,40 @@
 	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
 	{
 		var stopwatch = $jQ(this);
+		var tisheet = stopwatch.closest( 'tr.item' );
 		var currentStopwachId = getTisheetId( stopwatch );
 
 		// start only if id was already assigned
 		if ( currentStopwachId == 'undefined' )
 		{
-			// focus textarea instead
-			stopwatch.closest( 'tr.item' ).find( 'input.tisheet-description' ).focus();
+			// register for post update
+			invokeAfterTimesheetAjaxSuccess.push( stopwatchToggleStatus );
 
 			return;
 		}
 
 		// change status of running stopwatch
 
-		var runningStopwatch = $jQ( '#timesheet' ).find( '.octicon-playback-pause' );
+		var runningStopwatch = $jQ( '#timesheet' ).find( 'span.octicon-playback-pause' );
 		if ( runningStopwatch.length > 0 )
 		{
 			var activeStopwatchId = getTisheetId( runningStopwatch );
 			
 			// only if it's not the current stopwatch
 			if ( activeStopwatchId != currentStopwachId )
-				stopwatchToggleStatus( runningStopwatch );
+				stopwatchToggleStatus( runningStopwatch.closest( 'tr.item' ) );
 		}
 
 		// change status of pressed stopwatch
 
-		stopwatchToggleStatus( stopwatch );
+		stopwatchToggleStatus( tisheet );
 	});
 
-	// starts or stops the given stopwatch
-	var stopwatchToggleStatus = function ( stopwatch )
+	// starts or stops the stopwatch for the given tisheet
+	var stopwatchToggleStatus = function ( tisheet )
 	{
+		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+
 		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
 		{
 			// reset stopwatch
@@ -545,7 +548,7 @@
 		{
 			clearInterval( interval );
 
-			stopwatchToggleStatus( tisheet.find( '.js-octicon-stopwatch' ) );
+			stopwatchToggleStatus( tisheet );
 
 			// TODO ZL write email or something
 
