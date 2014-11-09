@@ -524,10 +524,10 @@
 			interval = setInterval( function()
 			{
 				updateTime( tisheet );
-			}, 1000 );
+			}, 1000*60 );
 
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
-				minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+				minutesByTisheets[ tisheet.attr( 'id' ) ] = 1;
 		}
 
 		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
@@ -538,7 +538,7 @@
 	{	
 		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
 
-		if ( minutesCounter < 1 )
+		if ( minutesCounter <= 15 )
 		{
 			minutesByTisheets[ tisheet.attr( 'id' ) ] = minutesCounter;
 			return;
