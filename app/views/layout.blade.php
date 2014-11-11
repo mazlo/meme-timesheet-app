@@ -478,6 +478,7 @@
 	{
 		var stopwatch = $jQ(this);
 		var tisheet = stopwatch.closest( 'tr.item' );
+
 		var currentStopwachId = getTisheetId( stopwatch );
 
 		// start only if id was already assigned
@@ -496,7 +497,7 @@
 		{
 			var activeStopwatchId = getTisheetId( runningStopwatch );
 			
-			// only if it's not the current stopwatch
+			// but only if it's not the current stopwatch
 			if ( activeStopwatchId != currentStopwachId )
 				stopwatchToggleStatus( runningStopwatch.closest( 'tr.item' ) );
 		}
@@ -510,16 +511,21 @@
 	var stopwatchToggleStatus = function ( tisheet )
 	{
 		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+		var tisheet = stopwatch.closest( 'tr.item' );
 
 		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
 		{
+			// completes the quarter if it's done more than the half
+			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] > 7 )
+				updateQuarterTimeSpent( tisheet );
+
+			minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+
 			// reset stopwatch
 			clearInterval( interval );
 		}
 		else 
 		{
-			var tisheet = stopwatch.closest( 'tr.item' );
-
 			// start stopwatch with handler
 			interval = setInterval( function()
 			{
