@@ -41,23 +41,8 @@ class TisheetController extends BaseController
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
-            $contextLabel = Input::get( 'cx' );
-
-            // check if context is already available by 'prefLabel'
-            if ( !empty( $contextLabel ) )
-            {
-                $context = Context::where( 'prefLabel', $contextLabel )->first();
-
-                // create new and associate
-                if ( empty( $context ) )
-                {                
-                    $context = new Context();
-                    $context->prefLabel = $contextLabel;
-                    $context->save();
-                }
-                
-                $tisheet->context()->associate( $context );
-            }
+            
+            parseContexts( $value, $tisheet );
 
             $startTime = Input::get( 'st' );
 
@@ -90,26 +75,11 @@ class TisheetController extends BaseController
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
-            $contextLabel = Input::get( 'cx' );
-
-            if ( !empty( $contextLabel ) )
-            {
-                // check if context is already available by 'prefLabel'
-                $context = Context::where( 'prefLabel', $contextLabel )->first();
-
-                // create new and associate
-                if ( empty( $context ) )
-                {                
-                    $context = new Context();
-                    $context->prefLabel = $contextLabel;
-                    $context->save();
-                }
-                
-                $tisheet->context()->associate( $context );
-            }
+            
+            $containsContext = parseContexts( $value, $tisheet );
 
             // remove relation to context if contextLabel is empty
-            else 
+            if ( !$containsContext ) 
                 $tisheet->context_id = null;
 
             $startTime = Input::get( 'st' );
@@ -170,4 +140,38 @@ class TisheetController extends BaseController
         return 'true';
     }
 
+}
+
+/**
+*
+*/
+function parseContexts( $value, $tisheet )
+{
+    $words = explode( ' ', $value );
+    $containsContext = false;
+
+    // foreach context create db object and relations
+    foreach( $words as $key => $word )
+    {
+        if ( $word{0} != '#' )
+            continue;
+
+        $containsContext = true;
+
+        $context = Context::where( 'prefLabel', $word )->first();
+
+        // create new and associate
+        if ( empty( $context ) )
+        {                
+            $context = new Context();
+            $context->prefLabel = $word;
+            $context->save();
+        }
+        
+        $tisheet->context()->associate( $context );
+
+        break;
+    }
+
+    return $containsContext;
 }
