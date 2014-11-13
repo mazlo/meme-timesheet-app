@@ -1,6 +1,10 @@
 
 # yaTimesheet
 
+## bugs
+
+* sorting not correct when 1) sorting elements 2) then creating new elements 3) reload
+
 ## features
 
 * shortcut application to send wget calls to post new tisheets
@@ -8,5 +12,12 @@
 
 ## enhancements
 
-* all ajax calls should only be possible with the currently logged in user
-* consolidate firePostUpdateActions() on focus out of description and note fields
+- general
+
+   * all ajax calls should only be possible with the currently logged in user -> check in controllers for user
+   * width of textfields
+
+- css
+
+   * make textfields bigger with more padding, see toggl.com
+   * use colors for contexts
