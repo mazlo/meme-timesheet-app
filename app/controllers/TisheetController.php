@@ -42,7 +42,8 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-            parseContexts( $value, $tisheet );
+            $contexts = parseContexts( $value );
+            $this->assignContexts( $tisheet, $contexts );
 
             $startTime = Input::get( 'st' );
 
@@ -76,11 +77,9 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-            $containsContext = parseContexts( $value, $tisheet );
-
-            // remove relation to context if contextLabel is empty
-            if ( !$containsContext ) 
-                $tisheet->context_id = null;
+            // parse the text for Contexts
+            // and assign them to current Tisheet
+            assignContexts( $tisheet, parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
             
