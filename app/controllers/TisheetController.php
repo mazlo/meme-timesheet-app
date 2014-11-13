@@ -142,21 +142,16 @@ class TisheetController extends BaseController
 }
 
 /**
-*
+ * the return value of this function is an array of Context-ids
+ * in preparation for the association of Contexts to sub-Contexts
 */
-function parseContexts( $value, $tisheet )
+function parseContexts( $value )
 {
     $words = explode( ' ', $value );
-    $containsContext = false;
 
-    // foreach context create db object and relations
-    foreach( $words as $key => $word )
+    return array_map( function( $word )
     {
-        if ( $word{0} != '#' )
-            continue;
-
-        $containsContext = true;
-
+        // return an array of Context-ids
         $context = Context::where( 'prefLabel', $word )->first();
 
         // create new and associate
@@ -166,11 +161,42 @@ function parseContexts( $value, $tisheet )
             $context->prefLabel = $word;
             $context->save();
         }
-        
-        $tisheet->context()->associate( $context );
+            
+        return $context->id;
+    },  
+        // from an array of Contexts that was parsed from the text
+        array_filter( $words, function( $word )
+        {
+            if ( $word{0} == '#' )
+                return true;
 
-        break;
+            return false;
+        })
+    );
+}
+
+/**
+ * supplies the array of Contexts with new keys, from 0..length. 
+ * takes the first Context as main-Context and the rest as sub-Contexts.
+ *
+ */
+function assignContexts( $tisheet, $contexts ) 
+{
+    // reset association to a Context
+    if ( count( $contexts ) == 0 ) 
+    {
+        $tisheet->context_id = null;
+        return;
     }
 
-    return $containsContext;
+    $idxContexts = array_combine( range( 0, count( $contexts ) - 1 ), $contexts );
+
+    $mainContext = Context::find( $idxContexts[0] )->first();
+    $tisheet->context()->associate( $mainContext );
+
+    // cut off the first element
+    $subContexts = array_slice( $idxContexts, 1 );
+
+    // sync sub contexts
+    $tisheet->context->children()->sync( $subContexts );
 }
