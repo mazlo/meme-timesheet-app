@@ -6,4 +6,10 @@ class Context extends Eloquent
 	{
 		return $this->hasMany( 'Tisheet' );
 	}
+
+	public function children()
+	{
+		return $this->belongsToMany( 'Context', 'context_relations', 'context_id', 'subContext_id'  );
+	}
+
 }

@@ -41,23 +41,10 @@ class TisheetController extends BaseController
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
-            $contextLabel = Input::get( 'cx' );
-
-            // check if context is already available by 'prefLabel'
-            if ( !empty( $contextLabel ) )
-            {
-                $context = Context::where( 'prefLabel', $contextLabel )->first();
-
-                // create new and associate
-                if ( empty( $context ) )
-                {                
-                    $context = new Context();
-                    $context->prefLabel = $contextLabel;
-                    $context->save();
-                }
-                
-                $tisheet->context()->associate( $context );
-            }
+            
+            // parse the text for Contexts
+            // and assign them to current Tisheet
+            TisheetController::assignContexts( $tisheet, TisheetController::parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
 
@@ -90,27 +77,10 @@ class TisheetController extends BaseController
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
-            $contextLabel = Input::get( 'cx' );
-
-            if ( !empty( $contextLabel ) )
-            {
-                // check if context is already available by 'prefLabel'
-                $context = Context::where( 'prefLabel', $contextLabel )->first();
-
-                // create new and associate
-                if ( empty( $context ) )
-                {                
-                    $context = new Context();
-                    $context->prefLabel = $contextLabel;
-                    $context->save();
-                }
-                
-                $tisheet->context()->associate( $context );
-            }
-
-            // remove relation to context if contextLabel is empty
-            else 
-                $tisheet->context_id = null;
+            
+            // parse the text for Contexts
+            // and assign them to current Tisheet
+            TisheetController::assignContexts( $tisheet, TisheetController::parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
             
@@ -170,4 +140,63 @@ class TisheetController extends BaseController
         return 'true';
     }
 
+	/**
+	 * the return value of this function is an array of Context-ids
+	 * in preparation for the association of Contexts to sub-Contexts
+	*/
+	public static function parseContexts( $value )
+	{
+		$words = explode( ' ', $value );
+
+		return array_map( function( $word )
+		{
+			// return an array of Context-ids
+			$context = Context::where( 'prefLabel', $word )->first();
+
+			// create new and associate
+			if ( empty( $context ) )
+			{                
+				$context = new Context();
+				$context->prefLabel = $word;
+				$context->save();
+			}
+
+			return $context->id;
+		},  
+			// from an array of Contexts that was parsed from the text
+			array_filter( $words, function( $word )
+			{
+				if ( $word{0} == '#' )
+					return true;
+
+				return false;
+			})
+		);
+	}
+
+	/**
+	 * supplies the array of Contexts with new keys, from 0..length. 
+	 * takes the first Context as main-Context and the rest as sub-Contexts.
+	 *
+	 */
+	public static function assignContexts( $tisheet, $contexts ) 
+	{
+		// reset association to a Context
+		if ( count( $contexts ) == 0 ) 
+		{
+			$tisheet->context_id = null;
+			return;
+		}
+
+		$idxContexts = array_combine( range( 0, count( $contexts ) - 1 ), $contexts );
+
+		$mainContext = Context::find( $idxContexts[0] );
+		$tisheet->context()->associate( $mainContext );
+
+		// cut off the first element
+		$subContexts = array_slice( $idxContexts, 1 );
+
+		// sync sub contexts
+		$tisheet->context->children()->sync( $subContexts, false );
+	}
 }
