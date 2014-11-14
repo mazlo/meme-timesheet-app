@@ -42,8 +42,9 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-            $contexts = parseContexts( $value );
-            $this->assignContexts( $tisheet, $contexts );
+            // parse the text for Contexts
+            // and assign them to current Tisheet
+            assignContexts( $tisheet, parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
 
