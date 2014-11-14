@@ -4,6 +4,7 @@
 ## bugs
 
 * sorting not correct when 1) sorting elements 2) then creating new elements 3) reload
+* context might be just #, without a text -> prevent that
 
 ## features
 
