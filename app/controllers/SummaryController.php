@@ -49,7 +49,7 @@ class SummaryController extends BaseController
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
             ->where( 'tisheets.user_id', Auth::user()->id )
-            ->where( 'tisheets.day', '>', date( 'Y-m-d', strtotime( '-1 '. $period, $dayAsTime ) ) )
+            ->where( 'tisheets.day', '>', date( 'Y-m-d', strtotime( $period == 'week' ? 'last monday' : '-1 '. $period, $dayAsTime ) ) )
             ->where( 'tisheets.day', '<=', $day )
             ->groupBy( 'contexts.prefLabel' )
             ->get();
