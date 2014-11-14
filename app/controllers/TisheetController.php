@@ -44,7 +44,7 @@ class TisheetController extends BaseController
             
             // parse the text for Contexts
             // and assign them to current Tisheet
-            TisheetController::assignContexts( $tisheet, TisheetController::parseContexts( $value ) );
+            TisheetController::syncContexts( $tisheet, TisheetController::parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
 
@@ -80,7 +80,7 @@ class TisheetController extends BaseController
             
             // parse the text for Contexts
             // and assign them to current Tisheet
-            TisheetController::assignContexts( $tisheet, TisheetController::parseContexts( $value ) );
+            TisheetController::syncContexts( $tisheet, TisheetController::parseContexts( $value ) );
 
             $startTime = Input::get( 'st' );
             
@@ -166,7 +166,10 @@ class TisheetController extends BaseController
 			// from an array of Contexts that was parsed from the text
 			array_filter( $words, function( $word )
 			{
-				if ( $word{0} == '#' )
+                if( empty( $word ) )
+                    return false;
+
+				if( $word{0} == '#' )
 					return true;
 
 				return false;
@@ -179,7 +182,7 @@ class TisheetController extends BaseController
 	 * takes the first Context as main-Context and the rest as sub-Contexts.
 	 *
 	 */
-	public static function assignContexts( $tisheet, $contexts ) 
+	public static function syncContexts( $tisheet, $contexts ) 
 	{
 		// reset association to a Context
 		if ( count( $contexts ) == 0 ) 
