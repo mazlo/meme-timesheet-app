@@ -61,7 +61,6 @@
 				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
-					<input class='js-tisheet-planned' type='checkbox' @if( $tisheet->planned ) checked='checked' @endif />
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
@@ -74,19 +73,19 @@
 				{{-- render actual time spent --}}
 				@for( $i=0; $i<$tisheet->time_spent; $i++ )
 					@if( $i != 0 && $i % 4 == 0 )
-						<span class='time-spent-blank'></span>
+						<span class='time-spent-blank'>&nbsp;</span>
 					@endif
 
-					<span class='js-tisheet-time time-spent-quarter time-spent-quarter-active'></span>
+					<span class='js-tisheet-time time-spent-quarter time-spent-quarter-active'>&nbsp;</span>
 				@endfor
 
 				{{-- print remaining time spent --}}
 				@for( $i=$tisheet->time_spent; $i<16; $i++ )
 					@if( $i != 0 && $i % 4 == 0 )
-						<span class='time-spent-blank'></span>
+						<span class='time-spent-blank'>&nbsp;</span>
 					@endif
 
-					<span class='js-tisheet-time time-spent-quarter'></span>
+					<span class='js-tisheet-time time-spent-quarter'>&nbsp;</span>
 				@endfor
 				</td>
 
@@ -107,7 +106,6 @@
 				<td class='js-tisheet-no'></td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
-					<input class='js-tisheet-planned' type='checkbox' />
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
@@ -144,7 +142,7 @@
 
 			<tr class='timesheet-footer'>
 				<td colspan='4'>&nbsp;</td>
-				<td class='js-tisheet-today-total' style='border-top: 1px solid #ccc'></td>
+				<td class='js-tisheet-today-total' style='border-top: 1px solid #ddd'></td>
 			</tr>
 
 			</tbody>
