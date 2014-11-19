@@ -12,13 +12,8 @@ class AdminController extends BaseController
 		{
 			$description = $tisheet->description;
 
-			// parse description for Contexts
-			$contexts = TisheetController::parseContexts( $description );
-
-			// and assign them to current Tisheet
-			TisheetController::syncContexts( $tisheet, $contexts );
-
-			$tisheet->save();
+			// sync Contexts of Tisheet
+			TisheetController::syncContexts( $tisheet, $description );
 		}
 	}
 
