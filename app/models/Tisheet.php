@@ -16,4 +16,10 @@ class Tisheet extends Eloquent
 	{
 		return $this->hasOne( 'Note', 'tisheet_id' );
 	}
+	
+	public function subContexts()
+	{
+		return $this->belongsToMany( 'Context', 'context_relations', 'tisheet_id', 'subContext_id' )
+			->withPivot( 'id', 'context_id' );
+	}
 }
