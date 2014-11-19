@@ -38,6 +38,9 @@ class TisheetController extends BaseController
         $tisheet->user()->associate( Auth::user() );
         $tisheet->day = $day;
 
+		// save tisheet to obtain an id
+		$tisheet->save();
+		
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
@@ -146,8 +149,6 @@ class TisheetController extends BaseController
 	*/
 	public static function parseContexts( $value )
 	{
-		$words = explode( ' ', $value );
-
 		return array_map( function( $word )
 		{
 			// return an array of Context-ids
@@ -164,7 +165,7 @@ class TisheetController extends BaseController
 			return $context->id;
 		},  
 			// from an array of Contexts that was parsed from the text
-			array_filter( $words, function( $word )
+			array_filter( explode( ' ', $value ), function( $word )
 			{
                 if( empty( $word ) )
                     return false;
