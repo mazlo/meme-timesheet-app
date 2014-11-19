@@ -9,14 +9,15 @@
 		<th>Time Spent</th>
 	</tr>
 
+	<? $day = '' ?>
 	@foreach( $summary as $key => $tisheet )
 	<tr>
 
-		<? $day = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
-		<td>{{ $day }}</td>
+		<? $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
+		<td>@if ( $day != $currentDay ) {{ $currentDay }} <? $day = $currentDay ?> @endif</td>
 		<td>
 			<div class='js-variable-background variable-background' ts='{{ $tisheet->time_spent }}'>
-				<span>{{ $tisheet->time_spent/4 }}h</span>
+				<span>{{ $tisheet->time_spent/4 }}h {{ $tisheet->subContext }}</span>
 			</div>
 		</td>
 
