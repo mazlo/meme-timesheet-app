@@ -145,7 +145,10 @@ class TisheetController extends BaseController
 	/**
 	 * the return value of this function is an array of Context-ids
 	 * in preparation for the association of Contexts to sub-Contexts
-	*/
+	 * 
+	 * @param type $value
+	 * @return type
+	 */
 	public static function parseContexts( $value )
 	{
 		return array_map( function( $word )
@@ -179,18 +182,23 @@ class TisheetController extends BaseController
 	}
 
 	/**
-	 * supplies the array of Contexts with new keys, from 0..length. 
-	 * takes the first Context as main-Context and the rest as sub-Contexts.
-	 *
+	 * Parses the given value for Contexts. Takes the first Context as first 
+	 * level Context. Takes the rest as subContexts of the fiven Tisheet.
+	 * 
+	 * @param type $tisheet
+	 * @param type $value
+	 * @return type
 	 */
 	public static function syncContexts( &$tisheet, $value ) 
 	{
 		$contexts = TisheetController::parseContexts( $value );
 		
-		// reset association to a Context if it's empty
+		// reset first level Concept if it's empty
 		if ( count( $contexts ) == 0 ) 
 		{
 			$tisheet->context_id = null;
+			$tisheet->subContexts()->detach();
+			
 			return;
 		}
 
@@ -205,12 +213,18 @@ class TisheetController extends BaseController
 		TisheetController::syncSubContexts( $tisheet, $subContexts );
 	}
 	
-	//
+	/**
+	 * Composes an array of ids as a preparation for syncing subContexts.
+	 * 
+	 * @param type $tisheet
+	 * @param type $editedSubContexts
+	 */
 	public static function syncSubContexts( &$tisheet, &$editedSubContexts )
 	{
 		$editedSubContexts = array_map( function( $subContext ) use ($tisheet)
 		{
 			return array( 
+				// the key is a composition of all three foreign keys
 				'id' => $tisheet->context->id.$subContext.$tisheet->id,
 				'context_id' => $tisheet->context_id,
 				'subContext_id' => $subContext,
