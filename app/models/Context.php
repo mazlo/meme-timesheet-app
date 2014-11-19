@@ -9,7 +9,8 @@ class Context extends Eloquent
 
 	public function children()
 	{
-		return $this->belongsToMany( 'Context', 'context_relations', 'context_id', 'subContext_id'  );
+		return $this->belongsToMany( 'Context', 'context_relations', 'context_id', 'subContext_id'  )
+					->withPivot( 'id', 'tisheet_id' );
 	}
 
 }

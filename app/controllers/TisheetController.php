@@ -162,7 +162,8 @@ class TisheetController extends BaseController
 				$context->save();
 			}
 
-			return $context->id;
+			// 2nd dimension consists of foreign-key ids
+			return array( 'id' => '', 'context_id' => '', 'subContext_id' => $context->id, 'tisheet_id' => '' );
 		},  
 			// from an array of Contexts that was parsed from the text
 			array_filter( explode( ' ', $value ), function( $word )
@@ -183,24 +184,68 @@ class TisheetController extends BaseController
 	 * takes the first Context as main-Context and the rest as sub-Contexts.
 	 *
 	 */
-	public static function syncContexts( $tisheet, $contexts ) 
+	public static function syncContexts( &$tisheet, $contexts ) 
 	{
-		// reset association to a Context
+		// reset association to a Context if it's empty
 		if ( count( $contexts ) == 0 ) 
 		{
 			$tisheet->context_id = null;
 			return;
 		}
 
-		$idxContexts = array_combine( range( 0, count( $contexts ) - 1 ), $contexts );
-
-		$mainContext = Context::find( $idxContexts[0] );
+		// assign first level Concept to Tisheet
+		$mainContext = Context::find( reset( $contexts )['subContext_id'] );
 		$tisheet->context()->associate( $mainContext );
 
-		// cut off the first element
-		$subContexts = array_slice( $idxContexts, 1 );
-
-		// sync sub contexts
-		$tisheet->context->children()->sync( $subContexts, false );
+		// cut off the first element -> becomes the list of subConcepts
+		$subContexts = array_slice( $contexts, 1 );
+		
+		// walks the array and builds up the pivot table
+		array_walk( $subContexts, function( &$pivot, $key, $data ) 
+		{
+            $pivot['context_id'] = $data['context']->id;
+            $pivot['tisheet_id'] = $data['tisheet']->id;
+		}, array( 'tisheet' => $tisheet, 'context' => $mainContext ) );
+		
+		// syncs a list of existing and new subContexts
+		TisheetController::syncSubContexts( $subContexts, $tisheet->context->children );
+		
+		$tisheet->context->children()->sync( $subContexts );
+	}
+	
+	//
+	public static function syncSubContexts( &$newSubContexts, &$existingSubContexts )
+	{
+		TisheetController::replaceKeysWithMultiKeysFromPivot( $newSubContexts );
+		
+		// compose 
+		foreach( $existingSubContexts as $subContext )
+		{
+			$key = $subContext->pivot->context_id.$subContext->pivot->subContext_id.$subContext->pivot->tisheet_id;
+			
+			if ( array_key_exists( $key, $newSubContexts ) )
+			{
+				array_set( $newSubContexts, $key.'.id', $subContext->pivot->id );
+			}
+			else
+			{
+				$newSubContexts[$key] = array(
+					'id' => $subContext->pivot->id,
+					'context_id' => $subContext->pivot->context_id,
+					'subContext_id' => $subContext->pivot->subContext_id,
+					'tisheet_id' => $subContext->pivot->tisheet_id
+				);
+			}
+		}
+	}
+	
+	//
+	public static function replaceKeysWithMultiKeysFromPivot( &$subContexts ) 
+	{
+		foreach( $subContexts as $key => $pivot )
+		{
+			$subContexts[$pivot['context_id'].$pivot['subContext_id'].$pivot['tisheet_id']] = $pivot;
+			unset( $subContexts[$key] );
+		}
 	}
 }
