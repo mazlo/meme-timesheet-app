@@ -45,13 +45,12 @@ class SummaryController extends BaseController
     {
         $dayAsTime = strtotime( $day );
 
-        $sum = DB::table( 'tisheets' )
-            ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
-            ->select( 'contexts.prefLabel', DB::raw( 'sum( tisheets.time_spent ) as total_time_spent' ) )
-            ->where( 'tisheets.user_id', Auth::user()->id )
-            ->where( 'tisheets.day', '>=', date( 'Y-m-d', strtotime( $period == 'week' ? 'last monday' : '-1 '. $period, $dayAsTime ) ) )
-            ->where( 'tisheets.day', '<', $day )
-            ->groupBy( 'contexts.prefLabel' )
+        $sum = DB::table( 'summary_by_context as s' )
+            ->select( 's.context as prefLabel', DB::raw( 'sum( s.time_spent ) as total_time_spent' ) )
+            ->where( 's.user_id', Auth::user()->id )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $period == 'week' ? 'last monday' : '-1 '. $period, $dayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
+            ->groupBy( 's.context' )
             ->get();
 
         return View::make( 'ajax.summary' )
@@ -95,8 +94,8 @@ class SummaryController extends BaseController
             ->select( 's.day', 's.time_spent', 's.context', 's.subContext' )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.context', '#'. $context )
-            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( '-1 week', $dayAsTime ) ) )
-            ->where( 's.day', '<', $day )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( 'last monday', $dayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
             ->get();
 
         return View::make( 'ajax.summary-by-day-and-context' )
