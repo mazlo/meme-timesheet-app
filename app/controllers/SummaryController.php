@@ -51,6 +51,7 @@ class SummaryController extends BaseController
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $period == 'week' ? 'last monday' : '-1 '. $period, $dayAsTime ) ) )
             ->where( 's.day', '<=', $day )
             ->groupBy( 's.context' )
+            ->orderBy( 'total_time_spent', 'desc' )
             ->get();
 
         return View::make( 'ajax.summary' )
