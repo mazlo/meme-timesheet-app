@@ -5,8 +5,8 @@
 	</colgroup>
 
 	<tr>
-		<th>Days Spent at Context {{ $context }}</th>
-		<th>Time Spent</th>
+		<th>Days Spent with {{ $context }}</th>
+		<th>Time Spent in Context</th>
 	</tr>
 
 	<? $day = '' ?>
