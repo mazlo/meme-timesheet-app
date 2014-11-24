@@ -187,12 +187,13 @@ button.post-delete {
 }
 
 textarea {
-	border: 1px solid #bbb; 
+	border: 1px solid #ddd; 
 	
-	width: 90%; 
+	width: 91%; 
 	height: 128px; 
-	padding: 3px 6px; 
+	padding: 5px 10px; 
 	
+	line-height: 21px;
 	font-size: inherit;
 	font-family: inherit;
 }
