@@ -278,6 +278,9 @@
 
 		// update total time spent for the day
 		updateTisheetTotalTimeSpent();
+
+		// update summary
+		fireUpdateSummary();
 	});
 
 	//
@@ -339,12 +342,18 @@
 		for ( var i=0; i<invokeAfterTimesheetAjaxSuccess.length; i++ )
 			invokeAfterTimesheetAjaxSuccess.pop()(item);
 
-		// 
+		//
+		fireUpdateSummary();
+	};
+
+	//
+	var fireUpdateSummary = function()
+	{
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
 
-		$jQ( '.js-button-summary.js-button-active' ).click();
-	};
+		$jQ( '#summary a.js-button-summary.js-button-active' ).click();
+	}
 
 	//
 	$jQ( document ).on( 'click', '.octicon-trashcan', function()

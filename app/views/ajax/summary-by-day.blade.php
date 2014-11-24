@@ -1,3 +1,7 @@
+<div class='element-hidden'>
+	<a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-active js-button-summary'>show summary by days</a>
+</div>
+
 <table style='border: 1px #ccc solid; padding: 3px 13px; text-align: left'>
 	
 	<tr>
