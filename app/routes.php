@@ -56,6 +56,7 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::delete( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@delete' );
 
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupByContextByDayAndPeriod' );
+	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts/{context}', 'SummaryController@forWeekGroupByDaysAndContextsByContext' );
 
 	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@forWeekGroupByDaysAndContexts' );
 

@@ -57,7 +57,7 @@ class SummaryController extends BaseController
     /**
     *
     */
-    public function summaryForWeekGroupByDaysAndContextsByContext( $day, $context )
+    public function forWeekGroupByDaysAndContextsByContext( $day, $context )
     {
         $dayAsTime = strtotime( $day );
 
