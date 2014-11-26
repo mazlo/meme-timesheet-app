@@ -150,6 +150,13 @@
 
 	</div>
 
+	<div id='timeline-today' class='timeline-today'>
+	@foreach( $timeline as $element )
+		<? if( $element->prefLabel ) $label=$element->prefLabel; else $label='w/o context'; ?>
+		<div ts='{{ $element->total_time_spent }}'><span>{{ $label }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
+	@endforeach
+	</div>
+
 	<ul class='list-inline js-button-group'>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button js-button-summary'>show summary by contexts</a></li>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
@@ -163,10 +170,11 @@
 		</div>
 	</div>
 
-{{-- if there are no tisheets, print an initial empty one --}}
-@if ( count( $tisheets ) == 0 )
+
 <script type='text/javascript'>
 
+{{-- if there are no tisheets, print an initial empty one --}}
+@if ( count( $tisheets ) == 0 )
 	$jQ( function()
 	{
 		// find the cloneable tr and clone it
@@ -178,8 +186,19 @@
 		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-item-clonable element-hidden' );
 	});
+@endif
+
+	$jQ( function()
+	{
+		// update width of timeline
+		$jQ( '#timeline-today div' ).each( function()
+		{
+			var ts = $jQ(this).attr( 'ts' );
+			$jQ(this).css( 'width', (ts/40)*100 + '%' );
+		});
+	});
 
 </script>
-@endif
+
 
 @stop
