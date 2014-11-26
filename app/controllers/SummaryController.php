@@ -2,14 +2,13 @@
 
 class SummaryController extends BaseController 
 {
-
     /**
     *
     */
-    public function groupByContextByDayAndPeriod( $day, $period )
+    public static function byDayAndPeriodGroupByContext( $day, $period )
     {
         $dayAsTime = strtotime( $day );
-
+        
         if ( $period == 'week' )
             $periodConverted = 'last monday';
         else if ( $period == 'month' )
@@ -17,7 +16,7 @@ class SummaryController extends BaseController
         else
             $periodConverted = 'today';
 
-        $sum = DB::table( 'summary_by_context as s' )
+        return DB::table( 'summary_by_context as s' )
             ->select( 's.context as prefLabel', DB::raw( 'sum( s.time_spent ) as total_time_spent' ) )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $periodConverted, $dayAsTime ) ) )
@@ -25,6 +24,14 @@ class SummaryController extends BaseController
             ->groupBy( 's.context' )
             ->orderBy( 'total_time_spent', 'desc' )
             ->get();
+    }
+
+    /**
+    *
+    */
+    public function groupByContextByDayAndPeriod( $day, $period )
+    {
+        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period );
 
         return View::make( 'ajax.summary' )
             ->with( 'summary', $sum )
