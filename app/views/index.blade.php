@@ -151,11 +151,7 @@
 	</div>
 
 	<div id='timeline-today' class='timeline-today'>
-	@foreach( $timeline as $element )
-		<? if( $element->prefLabel ) $label=$element->prefLabel; else $label='w/o context'; ?>
-		<div id='timeline-item-{{ $label }}' ts='{{ $element->total_time_spent }}'><span>{{ $label }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
-	@endforeach
-
+		{{-- ajax response here --}}
 		{{-- insert an empty cloneable div --}}
 		<div class='js-item-clonable element-hidden'><span class='timeline-label'></span><span class='timeline-time'></span></div>
 	</div>
@@ -190,19 +186,6 @@
 		trClone.removeClass( 'js-item-clonable element-hidden' );
 	});
 @endif
-
-	$jQ( function()
-	{
-		// update width of timeline
-		$jQ( '#timeline-today div' ).not( '.js-item-clonable' ).each( function()
-		{
-			var ts = $jQ(this).attr( 'ts' );
-			$jQ(this).animate( 
-			{
-				width: (ts/40)*100 + '%',
-			}, 1000 );
-		});
-	});
 
 </script>
 

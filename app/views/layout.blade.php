@@ -204,6 +204,10 @@
 				notifyUserOfChange( item );
 
 				firePostUpdateActions( item );
+
+				// update timeline if visible
+				if ( $jQ( '#timeline-today div' ).not( '.js-item-clonable' ).length > 0 )
+					updateTisheetTimeline();
 			}
 		});
 	});
@@ -271,6 +275,8 @@
 		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;
 		$jQ(this).closest( '.item' ).find( '.tisheet-total-time-spent' ).text( count/4 + 'h');
 
+		// register feature for post update
+
 		var item = $jQ(this).closest( '.item' );
 		
 		if ( item.attr( 'id' ) == 'undefined' )
@@ -279,11 +285,8 @@
 		else
 			updateTisheetTimeSpent( item );
 
-		// update total time spent for the day
+		// update total time spent for the day -> static
 		updateTisheetTotalTimeSpent();
-
-		// update summary
-		fireUpdateSummary();
 	});
 
 	//
@@ -314,6 +317,11 @@
 			type: 'put',
 			data: {
 				ts: count
+			},
+			success: function( data )
+			{
+				updateTisheetTimeline();
+				updateTisheetSummary();
 			}
 		});
 	};
@@ -328,7 +336,66 @@
 	//
 	var updateTisheetTimeline = function()
 	{
-		// TODO ZL
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/timeline';
+
+		$jQ.ajax({
+			url: url,
+			dataType: 'json',
+			success: function( data )
+			{
+				// collect existing contexts
+				var existingContexts = $jQ( '#timeline-today div' ).not( '.js-item-clonable' ).map( function()
+				{
+					return $jQ(this).find( 'span:first' ).text();
+				});
+
+				// handle json response
+				$jQ.each( data, function( context, values )
+				{
+					context = context == '' ? 'nolabel' : context.substring( 1 );
+
+					if ( $jQ.inArray( '#'+ context, existingContexts ) == -1 )
+					{
+						// if element does not exist -> create one
+
+						var toClone = $jQ( '#timeline-today div.js-item-clonable ' );
+						var clone = toClone.clone();
+
+						// set id and insert before the cloned element (which is hidden)
+						clone.attr( 'id', 'timeline-item-'+ context );
+						clone.insertBefore( toClone );
+						clone.removeClass( 'js-item-clonable element-hidden' );
+
+					}
+					else {
+						var index = $jQ.inArray( '#'+ context, existingContexts );
+						existingContexts.splice( index, 1 );
+					}
+
+					// replace label and time spent
+
+					$jQ( '#timeline-item-'+ context +' span:first' ).text( '#'+ context );
+
+					if ( $jQ( '#timeline-item-'+ context +' span:last' ).text() == values.time_spent/4 +'h' )
+						// time has not changed -> do not adjust width unnecessarily
+						return;
+
+					$jQ( '#timeline-item-'+ context +' span:last' ).text( values.time_spent/4 +'h' );
+					$jQ( '#timeline-item-'+ context ).animate( 
+					{
+						width: (values.time_spent/48)*100 + '%',
+					}, 500 );
+				});
+
+				if ( existingContexts.length > 0 )
+				{
+					$jQ.each( existingContexts, function( index, entry )
+					{
+						$jQ( '#timeline-item-'+ entry.substring(1) ).remove();
+					});
+				}
+			}
+		});
 	}
 
 	//
@@ -348,15 +415,13 @@
 	var firePostUpdateActions = function( item )
 	{
 		// invoke all registered callbacks
-		for ( var i=0; i<invokeAfterTimesheetAjaxSuccess.length; i++ )
-			invokeAfterTimesheetAjaxSuccess.pop()(item);
-
-		//
-		fireUpdateSummary();
+		var callbacks = invokeAfterTimesheetAjaxSuccess.length;
+		for ( var i=0; i<callbacks; i++ )
+			invokeAfterTimesheetAjaxSuccess.shift()(item);
 	};
 
 	//
-	var fireUpdateSummary = function()
+	var updateTisheetSummary = function()
 	{
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
@@ -387,6 +452,9 @@
 
 				// update total time spent for the day
 				updateTisheetTotalTimeSpent();
+
+				updateTisheetTimeline();
+				updateTisheetSummary();
 			}
 		});
 	});

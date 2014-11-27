@@ -32,6 +32,24 @@ class TisheetController extends BaseController
     }
 
     /**
+    *
+    */
+    public function timeline( $day )
+    {
+        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' );
+
+        $timelineMap = array();
+        foreach( $timeline as $key => $element )
+        {
+            $timelineMap[ $element->prefLabel ] = array( 
+                'time_spent' =>  $element->total_time_spent,
+                'position' => $key );
+        }
+
+        return Response::json( $timelineMap );
+    }
+
+    /**
     *   Adds a new tisheet to the database.
     */
     public function add( $day )
