@@ -57,7 +57,10 @@
 
 	$jQ( function()
 	{
+		// updates total hours spent for the day
 		updateTisheetTotalTimeSpent();
+		// updates timeline summary for the day
+		updateTisheetTimeline();
 
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
@@ -320,6 +323,12 @@
 	{
 		count = $jQ( '#timesheet' ).find( '.time-spent-quarter-active' ).length;
 		$jQ( '.js-tisheet-today-total' ).text( count/4 + 'h');
+	}
+
+	//
+	var updateTisheetTimeline = function()
+	{
+		// TODO ZL
 	}
 
 	//

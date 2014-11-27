@@ -153,8 +153,11 @@
 	<div id='timeline-today' class='timeline-today'>
 	@foreach( $timeline as $element )
 		<? if( $element->prefLabel ) $label=$element->prefLabel; else $label='w/o context'; ?>
-		<div ts='{{ $element->total_time_spent }}'><span>{{ $label }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
+		<div id='timeline-item-{{ $label }}' ts='{{ $element->total_time_spent }}'><span>{{ $label }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
 	@endforeach
+
+		{{-- insert an empty cloneable div --}}
+		<div class='js-item-clonable element-hidden'><span class='timeline-label'></span><span class='timeline-time'></span></div>
 	</div>
 
 	<ul class='list-inline js-button-group'>
@@ -191,10 +194,13 @@
 	$jQ( function()
 	{
 		// update width of timeline
-		$jQ( '#timeline-today div' ).each( function()
+		$jQ( '#timeline-today div' ).not( '.js-item-clonable' ).each( function()
 		{
 			var ts = $jQ(this).attr( 'ts' );
-			$jQ(this).css( 'width', (ts/40)*100 + '%' );
+			$jQ(this).animate( 
+			{
+				width: (ts/40)*100 + '%',
+			}, 1000 );
 		});
 	});
 

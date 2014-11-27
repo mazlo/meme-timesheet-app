@@ -105,6 +105,9 @@ span.notification-negativ {
 	height: 28px; 
 	margin-bottom: 28px;
 }
+#timeline-today.timeline-today div.element-hidden {
+	display: none;
+}
 #timeline-today.timeline-today div {
 	display: inline-block; 
 	background: #c0c0c0; 
