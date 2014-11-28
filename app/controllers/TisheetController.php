@@ -17,7 +17,7 @@ class TisheetController extends BaseController
             ->orderBy( 'created_at' )
             ->get();
 
-        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' );
+        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
 
         $oneDay = 60*60*24;
 
@@ -36,7 +36,7 @@ class TisheetController extends BaseController
     */
     public function timeline( $day )
     {
-        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' );
+        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
 
         $timelineMap = array();
         foreach( $timeline as $key => $element )
