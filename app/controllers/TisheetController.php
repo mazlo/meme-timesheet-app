@@ -17,6 +17,8 @@ class TisheetController extends BaseController
             ->orderBy( 'created_at' )
             ->get();
 
+        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
+
         $oneDay = 60*60*24;
 
         return View::make( 'index' )
@@ -25,7 +27,18 @@ class TisheetController extends BaseController
             ->with( 'yesterday', date( 'Y-m-d', strtotime( $day ) - $oneDay ) )
             ->with( 'today', $day )
             // for tomorrow add 24h of the day given
-            ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) );
+            ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) )
+            ->with( 'timeline', $timeline );
+    }
+
+    /**
+    *
+    */
+    public function timeline( $day )
+    {
+        $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
+
+        return View::make( 'ajax.timeline' )->with( 'timeline', $timeline );
     }
 
     /**

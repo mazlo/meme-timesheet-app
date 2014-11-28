@@ -21,9 +21,7 @@ class SummaryController extends BaseController
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $periodConverted, $dayAsTime ) ) )
             ->where( 's.day', '<=', $day )
-            ->groupBy( 's.context' )
-            ->orderBy( 'total_time_spent', 'desc' )
-            ->get();
+            ->groupBy( 's.context' );
     }
 
     /**
@@ -31,7 +29,7 @@ class SummaryController extends BaseController
     */
     public function groupByContextByDayAndPeriod( $day, $period )
     {
-        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period );
+        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
 
         return View::make( 'ajax.summary' )
             ->with( 'summary', $sum )

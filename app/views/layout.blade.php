@@ -57,6 +57,7 @@
 
 	$jQ( function()
 	{
+		// updates total hours spent for the day
 		updateTisheetTotalTimeSpent();
 
 		$jQ( '#timesheet tbody' ).sortable(
@@ -268,6 +269,8 @@
 		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;
 		$jQ(this).closest( '.item' ).find( '.tisheet-total-time-spent' ).text( count/4 + 'h');
 
+		// register feature for post update
+
 		var item = $jQ(this).closest( '.item' );
 		
 		if ( item.attr( 'id' ) == 'undefined' )
@@ -276,11 +279,8 @@
 		else
 			updateTisheetTimeSpent( item );
 
-		// update total time spent for the day
+		// update total time spent for the day -> static
 		updateTisheetTotalTimeSpent();
-
-		// update summary
-		fireUpdateSummary();
 	});
 
 	//
@@ -311,6 +311,11 @@
 			type: 'put',
 			data: {
 				ts: count
+			},
+			success: function( data )
+			{
+				updateTisheetTimeline();
+				updateTisheetSummary();
 			}
 		});
 	};
@@ -320,6 +325,20 @@
 	{
 		count = $jQ( '#timesheet' ).find( '.time-spent-quarter-active' ).length;
 		$jQ( '.js-tisheet-today-total' ).text( count/4 + 'h');
+	}
+
+	//
+	var updateTisheetTimeline = function()
+	{
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/timeline';
+
+		$jQ.ajax({
+			url: url,
+			success: function( data )
+			{
+				$jQ( '#timeline-today' ).html( data );
+			}
+		});
 	}
 
 	//
@@ -339,15 +358,13 @@
 	var firePostUpdateActions = function( item )
 	{
 		// invoke all registered callbacks
-		for ( var i=0; i<invokeAfterTimesheetAjaxSuccess.length; i++ )
-			invokeAfterTimesheetAjaxSuccess.pop()(item);
-
-		//
-		fireUpdateSummary();
+		var callbacks = invokeAfterTimesheetAjaxSuccess.length;
+		for ( var i=0; i<callbacks; i++ )
+			invokeAfterTimesheetAjaxSuccess.shift()(item);
 	};
 
 	//
-	var fireUpdateSummary = function()
+	var updateTisheetSummary = function()
 	{
 		if ( $jQ( '#summary' ).is( ':not(:visible)' ) )
 			return;
@@ -378,6 +395,9 @@
 
 				// update total time spent for the day
 				updateTisheetTotalTimeSpent();
+
+				updateTisheetTimeline();
+				updateTisheetSummary();
 			}
 		});
 	});
