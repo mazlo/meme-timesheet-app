@@ -185,19 +185,6 @@
 	});
 @endif
 
-	$jQ( function()
-	{
-		// update width of timeline
-		$jQ( '#timeline-today div' ).not( '.js-item-clonable' ).each( function()
-		{
-			var ts = $jQ(this).attr( 'ts' );
-			$jQ(this).animate( 
-			{
-				width: (ts/48)*100 + '%',
-			}, 1000 );
-		});
-	});
-
 </script>
 
 
