@@ -151,9 +151,7 @@
 	</div>
 
 	<div id='timeline-today' class='timeline-today'>
-		{{-- ajax response here --}}
-		{{-- insert an empty cloneable div --}}
-		<div class='js-item-clonable element-hidden'><span class='timeline-label'></span><span class='timeline-time'></span></div>
+		@include( 'ajax.timeline' )
 	</div>
 
 	<ul class='list-inline js-button-group'>

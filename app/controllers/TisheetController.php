@@ -38,15 +38,7 @@ class TisheetController extends BaseController
     {
         $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
 
-        $timelineMap = array();
-        foreach( $timeline as $key => $element )
-        {
-            $timelineMap[ $element->prefLabel ] = array( 
-                'time_spent' =>  $element->total_time_spent,
-                'position' => $key );
-        }
-
-        return Response::json( $timelineMap );
+        return View::make( 'ajax.timeline' )->with( 'timeline', $timeline );
     }
 
     /**

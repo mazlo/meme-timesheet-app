@@ -59,8 +59,6 @@
 	{
 		// updates total hours spent for the day
 		updateTisheetTotalTimeSpent();
-		// updates timeline summary for the day
-		updateTisheetTimeline();
 
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
@@ -204,10 +202,6 @@
 				notifyUserOfChange( item );
 
 				firePostUpdateActions( item );
-
-				// update timeline if visible
-				if ( $jQ( '#timeline-today div' ).not( '.js-item-clonable' ).length > 0 )
-					updateTisheetTimeline();
 			}
 		});
 	});
@@ -340,60 +334,9 @@
 
 		$jQ.ajax({
 			url: url,
-			dataType: 'json',
 			success: function( data )
 			{
-				// collect existing contexts
-				var existingContexts = $jQ( '#timeline-today div' ).not( '.js-item-clonable' ).map( function()
-				{
-					return $jQ(this).find( 'span:first' ).text();
-				});
-
-				// handle json response
-				$jQ.each( data, function( context, values )
-				{
-					context = context == '' ? 'nolabel' : context.substring( 1 );
-
-					if ( $jQ.inArray( '#'+ context, existingContexts ) == -1 )
-					{
-						// if element does not exist -> create one
-
-						var toClone = $jQ( '#timeline-today div.js-item-clonable ' );
-						var clone = toClone.clone();
-
-						// set id and insert before the cloned element (which is hidden)
-						clone.attr( 'id', 'timeline-item-'+ context );
-						clone.insertBefore( toClone );
-						clone.removeClass( 'js-item-clonable element-hidden' );
-
-					}
-					else {
-						var index = $jQ.inArray( '#'+ context, existingContexts );
-						existingContexts.splice( index, 1 );
-					}
-
-					// replace label and time spent
-
-					$jQ( '#timeline-item-'+ context +' span:first' ).text( '#'+ context );
-
-					if ( $jQ( '#timeline-item-'+ context +' span:last' ).text() == values.time_spent/4 +'h' )
-						// time has not changed -> do not adjust width unnecessarily
-						return;
-
-					$jQ( '#timeline-item-'+ context +' span:last' ).text( values.time_spent/4 +'h' );
-					$jQ( '#timeline-item-'+ context ).animate( 
-					{
-						width: (values.time_spent/48)*100 + '%',
-					}, 500 );
-				});
-
-				if ( existingContexts.length > 0 )
-				{
-					$jQ.each( existingContexts, function( index, entry )
-					{
-						$jQ( '#timeline-item-'+ entry.substring(1) ).remove();
-					});
-				}
+				$jQ( '#timeline-today' ).html( data );
 			}
 		});
 	}
