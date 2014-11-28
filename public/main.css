@@ -114,7 +114,7 @@ span.notification-negativ {
 	border-radius: 0 13px 13px 0;
 	
 	margin-left: 13px;
-	min-width: 120px !important;
+	padding-right: 8px;
 }
 #timeline-today.timeline-today div span {
 	padding: 0 4px 0 8px;
