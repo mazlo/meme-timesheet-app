@@ -53,7 +53,7 @@
 
 <script type='text/javascript'>
 
-	invokeAfterTimesheetAjaxSuccess = [];
+	descriptionChangeListener = [];
 
 	$jQ( function()
 	{
@@ -201,7 +201,7 @@
 
 				notifyUserOfChange( item );
 
-				firePostUpdateActions( item );
+				invokeDescriptionChangeListener( item );
 			}
 		});
 	});
@@ -238,7 +238,7 @@
 				if ( value == '' || ( value != '' && oldNote == '' ) )
 					item.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
 
-				// we do not need to firePostUpdateActions here, since the note 
+				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
 			}
 		});
@@ -250,7 +250,7 @@
 		var item = $jQ(this).closest( '.item' );
 
 		if ( item.attr( 'id' ) == 'undefined' )
-			invokeAfterTimesheetAjaxSuccess.push( updateTisheetIsPlanned );
+			descriptionChangeListener.push( updateTisheetIsPlanned );
 		else
 			updateTisheetIsPlanned( item );
 	});
@@ -275,7 +275,7 @@
 		
 		if ( item.attr( 'id' ) == 'undefined' )
 			// tisheet without an id -> update when tisheet was saved
-			invokeAfterTimesheetAjaxSuccess.push( updateTisheetTimeSpent );
+			descriptionChangeListener.push( updateTisheetTimeSpent );
 		else
 			updateTisheetTimeSpent( item );
 
@@ -355,12 +355,12 @@
 	};
 
 	// 
-	var firePostUpdateActions = function( item )
+	var invokeDescriptionChangeListener = function( item )
 	{
 		// invoke all registered callbacks
-		var callbacks = invokeAfterTimesheetAjaxSuccess.length;
+		var callbacks = descriptionChangeListener.length;
 		for ( var i=0; i<callbacks; i++ )
-			invokeAfterTimesheetAjaxSuccess.shift()(item);
+			descriptionChangeListener.shift()(item);
 	};
 
 	//
@@ -492,7 +492,7 @@
 		if ( currentStopwachId == 'undefined' )
 		{
 			// register for post update
-			invokeAfterTimesheetAjaxSuccess.push( stopwatchToggleStatus );
+			descriptionChangeListener.push( stopwatchToggleStatus );
 
 			return;
 		}
@@ -524,7 +524,7 @@
 		{
 			// completes the quarter if it's done more than the half
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] > 7 )
-				updateQuarterTimeSpent( tisheet );
+				triggerQuarterTimeSpentClick( tisheet );
 
 			minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 
@@ -536,7 +536,7 @@
 			// start stopwatch with handler
 			interval = setInterval( function()
 			{
-				updateTime( tisheet );
+				checkTriggerQuarterTimeSpent( tisheet );
 			}, 1000*60 );
 
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
@@ -547,7 +547,7 @@
 	};
 
 	// check whether a quarter of an hour has passed
-	var updateTime = function( tisheet )
+	var checkTriggerQuarterTimeSpent = function( tisheet )
 	{	
 		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
 
@@ -557,7 +557,7 @@
 			return;
 		}
 
-		var nextQuarter = updateQuarterTimeSpent( tisheet );
+		var nextQuarter = triggerQuarterTimeSpentClick( tisheet );
 
 		// if the end was reached reset the interval and stopwatch icon
 		if ( nextQuarter == undefined )
@@ -575,7 +575,7 @@
 	};
 	
 	// updates the next time spent quarter
-	var updateQuarterTimeSpent = function( tisheet )
+	var triggerQuarterTimeSpentClick = function( tisheet )
 	{
 		// find the next not active quarter
 		var nextQuarter = tisheet.find( '.js-tisheet-time' ).filter( function()
