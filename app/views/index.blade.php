@@ -58,7 +58,7 @@
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif' style='padding-left: 3px'></span>
 				</td>
 				
-				<td class='js-tisheet-no'>{{ $key+1 }}.</td>
+				<td><span class='tisheet-no js-tisheet-no'>{{ $key+1 }}.</span></td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
@@ -68,7 +68,7 @@
 					</div>
 				</td>
 				
-				<td class='tisheet-time-spent'>
+				<td>
 
 				{{-- render actual time spent --}}
 				@for( $i=0; $i<$tisheet->time_spent; $i++ )
@@ -89,7 +89,7 @@
 				@endfor
 				</td>
 
-				<td class='tisheet-total-time-spent'>{{ $tisheet->time_spent*0.25 }}h</td>
+				<td><span class='tisheet-time-spent js-time-spent-quarter-spent'>{{ $tisheet->time_spent*0.25 }}h</span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
@@ -103,7 +103,7 @@
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
 				</td>
-				<td class='js-tisheet-no'></td>
+				<td><span class='tisheet-no js-tisheet-no'></span></td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
@@ -133,7 +133,7 @@
 					<span class='js-tisheet-time time-spent-quarter'></span>
 					<span class='js-tisheet-time time-spent-quarter'></span>
 				</td>
-				<td class='tisheet-total-time-spent'></td>
+				<td><span class='tisheet-time-spent js-time-spent-quarter-spent'></span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>

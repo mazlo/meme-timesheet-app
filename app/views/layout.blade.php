@@ -85,7 +85,7 @@
 				{
 					tids.push( $jQ(this).attr( 'id' ) );
 					// update position value in column 1
-					$jQ(this).find( '.js-tisheet-no' ).text( position++ +'.' );
+					$jQ(this).find( 'span.js-tisheet-no' ).text( position++ +'.' );
 				});
 
 				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
@@ -150,7 +150,7 @@
 		var trClone = tr.clone();
 
 		trClone.insertBefore( tr );
-		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
+		trClone.find( 'span.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-item-clonable element-hidden' );
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
