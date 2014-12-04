@@ -142,7 +142,7 @@
 
 			<tr class='timesheet-footer'>
 				<td colspan='4'>&nbsp;</td>
-				<td class='js-tisheet-today-total' style='border-top: 1px solid #ddd'></td>
+				<td><span class='time-spent-today js-time-spent-today'></span></td>
 			</tr>
 
 			</tbody>

@@ -58,7 +58,7 @@
 	$jQ( function()
 	{
 		// updates total hours spent for the day
-		updateTisheetTotalTimeSpent();
+		updateTisheetTimeSpentToday();
 
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
@@ -255,6 +255,22 @@
 			updateTisheetIsPlanned( item );
 	});
 
+	//
+	var updateTisheetIsPlanned = function( item )
+	{
+		// update object
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
+		var planned = item.find( '.js-tisheet-planned' ).is( ':checked' );
+
+		$jQ.ajax({
+			url: url,
+			type: 'put',
+			data: {
+				pl: planned
+			}
+		});
+	};
+
 	$jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 	{
 		// reset all coming quarters
@@ -275,32 +291,16 @@
 		
 		if ( item.attr( 'id' ) == 'undefined' )
 			// tisheet without an id -> update when tisheet was saved
-			descriptionChangeListener.push( updateTisheetTimeSpent );
+			descriptionChangeListener.push( updateTisheetTimeSpentQuarter );
 		else
-			updateTisheetTimeSpent( item );
+			updateTisheetTimeSpentQuarter( item );
 
 		// update total time spent for the day -> static
-		updateTisheetTotalTimeSpent();
+		updateTisheetTimeSpentToday();
 	});
 
 	//
-	var updateTisheetIsPlanned = function( item )
-	{
-		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
-		var planned = item.find( '.js-tisheet-planned' ).is( ':checked' );
-
-		$jQ.ajax({
-			url: url,
-			type: 'put',
-			data: {
-				pl: planned
-			}
-		});
-	};
-
-	//
-	var updateTisheetTimeSpent = function( item )
+	var updateTisheetTimeSpentQuarter = function( item )
 	{
 		// update object
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
@@ -321,10 +321,10 @@
 	};
 
 	//
-	var updateTisheetTotalTimeSpent = function()
+	var updateTisheetTimeSpentToday = function()
 	{
-		count = $jQ( '#timesheet' ).find( '.time-spent-quarter-active' ).length;
-		$jQ( '.js-tisheet-today-total' ).text( count/4 + 'h');
+		count = $jQ( '#timesheet' ).find( 'span.time-spent-quarter-active' ).length;
+		$jQ( 'span.js-time-spent-today' ).text( count/4 + 'h');
 	}
 
 	//
@@ -394,7 +394,7 @@
 				item.remove();
 
 				// update total time spent for the day
-				updateTisheetTotalTimeSpent();
+				updateTisheetTimeSpentToday();
 
 				updateTisheetTimeline();
 				updateTisheetSummary();
