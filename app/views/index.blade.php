@@ -89,7 +89,7 @@
 				@endfor
 				</td>
 
-				<td><span class='tisheet-time-spent js-time-spent-quarter-spent'>{{ $tisheet->time_spent*0.25 }}h</span></td>
+				<td><span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
@@ -133,7 +133,7 @@
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 				</td>
-				<td><span class='tisheet-time-spent js-time-spent-quarter-spent'></span></td>
+				<td><span class='tisheet-time-spent js-tisheet-time-spent'></span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>

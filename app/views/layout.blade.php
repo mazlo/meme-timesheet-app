@@ -283,7 +283,7 @@
 
 		// update ui
 		var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;
-		$jQ(this).closest( '.item' ).find( 'span.tisheet-time-spent' ).text( count/4 + 'h');
+		$jQ(this).closest( '.item' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
 
 		// register feature for post update
 
