@@ -255,19 +255,19 @@
 			updateTisheetIsPlanned( item );
 	});
 
-	$jQ( document ).on( 'click', '.js-tisheet-time', function()
+	$jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 	{
 		// reset all coming quarters
-		$jQ(this).nextAll( '.js-tisheet-time' ).removeClass( 'time-spent-quarter-active' );
+		$jQ(this).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
 
 		// update current
 		$jQ(this).addClass( 'time-spent-quarter-active' );
 		// update all previous quarters
-		$jQ(this).prevAll( '.js-tisheet-time' ).addClass( 'time-spent-quarter-active' );
+		$jQ(this).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
 
 		// update ui
-		var count = $jQ(this).parent().find( '.time-spent-quarter-active' ).length;
-		$jQ(this).closest( '.item' ).find( '.tisheet-total-time-spent' ).text( count/4 + 'h');
+		var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;
+		$jQ(this).closest( '.item' ).find( 'span.tisheet-time-spent' ).text( count/4 + 'h');
 
 		// register feature for post update
 
@@ -578,9 +578,9 @@
 	var triggerQuarterTimeSpentClick = function( tisheet )
 	{
 		// find the next not active quarter
-		var nextQuarter = tisheet.find( '.js-tisheet-time' ).filter( function()
+		var nextQuarter = tisheet.find( 'span.js-time-spent-quarter' ).filter( function()
 		{
-			if ( !$jQ(this).hasClass( 'js-tisheet-time' ) )
+			if ( !$jQ(this).hasClass( 'js-time-spent-quarter' ) )
 				return false;
 
 			if ( $jQ(this).hasClass( 'time-spent-quarter-active' ) )
