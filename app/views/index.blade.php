@@ -53,7 +53,7 @@
 
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
-				<td>
+				<td style='vertical-align: middle'>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif' style='padding-left: 3px'></span>
 				</td>
@@ -99,7 +99,7 @@
 
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
 			<tr class='item js-tisheet-options js-item-clonable element-hidden' id='undefined'>
-				<td>
+				<td style='vertical-align: middle'>
 					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
 					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
 				</td>

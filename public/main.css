@@ -251,14 +251,20 @@ ul.list-inline li .js-button-active {
 }
 
 tr.item {
-	vertical-align: middle;
+	vertical-align: top;
+}
+
+tr.item td span.tisheet-no,
+tr.item td span.tisheet-time-spent {
+	display: inline-block;
+	margin-top: 5px;
 }
 
 tr.item td {
 	padding: 4px 0;
 }
 
-.time-spent-quarter {
+td span.time-spent-quarter {
 	display: inline-block;
 	border: 1px #ccc solid;
 	background-color: #fff;
@@ -266,12 +272,12 @@ tr.item td {
 	width: 8px;
 	height: 18px;
 
-	margin-top: 3px;
+	margin-top: 6px;
 
 	cursor: pointer;
 }
 
-.time-spent-quarter-active {
+td span.time-spent-quarter-active {
 	background-color: #006699;
 }
 
@@ -285,9 +291,6 @@ tr.item td {
 
 .tisheet-time-spent {
 	padding-right: 13px;
-}
-
-.tisheet-total-time-spent {
 }
 
 div.summary-table {
