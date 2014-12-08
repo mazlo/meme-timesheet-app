@@ -42,6 +42,8 @@ Route::group( array( 'before' => 'auth' ), function()
 		return Redirect::to( '/tisheets/'. $time );
 	});
 
+	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
+
 	Route::get( '/tisheets/{day}', 'TisheetController@index' );
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
 

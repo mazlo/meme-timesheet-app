@@ -98,6 +98,26 @@
 				});
 			}
 		});
+
+    	var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/autocomplete';
+
+    	$jQ.ajax({
+    		url: url,
+    		type: 'get',
+    		success: function( data )
+    		{
+    			var items = eval( data );
+
+				$jQ( '.tisheet-description' )
+				.autocomplete(
+				{
+					source: items,
+					minLength: 2,
+					delay: 100
+			    });
+    		}
+    	});
+
 	});
 
 	// add new line to table or focus next textfield of next line

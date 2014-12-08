@@ -42,6 +42,24 @@ class TisheetController extends BaseController
     }
 
     /**
+    *
+    */
+    public function autocomplete( $day )
+    {
+        $dayAsTime = strtotime( $day );
+
+        // TODO ZL distinct
+        $tisheets = Tisheet::where( 'user_id', Auth::user()->id )
+            ->where( 'day', '>=', date( 'Y-m-d', strtotime( '-1 month', $dayAsTime ) ) )
+            ->where( 'day', '<=', $day )
+            ->orderBy( 'updated_at' )
+            ->get();
+
+        return View::make( 'ajax.tisheets-autocomplete' )
+            ->with( 'tisheets', $tisheets );
+    }
+
+    /**
     *   Adds a new tisheet to the database.
     */
     public function add( $day )
