@@ -139,7 +139,7 @@
 
 		if ( item.hasClass( 'item' ) )
 		{
-			// event was fired in textarea
+			// event was fired in textfield
 			
 			if ( target.attr( 'value' ) == '' )
 				// ignore when fired from empty textfield
