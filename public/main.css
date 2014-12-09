@@ -334,3 +334,26 @@ div.summary-table div.variable-background span {
 .element-float-right {
 	float: right;
 }
+
+/* -------------- */
+
+.ui-autocomplete {
+	background: #fafafa;
+	border: 1px solid #ccc;
+
+	max-width: 575px;
+	max-height: 128px;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-autocomplete a,
+ {
+	border: 0;
+ }
+.ui-menu .ui-menu-item a.ui-state-focus {
+	background: #e0e0e0;
+	border: 0;
+	margin: 0;
+}
