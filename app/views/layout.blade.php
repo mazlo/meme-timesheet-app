@@ -61,6 +61,9 @@
 		// updates total hours spent for the day
 		updateTisheetTimeSpentToday();
 
+		// 
+		addAutocompleteOnTisheetDescription();
+
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
 			cursor: 'move',
@@ -99,25 +102,6 @@
 				});
 			}
 		});
-
-    	var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/autocomplete';
-
-    	$jQ.ajax({
-    		url: url,
-    		type: 'get',
-    		success: function( data )
-    		{
-    			autocompleteItems = eval( data );
-
-				$jQ( '.tisheet-description' )
-				.autocomplete(
-				{
-					source: autocompleteItems,
-					minLength: 2,
-					delay: 100
-			    });
-    		}
-    	});
 
 	});
 
@@ -199,8 +183,10 @@
 		trClone.find( 'span.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-item-clonable element-hidden' );
 		
+		// invoke manually to prevent asynchronous side effects
 		target.blur();
 		trClone.find( 'input.tisheet-description' ).focus();
+		// add autocomplete functionality
 		trClone.find( 'input.tisheet-description' ).autocomplete(
 		{
 			source: autocompleteItems,
@@ -424,6 +410,28 @@
 			return;
 
 		$jQ( '#summary a.js-button-summary.js-button-active' ).click();
+	}
+
+	//
+	var addAutocompleteOnTisheetDescription = function()
+	{
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/autocomplete';
+
+    	$jQ.ajax({
+    		url: url,
+    		type: 'get',
+    		success: function( data )
+    		{
+    			autocompleteItems = eval( data );
+
+				$jQ( '.tisheet-description' ).autocomplete(
+				{
+					source: autocompleteItems,
+					minLength: 2,
+					delay: 100
+			    });
+    		}
+    	});
 	}
 
 	//
