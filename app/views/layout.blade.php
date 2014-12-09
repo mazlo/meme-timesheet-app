@@ -136,9 +136,18 @@
 			if ( target.hasClass( 'tisheet-note' ) )
 				target.val( oldNote );
 			else if ( target.hasClass( 'tisheet-description' ) )
-				target.val( oldDescription );
+			{
+				// remove whole line when textfield is empty
+				if ( target.val() == '' )
+					item.remove();
+				// replace with old value and blur
+				else
+				{
+					target.val( oldDescription );
+					target.blur();
+				}
+			}
 
-			target.blur();
 			return;
 		}
 
