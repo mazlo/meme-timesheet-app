@@ -123,12 +123,24 @@
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
 	{
-		if ( event.keyCode != 13 )
+		if ( event.keyCode != 13 && event.keyCode != 27 )
 			return;
 
 		var target = $jQ( event.target );
 
-		// ignore textareas
+		// focusout on escape key
+		if ( event.keyCode == 27 )
+		{
+			if ( target.hasClass( 'tisheet-note' ) )
+				target.val( oldNote );
+			else if ( target.hasClass( 'tisheet-description' ) )
+				target.val( oldDescription );
+
+			target.blur();
+			return;
+		}
+
+		// ignore textareas from here
 		if ( target.hasClass( 'tisheet-note' ) )
 			return;
 
@@ -137,27 +149,32 @@
 		// the line to clone
 		var tr = $jQ( 'tr.js-item-clonable' );
 
+		// event fires in textfield
 		if ( item.hasClass( 'item' ) )
 		{
-			// event was fired in textfield
-			
-			if ( target.attr( 'value' ) == '' )
-				// ignore when fired from empty textfield
+			// ignore when fired from empty textfield
+			if ( target.val() == '' )
 				return;
 
+			// focus next textfield when fired NOT from the last textfield
 			if ( tr.index() - item.index() > 1 )
 			{
-				// focus next textfield when fired NOT from the last textfield
+				target.blur(); // first focusout, then focus in. otherwise request of change will fire
 				item.next().find( 'input.tisheet-description' ).focus();
+
 				return;
 			}
-		} 
-		
-		else if ( tr.index() == 2 ) 
-		{
-			// event was fired from document
 
-			// focus first textfield if it is empty
+			// focus out after hitting enter
+			target.blur();
+			return;
+		} 
+
+		// event fires in document
+
+		// focus first textfield if it is empty
+		else if ( tr.index() >= 2 ) 
+		{
 			var textfield = tr.prev().find( 'input.tisheet-description' );
 			
 			if ( textfield.val() == '' )
@@ -172,6 +189,8 @@
 		trClone.insertBefore( tr );
 		trClone.find( 'span.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-item-clonable element-hidden' );
+		
+		target.blur();
 		trClone.find( 'input.tisheet-description' ).focus();
 	});
 
@@ -202,7 +221,7 @@
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ item.attr( 'id' ) : '' );
 		var type = hasId ? 'put' : 'post';
 
-		// active loading icon
+		// activate loading icon
 		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
