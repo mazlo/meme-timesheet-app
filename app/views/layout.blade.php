@@ -54,6 +54,7 @@
 <script type='text/javascript'>
 
 	descriptionChangeListener = [];
+	autocompleteItems = [];
 
 	$jQ( function()
 	{
@@ -106,12 +107,12 @@
     		type: 'get',
     		success: function( data )
     		{
-    			var items = eval( data );
+    			autocompleteItems = eval( data );
 
 				$jQ( '.tisheet-description' )
 				.autocomplete(
 				{
-					source: items,
+					source: autocompleteItems,
 					minLength: 2,
 					delay: 100
 			    });
