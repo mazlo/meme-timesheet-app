@@ -128,6 +128,7 @@
 			return;
 
 		var target = $jQ( event.target );
+		var item = target.closest( '.item' );
 
 		// focusout on escape key
 		if ( event.keyCode == 27 )
@@ -144,8 +145,6 @@
 		// ignore textareas from here
 		if ( target.hasClass( 'tisheet-note' ) )
 			return;
-
-		var item = target.closest( '.item' );
 
 		// the line to clone
 		var tr = $jQ( 'tr.js-item-clonable' );
@@ -193,6 +192,12 @@
 		
 		target.blur();
 		trClone.find( 'input.tisheet-description' ).focus();
+		trClone.find( 'input.tisheet-description' ).autocomplete(
+		{
+			source: autocompleteItems,
+			minLength: 2,
+			delay: 100
+	    });
 	});
 
 	$jQ( document ).on( 'focusin', 'input.tisheet-description', function()
