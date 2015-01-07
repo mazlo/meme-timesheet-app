@@ -53,9 +53,9 @@
 
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
-				<td style='vertical-align: middle'>
-					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
-					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif' style='padding-left: 3px'></span>
+				<td>
+					<span class='octicon octicon-trashcan octicon-tisheet element-invisible'></span>
+					<span class='octicon octicon-info octicon-tisheet @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
 				</td>
 				
 				<td><span class='tisheet-no js-tisheet-no'>{{ $key+1 }}.</span></td>
