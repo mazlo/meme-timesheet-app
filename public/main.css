@@ -236,6 +236,15 @@ ul.list-inline-padded {
 	margin: 13px;
 }
 
+/* additional constraint for right-floated option list */
+.options-right-oriented ul.list-inline li {
+	display: inline-block; 
+	
+	margin-right: 0;
+	margin-left: 23px;
+	padding: 4px 13px;
+}
+
 ul.list-inline li {
 	display: inline-block; 
 	

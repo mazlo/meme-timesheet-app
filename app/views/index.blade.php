@@ -6,7 +6,7 @@
 
 @section( 'header' )
 
-	<div class='options element-float-right'>
+	<div class='options options-right-oriented element-float-right'>
 		<ul class='list-inline'>
 			<li>Hello {{ Auth::user()->username }}</li>
 			<li><a href='{{ url( "logout" ) }}' class='option'>logout</a></li>
