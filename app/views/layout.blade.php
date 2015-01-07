@@ -53,6 +53,8 @@
 
 <script type='text/javascript'>
 
+@if( Auth::check() ) {{-- add javascript functionality only when user is logged in --}}
+
 	descriptionChangeListener = [];
 	autocompleteItems = [];
 
@@ -432,6 +434,8 @@
 			    });
     		}
     	});
+
+    	return false;
 	}
 
 	//
@@ -665,6 +669,8 @@
 	{
 		return $jQ( element ).closest( 'tr.item' ).attr( 'id' );
 	}
+
+@endif
 
 </script>
 
