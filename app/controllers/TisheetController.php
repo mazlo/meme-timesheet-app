@@ -52,7 +52,9 @@ class TisheetController extends BaseController
         $tisheets = Tisheet::where( 'user_id', Auth::user()->id )
             ->where( 'day', '>=', date( 'Y-m-d', strtotime( '-1 month', $dayAsTime ) ) )
             ->where( 'day', '<=', $day )
-            ->orderBy( 'updated_at' )
+            ->whereNotNull( 'description' )
+            ->orderBy( 'updated_at', 'desc' )
+            ->groupBy( 'description' )
             ->get();
 
         return View::make( 'ajax.tisheets-autocomplete' )
