@@ -552,16 +552,7 @@
 		var stopwatch = $jQ(this);
 		var tisheet = stopwatch.closest( 'tr.item' );
 
-		var currentStopwachId = getTisheetId( stopwatch );
-
-		// start only if id was already assigned
-		if ( currentStopwachId == 'undefined' )
-		{
-			// register for post update
-			descriptionChangeListener.push( stopwatchToggleStatus );
-
-			return;
-		}
+		var currentStopwatchId = getTisheetId( stopwatch );
 
 		// change status of running stopwatch
 
@@ -571,13 +562,18 @@
 			var activeStopwatchId = getTisheetId( runningStopwatch );
 			
 			// but only if it's not the current stopwatch
-			if ( activeStopwatchId != currentStopwachId )
+			if ( activeStopwatchId != currentStopwatchId )
 				stopwatchToggleStatus( runningStopwatch.closest( 'tr.item' ) );
 		}
 
-		// change status of pressed stopwatch
+		// change status of stopwatch now
 
-		stopwatchToggleStatus( tisheet );
+		if ( currentStopwatchId == 'undefined' )
+			// register for post update description field
+			descriptionChangeListener.push( stopwatchToggleStatus );
+		else
+			// change status of pressed stopwatch now
+			stopwatchToggleStatus( tisheet );
 	});
 
 	// starts or stops the stopwatch for the given tisheet
