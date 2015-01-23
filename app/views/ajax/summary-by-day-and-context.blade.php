@@ -14,7 +14,7 @@
 	<tr>
 
 		<? $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
-		<td>@if ( $day != $currentDay ) {{ $currentDay }} <? $day = $currentDay ?> @endif</td>
+		<td>@if ( $day != $currentDay ) <a href='{{ url( "tisheets/". substr( $tisheet->day, 0, 10 ) ) }}'>{{ $currentDay }}</a> <? $day = $currentDay ?> @endif</td>
 		<td>
 			<div class='js-variable-background variable-background' ts='{{ $tisheet->time_spent }}'>
 				<span>{{ $tisheet->time_spent/4 }}h {{ $tisheet->subContext }}</span>

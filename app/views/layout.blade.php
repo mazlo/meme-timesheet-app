@@ -188,6 +188,7 @@
 		// invoke manually to prevent asynchronous side effects
 		target.blur();
 		trClone.find( 'input.tisheet-description' ).focus();
+
 		// add autocomplete functionality
 		trClone.find( 'input.tisheet-description' ).autocomplete(
 		{
