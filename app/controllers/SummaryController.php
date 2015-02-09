@@ -7,21 +7,21 @@ class SummaryController extends BaseController
     */
     public static function byDayAndPeriodGroupByContext( $day, $period )
     {
-        $dayAsTime = strtotime( $day );
+        $relativeDayAsTime = strtotime( $day );
         
         if ( $period == 'week' )
-            $periodConverted = 'last monday';
+            $startDate = 'last monday';
         else if ( $period == 'month' )
-            $periodConverted = 'first day of '. date( 'M', $dayAsTime );
+            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
         else if ( $period == 'year' )
-            $periodConverted = 'first day of Jan';
+            $startDate = 'first day of Jan';
         else
-            $periodConverted = 'today';
+            $startDate = 'today';
 
         return DB::table( 'summary_by_context as s' )
             ->select( 's.context as prefLabel', DB::raw( 'sum( s.time_spent ) as total_time_spent' ) )
             ->where( 's.user_id', Auth::user()->id )
-            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $periodConverted, $dayAsTime ) ) )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
             ->groupBy( 's.context' );
     }
