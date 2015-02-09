@@ -256,7 +256,7 @@ ul.list-inline li {
 	display: inline-block; 
 	
 	margin-right: 23px;
-	padding: 4px 13px;
+	padding: 4px 9px 4px 13px;
 }
 
 ul.list-inline li .js-button {

@@ -1,7 +1,8 @@
 <ul class='list-inline list-inline-padded js-button-group'>
 	<li><a href='{{ url( "tisheets/$today/summary/today/groupby/contexts" ) }}' class='js-button @if( $option == "today" ) js-button-active @endif js-button-summary'>today</a></li>
-	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-button-summary'>last week</a></li>
-	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-button-summary'>last month</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-button-summary'>current week</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/month/groupby/contexts" ) }}' class='js-button @if( $option == "month" ) js-button-active @endif js-button-summary'>current month</a></li>
+	<li><a href='{{ url( "tisheets/$today/summary/year/groupby/contexts" ) }}' class='js-button @if( $option == "year" ) js-button-active @endif js-button-summary'>current year</a></li>
 </ul>
 
 <div id='summary-by-context' tts='' class='summary-table element-float-left'>
@@ -12,8 +13,8 @@
 		</colgroup>
 		
 		<tr>
-			<th>Main Context</th>
-			<th>Total Time Spent</th>
+			<th>Main Contexts</th>
+			<th>Total Time Spent in Context</th>
 		</tr>
 
 	<? $tts = 0 ?>

@@ -12,7 +12,9 @@ class SummaryController extends BaseController
         if ( $period == 'week' )
             $periodConverted = 'last monday';
         else if ( $period == 'month' )
-            $periodConverted = '-1 month';
+            $periodConverted = 'first day of '. date( 'M', $dayAsTime );
+        else if ( $period == 'year' )
+            $periodConverted = 'first day of Jan';
         else
             $periodConverted = 'today';
 
