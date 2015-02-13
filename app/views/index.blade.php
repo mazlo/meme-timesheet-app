@@ -54,14 +54,14 @@
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
 				<td>
-					<span class='octicon octicon-trashcan octicon-tisheet element-invisible'></span>
-					<span class='octicon octicon-info octicon-tisheet @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
+					<span class='octicon octicon-trashcan element-invisible'></span>
+					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
 				</td>
 				
 				<td><span class='tisheet-no js-tisheet-no'>{{ $key+1 }}.</span></td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
@@ -99,14 +99,14 @@
 
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
 			<tr class='item js-tisheet-options js-item-clonable element-hidden' id='undefined'>
-				<td style='vertical-align: middle'>
-					<span class='octicon octicon-trashcan element-invisible' style='padding-left: 3px'></span>
-					<span class='octicon octicon-info element-invisible' style='padding-left: 3px'></span>
+				<td>
+					<span class='octicon octicon-trashcan element-invisible'></span>
+					<span class='octicon octicon-info element-invisible'></span>
 				</td>
 				<td><span class='tisheet-no js-tisheet-no'></span></td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible' style='padding-left: 3px'></span>
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'></textarea>
