@@ -12,6 +12,10 @@
 
 ## features
 
+### stopwatch
+
+* add grey icon to indicate loading? sometime the website is slow. 
+
 ### summary
 
 * last quarter, last year
