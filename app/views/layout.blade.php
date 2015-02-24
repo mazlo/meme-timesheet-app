@@ -552,26 +552,26 @@
 	//
 	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
 	{
-		var stopwatch = $jQ(this);
-		var tisheet = stopwatch.closest( 'tr.item' );
+		var requestedStopwatch = $jQ(this);
+		var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
 
-		var currentStopwatchId = getTisheetId( stopwatch );
+		var requestedStopwatchId = getTisheetId( requestedStopwatch );
 
 		// change status of running stopwatch
 
 		var runningStopwatch = $jQ( '#timesheet' ).find( 'span.octicon-playback-pause' );
 		if ( runningStopwatch.length > 0 )
 		{
-			var activeStopwatchId = getTisheetId( runningStopwatch );
+			var runningStopwatchId = getTisheetId( runningStopwatch );
 			
 			// but only if it's not the current stopwatch
-			if ( activeStopwatchId != currentStopwatchId )
-				stopwatchToggleStatus( runningStopwatch.closest( 'tr.item' ) );
+			if ( runningStopwatchId != requestedStopwatchId )
+				stopwatchToggleStatus( runningStopwatch.closest( 'tr.js-tisheet' ) );
 		}
 
 		// change status of stopwatch now
 
-		if ( currentStopwatchId == 'undefined' )
+		if ( requestedStopwatchId == 'undefined' )
 			// register for post update description field
 			descriptionChangeListener.push( stopwatchToggleStatus );
 		else
@@ -583,7 +583,7 @@
 	var stopwatchToggleStatus = function ( tisheet )
 	{
 		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
-		var tisheet = stopwatch.closest( 'tr.item' );
+		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
 
 		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
 		{
