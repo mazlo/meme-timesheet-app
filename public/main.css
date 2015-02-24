@@ -267,17 +267,17 @@ ul.list-inline li .js-button-active {
 	color: #565656;
 }
 
-tr.item {
+tr.tisheet {
 	vertical-align: top;
 }
 
-tr.item td span.tisheet-no,
-tr.item td span.tisheet-time-spent {
+tr.tisheet td span.tisheet-no,
+tr.tisheet td span.tisheet-time-spent {
 	display: inline-block;
 	margin-top: 5px;
 }
 
-tr.item td {
+tr.tisheet td {
 	padding: 4px 0;
 }
 

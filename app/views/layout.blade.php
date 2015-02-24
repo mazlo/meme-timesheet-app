@@ -69,7 +69,7 @@
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
 			cursor: 'move',
-			items: $jQ( '#timesheet .item' ).not( '.js-item-clonable, .timesheet-footer' ),
+			items: $jQ( '#timesheet tr.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' ),
 			helper: function( e, element ) 
 			{
 				// Return a helper with preserved width of cells
@@ -83,7 +83,7 @@
 			update: function( e, ui )
 			{
 				var tids = [];
-				var items = $jQ(this).find( '.item' ).not( '.js-item-clonable, .timesheet-footer' );
+				var items = $jQ(this).find( 'tr.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' );
 
 				// collect all ids in the correct order and btw. reset position value
 				var position = 1;
@@ -114,7 +114,7 @@
 			return;
 
 		var target = $jQ( event.target );
-		var item = target.closest( '.item' );
+		var tisheet = target.closest( 'tr.js-tisheet' );
 
 		// focusout on escape key
 		if ( event.keyCode == 27 )
@@ -125,8 +125,8 @@
 			else if ( target.hasClass( 'tisheet-description' ) )
 			{
 				// remove whole line when textfield is empty, but ignore first element
-				if ( target.val() == '' && item.index() != 1 )
-					item.remove();
+				if ( target.val() == '' && tisheet.index() != 1 )
+					tisheet.remove();
 
 				// replace with old value and blur
 				else
@@ -144,20 +144,20 @@
 			return;
 
 		// the line to clone
-		var tr = $jQ( 'tr.js-item-clonable' );
+		var tr = $jQ( 'tr.js-tisheet-clonable' );
 
 		// event fires in textfield
-		if ( item.hasClass( 'item' ) )
+		if ( tisheet.hasClass( 'js-tisheet' ) )
 		{
 			// ignore when fired from empty textfield
 			if ( target.val() == '' )
 				return;
 
 			// focus next textfield when fired NOT from the last textfield
-			if ( tr.index() - item.index() > 1 )
+			if ( tr.index() - tisheet.index() > 1 )
 			{
 				target.blur(); // first focusout, then focus in. otherwise request of change will fire
-				item.next().find( 'input.tisheet-description' ).focus();
+				tisheet.next().find( 'input.tisheet-description' ).focus();
 
 				return;
 			}
@@ -185,7 +185,7 @@
 
 		trClone.insertBefore( tr );
 		trClone.find( 'span.js-tisheet-no' ).text( trClone.index()+ '.' );
-		trClone.removeClass( 'js-item-clonable element-hidden' );
+		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
 		
 		// invoke manually to prevent asynchronous side effects
 		target.blur();
@@ -214,7 +214,7 @@
 	$jQ( document ).on( 'focusout', 'input.tisheet-description', function()
 	{
 		var value = $jQ(this).val();
-		var item = $jQ(this).closest( '.item' );
+		var tisheet = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( oldDescription == value )
 			return;	// ignore if nothing changed
@@ -222,13 +222,13 @@
 		if ( value.trim() == '' )
 			return;	// ignore empty values
 
-		var hasId = item.attr( 'id' ) != 'undefined' ? true : false;
+		var hasId = tisheet.attr( 'id' ) != 'undefined' ? true : false;
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ item.attr( 'id' ) : '' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ tisheet.attr( 'id' ) : '' );
 		var type = hasId ? 'put' : 'post';
 
 		// activate loading icon
-		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -242,11 +242,11 @@
 					alert( 'error' );
 
 				if ( data > 0 )
-					item.attr( 'id', data );
+					tisheet.attr( 'id', data );
 
-				notifyUserOfChange( item );
+				notifyUserOfChange( tisheet );
 
-				invokeDescriptionChangeListener( item );
+				invokeDescriptionChangeListener( tisheet );
 			}
 		});
 	});
@@ -255,7 +255,7 @@
 	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
 	{
 		var value = $jQ(this).val();
-		var item = $jQ(this).closest( '.item' );
+		var item = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
@@ -292,7 +292,7 @@
 	// 
 	$jQ( document ).on( 'change', '.js-tisheet-planned', function()
 	{
-		var item = $jQ(this).closest( '.item' );
+		var item = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( item.attr( 'id' ) == 'undefined' )
 			descriptionChangeListener.push( updateTisheetIsPlanned );
@@ -328,11 +328,11 @@
 
 		// update ui
 		var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;
-		$jQ(this).closest( '.item' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
+		$jQ(this).closest( 'tr.js-tisheet' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
 
 		// register feature for post update
 
-		var item = $jQ(this).closest( '.item' );
+		var item = $jQ(this).closest( 'tr.js-tisheet' );
 		
 		if ( item.attr( 'id' ) == 'undefined' )
 			// tisheet without an id -> update when tisheet was saved
@@ -444,7 +444,7 @@
 	//
 	$jQ( document ).on( 'click', '.octicon-trashcan', function()
 	{
-		var item = $jQ(this).closest( '.item' );
+		var item = $jQ(this).closest( 'tr.js-tisheet' );
 
 		// do not delete items with no id
 		if ( item.attr( 'id' ) == 'undefined' )
@@ -474,7 +474,7 @@
 	//
 	$jQ( document ).on( 'click', '.octicon-info', function()
 	{
-		var item = $jQ(this).closest( '.item' );
+		var item = $jQ(this).closest( 'tr.js-tisheet' );
 		var note = item.find( '.js-tisheet-note' );
 
 		note.toggleClass( 'element-hidden' );
@@ -666,7 +666,13 @@
 	// 
 	var getTisheetId = function( element )
 	{
-		return $jQ( element ).closest( 'tr.item' ).attr( 'id' );
+		return $jQ( element ).closest( 'tr.js-tisheet' ).attr( 'id' );
+	}
+
+	//
+	var getTisheet = function( element )
+	{
+		return $jQ( element ).closest( 'tr.js-tisheet' );
 	}
 
 @endif

@@ -52,7 +52,7 @@
 			</tr>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='item js-tisheet-options' id='{{ $tisheet->id}}'>
+			<tr class='tisheet js-tisheet js-tisheet-options' id='{{ $tisheet->id}}'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
@@ -98,7 +98,7 @@
 		@endforeach
 
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
-			<tr class='item js-tisheet-options js-item-clonable element-hidden' id='undefined'>
+			<tr class='tisheet js-tisheet js-tisheet-options js-tisheet-clonable element-hidden' id='undefined'>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible'></span>
 					<span class='octicon octicon-info element-invisible'></span>
@@ -175,13 +175,13 @@
 	$jQ( function()
 	{
 		// find the cloneable tr and clone it
-		var trEmpty = $jQ( '.js-item-clonable' );
+		var trEmpty = $jQ( 'tr.js-tisheet-clonable' );
 		var trClone = trEmpty.clone();
 
 		// insert before the cloneable tr and show
 		trClone.insertBefore( trEmpty );
 		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
-		trClone.removeClass( 'js-item-clonable element-hidden' );
+		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
 	});
 @endif
 
