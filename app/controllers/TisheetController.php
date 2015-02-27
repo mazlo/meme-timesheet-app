@@ -87,7 +87,7 @@ class TisheetController extends BaseController
         
         $tisheet->save();
 
-        return $tisheet->id;
+        return Response::json( array( 'status' => 'ok', 'action' => 'add', 'id' => $tisheet->id ) );
     }
 
     /**
@@ -130,7 +130,7 @@ class TisheetController extends BaseController
 
         $tisheet->save();
 
-        return 'true';
+        return Response::json( array( 'status' => 'ok', 'action' => 'update', 'id' => $tisheet->id, 'tm' => $tisheet->time_start ) );
     }
 
     /**

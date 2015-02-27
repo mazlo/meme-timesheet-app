@@ -230,16 +230,19 @@
 		$jQ.ajax({
 			url: url,
 			type: type,
+			dataType: 'json',
 			data: {
 				vl: value
 			},
-			success: function( data )
+			success: function( obj )
 			{
-				if ( data == 'false' )
+				if ( obj.status !== 'ok' )
 					alert( 'error' );
 
-				if ( data > 0 )
-					tisheet.attr( 'id', data );
+				if ( obj.action === 'add' )
+					tisheet.attr( 'id', obj.id );
+				else if ( obj.action === 'update' )
+					tisheet.find( 'span.js-tisheet-time-start' ).text( obj.tm );
 
 				notifyUserOfChange( tisheet );
 
