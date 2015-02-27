@@ -122,8 +122,8 @@
 
 			else if ( target.hasClass( 'tisheet-description' ) )
 			{
-				// remove whole line when textfield is empty, but ignore first element
-				if ( target.val() == '' && tisheet.index() != 1 )
+				// remove whole line when textfield is empty, but ignore first element and if it has an id
+				if ( target.val() == '' && tisheet.index() != 1 && tisheet.attr( 'id' ) == 'undefined' )
 					tisheet.remove();
 
 				// replace with old value and blur
