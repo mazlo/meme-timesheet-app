@@ -242,7 +242,7 @@
 				if ( obj.action === 'add' )
 					tisheet.attr( 'id', obj.id );
 
-				if ( obj.tm !== '' )
+				if ( obj.tm )
 					tisheet.find( 'span.js-tisheet-time-start' ).text( obj.tm );
 
 				notifyUserOfChange( tisheet );
