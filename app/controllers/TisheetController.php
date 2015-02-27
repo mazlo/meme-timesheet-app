@@ -196,7 +196,7 @@ class TisheetController extends BaseController
 			// from an array of Contexts that was parsed from the text
 			array_filter( explode( ' ', $value ), function( $word )
 			{
-                if( empty( $word ) )
+                if( empty( $word ) || strlen( $word ) == 1 )
                     return false;
 
 				if( $word{0} == '#' )
