@@ -155,7 +155,7 @@
 		@include( 'ajax.timeline' )
 	</div>
 
-	<ul class='list-inline js-button-group'>
+	<ul class='list-inline js-button-group' style='margin-left: 11px'>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button js-button-summary'>show summary by contexts</a></li>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
 	</ul>
