@@ -15,11 +15,8 @@
 ### stopwatch
 
 * add grey icon to indicate loading? sometime the website is slow. 
-
+ 
 ### summary
-
-* last quarter, last year
-* list “sub contexts” by clicking on context
 
 * shortcut application to send wget calls to post new tisheets
 
