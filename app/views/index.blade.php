@@ -34,19 +34,19 @@
 			
 			<colgroup>
 				<col width='4%'>
-				<col width='3%'>
-				<col width='55%'>
-				<col width='25%'>
+				<col width='52%'>
+				<col width='24%'>
+				<col width='6%'>
 				<col width='4%'>
-				<col width='4%'>
+				<col width='5%'>
 			</colgroup>
 			
 			<tbody>
 			<tr class='timesheet-header'>
 				<th></th>
-				<th>No.</th>
 				<th>Task Description (planned?)</th>
 				<th>Time Spent / Estimate Time</th>
+				<th>Started</th>
 				<th>Total</th>
 				<th></th>
 			</tr>
@@ -58,7 +58,6 @@
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
 				</td>
 				
-				<td><span class='tisheet-no js-tisheet-no'>{{ $key+1 }}.</span></td>
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
@@ -89,6 +88,8 @@
 				@endfor
 				</td>
 
+				<td><span class='tisheet-time-start js-tisheet-time-start'>{{ $tisheet->time_start }}</span></td>
+
 				<td><span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
@@ -103,7 +104,6 @@
 					<span class='octicon octicon-trashcan element-invisible'></span>
 					<span class='octicon octicon-info element-invisible'></span>
 				</td>
-				<td><span class='tisheet-no js-tisheet-no'></span></td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
@@ -133,6 +133,7 @@
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 				</td>
+				<td><span class='tisheet-time-start js-tisheet-time-start'></span></td>
 				<td><span class='tisheet-time-spent js-tisheet-time-spent'></span></td>
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
@@ -180,7 +181,6 @@
 
 		// insert before the cloneable tr and show
 		trClone.insertBefore( trEmpty );
-		trClone.find( '.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
 	});
 @endif

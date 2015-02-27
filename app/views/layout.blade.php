@@ -90,8 +90,6 @@
 				items.each( function()
 				{
 					tids.push( $jQ(this).attr( 'id' ) );
-					// update position value in column 1
-					$jQ(this).find( 'span.js-tisheet-no' ).text( position++ +'.' );
 				});
 
 				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
@@ -184,7 +182,6 @@
 		var trClone = tr.clone();
 
 		trClone.insertBefore( tr );
-		trClone.find( 'span.js-tisheet-no' ).text( trClone.index()+ '.' );
 		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
 		
 		// invoke manually to prevent asynchronous side effects
@@ -345,17 +342,19 @@
 	});
 
 	//
-	var updateTisheetTimeSpentQuarter = function( item )
+	var updateTisheetTimeSpentQuarter = function( tisheet )
 	{
 		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
-		var count = item.find( '.time-spent-quarter-active' ).length;
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ tisheet.attr( 'id' );
+		var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
+		var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
 
 		$jQ.ajax({
 			url: url,
 			type: 'put',
 			data: {
-				ts: count
+				ts: count,
+				tm: time
 			},
 			success: function( data )
 			{
@@ -606,6 +605,11 @@
 
 			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
 				minutesByTisheets[ tisheet.attr( 'id' ) ] = 1;
+
+			// update tisheet start field only once
+			var time = tisheet.find( 'span.js-tisheet-time-start' );
+			if ( time.text() == '' )
+				time.text( new Date().toTimeString().substring(0,5) );
 		}
 
 		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );

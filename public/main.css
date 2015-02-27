@@ -271,10 +271,16 @@ tr.tisheet {
 	vertical-align: top;
 }
 
-tr.tisheet td span.tisheet-no,
+tr.tisheet td span.tisheet-time-start,
 tr.tisheet td span.tisheet-time-spent {
 	display: inline-block;
-	margin-top: 5px;
+	margin-top: 6px;
+}
+
+tr.tisheet td span.tisheet-time-start
+{
+	font-weight: lighter;
+	color: #ccc;
 }
 
 tr.tisheet td {
