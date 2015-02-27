@@ -80,12 +80,7 @@ class TisheetController extends BaseController
             
             // sync Contexts of Tisheet
             TisheetController::syncContexts( $tisheet, $value );
-
-            $startTime = Input::get( 'st' );
-
-            // check if start time is already available
-            if ( !empty( $startTime ) )
-                $tisheet->start_time = $startTime;
+            TisheetController::syncTime( $tisheet, $value );
 
             $tisheet->description = $value;
         }
@@ -115,19 +110,17 @@ class TisheetController extends BaseController
             
             // sync Contexts of Tisheet
             TisheetController::syncContexts( $tisheet, $value );
-
-            $startTime = Input::get( 'st' );
-            
-            // check if start time is already available
-            if ( !empty( $startTime ) )
-                $tisheet->start_time = $startTime;
+            TisheetController::syncTime( $tisheet, $value );
 
             $tisheet->description = $value;
         }
         
         // update time spent
         else if ( Input::has( 'ts' ) )
+        {
             $tisheet->time_spent = Input::get( 'ts' );
+            $tisheet->time_start = Input::get( 'tm' );
+        }
         
         // update planned flag
         else if ( Input::has( 'pl' ) )
@@ -213,6 +206,28 @@ class TisheetController extends BaseController
 			})
 		);
 	}
+
+    /**
+    *
+    */
+    public static function syncTime( &$tisheet, $value )
+    {
+        $time = array_filter( explode( ' ', $value ), function( $word )
+        {
+            if( empty( $word ) || strlen( $word ) == 1 )
+                return false;
+
+            if( $word{0} == '@' )
+                return true;
+
+            return false;
+        });
+
+        $timeStart = reset( $time );
+
+        if ( $timeStart )
+            $tisheet->time_start = substr( $timeStart, 1 );
+    }
 
 	/**
 	 * Parses the given value for Contexts. Takes the first Context as first 
