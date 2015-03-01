@@ -45,8 +45,8 @@
 			<tr class='timesheet-header'>
 				<th></th>
 				<th>Task Description (planned?)</th>
-				<th>Time Spent / Estimate Time</th>
-				<th>Started</th>
+				<th>Time Spent / Estimated Time</th>
+				<th>Begin</th>
 				<th>Total</th>
 				<th></th>
 			</tr>

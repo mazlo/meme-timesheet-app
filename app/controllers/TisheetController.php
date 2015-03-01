@@ -26,6 +26,7 @@ class TisheetController extends BaseController
             // for yesterday substract 24h of the day given
             ->with( 'yesterday', date( 'Y-m-d', strtotime( $day ) - $oneDay ) )
             ->with( 'today', $day )
+            ->with( 'todayForReal', $day === date( 'Y-m-d', time() ) )
             // for tomorrow add 24h of the day given
             ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) )
             ->with( 'timeline', $timeline );

@@ -237,13 +237,33 @@
 			success: function( obj )
 			{
 				if ( obj.status !== 'ok' )
+					// TODO ZL show appropriate error message
 					alert( 'error' );
 
 				if ( obj.action === 'add' )
+					// update id that was given by the backend
 					tisheet.attr( 'id', obj.id );
 
 				if ( obj.tm )
+				{
+					// update time, when the tisheet has begun
 					tisheet.find( 'span.js-tisheet-time-start' ).text( obj.tm );
+
+					// update quarters of time spent, if there are not active quarters yet
+					var activeQuarters = tisheet.find( 'span.time-spent-quarter-active' ).length;
+					// and if 'today' is the real today
+					var todayForReal = '{{ $todayForReal }}';
+
+					if ( activeQuarters == 0 && todayForReal )
+					{
+						var minutesToNow = ( Date.now() - Date.parse( '{{ $today }} ' + obj.tm ) ) / 60000;
+						var quartersToNow = Math.floor( minutesToNow / 15 );
+						
+						// update only, if given time lays after Date.now()
+						if ( minutesToNow > 0 && quartersToNow > 0 )
+							tisheet.find( 'span.js-time-spent-quarter:eq('+ ( quartersToNow - 1 ) + ')' ).click();
+					}
+				}
 
 				notifyUserOfChange( tisheet );
 
