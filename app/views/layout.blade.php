@@ -241,8 +241,14 @@
 					alert( 'error' );
 
 				if ( obj.action === 'add' )
-					// update id that was given by the backend
+					// update id that was given by the backend and context
 					tisheet.attr( 'id', obj.id );
+				
+				if ( obj.context )
+					// update context attribute that we need for the highlighting
+					tisheet.attr( 'ctx', obj.context );
+				else
+					tisheet.removeAttr( 'ctx' );
 
 				if ( obj.tm )
 				{

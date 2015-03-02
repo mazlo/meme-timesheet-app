@@ -88,7 +88,13 @@ class TisheetController extends BaseController
         
         $tisheet->save();
 
-        return Response::json( array( 'status' => 'ok', 'action' => 'add', 'id' => $tisheet->id, 'tm' => $tisheet->time_start ) );
+        return Response::json( array( 
+            'status' => 'ok', 
+            'action' => 'add', 
+            'id' => $tisheet->id, 
+            'tm' => $tisheet->time_start,
+            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
+        ) );
     }
 
     /**
@@ -131,7 +137,13 @@ class TisheetController extends BaseController
 
         $tisheet->save();
 
-        return Response::json( array( 'status' => 'ok', 'action' => 'update', 'id' => $tisheet->id, 'tm' => $tisheet->time_start ) );
+        return Response::json( array( 
+            'status' => 'ok', 
+            'action' => 'update', 
+            'id' => $tisheet->id, 
+            'tm' => $tisheet->time_start,
+            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
+        ) );
     }
 
     /**

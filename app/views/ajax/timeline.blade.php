@@ -1,6 +1,5 @@
 @foreach( $timeline as $element )
-	<? if( $element->prefLabel ) $label=substr( $element->prefLabel, 1 ); else $label='nolabel'; ?>
-	<div ts='{{ $element->total_time_spent }}'><span>{{ $element->prefLabel }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
+	<div class='js-timeline-element' ts='{{ $element->total_time_spent }}' ctx='{{ substr( $element->prefLabel, 1 ) }}'><span>{{ $element->prefLabel }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
 @endforeach
 
 <script type="text/javascript">
@@ -19,6 +18,13 @@
 			if ( newWidthInPercent > widthInPercent )
 				$jQ(this).css( 'width', newWidthInPercent +'%' );
 		});
+	});
+
+	$jQ( document ).on( 'click', 'div.js-timeline-element', function()
+	{
+		var context = $jQ(this).attr( 'ctx' );
+
+		$jQ( 'tr[ctx='+ context +']' ).effect( 'highlight', { color: '#c3d69b' }, 10000 );
 	});
 
 </script>

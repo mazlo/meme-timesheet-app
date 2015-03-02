@@ -52,7 +52,7 @@
 			</tr>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='tisheet js-tisheet js-tisheet-options' id='{{ $tisheet->id}}'>
+			<tr class='tisheet js-tisheet js-tisheet-options' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 				<td>
 					<span class='octicon octicon-trashcan element-invisible'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
