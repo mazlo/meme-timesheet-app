@@ -308,7 +308,7 @@ td span.time-spent-quarter-active {
 
 .time-spent-blank {
 	display: inline-block;
-	background-color: #fff;
+	background-color: transparent;
 	
 	width: 8px;
 	height: 18px;
