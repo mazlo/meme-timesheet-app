@@ -92,7 +92,7 @@ class TisheetController extends BaseController
             'status' => 'ok', 
             'action' => 'add', 
             'id' => $tisheet->id, 
-            'tm' => $tisheet->time_start,
+            'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
         ) );
     }
@@ -141,7 +141,7 @@ class TisheetController extends BaseController
             'status' => 'ok', 
             'action' => 'update', 
             'id' => $tisheet->id, 
-            'tm' => $tisheet->time_start,
+            'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
         ) );
     }

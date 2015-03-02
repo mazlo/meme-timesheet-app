@@ -250,10 +250,10 @@
 				else
 					tisheet.removeAttr( 'ctx' );
 
-				if ( obj.tm )
+				if ( obj.time )
 				{
 					// update time, when the tisheet has begun
-					tisheet.find( 'span.js-tisheet-time-start' ).text( obj.tm );
+					tisheet.find( 'span.js-tisheet-time-start' ).text( obj.time );
 
 					// update quarters of time spent, if there are not active quarters yet
 					var activeQuarters = tisheet.find( 'span.time-spent-quarter-active' ).length;
@@ -262,7 +262,7 @@
 
 					if ( activeQuarters == 0 && todayForReal )
 					{
-						var minutesToNow = ( Date.now() - Date.parse( '{{ $today }} ' + obj.tm ) ) / 60000;
+						var minutesToNow = ( Date.now() - Date.parse( '{{ $today }} ' + obj.time ) ) / 60000;
 						var quartersToNow = Math.floor( minutesToNow / 15 );
 						
 						// update only, if given time lays after Date.now()
