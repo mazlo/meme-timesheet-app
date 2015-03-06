@@ -195,13 +195,16 @@ class TisheetController extends BaseController
 		return array_map( function( $word )
 		{
 			// return an array of Context-ids
-			$context = Context::where( 'prefLabel', $word )->first();
+			$context = Context::where( 'prefLabel', $word )
+                ->where( 'user_id', Auth::user()->id )
+                ->first();
 
 			// create new and associate
 			if ( empty( $context ) )
 			{                
 				$context = new Context();
 				$context->prefLabel = $word;
+                $context->user()->associate( Auth::user() );
 				$context->save();
 			}
 
