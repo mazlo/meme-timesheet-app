@@ -109,7 +109,9 @@ class TisheetController extends BaseController
 
         // update
         
-        $tisheet = Tisheet::where( 'id', '=', $id )->where( 'user_id', Auth::user()->id )->first();
+        $tisheet = Tisheet::where( 'id', '=', $id )
+            ->where( 'user_id', Auth::user()->id )
+            ->first();
 
         if ( Input::has( 'vl' ) )
         {
