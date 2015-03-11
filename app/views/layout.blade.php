@@ -191,22 +191,7 @@
 			}
 		}
 
-		var trClone = tr.clone();
-
-		trClone.insertBefore( tr );
-		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
-		
-		// invoke manually to prevent asynchronous side effects
-		target.blur();
-		trClone.find( 'input.tisheet-description' ).focus();
-
-		// add autocomplete functionality
-		trClone.find( 'input.tisheet-description' ).autocomplete(
-		{
-			source: autocompleteItems,
-			minLength: 2,
-			delay: 100
-	    });
+		cloneTisheet( tr, target );
 	});
 
 	$jQ( document ).on( 'focusin', 'input.tisheet-description', function()
@@ -719,6 +704,29 @@
 	var getTisheet = function( element )
 	{
 		return $jQ( element ).closest( 'tr.js-tisheet' );
+	}
+
+	//
+	var cloneTisheet = function( elementToClone, latestElement )
+	{
+		var clonedElement = elementToClone.clone();
+
+		clonedElement.insertBefore( elementToClone );
+		clonedElement.removeClass( 'js-tisheet-clonable element-hidden' );
+		
+		if ( latestElement !== undefined )
+			// invoke manually to prevent asynchronous side effects
+			latestElement.blur();
+
+		clonedElement.find( 'input.tisheet-description' ).focus();
+
+		// add autocomplete functionality
+		clonedElement.find( 'input.tisheet-description' ).autocomplete(
+		{
+			source: autocompleteItems,
+			minLength: 2,
+			delay: 100
+	    });
 	}
 
 @endif
