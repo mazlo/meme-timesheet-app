@@ -470,13 +470,13 @@
 	//
 	$jQ( document ).on( 'click', '.octicon-trashcan', function()
 	{
-		var item = getTisheetId( this );
+		var item = getTisheet( this );
 
 		// do not delete items with no id
-		if ( item.attr( 'id' ) == 'undefined' )
+		if ( item.id() === undefined )
 			return;
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.attr( 'id' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.id();
 
 		$jQ.ajax({
 			url: url,
