@@ -160,25 +160,6 @@ class TisheetController extends BaseController
     /**
     *
     */
-    public function updatePositions( $day )
-    {
-        $tids = Input::get( 'tids' );
-
-        for( $i=0; $i<count( $tids ); $i++ )
-        {
-            // TODO ZL restrict to user
-            $tisheet = Tisheet::where( 'id', $tids[$i] )->first();
-            
-            $tisheet->index_ = $i;
-            $tisheet->save();
-        }
-
-        return 'true';
-    }
-
-    /**
-    *
-    */
     public function delete( $day, $id )
     {
         $tisheet = Tisheet::find( $id );
