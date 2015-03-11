@@ -37,7 +37,6 @@ class TimesheetController extends BaseController
 	    	}
 
 	    	$timesheet->topic = Input::get( 'gl' );
-
 	    	$timesheet->save();
 	    }
 
@@ -49,7 +48,13 @@ class TimesheetController extends BaseController
     */
     public function delete( $day )
     {
-    	// TODO ZL
+    	$timesheet = Timesheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->first();
+
+    	if ( empty( $timesheet ) )
+    		return 'true';
+
+    	$timesheet->topic = null;
+	    $timesheet->save();
 
     	return 'true';
     }
