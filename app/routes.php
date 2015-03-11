@@ -47,6 +47,7 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	// update tisheets positions or timesheet goal
 	Route::put( '/tisheets/{day}', 'TimesheetController@update' );
+	Route::delete( '/tisheets/{day}', 'TimesheetController@delete' );
 
 	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
 	Route::get( '/tisheets/{day}/timeline', 'TisheetController@timeline' );
