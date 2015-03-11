@@ -32,7 +32,7 @@ p a:visited {
 }
 
 h2 {
-	margin-bottom: 32px;
+	margin-bottom: 23px;
 	font-size: 25px;
 	font-weight: lighter;
 }
@@ -89,7 +89,7 @@ span.notification-negativ {
 }
 
 #timesheet.timesheet {
-	margin: 32px 0;
+	margin: 23px 0;
 }
 
 #timesheet.timesheet table {
@@ -125,7 +125,11 @@ span.notification-negativ {
 
 #summaryWrapper {
 	overflow: hidden;
-	margin: 32px 0 64px;
+	margin-botom: 64px;
+}
+
+#summaryWrapper h3 {
+	display: inline-block;
 }
 
 /* -------------- */
@@ -228,6 +232,18 @@ textarea {
 	font-size: inherit;
 	font-family: inherit;
 	color: inherit;
+}
+
+textarea.timesheet-topic {
+	border: none;
+	outline: none;
+	overflow: hidden;
+
+	padding: 0;
+	width: 50%;
+	height: 42px;
+
+	resize: none;
 }
 
 ul.list-inline {

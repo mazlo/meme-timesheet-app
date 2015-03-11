@@ -42,14 +42,14 @@ Route::group( array( 'before' => 'auth' ), function()
 		return Redirect::to( '/tisheets/'. $time );
 	});
 
-	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
-
-	Route::get( '/tisheets/{day}', 'TisheetController@index' );
+	Route::get( '/tisheets/{day}', 'TisheetController@index' );	
 	Route::post( '/tisheets/{day}', 'TisheetController@add' );
 
-	// to update position of items
-	Route::put( '/tisheets/{day}', 'TisheetController@updatePositions' );
+	// update tisheets positions or timesheet goal
+	Route::put( '/tisheets/{day}', 'TimesheetController@update' );
+	Route::delete( '/tisheets/{day}', 'TimesheetController@delete' );
 
+	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
 	Route::get( '/tisheets/{day}/timeline', 'TisheetController@timeline' );
 
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );

@@ -204,6 +204,11 @@
 		oldNote = $jQ( this ).val();
 	});
 
+	$jQ( document ).on( 'focusin', 'textarea.timesheet-topic', function()
+	{
+		oldTopic = $jQ( this ).val();
+	});
+
 	//
 	$jQ( document ).on( 'focusout', 'input.tisheet-description', function()
 	{
@@ -309,6 +314,26 @@
 
 				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
+			}
+		});
+	});
+
+	//
+	$jQ( document ).on( 'focusout', 'textarea.timesheet-topic', function()
+	{
+		var value = $jQ(this).val();
+
+		if ( oldTopic == value )
+			return; // ignore if nothing changed
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
+		var type = value.trim() == '' ? 'delete' : 'put';
+
+		$jQ.ajax({
+			url: url,
+			type: type,
+			data: {
+				gl: value.trim()
 			}
 		});
 	});

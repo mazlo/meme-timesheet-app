@@ -25,6 +25,10 @@
 	
 	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 
+	<div id='topic'>
+		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Do you want this day to have a special aim?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
+	</div>
+
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
@@ -163,7 +167,7 @@
 	</ul>
 
 	<div id='summaryWrapper' class='element-hidden'>
-		<h3>Summary <span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span></h3>
+		<h3>Summary</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 
 		<div id='summary'>
 			{{-- ajax content here --}}

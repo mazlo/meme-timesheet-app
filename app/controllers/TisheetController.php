@@ -11,25 +11,30 @@ class TisheetController extends BaseController
         if ( empty( $day ) || $day == 'today' )
             $day = date( 'Y-m-d', time() );
         
-        $tisheet = Tisheet::where( 'day', $day )
+        $tisheets = Tisheet::where( 'day', $day )
             ->where( 'user_id', Auth::user()->id )
             ->orderBy( 'index_' )
             ->orderBy( 'created_at' )
             ->get();
+
+        $timesheet = Timesheet::where( 'day', $day )
+            ->where( 'user_id', Auth::user()->id )
+            ->first();
 
         $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
 
         $oneDay = 60*60*24;
 
         return View::make( 'index' )
-            ->with( 'tisheets', $tisheet )
+            ->with( 'tisheets', $tisheets )
             // for yesterday substract 24h of the day given
             ->with( 'yesterday', date( 'Y-m-d', strtotime( $day ) - $oneDay ) )
             ->with( 'today', $day )
             ->with( 'todayForReal', $day === date( 'Y-m-d', time() ) )
             // for tomorrow add 24h of the day given
             ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) )
-            ->with( 'timeline', $timeline );
+            ->with( 'timeline', $timeline )
+            ->with( 'timesheet', $timesheet );
     }
 
     /**
@@ -155,25 +160,6 @@ class TisheetController extends BaseController
             'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
         ) );
-    }
-
-    /**
-    *
-    */
-    public function updatePositions( $day )
-    {
-        $tids = Input::get( 'tids' );
-
-        for( $i=0; $i<count( $tids ); $i++ )
-        {
-            // TODO ZL restrict to user
-            $tisheet = Tisheet::where( 'id', $tids[$i] )->first();
-            
-            $tisheet->index_ = $i;
-            $tisheet->save();
-        }
-
-        return 'true';
     }
 
     /**
