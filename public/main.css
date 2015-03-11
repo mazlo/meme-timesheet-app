@@ -125,7 +125,11 @@ span.notification-negativ {
 
 #summaryWrapper {
 	overflow: hidden;
-	margin: 32px 0 64px;
+	margin-botom: 64px;
+}
+
+#summaryWrapper h3 {
+	display: inline-block;
 }
 
 /* -------------- */
