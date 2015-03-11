@@ -470,7 +470,7 @@
 	//
 	$jQ( document ).on( 'click', '.octicon-trashcan', function()
 	{
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
+		var item = getTisheetId( this );
 
 		// do not delete items with no id
 		if ( item.attr( 'id' ) == 'undefined' )
@@ -500,7 +500,7 @@
 	//
 	$jQ( document ).on( 'click', '.octicon-info', function()
 	{
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
+		var item = getTisheet( this );
 		var note = item.find( '.js-tisheet-note' );
 
 		note.toggleClass( 'element-hidden' );
