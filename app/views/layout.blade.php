@@ -60,6 +60,18 @@
 
 	$jQ( function()
 	{
+		// extend jquery functionality
+		$jQ.fn.extend(
+		{
+			id: function()
+			{
+				if ( this.prop( 'tagName' ) === 'TR' && this.attr( 'id' ) !== undefined )
+					return this.attr( 'id' );
+
+				return 'undefined';
+			}
+		});
+
 		// updates total hours spent for the day
 		updateTisheetTimeSpentToday();
 
