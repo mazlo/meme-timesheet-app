@@ -94,6 +94,7 @@
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+					<span class='octicon octicon-arrow-right js-tisheet-move element-invisible'></span>
 				</td>
 			</tr>
 		@endforeach
@@ -138,6 +139,7 @@
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+					<span class='octicon octicon-arrow-right js-tisheet-move element-invisible'></span>
 				</td>
 			</tr>
 

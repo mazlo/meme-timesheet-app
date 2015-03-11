@@ -508,6 +508,33 @@
 	});
 
 	//
+	$jQ( document ).on( 'click', '.js-tisheet-move', function()
+	{
+		var tisheet = getTisheet( this );
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ tisheet.id();
+
+		$jQ.ajax({
+			url: url,
+			type: 'put',
+			data: { mv: 'tomorrow' },
+			success: function( data )
+			{
+				// remove current element
+				tisheet.remove();
+
+				var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+
+				if ( tisheetToClone.index() == 1 )
+					// clone empty element
+					cloneTisheet( tisheetToClone, undefined );
+			}
+		});
+
+		return false;
+	});
+
+	//
 	$jQ( document ).on( 'click', '.js-button-summary', function()
 	{
 		$jQ( '#summaryWrapper' ).show();
@@ -569,7 +596,7 @@
 	//
 	$jQ( document ).on( 'hover', '.js-tisheet-options', function() 
 	{
-		$jQ(this).find( '.octicon-trashcan, .octicon-info, .js-octicon-stopwatch' ).not( 'element-visible' ).toggleClass( 'element-invisible' );
+		$jQ(this).find( '.octicon-trashcan, .octicon-info, .js-octicon-stopwatch, .octicon-arrow-right' ).not( 'element-visible' ).toggleClass( 'element-invisible' );
 	});
 
 	var interval;
