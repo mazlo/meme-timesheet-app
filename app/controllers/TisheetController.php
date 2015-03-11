@@ -11,7 +11,7 @@ class TisheetController extends BaseController
         if ( empty( $day ) || $day == 'today' )
             $day = date( 'Y-m-d', time() );
         
-        $tisheet = Tisheet::where( 'day', $day )
+        $tisheets = Tisheet::where( 'day', $day )
             ->where( 'user_id', Auth::user()->id )
             ->orderBy( 'index_' )
             ->orderBy( 'created_at' )
@@ -26,7 +26,7 @@ class TisheetController extends BaseController
         $oneDay = 60*60*24;
 
         return View::make( 'index' )
-            ->with( 'tisheets', $tisheet )
+            ->with( 'tisheets', $tisheets )
             // for yesterday substract 24h of the day given
             ->with( 'yesterday', date( 'Y-m-d', strtotime( $day ) - $oneDay ) )
             ->with( 'today', $day )
