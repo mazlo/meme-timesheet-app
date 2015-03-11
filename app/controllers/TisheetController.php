@@ -134,6 +134,15 @@ class TisheetController extends BaseController
         // update planned flag
         else if ( Input::has( 'pl' ) )
             $tisheet->planned = Input::get( 'pl' ) == 'true' ? true : false;
+
+        // update day of tisheet -> move
+        else if ( Input::has( 'mv' ) )
+        {
+            $dayAsTime = strtotime( $day );
+            $tomorrow = date( 'Y-m-d', strtotime( 'tomorrow', $dayAsTime ) );
+            
+            $tisheet->day = $tomorrow;
+        }
         
         // note of tisheet will be updated via NoteController
 
