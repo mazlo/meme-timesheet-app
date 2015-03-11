@@ -26,7 +26,7 @@
 	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 
 	<div id='topic'>
-		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Do you want this day to have a special aim?'></textarea>
+		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Do you want this day to have a special aim?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )

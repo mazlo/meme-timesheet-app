@@ -17,6 +17,10 @@ class TisheetController extends BaseController
             ->orderBy( 'created_at' )
             ->get();
 
+        $timesheet = Timesheet::where( 'day', $day )
+            ->where( 'user_id', Auth::user()->id )
+            ->first();
+
         $timeline = SummaryController::byDayAndPeriodGroupByContext( $day, 'today' )->get();
 
         $oneDay = 60*60*24;
@@ -29,7 +33,8 @@ class TisheetController extends BaseController
             ->with( 'todayForReal', $day === date( 'Y-m-d', time() ) )
             // for tomorrow add 24h of the day given
             ->with( 'tomorrow', date( 'Y-m-d', strtotime( $day ) + $oneDay ) )
-            ->with( 'timeline', $timeline );
+            ->with( 'timeline', $timeline )
+            ->with( 'timesheet', $timesheet );
     }
 
     /**

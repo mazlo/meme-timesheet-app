@@ -23,6 +23,35 @@ class TimesheetController extends BaseController
 	        }
 	    }
 
+	    // update today's topic
+	    else if ( Input::has( 'gl' ) )
+	    {
+	    	$timesheet = Timesheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->first();
+
+	    	if ( empty( $timesheet ) )
+	    	{
+	    		$timesheet = new Timesheet();
+	    		$timesheet->user()->associate( Auth::user() );
+
+	    		$timesheet->day = $day;
+	    	}
+
+	    	$timesheet->topic = Input::get( 'gl' );
+
+	    	$timesheet->save();
+	    }
+
         return 'true';
     }
+
+    /**
+    *
+    */
+    public function delete( $day )
+    {
+    	// TODO ZL
+
+    	return 'true';
+    }
+
 }
