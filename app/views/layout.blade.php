@@ -167,7 +167,10 @@
 			if ( tr.index() - tisheet.index() > 1 )
 			{
 				target.blur(); // first focusout, then focus in. otherwise request of change will fire
-				tisheet.next().find( 'input.tisheet-description' ).focus();
+				
+				var nextTisheet = tisheet.next().find( 'input.tisheet-description' );
+				nextTisheet.focus();
+				nextTisheet[0].setSelectionRange( nextTisheet.val().length, nextTisheet.val().length );
 
 				return;
 			}
