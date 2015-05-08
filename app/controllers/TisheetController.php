@@ -257,7 +257,8 @@ class TisheetController extends BaseController
 
 	/**
 	 * the return value of this function is an array of Context-ids
-	 * in preparation for the association of Contexts to sub-Contexts
+	 * according to the submitted value, in preparation for the association 
+	 * of Tisheet to Context
 	 * 
 	 * @param type $value
 	 * @return type
@@ -297,6 +298,14 @@ class TisheetController extends BaseController
 		);
 	}
 
+	/**
+	 * the return value of this function is an array of Word-ids
+	 * according to the submitted value, in preparation for the association 
+	 * of Tisheet to Words
+	 * 
+	 * @param type $value
+	 * @return type
+	 */
     public static function parseWords( $value )
     {
         return array_map( function( $value )
