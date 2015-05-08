@@ -266,33 +266,6 @@ class TisheetController extends BaseController
 		// assign first level Concept to Tisheet
 		$mainContext = Context::find( reset( $contexts ) );
 		$tisheet->context()->associate( $mainContext );
+	}
 
-		// cut off the first element -> becomes the list of subConcepts
-		$subContexts = array_slice( $contexts, 1 );
-		
-		// syncs a list of existing and new subContexts
-		TisheetController::syncSubContexts( $tisheet, $subContexts );
-	}
-	
-	/**
-	 * Composes an array of ids as a preparation for syncing subContexts.
-	 * 
-	 * @param type $tisheet
-	 * @param type $editedSubContexts
-	 */
-	public static function syncSubContexts( &$tisheet, &$editedSubContexts )
-	{
-		$editedSubContexts = array_map( function( $subContext ) use ($tisheet)
-		{
-			return array( 
-				// the key is a composition of all three foreign keys
-				'id' => $tisheet->context->id.$subContext.$tisheet->id,
-				'context_id' => $tisheet->context_id,
-				'subContext_id' => $subContext,
-				'tisheet_id' => $tisheet->id
-			);
-		}, $editedSubContexts );
-		
-		$tisheet->subContexts()->sync( $editedSubContexts );
-	}
 }
