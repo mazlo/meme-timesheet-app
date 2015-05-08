@@ -206,7 +206,7 @@ class TisheetController extends BaseController
 			// 2nd dimension consists of foreign-key ids
 			return $context->id;
 		},  
-			// from an array of Contexts that was parsed from the text
+			// form an array of Contexts that was parsed from the text
 			array_filter( explode( ' ', $value ), function( $word )
 			{
                 if( empty( $word ) || strlen( $word ) == 1 )
@@ -220,8 +220,71 @@ class TisheetController extends BaseController
 		);
 	}
 
+    public static function parseWords( $value )
+    {
+        return array_map( function( $value )
+        {
+            $word = Word::where( 'value', $value )
+                ->where( 'user_id', Auth::user()->id )
+                ->first();
+
+            if ( empty( $word ) )
+            {
+                $word = new Word();
+                $word->value = $value;
+                $word->user()->associate( Auth::user() );
+                $word->save();
+            }
+
+            return $word->id;
+        },  
+            array_filter( explode( ' ', $value ), function( $word )
+            {
+                if ( empty( $word ) || strlen( $word ) == 1 )
+                    return false;
+
+                if ( $word{0} == '#' )
+                    return false;
+
+                // TODO normalize sentence, filter filling words like 'in', 'from', 'with', etc.
+
+                return true;
+            })
+        );
+    }
+
     /**
-    *
+     * Parses the given value for Words. Each Word will be associated with the
+	 * given Tisheet and Context then.
+     * 
+     * @param type $tisheet
+     * @param type $value
+     * @return type
+     */
+    public static function syncWords( &$tisheet, $value ) 
+    {
+        $words = TisheetController::parseWords( $value );
+
+        $wordsToSync = array_map( function( $word ) use ($tisheet)
+        {
+			$context = empty( $tisheet->context_id ) ? '0' : $tisheet->context_id;
+            
+			return array( 
+				'id' => $tisheet->id . $word,
+				'context_id' => $context
+            );
+        }, $words );
+        
+        $tisheet->words()->sync( array_combine( $words, $wordsToSync ) );
+    }
+
+    /**
+     * Parses the given value for Time-statements. Time-statements are identified
+	 * by the @ symbol.
+	 *
+	 * @param type $tisheet
+	 * @param type $value
+	 * @return type
     */
     public static function syncTime( &$tisheet, $value )
     {
@@ -243,8 +306,8 @@ class TisheetController extends BaseController
     }
 
 	/**
-	 * Parses the given value for Contexts. Takes the first Context as first 
-	 * level Context. Takes the rest as subContexts of the fiven Tisheet.
+	 * Parses the given value for Contexts. Contexts are identified by the # symbol.
+	 * Takes the first Context as first level Context.
 	 * 
 	 * @param type $tisheet
 	 * @param type $value
