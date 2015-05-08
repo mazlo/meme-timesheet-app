@@ -84,9 +84,9 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-            // sync Contexts of Tisheet
             TisheetController::syncContexts( $tisheet, $value );
             TisheetController::syncTime( $tisheet, $value );
+            TisheetController::syncWords( $tisheet, $value );
 
             $tisheet->description = $value;
         }
@@ -122,9 +122,9 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-            // sync Contexts of Tisheet
-            TisheetController::syncContexts( $tisheet, $value );
+			TisheetController::syncContexts( $tisheet, $value );
             TisheetController::syncTime( $tisheet, $value );
+            TisheetController::syncWords( $tisheet, $value );
 
             $tisheet->description = $value;
         }
@@ -321,7 +321,6 @@ class TisheetController extends BaseController
 		if ( count( $contexts ) == 0 ) 
 		{
 			$tisheet->context_id = null;
-			$tisheet->subContexts()->detach();
 			
 			return;
 		}
