@@ -178,81 +178,6 @@ class TisheetController extends BaseController
         return 'true';
     }
 
-	/**
-	 * the return value of this function is an array of Context-ids
-	 * in preparation for the association of Contexts to sub-Contexts
-	 * 
-	 * @param type $value
-	 * @return type
-	 */
-	public static function parseContexts( $value )
-	{
-		return array_map( function( $word )
-		{
-			// return an array of Context-ids
-			$context = Context::where( 'prefLabel', $word )
-                ->where( 'user_id', Auth::user()->id )
-                ->first();
-
-			// create new and associate
-			if ( empty( $context ) )
-			{                
-				$context = new Context();
-				$context->prefLabel = $word;
-                $context->user()->associate( Auth::user() );
-				$context->save();
-			}
-
-			// 2nd dimension consists of foreign-key ids
-			return $context->id;
-		},  
-			// form an array of Contexts that was parsed from the text
-			array_filter( explode( ' ', $value ), function( $word )
-			{
-                if( empty( $word ) || strlen( $word ) == 1 )
-                    return false;
-
-				if( $word{0} == '#' )
-					return true;
-
-				return false;
-			})
-		);
-	}
-
-    public static function parseWords( $value )
-    {
-        return array_map( function( $value )
-        {
-            $word = Word::where( 'value', $value )
-                ->where( 'user_id', Auth::user()->id )
-                ->first();
-
-            if ( empty( $word ) )
-            {
-                $word = new Word();
-                $word->value = $value;
-                $word->user()->associate( Auth::user() );
-                $word->save();
-            }
-
-            return $word->id;
-        },  
-            array_filter( explode( ' ', $value ), function( $word )
-            {
-                if ( empty( $word ) || strlen( $word ) == 1 )
-                    return false;
-
-                if ( $word{0} == '#' )
-                    return false;
-
-                // TODO normalize sentence, filter filling words like 'in', 'from', 'with', etc.
-
-                return true;
-            })
-        );
-    }
-
     /**
      * Parses the given value for Words. Each Word will be associated with the
 	 * given Tisheet and Context then.
@@ -330,4 +255,78 @@ class TisheetController extends BaseController
 		$tisheet->context()->associate( $mainContext );
 	}
 
+	/**
+	 * the return value of this function is an array of Context-ids
+	 * in preparation for the association of Contexts to sub-Contexts
+	 * 
+	 * @param type $value
+	 * @return type
+	 */
+	public static function parseContexts( $value )
+	{
+		return array_map( function( $word )
+		{
+			// return an array of Context-ids
+			$context = Context::where( 'prefLabel', $word )
+                ->where( 'user_id', Auth::user()->id )
+                ->first();
+
+			// create new and associate
+			if ( empty( $context ) )
+			{                
+				$context = new Context();
+				$context->prefLabel = $word;
+                $context->user()->associate( Auth::user() );
+				$context->save();
+			}
+
+			// 2nd dimension consists of foreign-key ids
+			return $context->id;
+		},  
+			// form an array of Contexts that was parsed from the text
+			array_filter( explode( ' ', $value ), function( $word )
+			{
+                if( empty( $word ) || strlen( $word ) == 1 )
+                    return false;
+
+				if( $word{0} == '#' )
+					return true;
+
+				return false;
+			})
+		);
+	}
+
+    public static function parseWords( $value )
+    {
+        return array_map( function( $value )
+        {
+            $word = Word::where( 'value', $value )
+                ->where( 'user_id', Auth::user()->id )
+                ->first();
+
+            if ( empty( $word ) )
+            {
+                $word = new Word();
+                $word->value = $value;
+                $word->user()->associate( Auth::user() );
+                $word->save();
+            }
+
+            return $word->id;
+        },  
+            array_filter( explode( ' ', $value ), function( $word )
+            {
+                if ( empty( $word ) || strlen( $word ) == 1 )
+                    return false;
+
+                if ( $word{0} == '#' )
+                    return false;
+
+                // TODO normalize sentence, filter filling words like 'in', 'from', 'with', etc.
+
+                return true;
+            })
+        );
+    }
 }
