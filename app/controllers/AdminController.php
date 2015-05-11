@@ -3,7 +3,7 @@
 class AdminController extends BaseController 
 {
 
-	public function syncContexts() 
+	public function syncWords() 
 	{
 		// we sync all, not just for a user
 		$tisheets = Tisheet::all();
@@ -13,7 +13,8 @@ class AdminController extends BaseController
 			$description = $tisheet->description;
 
 			// sync Contexts of Tisheet
-			TisheetController::syncContexts( $tisheet, $description );
+			
+			TisheetController::syncWords( $tisheet, $description );
 		}
 	}
 
