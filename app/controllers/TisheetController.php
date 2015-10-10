@@ -312,6 +312,8 @@ class TisheetController extends BaseController
 
         return array_map( function( $value )
         {
+            $value = TisheetController::normalizeWord( $value );
+
             $word = Word::where( 'value', $value )
                 ->where( 'user_id', Auth::user()->id )
                 ->first();
@@ -350,5 +352,16 @@ class TisheetController extends BaseController
     public static function filter_stopwords( $value ) 
     {
         return array_diff( array_diff( explode( ' ', $value ), Stopwords::$en ), Stopwords::$de );
+    }
+
+    /**
+    * Replaces all special characters from the word with empty characters.
+    */
+    public static function normalizeWord( $value )
+    {
+        $value = str_replace( array( ";", ",", ":", ".", "(", ")", "=", "\"", "'", "?", "!",  ), array( "" ), $value );
+        $value = trim( $value );
+
+        return $value;
     }
 }
