@@ -1,0 +1,100 @@
+#datepicker {
+  position: absolute;
+  width: 252px;
+  height: 220px;
+  padding: 5px;
+  background: #fff;
+  margin-top: 20px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+#datepicker .year {}
+#datepicker .year .dec,
+#datepicker .year .inc {
+  width: 24px;
+  height: 24px;
+  background: #565656;
+}
+#datepicker .year label {
+  display: block;
+  text-align: center;
+}
+#datepicker .dec:hover,
+#datepicker .inc:hover {
+  border: none;
+}
+#datepicker .month {
+  background: #ddddde;
+  line-height: 24px;
+}
+#datepicker .month .dec,
+#datepicker .month .inc {
+  width: 30px;
+  height: 24px;
+  background: #ddddde;
+  cursor: pointer;
+}
+#datepicker .month .dec {
+  float: left;
+}
+#datepicker .month .inc {
+  float: right;
+}
+#datepicker .month .dec::before {
+  content: '<'
+}
+#datepicker .month .inc::before {
+  content: '>'
+}
+#datepicker .month .dec::before,
+#datepicker .month .inc::before {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  color: #fff;
+  width: 30px;
+  height: 24px;
+}
+#datepicker .month label {
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#datepicker .days {
+  float: left;
+  width: 100%;
+  height: 190px;
+}
+#datepicker .days-names,
+#datepicker .days-row {
+  float: left;
+  width: 100%;
+  height: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+#datepicker .days-row:last-child {
+  border-bottom: 0;
+}
+#datepicker .days-names label,
+#datepicker .days-cell {
+  float: left;
+  width: 36px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #202020;
+  cursor: pointer;
+}
+#datepicker .days-cell.selected,
+#datepicker .days-cell:hover {
+  background: #ddddde;
+}
+#datepicker .days-cell.off {
+  color: #909090;
+}
+#datepicker .days-names {
+  background: #e0e0e0;
+}

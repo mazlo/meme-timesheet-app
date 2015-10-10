@@ -10,9 +10,12 @@
 	<link rel='stylesheet' type='text/css' href='{{ url( "jquery-ui.css" ) }}' }} />
 	<link rel='stylesheet' type='text/css' href='{{ url( "octicons.css" ) }}' }} />
     <link rel='stylesheet' type='text/css' href='{{ url( "main.css" ) }}' />
+    <link rel='stylesheet' type='text/css' href='{{ url( "datepicker.css" ) }}' />
 	
 	<script type='text/javascript' src='{{ url( "jquery-1.8.2.js" ) }}'></script>
 	<script type='text/javascript' src='{{ url( "jquery-ui-1.9.2.custom.js" ) }}'></script>
+
+	<script type='text/javascript' src='{{ url( "jquery.datepicker.min.js" ) }}'></script>
 
 	<script type='text/javascript'>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
@@ -115,7 +118,27 @@
 			}
 		});
 
+		picker = $jQ( '#datepicker' ).datepicker(
+		{
+			selectedDate: new Date( '{{ $today }}' ),
+		    onDateChanged: function ( pickedDate ) 
+		    {
+		    	var date = new Date(pickedDate);
+		    	date = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ date.getDate();
+		    	if ( date == '{{ $today }}' )
+		    		return;
+
+				window.location = '{{ url( "tisheets" ) }}/'+ date; 
+		    },
+		});
+
 	});
+
+$jQ( document ).on( 'click', '.datepicker', function( event )
+{
+	picker.toggleClass( 'element-invisible' );
+	picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
+});
 
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
