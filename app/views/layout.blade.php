@@ -670,21 +670,21 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			
 			// but only if it's not the current stopwatch
 			if ( runningStopwatchId != requestedStopwatchId )
-				stopwatchToggleStatus( runningStopwatch.closest( 'tr.js-tisheet' ) );
+				toggleStopwatchStatus( runningStopwatch.closest( 'tr.js-tisheet' ) );
 		}
 
 		// change status of stopwatch now
 
 		if ( requestedStopwatchId == 'undefined' )
 			// register for post update description field
-			descriptionChangeListener.push( stopwatchToggleStatus );
+			descriptionChangeListener.push( toggleStopwatchStatus );
 		else
 			// change status of pressed stopwatch now
-			stopwatchToggleStatus( tisheet );
+			toggleStopwatchStatus( tisheet );
 	});
 
 	// starts or stops the stopwatch for the given tisheet
-	var stopwatchToggleStatus = function ( tisheet )
+	var toggleStopwatchStatus = function ( tisheet, startOnly )
 	{
 		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
 		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
@@ -738,7 +738,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		{
 			clearInterval( interval );
 
-			stopwatchToggleStatus( tisheet );
+			toggleStopwatchStatus( tisheet );
 
 			// TODO ZL write email or something
 
