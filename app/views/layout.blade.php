@@ -687,38 +687,55 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	var toggleStopwatchStatus = function ( tisheet, startOnly )
 	{
 		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+		
+		if ( stopwatch.hasClass( 'octicon-playback-pause' ) && !startOnly )
+			startStopwatch( tisheet, stopwatch );
+		else if ( !stopwatch.hasClass( 'octicon-playback-pause' ) )
+			stopStopwatch( tisheet, stopwatch );
+	};
+	
+	/**
+	 * 
+	 */
+	var startStopwatch = function( tisheet, stopwatch )
+	{
 		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
 
-		if ( stopwatch.hasClass( 'octicon-playback-pause' ) )
-		{
-			// completes the quarter if it's done more than the half
-			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] > 7 )
-				triggerQuarterTimeSpentClick( tisheet );
+		// completes the quarter if it's done more than the half
+		if ( minutesByTisheets[ tisheet.attr( 'id' ) ] > 7 )
+			triggerQuarterTimeSpentClick( tisheet );
 
-			minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
 
-			// reset stopwatch
-			clearInterval( interval );
-		}
-		else 
-		{
-			// start stopwatch with handler
-			interval = setInterval( function()
-			{
-				checkTriggerQuarterTimeSpent( tisheet );
-			}, 1000*60 );
-
-			if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
-				minutesByTisheets[ tisheet.attr( 'id' ) ] = 1;
-
-			// update tisheet start field only once
-			var time = tisheet.find( 'span.js-tisheet-time-start' );
-			if ( time.text() == '' )
-				time.text( new Date().toTimeString().substring(0,5) );
-		}
+		// reset stopwatch
+		clearInterval( interval );
 
 		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
-	};
+	}
+	
+	/**
+	 * 
+	 */
+	var stopStopwatch = function( tisheet, stopwatch )
+	{
+		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
+		
+		// start stopwatch with handler
+		interval = setInterval( function()
+		{
+			checkTriggerQuarterTimeSpent( tisheet );
+		}, 1000*60 );
+
+		if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
+			minutesByTisheets[ tisheet.attr( 'id' ) ] = 1;
+
+		// update tisheet start field only once
+		var time = tisheet.find( 'span.js-tisheet-time-start' );
+		if ( time.text() == '' )
+			time.text( new Date().toTimeString().substring(0,5) );
+
+		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+	}
 
 	// check whether a quarter of an hour has passed
 	var checkTriggerQuarterTimeSpent = function( tisheet )
