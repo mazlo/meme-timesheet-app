@@ -82,7 +82,7 @@ class TisheetController extends BaseController
 		
         $command = "";
         
-		if ( Input::has( 'vl' ) )
+        if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
             
@@ -128,7 +128,7 @@ class TisheetController extends BaseController
         {
             $value = Input::get( 'vl' );
             
-			TisheetController::syncContexts( $tisheet, $value );
+            TisheetController::syncContexts( $tisheet, $value );
             TisheetController::syncTime( $tisheet, $value );
             TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
@@ -226,8 +226,8 @@ class TisheetController extends BaseController
             if( empty( $word ) || strlen( $word ) == 1 )
                 return false;
 			
-			if ( $word{0} == '/' )
-				return false;
+            if ( $word{0} == '/' )
+                return false;
 
             if( $word{0} == '@' )
                 return true;
@@ -241,6 +241,12 @@ class TisheetController extends BaseController
             $tisheet->time_start = substr( $timeStart, 1 );
     }
 
+    /**
+    * Returns the first command (word starting with a slash '/') in the list of words given in $value.
+    *
+    * @param $value
+    * @param $command
+    */
     public static function syncCommands( $value, &$command ) 
     {
         $command = array_first( explode( ' ', $value ), function( $index, $word )
