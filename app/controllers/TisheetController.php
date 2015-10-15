@@ -80,12 +80,15 @@ class TisheetController extends BaseController
 		// save tisheet to obtain an id
 		$tisheet->save();
 		
-        if ( Input::has( 'vl' ) )
+        $command = "";
+        
+		if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
             
             TisheetController::syncContexts( $tisheet, $value );
             TisheetController::syncTime( $tisheet, $value );
+            TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
             $tisheet->description = $value;
@@ -96,6 +99,7 @@ class TisheetController extends BaseController
         return Response::json( array( 
             'status' => 'ok', 
             'action' => 'add', 
+            'callback' => substr( $command, 1 ),
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
@@ -118,12 +122,15 @@ class TisheetController extends BaseController
             ->where( 'user_id', Auth::user()->id )
             ->first();
 
+		$command = "";
+		
         if ( Input::has( 'vl' ) )
         {
             $value = Input::get( 'vl' );
             
 			TisheetController::syncContexts( $tisheet, $value );
             TisheetController::syncTime( $tisheet, $value );
+            TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
             $tisheet->description = $value;
@@ -152,10 +159,11 @@ class TisheetController extends BaseController
         // note of tisheet will be updated via NoteController
 
         $tisheet->save();
-
+		
         return Response::json( array( 
             'status' => 'ok', 
             'action' => 'update', 
+            'callback' => substr( $command, 1 ),
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
@@ -217,6 +225,9 @@ class TisheetController extends BaseController
         {
             if( empty( $word ) || strlen( $word ) == 1 )
                 return false;
+			
+			if ( $word{0} == '/' )
+				return false;
 
             if( $word{0} == '@' )
                 return true;
@@ -230,6 +241,20 @@ class TisheetController extends BaseController
             $tisheet->time_start = substr( $timeStart, 1 );
     }
 
+    public static function syncCommands( $value, &$command ) 
+    {
+        $command = array_first( explode( ' ', $value ), function( $index, $word )
+        {
+            if( empty( $word ) || strlen( $word ) == 1 )
+                return false;
+
+            if( $word{0} == '/' )
+                return true;
+
+            return false;
+        });
+    }
+	
 	/**
 	 * Parses the given value for Contexts. Contexts are identified by the # symbol.
 	 * Takes the first Context as first level Context.

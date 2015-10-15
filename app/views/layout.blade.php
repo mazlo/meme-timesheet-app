@@ -298,6 +298,12 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 							tisheet.find( 'span.js-time-spent-quarter:eq('+ ( quartersToNow - 1 ) + ')' ).click();
 					}
 				}
+				
+				if ( obj.callback !== undefined && obj.callback !== '' )
+				{
+					if ( obj.callback === 'go' || obj.callback === 'run' )
+						toggleStopwatchStatus( tisheet, true );
+				}
 
 				showAndFadeOutOkIcon( tisheet );
 
