@@ -299,7 +299,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 					}
 				}
 
-				notifyUserOfChange( tisheet );
+				showAndFadeOutOkIcon( tisheet );
 
 				invokeDescriptionChangeListener( tisheet );
 			}
@@ -332,7 +332,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 				if ( data == 'false' )
 					alert( 'error' );
 
-				notifyUserOfChange( item );
+				showAndFadeOutOkIcon( item );
 
 				// show/hide octicon-info
 				if ( value == '' || ( value != '' && oldNote == '' ) )
@@ -464,7 +464,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	}
 
 	//
-	var notifyUserOfChange = function( item )
+	var showAndFadeOutOkIcon = function( item )
 	{
 		if ( item == undefined )
 			return;
