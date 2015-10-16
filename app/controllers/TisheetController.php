@@ -180,7 +180,8 @@ class TisheetController extends BaseController
         if ( $tisheet->note )
             $tisheet->note->delete();
         
-		$tisheet->subContexts()->detach();
+        $tisheet->words()->detach();
+        
         $tisheet->delete();
 
         return 'true';
