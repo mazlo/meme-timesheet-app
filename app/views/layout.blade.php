@@ -490,7 +490,15 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		// invoke all registered callbacks
 		var callbacks = descriptionChangeListener.length;
 		for ( var i=0; i<callbacks; i++ )
-			descriptionChangeListener.shift()(item);
+		{
+			// get next element of array
+			var obj = descriptionChangeListener.shift();
+
+			if ( obj.startOnly != undefined )
+				obj.callback()( item, obj.startOnly );
+			else
+				obj.callback()( item, false );
+		}
 	};
 
 	//
