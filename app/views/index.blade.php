@@ -112,7 +112,7 @@
 					<span class='octicon octicon-info element-invisible'></span>
 				</td>
 				<td>
-					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description' ) ) }}
+					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
