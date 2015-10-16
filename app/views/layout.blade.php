@@ -302,7 +302,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 				if ( obj.callback !== undefined && obj.callback !== '' )
 				{
 					if ( obj.callback === 'go' || obj.callback === 'run' )
-						toggleStopwatchStatus( tisheet, true );
+						tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: obj.callback, startOnly: true } );
 				}
 
 				showAndFadeOutOkIcon( tisheet );
@@ -370,13 +370,15 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		});
 	});
 
-	// 
+	/**
+	*	this handler is currently not used, since the feature was removed
+	*/
 	$jQ( document ).on( 'change', '.js-tisheet-planned', function()
 	{
 		var item = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( item.attr( 'id' ) == 'undefined' )
-			descriptionChangeListener.push( updateTisheetIsPlanned );
+			descriptionChangeListener.push( { callback: updateTisheetIsPlanned } );
 		else
 			updateTisheetIsPlanned( item );
 	});
@@ -417,7 +419,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		
 		if ( item.attr( 'id' ) == 'undefined' )
 			// tisheet without an id -> update when tisheet was saved
-			descriptionChangeListener.push( updateTisheetTimeSpentQuarter );
+			descriptionChangeListener.push( { callback: updateTisheetTimeSpentQuarter, startOnly: false } );
 		else
 			updateTisheetTimeSpentQuarter( item );
 
@@ -660,8 +662,10 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	var minutesByTisheets = [];
 
 	//
-	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function()
+	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
 	{
+		startOnly = ( action != undefined && action.startOnly != undefined ? action.startOnly : false );
+
 		var requestedStopwatch = $jQ(this);
 		var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
 
@@ -676,17 +680,17 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			
 			// but only if it's not the current stopwatch
 			if ( runningStopwatchId != requestedStopwatchId )
-				toggleStopwatchStatus( runningStopwatch.closest( 'tr.js-tisheet' ) );
+				toggleStopwatchStatus( runningStopwatch.closest( 'tr.js-tisheet' ), false );
 		}
 
 		// change status of stopwatch now
 
 		if ( requestedStopwatchId == 'undefined' )
 			// register for post update description field
-			descriptionChangeListener.push( toggleStopwatchStatus );
+			descriptionChangeListener.push( { callback: toggleStopwatchStatus, startOnly: startOnly } );
 		else
 			// change status of pressed stopwatch now
-			toggleStopwatchStatus( tisheet );
+			toggleStopwatchStatus( tisheet, startOnly );
 	});
 
 	// starts or stops the stopwatch for the given tisheet
