@@ -228,9 +228,6 @@ class TisheetController extends BaseController
         {
             if( empty( $word ) || strlen( $word ) == 1 )
                 return false;
-			
-            if ( $word{0} == '/' )
-                return false;
 
             if( $word{0} == '@' )
                 return true;
@@ -368,8 +365,8 @@ class TisheetController extends BaseController
                 if ( empty( $word ) || strlen( $word ) == 1 )
                     return false;
 
-                // ignore Contexts and Time here
-				if ( $word{0} == '#' || $word{0} == '@' )
+                // ignore Contexts and Time and Commands here
+				if ( $word{0} == '#' || $word{0} == '@' || $word{0} == '/' )
                     return false;
 
                 return true;
