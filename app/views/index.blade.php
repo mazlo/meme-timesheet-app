@@ -65,7 +65,7 @@
 				</td>
 				
 				<td>
-					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description' ) ) }}
+					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>

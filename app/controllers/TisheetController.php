@@ -91,7 +91,7 @@ class TisheetController extends BaseController
             TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
-            $tisheet->description = $value;
+            $tisheet->description = TisheetController::eliminateCommands ( $value );
         }
         
         $tisheet->save();
@@ -102,7 +102,8 @@ class TisheetController extends BaseController
             'callback' => substr( $command, 1 ),
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
-            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
+            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null,
+            'desc' => $tisheet->description
         ) );
     }
 
@@ -133,7 +134,7 @@ class TisheetController extends BaseController
             TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
-            $tisheet->description = $value;
+            $tisheet->description = TisheetController::eliminateCommands ( $value );
         }
         
         // update time spent
@@ -166,7 +167,8 @@ class TisheetController extends BaseController
             'callback' => substr( $command, 1 ),
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
-            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null
+            'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null,
+            'desc' => $tisheet->description
         ) );
     }
 
@@ -395,5 +397,26 @@ class TisheetController extends BaseController
         $value = trim( $value );
 
         return $value;
+    }
+
+    /**
+     *
+     * @param type $value
+     * @return type
+     */
+    public function eliminateCommands( $value )
+    {
+        $words = array_filter( explode( ' ', $value ), function( $word )
+        {
+            if( empty( $word ) )
+                return false;
+
+            if( $word{0} == '/' )
+                return false;
+
+            return true;
+        });
+
+        return implode( ' ', $words );
     }
 }

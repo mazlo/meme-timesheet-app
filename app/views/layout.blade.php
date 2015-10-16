@@ -303,6 +303,8 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 				{
 					if ( obj.callback === 'go' || obj.callback === 'run' )
 						tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: obj.callback, startOnly: true } );
+
+					tisheet.find( '.js-tisheet-description' ).val( obj.desc );
 				}
 
 				showAndFadeOutOkIcon( tisheet );
