@@ -301,8 +301,20 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 				
 				if ( obj.callback !== undefined && obj.callback !== '' )
 				{
-					if ( obj.callback === 'go' || obj.callback === 'run' )
-						tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: obj.callback, startOnly: true } );
+					var command = obj.callback.command;
+
+					// starts the stopwatch
+					if ( command === 'go' || command === 'run' )
+						tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: command, startOnly: true } );
+
+					// updates quarters of time
+					else if ( command === 'spent' || command === 'took' || command === 'planned' )
+					{
+						var param = obj.callback.param;
+
+						if ( param <= 4 )
+							tisheet.find( 'span.js-time-spent-quarter:eq('+ ( Math.floor( param*4 ) - 1 ) + ')' ).click();
+					}
 
 					tisheet.find( '.js-tisheet-description' ).val( obj.desc );
 				}

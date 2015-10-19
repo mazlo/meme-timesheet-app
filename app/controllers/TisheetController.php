@@ -80,7 +80,7 @@ class TisheetController extends BaseController
 		// save tisheet to obtain an id
 		$tisheet->save();
 		
-        $command = "";
+        $command = array();
         
         if ( Input::has( 'vl' ) )
         {
@@ -91,7 +91,7 @@ class TisheetController extends BaseController
             TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
-            $tisheet->description = TisheetController::eliminateCommands ( $value );
+            $tisheet->description = TisheetController::eliminateCommands ( $command );
         }
         
         $tisheet->save();
@@ -99,7 +99,7 @@ class TisheetController extends BaseController
         return Response::json( array( 
             'status' => 'ok', 
             'action' => 'add', 
-            'callback' => substr( $command, 1 ),
+            'callback' => $command,
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null,
@@ -123,7 +123,7 @@ class TisheetController extends BaseController
             ->where( 'user_id', Auth::user()->id )
             ->first();
 
-		$command = "";
+		$command = array();
 		
         if ( Input::has( 'vl' ) )
         {
@@ -134,7 +134,7 @@ class TisheetController extends BaseController
             TisheetController::syncCommands( $value, $command );
             TisheetController::syncWords( $tisheet, $value );
 
-            $tisheet->description = TisheetController::eliminateCommands ( $value );
+            $tisheet->description = TisheetController::eliminateCommands ( $command );
         }
         
         // update time spent
@@ -164,7 +164,7 @@ class TisheetController extends BaseController
         return Response::json( array( 
             'status' => 'ok', 
             'action' => 'update', 
-            'callback' => substr( $command, 1 ),
+            'callback' => $command,
             'id' => $tisheet->id, 
             'time' => $tisheet->time_start,
             'context' => $tisheet->context ? substr( $tisheet->context->prefLabel, 1 ) : null,
@@ -249,16 +249,33 @@ class TisheetController extends BaseController
     */
     public static function syncCommands( $value, &$command ) 
     {
-        $command = array_first( explode( ' ', $value ), function( $index, $word )
+        $command = array_reduce( explode( ' ', $value ), function( $lastValue, $currentValue )
         {
-            if( empty( $word ) || strlen( $word ) == 1 )
-                return false;
-
-            if( $word{0} == '/' )
-                return true;
-
-            return false;
+            if ( empty( $lastValue ) )
+                $lastValue = array( 'desc' => array(), 'command' => null, 'param' => null );
+            
+            if ( $currentValue{0} == '/' )
+            {
+                $lastValue['command'] = $currentValue;
+                $lastValue['param'] = null;
+                
+                return $lastValue;
+            }
+            
+            if ( $lastValue['command']{0} == '/' )
+            {
+                $lastValue['param'] = $currentValue;
+                
+                return $lastValue;
+            }
+            
+            $lastValue['desc'][count( $lastValue['desc'] )] = $currentValue;
+            
+            return $lastValue;
         });
+        
+        if ( isset( $command['command'] ) )
+            $command['command'] = substr ( $command['command'], 1 );
     }
 	
 	/**
@@ -401,19 +418,8 @@ class TisheetController extends BaseController
      * @param type $value
      * @return type
      */
-    public function eliminateCommands( $value )
+    public function eliminateCommands( $command )
     {
-        $words = array_filter( explode( ' ', $value ), function( $word )
-        {
-            if( empty( $word ) )
-                return false;
-
-            if( $word{0} == '/' )
-                return false;
-
-            return true;
-        });
-
-        return implode( ' ', $words );
+        return implode( ' ', $command['desc'] );
     }
 }
