@@ -312,8 +312,23 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 					{
 						var param = obj.callback.param;
 
-						if ( param <= 4 )
-							tisheet.find( 'span.js-time-spent-quarter:eq('+ ( Math.floor( param*4 ) - 1 ) + ')' ).click();
+						if ( param.indexOf( 'h' ) > 0 )
+						{
+							param = param.split( 'h' )[0];
+							if ( param <= 4 )
+								tisheet.find( 'span.js-time-spent-quarter:eq('+ roundToQuarterOfHour( param*60 ) + ')' ).click();
+							else
+								tisheet.find( 'span.js-time-spent-quarter:eq(15)' ).click();
+						}
+						else if ( param.indexOf( 'min' ) > 0 )
+						{
+							param = param.split( 'min' )[0];
+							if ( param <= 240 )
+								tisheet.find( 'span.js-time-spent-quarter:eq('+ roundToQuarterOfHour( param ) + ')' ).click();
+							else 
+								tisheet.find( 'span.js-time-spent-quarter:eq(15)' ).click();
+
+						}
 					}
 
 					tisheet.find( '.js-tisheet-description' ).val( obj.desc );
@@ -831,6 +846,16 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	var getTisheet = function( element )
 	{
 		return $jQ( element ).closest( 'tr.js-tisheet' );
+	}
+
+	var roundToQuarterOfHour = function( minutes )
+	{
+		var rounded = Math.ceil( minutes/15 );
+
+		if ( rounded == 0 )
+			return 0;
+		else
+			return rounded -1;
 	}
 
 	//
