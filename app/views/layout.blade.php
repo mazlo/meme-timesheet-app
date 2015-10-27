@@ -17,6 +17,9 @@
 
 	<script type='text/javascript' src='{{ url( "jquery.datepicker.min.js" ) }}'></script>
 
+	<!-- js-functions for tisheets -->
+	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
+
 	<script type='text/javascript'>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
 		$jQ = jQuery.noConflict();
@@ -305,7 +308,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 
 					// starts the stopwatch
 					if ( command === 'go' || command === 'run' )
-						tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: command, startOnly: true } );
+						runStopwatch( tisheet, command, true );
 
 					// updates quarters of time
 					else if ( command === 'spent' || command === 'took' || command === 'planned' )
