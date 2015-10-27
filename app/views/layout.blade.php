@@ -17,13 +17,14 @@
 
 	<script type='text/javascript' src='{{ url( "jquery.datepicker.min.js" ) }}'></script>
 
-	<!-- js-functions for tisheets -->
-	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
-
 	<script type='text/javascript'>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
 		$jQ = jQuery.noConflict();
 	</script>
+
+	<!-- js-functions for tisheets -->
+	<script type='text/javascript' src='{{ url( "tisheet-events.js" ) }}'></script>
+	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
 </head>
 
 <body>
@@ -414,34 +415,6 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			}
 		});
 	};
-
-	$jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
-	{
-		// reset all coming quarters
-		$jQ(this).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
-
-		// update current
-		$jQ(this).addClass( 'time-spent-quarter-active' );
-		// update all previous quarters
-		$jQ(this).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
-
-		// update ui
-		var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;
-		$jQ(this).closest( 'tr.js-tisheet' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
-
-		// register feature for post update
-
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
-		
-		if ( item.attr( 'id' ) == 'undefined' )
-			// tisheet without an id -> update when tisheet was saved
-			descriptionChangeListener.push( { callback: updateTisheetTimeSpentQuarter, startOnly: false } );
-		else
-			updateTisheetTimeSpentQuarter( item );
-
-		// update total time spent for the day -> static
-		updateTisheetTimeSpentToday();
-	});
 
 	//
 	var updateTisheetTimeSpentQuarter = function( tisheet )
