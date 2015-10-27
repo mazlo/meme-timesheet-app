@@ -312,6 +312,12 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 					else if ( command === 'spent' || command === 'took' || command === 'planned' )
 						updateQuarterOfTime( tisheet, obj );
 
+					else if ( command === 'since' )
+					{
+						updateQuarterOfTime( tisheet, obj );
+						runStopwatch( tisheet, command, true );
+					}
+
 					tisheet.find( '.js-tisheet-description' ).val( obj.desc );
 				}
 
