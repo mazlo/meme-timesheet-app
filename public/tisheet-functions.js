@@ -35,3 +35,16 @@ var updateQuarterOfTime = function ( tisheet, obj )
             tisheet.find( 'span.js-time-spent-quarter:eq(15)' ).click();
     }
 }
+
+/**
+*
+*/
+var roundToQuarterOfHour = function( minutes )
+{
+    var rounded = Math.ceil( minutes/15 );
+
+    if ( rounded == 0 )
+        return 0;
+    else
+        return rounded -1;
+}

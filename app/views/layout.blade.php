@@ -835,16 +835,6 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		return $jQ( element ).closest( 'tr.js-tisheet' );
 	}
 
-	var roundToQuarterOfHour = function( minutes )
-	{
-		var rounded = Math.ceil( minutes/15 );
-
-		if ( rounded == 0 )
-			return 0;
-		else
-			return rounded -1;
-	}
-
 	//
 	var cloneTisheet = function( elementToClone, latestElement )
 	{
