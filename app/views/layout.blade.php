@@ -670,14 +670,14 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 
 		// change status of running stopwatch
 
-		var runningStopwatch = $jQ( '#timesheet' ).find( 'span.octicon-playback-pause' );
-		if ( runningStopwatch.length > 0 )
+		var runningStopwatch = getRunningStopwatch();
+		if ( runningStopwatch != undefined )
 		{
-			var runningStopwatchId = getTisheetId( runningStopwatch );
+			var runningStopwatchId = runningStopwatch.id();
 			
 			// but only if it's not the current stopwatch
 			if ( runningStopwatchId != requestedStopwatchId )
-				toggleStopwatchStatus( runningStopwatch.closest( 'tr.js-tisheet' ), false );
+				toggleStopwatchStatus( runningStopwatch, false );
 		}
 
 		// change status of stopwatch now
