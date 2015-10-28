@@ -1,3 +1,32 @@
+// AJAX SUCCESS HANDLERS
+
+/**
+*
+*/
+var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
+{
+    if ( obj.callback == undefined || obj.callback == '' )
+        return;
+
+    var command = obj.callback.command;
+
+    if ( command === 'go' || command === 'run' )
+        runStopwatch( tisheet, command, true );
+
+    else if ( command === 'spent' || command === 'took' || command === 'planned' )
+        updateQuarterOfTime( tisheet, obj );
+
+    else if ( command === 'since' )
+    {
+        updateQuarterOfTime( tisheet, obj );
+        runStopwatch( tisheet, command, true );
+    }
+
+    tisheet.find( '.js-tisheet-description' ).val( obj.desc );
+}
+
+// HELPER FUNCTIONS
+
 /**
 *
 */
