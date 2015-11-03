@@ -16,7 +16,7 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     else if ( command === 'spent' || command === 'took' || command === 'planned' )
         updateQuarterOfTime( tisheet, obj );
 
-    else if ( command === 'since' )
+    else if ( command === 'since' && obj.callback.param != undefined )
     {
         updateQuarterOfTime( tisheet, obj );
         runStopwatch( tisheet, command, true );

@@ -254,6 +254,9 @@ class TisheetController extends BaseController
             if ( empty( $lastValue ) )
                 $lastValue = array( 'desc' => array(), 'command' => null, 'param' => null );
             
+            if ( empty( trim( $currentValue ) ) )
+                return $lastValue;
+            
             if ( $currentValue{0} == '/' )
             {
                 $lastValue['command'] = $currentValue;
@@ -264,7 +267,8 @@ class TisheetController extends BaseController
             
             if ( $lastValue['command']{0} == '/' )
             {
-                $lastValue['param'] = $currentValue;
+                if ( trim( $currentValue ) != '' )
+                    $lastValue['param'] = $currentValue;
                 
                 return $lastValue;
             }
