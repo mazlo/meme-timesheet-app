@@ -364,7 +364,7 @@ class TisheetController extends BaseController
 
         return array_map( function( $value )
         {
-            $value = TisheetController::normalizeWord( $value );
+            $value = str_singular( TisheetController::normalizeWord( $value ) );
 
             $word = Word::where( 'value', $value )
                 ->where( 'user_id', Auth::user()->id )
