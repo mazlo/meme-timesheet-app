@@ -10,7 +10,7 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 
     var command = obj.callback.command;
 
-    if ( command === 'go' || command === 'run' )
+    if ( command === 'now' || command === 'go' || command === 'run' )
         runStopwatch( tisheet, command, true );
 
     else if ( command === 'spent' || command === 'took' || command === 'planned' )
