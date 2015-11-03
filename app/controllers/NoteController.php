@@ -19,7 +19,11 @@ class NoteController extends BaseController
         if ( empty( $tisheet->note ) )
             $note = new Note();
         
-        $note->content = Input::get( 'nt' );
+        if ( Input::has( 'nt' ) )
+            $note->content = Input::get( 'nt' );
+
+        if ( Input::has( 'na' ) )
+            $note->visible = Input::get( 'na' ) == 'true' ? true : false;
 
         $tisheet->note()->save( $note );
 

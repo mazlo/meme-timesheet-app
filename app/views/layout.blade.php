@@ -331,7 +331,8 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			url: url,
 			type: type,
 			data: {
-				nt: value.trim()
+				nt: value.trim(),
+				na: true
 			},
 			success: function( data )
 			{
@@ -544,6 +545,14 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 
 		note.toggleClass( 'element-hidden' );
 		note.find( 'textarea' ).focus();
+
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
+		
+		$jQ.ajax({
+			url: url,
+			type: 'put',
+			data: { na: note.is( ':visible' ) }
+		});
 	});
 
 	//
