@@ -76,6 +76,13 @@
 					return this.attr( 'id' );
 
 				return 'undefined';
+			},
+			today: function()
+			{
+				if ( this.prop( 'tagName' ) === 'DIV' && this.attr( 'id' ) !== undefined && this.attr( 'id' ) == 'timesheet' )
+					return this.attr( 'day' );
+
+				return 'undefined';
 			}
 		});
 
