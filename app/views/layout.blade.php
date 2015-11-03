@@ -115,10 +115,10 @@
 				var position = 1;
 				items.each( function()
 				{
-					tids.push( $jQ(this).attr( 'id' ) );
+					tids.push( $jQ(this).id() );
 				});
 
-				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
+				var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today();
 
 				// update backend
 				$jQ.ajax({
@@ -169,7 +169,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			else if ( target.hasClass( 'tisheet-description' ) )
 			{
 				// remove whole line when textfield is empty, but ignore first element and if it has an id
-				if ( target.val() == '' && tisheet.index() != 1 && tisheet.attr( 'id' ) == 'undefined' )
+				if ( target.val() == '' && tisheet.index() != 1 && tisheet.id() == 'undefined' )
 					tisheet.remove();
 
 				// replace with old value and blur
@@ -258,9 +258,9 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		if ( value.trim() == '' )
 			return;	// ignore empty values
 
-		var hasId = tisheet.attr( 'id' ) != 'undefined' ? true : false;
+		var hasId = tisheet.id() != 'undefined' ? true : false;
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + ( hasId ? '/tisheet/'+ tisheet.attr( 'id' ) : '' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + ( hasId ? '/tisheet/'+ tisheet.id() : '' );
 		var type = hasId ? 'put' : 'post';
 
 		// activate loading icon
@@ -328,7 +328,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' ) +'/note';
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
 		// show loading icon
@@ -366,7 +366,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		if ( oldTopic == value )
 			return; // ignore if nothing changed
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today();
 		var type = value.trim() == '' ? 'delete' : 'put';
 
 		$jQ.ajax({
@@ -385,7 +385,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	{
 		var item = $jQ(this).closest( 'tr.js-tisheet' );
 
-		if ( item.attr( 'id' ) == 'undefined' )
+		if ( item.id() == 'undefined' )
 			descriptionChangeListener.push( { callback: updateTisheetIsPlanned } );
 		else
 			updateTisheetIsPlanned( item );
@@ -395,7 +395,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	var updateTisheetIsPlanned = function( item )
 	{
 		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ item.attr( 'id' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id();
 		var planned = item.find( '.js-tisheet-planned' ).is( ':checked' );
 
 		$jQ.ajax({
@@ -411,7 +411,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	var updateTisheetTimeSpentQuarter = function( tisheet )
 	{
 		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/tisheet/'+ tisheet.attr( 'id' );
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id();
 		var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
 		var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
 
@@ -440,7 +440,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	//
 	var updateTisheetTimeline = function()
 	{
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/timeline';
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/timeline';
 
 		$jQ.ajax({
 			url: url,
@@ -493,7 +493,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	//
 	var addAutocompleteOnTisheetDescription = function()
 	{
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) + '/autocomplete';
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/autocomplete';
 
     	$jQ.ajax({
     		url: url,
@@ -523,7 +523,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		if ( item.id() === undefined )
 			return;
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ item.id();
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
 
 		$jQ.ajax({
 			url: url,
@@ -567,7 +567,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	{
 		var tisheet = getTisheet( this );
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).attr( 'day' ) +'/tisheet/'+ tisheet.id();
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
 
 		$jQ.ajax({
 			url: url,
@@ -708,10 +708,10 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
 
 		// completes the quarter if it's done more than the half
-		if ( minutesByTisheets[ tisheet.attr( 'id' ) ] > 7 )
+		if ( minutesByTisheets[ tisheet.id() ] > 7 )
 			triggerQuarterTimeSpentClick( tisheet );
 
-		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		minutesByTisheets[ tisheet.id() ] = 0;
 
 		// reset stopwatch
 		clearInterval( interval );
@@ -732,8 +732,8 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			checkTriggerQuarterTimeSpent( tisheet );
 		}, 1000*60 );
 
-		if ( minutesByTisheets[ tisheet.attr( 'id' ) ] == undefined ) 
-			minutesByTisheets[ tisheet.attr( 'id' ) ] = 1;
+		if ( minutesByTisheets[ tisheet.id() ] == undefined ) 
+			minutesByTisheets[ tisheet.id() ] = 1;
 
 		// update tisheet start field only once
 		var time = tisheet.find( 'span.js-tisheet-time-start' );
@@ -746,11 +746,11 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	// check whether a quarter of an hour has passed
 	var checkTriggerQuarterTimeSpent = function( tisheet )
 	{	
-		var minutesCounter = minutesByTisheets[ tisheet.attr( 'id' ) ] + 1;
+		var minutesCounter = minutesByTisheets[ tisheet.id() ] + 1;
 
 		if ( minutesCounter <= 15 )
 		{
-			minutesByTisheets[ tisheet.attr( 'id' ) ] = minutesCounter;
+			minutesByTisheets[ tisheet.id() ] = minutesCounter;
 			return;
 		}
 
@@ -768,7 +768,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 			return;
 		}
 
-		minutesByTisheets[ tisheet.attr( 'id' ) ] = 0;
+		minutesByTisheets[ tisheet.id() ] = 0;
 	};
 	
 	// updates the next time spent quarter
@@ -798,7 +798,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	// 
 	var getTisheetId = function( element )
 	{
-		return $jQ( element ).closest( 'tr.js-tisheet' ).attr( 'id' );
+		return $jQ( element ).closest( 'tr.js-tisheet' ).id();
 	}
 
 	//
