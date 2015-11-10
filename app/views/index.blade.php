@@ -176,6 +176,10 @@
 		</div>
 	</div>
 
+	<div id='columns' class='js-columns'>
+		{{-- ajax content here --}}
+	</div>
+
 
 <script type='text/javascript'>
 
