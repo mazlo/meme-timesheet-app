@@ -145,6 +145,12 @@
 
 	});
 
+	// show cloneable column on hover of wrapper
+	$jQ( document ).on( 'hover', 'div.js-columns', function()
+	{
+		$jQ(this).find( 'li.js-column-cloneable' ).toggleClass( 'element-hidden' );
+	});
+
 $jQ( document ).on( 'click', '.datepicker', function( event )
 {
 	picker.toggleClass( 'element-invisible' );
