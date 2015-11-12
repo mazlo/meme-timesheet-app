@@ -6,20 +6,28 @@
             <li>{{ $item->label }}
             </li>
             @endforeach
-            <li class='column-item js-column-item-clonable element-invisible'><input type='text' placeholder='value'></li>
+            <li class='column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='value'></li>
         </ul>
     </li>
 @endforeach
 
-    <li class='column js-column js-column-cloneable element-invisible'>
-        <input type='text' placeholder='label'>
+    <li class='column js-column js-column-clonable element-invisible'>
+        <input class='js-column-label' type='text' placeholder='label'>
         <ul>
-            <li class='column-item js-column-item-clonable element-invisible'><input type='text' placeholder='value'></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='value'></li>
         </ul>
     </li>
 </ul>
 
 <script type='text/javascript'>
+
+    $jQ = jQuery.noConflict();
+
+    // show clonable column on hover of wrapper
+    $jQ( document ).on( 'hover', 'div.js-columns', function()
+    {
+        $jQ(this).find( 'li.js-column-clonable' ).toggleClass( 'element-invisible' );
+    });
 
     $jQ( function()
     {
