@@ -10,4 +10,20 @@ class ColumnController extends BaseController
         return View::make( 'ajax.columns' )
             ->with( 'columns', $columns );
     }
+
+    /**
+    *   Inserts or updates a column
+    */
+    public function insertOrUpdate( $day, $cid )
+    {
+        
+    }
+
+    /**
+    *   Inserts of updates an item for the given column-id
+    */
+    public function insertOrUpdateItem( $day, $cid, $iid )
+    {
+        
+    }
 }

@@ -51,7 +51,10 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
 	Route::get( '/tisheets/{day}/timeline', 'TisheetController@timeline' );
+	
 	Route::get( '/tisheets/{day}/columns', 'ColumnController@columns' );
+	Route::put( '/tisheets/{day}/columns/{id}', 'ColumnController@insertOrUpdate' );
+	Route::put( '/tisheets/{day}/columns/{id}/item/{cid}', 'ColumnController@insertOrUpdateItem' );
 
 	Route::put( '/tisheets/{day}/tisheet/{id}', 'TisheetController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}', 'TisheetController@delete' );

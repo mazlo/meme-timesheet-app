@@ -32,15 +32,33 @@
         //
         $jQ( document ).on( 'focusout', 'input.js-column-label', function()
         {
-            // save js-column
-
-            if ( $jQ(this).val().trim() == '' )
+            var label = $jQ(this).val().trim();
+            
+            if ( label == '' )
                 return;
 
-            var elementToClone = $jQ(this).closest( 'li.js-column' );
+            var column = $jQ(this).closest( 'li.js-column' );
+
+            // post label and update id
+            $jQ.ajax({
+                url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ),
+                type: 'put',
+                data: { lb: label },
+                success: function( data )
+                {
+                    if ( data.error )
+                        return;
+
+                    column.attr( 'id', data.id );
+                }
+            });
+
+            // clone 
+            var elementToClone = column;
             var clonedColumn = elementToClone.clone();
             
             elementToClone.find( 'input' ).val( '' );
+            elementToClone.removeAttr( 'id' );
             clonedColumn.removeClass( 'js-column-clonable element-invisible' );
             clonedColumn.insertBefore( elementToClone ) // ?
         });
@@ -48,15 +66,33 @@
         // 
         $jQ( document ).on( 'focusout', 'input.js-column-item-label', function()
         {
-            // save js-column-item
+            var label = $jQ(this).val().trim();
 
-            if ( $jQ(this).val().trim() == '' )
+            if ( label == '' )
                 return;
 
-            var elementToClone = $jQ(this).closest( 'li.js-column-item' );
+            var columnItem = $jQ(this).closest( 'li.js-column-item' );
+            var column = columnItem.closest( 'li.js-column' )
 
-            if ( elementToClone.closest( 'li.js-column' ).hasClass( 'element-invisible' ) )
+            var elementToClone = columnItem;
+
+            // ignore when parent is not saved yet
+            if ( column.hasClass( 'element-invisible' ) )
                 return;
+
+            // post label and update id
+            $jQ.ajax({
+                url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ) +'/item/'+ columnItem.attr( 'id' ),
+                type: 'put',
+                data: { lb: label },
+                success: function( data )
+                {
+                    if ( data.error )
+                        return;
+
+                    columnItem.attr( 'id', data.id );
+                }
+            });
 
             var clonedColumn = elementToClone.clone();
             
