@@ -159,11 +159,11 @@
 		$jQ(this).find( 'li.js-column-cloneable' ).toggleClass( 'element-hidden' );
 	});
 
-$jQ( document ).on( 'click', '.datepicker', function( event )
-{
-	picker.toggleClass( 'element-invisible' );
-	picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
-});
+	$jQ( document ).on( 'click', '.datepicker', function( event )
+	{
+		picker.toggleClass( 'element-invisible' );
+		picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
+	});
 
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
