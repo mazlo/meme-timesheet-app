@@ -143,6 +143,14 @@
 		    },
 		});
 
+		// load columns
+		$jQ.ajax({
+			url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns',
+			success: function( data )
+			{
+				$jQ( '#columns' ).html( data );
+			}
+		});
 	});
 
 	// show cloneable column on hover of wrapper
