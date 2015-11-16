@@ -1,20 +1,22 @@
 <ul>
 @foreach( $columns as $column )
-    <li class='column js-column'>{{ $column->label }}
+    <li class='column js-column' id='{{ $column->id }}'><input class='js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
         <ul>
             @foreach( $column->items as $item )
-            <li>{{ $item->label }}
-            </li>
+            <li class='column-item js-column-item' id='{{ $item->id }}'><input class='js-column-item-label' type='text' placeholder='item description' value='{{ $item->label }}'></li>
             @endforeach
-            <li class='column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='value'></li>
+
+            {{-- this is empty and clonable --}}
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='item description'></li>
         </ul>
     </li>
 @endforeach
 
-    <li class='column js-column js-column-clonable element-invisible'>
-        <input class='js-column-label' type='text' placeholder='label'>
+    {{-- this is empty and clonable --}}
+    <li class='column js-column js-column-clonable element-invisible' id='undefined'>
+        <input class='js-column-label' type='text' placeholder='column label'>
         <ul>
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='value'></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='item description'></li>
         </ul>
     </li>
 </ul>
