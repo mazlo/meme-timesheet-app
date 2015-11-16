@@ -16,7 +16,29 @@ class ColumnController extends BaseController
     */
     public function insertOrUpdate( $day, $cid )
     {
-        
+        if ( $cid == 'undefined' )
+        {
+            $column = new Column();
+            $column->user()->associate( Auth::user() );
+        }
+        else
+            $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+
+        if ( empty( $column ) )
+        {
+            $column = new Column();
+            $column->user()->associate( Auth::user() );
+        } else {
+            $column->label = Input::get( 'lb' );
+        }
+
+        $column->save();
+
+        return Response::json( array( 
+            'status' => 'ok', 
+            'action' => 'add', 
+            'id' => $column->id
+        ) );
     }
 
     /**
@@ -24,6 +46,33 @@ class ColumnController extends BaseController
     */
     public function insertOrUpdateItem( $day, $cid, $iid )
     {
-        
+        // get associated column
+        $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+
+        // create item if necessary
+        if ( $iid == 'undefined' )
+        {
+            $columnItem = new ColumnItem();
+            $columnItem->column()->associate( $column );
+        }
+        else
+            $columnItem = ColumnItem::find( $iid );
+
+        // still empty?
+        if ( empty( $columnItem ) )
+        {
+            $columnItem = new ColumnItem();
+            $columnItem->column()->associate( $column );
+        }
+        else 
+            $columnItem->label = Input::get( 'lb' );
+
+        $columnItem->save();
+
+        return Response::json( array( 
+            'status' => 'ok', 
+            'action' => 'add', 
+            'id' => $columnItem->id
+        ) );
     }
 }
