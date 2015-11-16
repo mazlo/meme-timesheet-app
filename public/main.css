@@ -381,9 +381,19 @@ li.js-column-item {
 
 input.js-column-label,
 input.js-column-item-label {
+	border: none;
+	outline: none;
+
 	width: 90%;
 	margin-top: 8px;
 	padding: 3px;
+
+	font-family: inherit;
+}
+
+input.js-column-label {
+	font-weight: 600;
+	font-size: inherit;
 }
 
 /* -------------- */
