@@ -174,6 +174,12 @@
 		var target = $jQ( event.target );
 		var tisheet = target.closest( 'tr.js-tisheet' );
 
+		if ( target.hasClass( 'js-column-label' ) || target.hasClass( 'js-column-item-label' ) )
+		{
+			target.blur();
+			return;
+		}
+
 		// focusout on escape key
 		if ( event.keyCode == 27 )
 		{
