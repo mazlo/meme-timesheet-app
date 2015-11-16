@@ -3,11 +3,11 @@
     <li class='column js-column' id='{{ $column->id }}'><input class='js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
         <ul>
             @foreach( $column->items as $item )
-            <li class='column-item js-column-item' id='{{ $item->id }}'><input class='js-column-item-label' type='text' placeholder='item description' value='{{ $item->label }}'></li>
+            <li class='column-item js-column-item' id='{{ $item->id }}'><textarea class='js-column-item-label' type='text' placeholder='item description' value='{{ $item->label }}'></textarea></li>
             @endforeach
 
             {{-- this is empty and clonable --}}
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='item description'></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
     </li>
 @endforeach
@@ -16,7 +16,7 @@
     <li class='column js-column js-column-clonable element-invisible' id='undefined'>
         <input class='js-column-label' type='text' placeholder='column label'>
         <ul>
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><input class='js-column-item-label' type='text' placeholder='item description'></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
     </li>
 </ul>
@@ -44,9 +44,9 @@
             oldColumnLabel = $jQ( this ).val();
         });
 
-        $jQ( document ).on( 'focusin', 'input.js-column-item-label', function()
+        $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
         {
-            oldColumnItemLabel = $jQ( this ).val();
+            oldColumnItemLabel = $jQ( this ).text();
         });
 
         //
@@ -91,9 +91,9 @@
         });
 
         // 
-        $jQ( document ).on( 'focusout', 'input.js-column-item-label', function()
+        $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
         {
-            var label = $jQ(this).val().trim();
+            var label = $jQ(this).text().trim();
 
             if ( label == '' )
                 return; // ignore empty values
@@ -128,7 +128,7 @@
             if ( columnItem.next( '.js-column-item-clonable' ).length > 0 )
                 return;
 
-            columnItem.find( 'input' ).val( '' );
+            columnItem.find( 'textarea' ).text( '' );
             clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
             clonedItem.insertBefore( columnItem );
         });

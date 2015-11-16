@@ -380,18 +380,23 @@ li.js-column-item {
 }
 
 input.js-column-label,
-input.js-column-item-label {
+input.js-column-item-label,
+textarea.js-column-label,
+textarea.js-column-item-label {
 	border: none;
-	outline: none;
+	resize: none;
 
 	width: 90%;
-	margin-top: 8px;
-	padding: 3px;
+	height: 42px;
+	margin-top: 6px;
+	padding: 3px 6px;
 
 	font-family: inherit;
 }
 
-input.js-column-label {
+input.js-column-label,
+textarea.js-column-label {
+	height: 18px;
 	font-weight: 600;
 	font-size: inherit;
 }
