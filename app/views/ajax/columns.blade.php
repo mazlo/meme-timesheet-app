@@ -39,15 +39,29 @@
             $jQ(this).find( 'li.js-column-item-clonable' ).toggleClass( 'element-invisible' );
         });
 
+        $jQ( document ).on( 'focusin', 'input.js-column-label', function()
+        {
+            oldColumnLabel = $jQ( this ).val();
+        });
+
+        $jQ( document ).on( 'focusin', 'input.js-column-item-label', function()
+        {
+            oldColumnItemLabel = $jQ( this ).val();
+        });
+
         //
         $jQ( document ).on( 'focusout', 'input.js-column-label', function()
         {
             var label = $jQ(this).val().trim();
             
             if ( label == '' )
-                return;
+                return; // ignore empty values
+
+            if ( oldColumnLabel == label )
+                return; // ignore if nothing changed
 
             var column = $jQ(this).closest( 'li.js-column' );
+            var clonedColumn = column.clone();
 
             // post label and update id
             $jQ.ajax({
@@ -56,21 +70,24 @@
                 data: { lb: label },
                 success: function( data )
                 {
-                    if ( data.error )
+                    if ( data.status == 'error' )
                         return;
 
-                    column.attr( 'id', data.id );
+                    clonedColumn.attr( 'id', data.id );
                 }
             });
 
+            if ( column.next( '.js-column-clonable' ).length > 0 )
+                return; // nothing to clone
+
+            if ( oldColumnLabel != undefined )
+                return; // nothing to clone
+
             // clone 
-            var elementToClone = column;
-            var clonedColumn = elementToClone.clone();
-            
-            elementToClone.find( 'input' ).val( '' );
-            elementToClone.removeAttr( 'id' );
+            column.find( 'input' ).val( '' );
+            column.removeAttr( 'id' );
             clonedColumn.removeClass( 'js-column-clonable element-invisible' );
-            clonedColumn.insertBefore( elementToClone ) // ?
+            clonedColumn.insertBefore( column );
         });
 
         // 
@@ -79,16 +96,19 @@
             var label = $jQ(this).val().trim();
 
             if ( label == '' )
-                return;
+                return; // ignore empty values
+
+            if ( oldColumnItemLabel == label )
+                return; // ignore if nothing changed
 
             var columnItem = $jQ(this).closest( 'li.js-column-item' );
             var column = columnItem.closest( 'li.js-column' )
 
-            var elementToClone = columnItem;
-
             // ignore when parent is not saved yet
             if ( column.hasClass( 'element-invisible' ) )
                 return;
+
+            var clonedItem = columnItem.clone();
 
             // post label and update id
             $jQ.ajax({
@@ -97,18 +117,20 @@
                 data: { lb: label },
                 success: function( data )
                 {
-                    if ( data.error )
+                    if ( data.status == 'error' )
                         return;
 
-                    columnItem.attr( 'id', data.id );
+                    clonedItem.attr( 'id', data.id );
                 }
             });
 
-            var clonedColumn = elementToClone.clone();
-            
-            elementToClone.find( 'input' ).val( '' );
-            clonedColumn.removeClass( 'js-column-item-clonable element-invisible' );
-            clonedColumn.insertBefore( elementToClone ) // ?
+            // ignore when there is already a cloned column-item
+            if ( columnItem.next( '.js-column-item-clonable' ).length > 0 )
+                return;
+
+            columnItem.find( 'input' ).val( '' );
+            clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
+            clonedItem.insertBefore( columnItem );
         });
     });
 
