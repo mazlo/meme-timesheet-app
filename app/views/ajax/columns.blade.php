@@ -3,7 +3,7 @@
     <li class='column js-column' id='{{ $column->id }}'><input class='js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
         <ul>
             @foreach( $column->items as $item )
-            <li class='column-item js-column-item' id='{{ $item->id }}'><textarea class='js-column-item-label' type='text' placeholder='item description' value='{{ $item->label }}'></textarea></li>
+            <li class='column-item js-column-item' id='{{ $item->id }}'><textarea class='js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea></li>
             @endforeach
 
             {{-- this is empty and clonable --}}
@@ -46,7 +46,7 @@
 
         $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
         {
-            oldColumnItemLabel = $jQ( this ).text();
+            oldColumnItemLabel = $jQ( this ).val();
         });
 
         //
@@ -93,7 +93,7 @@
         // 
         $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
         {
-            var label = $jQ(this).text().trim();
+            var label = $jQ(this).val().trim();
 
             if ( label == '' )
                 return; // ignore empty values
@@ -128,7 +128,7 @@
             if ( columnItem.next( '.js-column-item-clonable' ).length > 0 )
                 return;
 
-            columnItem.find( 'textarea' ).text( '' );
+            columnItem.find( 'textarea' ).val( '' );
             clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
             clonedItem.insertBefore( columnItem );
         });
