@@ -5,11 +5,15 @@
             @foreach( $column->items as $item )
             <li class='column-item js-column-item' id='{{ $item->id }}'>
                 <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
+                <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
             </li>
             @endforeach
 
             {{-- this is empty and clonable --}}
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'>
+                <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea>
+                <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
+            </li>
         </ul>
     </li>
 @endforeach

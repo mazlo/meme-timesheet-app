@@ -161,6 +161,9 @@ td span.octicon {
 	
 	cursor: pointer;
 }
+.octicon-no-padding-left {
+	padding-left: 0;
+}
 
 .octicon-text {
 	padding-left: 23px;
@@ -388,6 +391,10 @@ li.column-item span {
 	top: 3px;
 	right: 13px;
 	z-index: 20;
+	opacity: 0.6;
+}
+li.column-item:not(.js-column-item-clonable):hover > span {
+	visibility: visible;
 }
 
 input.column-label,
