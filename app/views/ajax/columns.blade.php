@@ -131,10 +131,31 @@
                 return;
 
             columnItem.find( 'textarea' ).val( '' );
+
+            clonedItem.find( 'textarea' ).val( label );
             clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
             clonedItem.insertBefore( columnItem );
         });
 
+    });
+
+    //
+    $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function()
+    {
+        var columnItem = $jQ(this).closest( 'li.js-column-item' );
+        var column = columnItem.closest( 'li.js-column' );
+        
+        $jQ.ajax({
+            url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ) +'/item/'+ columnItem.attr( 'id' ),
+            type: 'delete',
+            success: function( data )
+            {
+                if ( data.status != 'ok' )
+                    return;
+
+                columnItem.remove();
+            }
+        });
     });
 
 </script>

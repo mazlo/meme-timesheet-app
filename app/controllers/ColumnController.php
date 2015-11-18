@@ -75,4 +75,18 @@ class ColumnController extends BaseController
             'id' => $columnItem->id
         ) );
     }
+
+    /**
+    *   Deletes an item with the given columnItem-id
+    */
+    public function deleteItem( $day, $cid, $iid )
+    {
+        $columnItem = ColumnItem::find( $iid );
+
+        $columnItem->delete();
+
+        return Response::json( array( 
+            'status' => 'ok'
+        ) );
+    }
 }
