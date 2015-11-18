@@ -535,7 +535,7 @@
 	}
 
 	//
-	$jQ( document ).on( 'click', '.octicon-trashcan', function()
+	$jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 	{
 		var item = getTisheet( this );
 
