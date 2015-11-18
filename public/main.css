@@ -366,6 +366,7 @@ div.columns ul {
 li.column {
     display: inline-block;
     background-color: #ddd;
+    box-shadow: 1px 1px 1px #bbb;
     width: 220px;
     padding-left: 8px;
     padding-bottom: 8px;
