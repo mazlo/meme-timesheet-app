@@ -354,16 +354,16 @@ div.summary-table div.variable-background span {
 
 /* -------------- */
 
-div.js-columns {
+div.columns {
 	margin-top: 23px;
 }
 
-div.js-columns ul {
+div.columns ul {
     list-style-type: none;
     padding-left: 6px;
 }
 
-li.js-column {
+li.column {
     display: inline-block;
     background-color: #ddd;
     width: 220px;
@@ -373,19 +373,26 @@ li.js-column {
 
     vertical-align: top;
 }
-
-li.js-column ul {
+li.column ul {
     padding-left: 0;
 }
 
-li.js-column-item {
+li.column-item {
+	position: relative;
+	z-index: 10;
     width: 220px;
 }
+li.column-item span {
+	position: absolute;
+	top: 3px;
+	right: 13px;
+	z-index: 20;
+}
 
-input.js-column-label,
-input.js-column-item-label,
-textarea.js-column-label,
-textarea.js-column-item-label {
+input.column-label,
+input.column-item-label,
+textarea.column-label,
+textarea.column-item-label {
 	border: none;
 	box-shadow: 0 0 1px;
 	resize: none;
@@ -397,8 +404,8 @@ textarea.js-column-item-label {
 	color: #525252;
 }
 
-input.js-column-label,
-textarea.js-column-label {
+input.column-label,
+textarea.column-label {
 	background-color: #ddd;
 	box-shadow: none;
 	margin: 4px 0;

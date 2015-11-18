@@ -176,7 +176,7 @@
 		</div>
 	</div>
 
-	<div id='columns' class='js-columns'>
+	<div id='columns' class='columns js-columns'>
 		{{-- ajax content here --}}
 	</div>
 

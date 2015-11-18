@@ -1,22 +1,24 @@
 <ul>
 @foreach( $columns as $column )
-    <li class='column js-column' id='{{ $column->id }}'><input class='js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
+    <li class='column js-column' id='{{ $column->id }}'><input class='column-label js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
         <ul>
             @foreach( $column->items as $item )
-            <li class='column-item js-column-item' id='{{ $item->id }}'><textarea class='js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea></li>
+            <li class='column-item js-column-item' id='{{ $item->id }}'>
+                <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
+            </li>
             @endforeach
 
             {{-- this is empty and clonable --}}
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='js-column-item-label' type='text' placeholder='item description'></textarea></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
     </li>
 @endforeach
 
     {{-- this is empty and clonable --}}
     <li class='column js-column js-column-clonable element-invisible' id='undefined'>
-        <input class='js-column-label' type='text' placeholder='column label'>
+        <input class='column-label js-column-label' type='text' placeholder='column label'>
         <ul>
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='js-column-item-label' type='text' placeholder='item description'></textarea></li>
+            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
     </li>
 </ul>
@@ -132,6 +134,7 @@
             clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
             clonedItem.insertBefore( columnItem );
         });
+
     });
 
 </script>
