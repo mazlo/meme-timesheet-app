@@ -386,6 +386,7 @@ li.column ul {
 li.column-item {
 	position: relative;
 	z-index: 10;
+	margin-top: 3px;
 }
 li.column-item span {
 	position: absolute;
@@ -399,27 +400,25 @@ li.column-item:not(.js-column-item-clonable):hover > span {
 }
 
 input.column-label,
-input.column-item-label,
-textarea.column-label,
 textarea.column-item-label {
 	border: none;
 	box-shadow: 0 0 1px;
 	resize: none;
 
 	width: 91%;
-	height: 42px;
-	padding: 3px 6px;
+	height: 43px;
+	padding: 3px 8px;
 
 	font-family: inherit;
 	color: #525252;
 }
 
-input.column-label,
-textarea.column-label {
+input.column-label {
 	background-color: #ddd;
 	box-shadow: none;
-	margin: 4px 0;
-	height: 18px;
+	margin: 6px 0 4px;
+	padding: 3px 8px;
+	height: 22px;
 	font-weight: 600;
 	font-size: inherit;
 }
