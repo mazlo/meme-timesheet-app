@@ -38,6 +38,7 @@ h2 {
 }
 
 h3 {
+	margin-bottom: 8px;
 	font-size: 19px;
 	font-weight: lighter;
 }
@@ -260,7 +261,7 @@ ul.list-inline {
 
 /* additional class to give more space */
 ul.list-inline-padded {
-	margin: 0 13px 13px;
+	margin: 13px;
 }
 
 /* additional constraint for right-floated option list */
@@ -363,6 +364,7 @@ div.columns {
 
 div.columns ul {
     list-style-type: none;
+    margin-top: 0;
     padding-left: 6px;
 }
 
@@ -370,10 +372,10 @@ li.column {
     display: inline-block;
     background-color: #ddd;
     box-shadow: 1px 1px 1px #bbb;
-    width: 220px;
-    padding-left: 8px;
-    padding-bottom: 8px;
-    margin-right: 5px;
+    width: 236px;
+    padding: 0 1px 8px 10px;
+    margin-top: 18px;
+    margin-right: 13px;
 
     vertical-align: top;
 }
@@ -384,7 +386,6 @@ li.column ul {
 li.column-item {
 	position: relative;
 	z-index: 10;
-    width: 220px;
 }
 li.column-item span {
 	position: absolute;
@@ -405,6 +406,7 @@ textarea.column-item-label {
 	box-shadow: 0 0 1px;
 	resize: none;
 
+	width: 91%;
 	height: 42px;
 	padding: 3px 6px;
 
