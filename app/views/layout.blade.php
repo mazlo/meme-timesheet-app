@@ -143,13 +143,27 @@
 		    },
 		});
 
+		// load columns
+		$jQ.ajax({
+			url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns',
+			success: function( data )
+			{
+				$jQ( '#columns' ).html( data );
+			}
+		});
 	});
 
-$jQ( document ).on( 'click', '.datepicker', function( event )
-{
-	picker.toggleClass( 'element-invisible' );
-	picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
-});
+	// show cloneable column on hover of wrapper
+	$jQ( document ).on( 'hover', 'div.js-columns', function()
+	{
+		$jQ(this).find( 'li.js-column-cloneable' ).toggleClass( 'element-hidden' );
+	});
+
+	$jQ( document ).on( 'click', '.datepicker', function( event )
+	{
+		picker.toggleClass( 'element-invisible' );
+		picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
+	});
 
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
@@ -159,6 +173,12 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 
 		var target = $jQ( event.target );
 		var tisheet = target.closest( 'tr.js-tisheet' );
+
+		if ( target.hasClass( 'js-column-label' ) || target.hasClass( 'js-column-item-label' ) )
+		{
+			target.blur();
+			return;
+		}
 
 		// focusout on escape key
 		if ( event.keyCode == 27 )
@@ -515,7 +535,7 @@ $jQ( document ).on( 'click', '.datepicker', function( event )
 	}
 
 	//
-	$jQ( document ).on( 'click', '.octicon-trashcan', function()
+	$jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 	{
 		var item = getTisheet( this );
 

@@ -38,6 +38,7 @@ h2 {
 }
 
 h3 {
+	margin-bottom: 8px;
 	font-size: 19px;
 	font-weight: lighter;
 }
@@ -160,6 +161,9 @@ td span.octicon {
 	padding-left: 23px;
 	
 	cursor: pointer;
+}
+.octicon-no-padding-left {
+	padding-left: 0;
 }
 
 .octicon-text {
@@ -350,6 +354,73 @@ div.summary-table div.variable-background {
 div.summary-table div.variable-background span {
 	padding: 0 8px;
 	white-space: nowrap;
+}
+
+/* -------------- */
+
+div.columns {
+	margin-top: 48px;
+}
+
+div.columns ul {
+    list-style-type: none;
+    margin-top: 0;
+    padding-left: 6px;
+}
+
+li.column {
+    display: inline-block;
+    background-color: #ddd;
+    box-shadow: 1px 1px 1px #bbb;
+    width: 236px;
+    padding: 0 1px 8px 10px;
+    margin-top: 18px;
+    margin-right: 13px;
+
+    vertical-align: top;
+}
+li.column ul {
+    padding-left: 0;
+}
+
+li.column-item {
+	position: relative;
+	z-index: 10;
+	margin-top: 3px;
+}
+li.column-item span {
+	position: absolute;
+	top: 3px;
+	right: 13px;
+	z-index: 20;
+	opacity: 0.6;
+}
+li.column-item:not(.js-column-item-clonable):hover > span {
+	visibility: visible;
+}
+
+input.column-label,
+textarea.column-item-label {
+	border: none;
+	box-shadow: 0 0 1px;
+	resize: none;
+
+	width: 91%;
+	height: 43px;
+	padding: 3px 8px;
+
+	font-family: inherit;
+	color: #525252;
+}
+
+input.column-label {
+	background-color: #ddd;
+	box-shadow: none;
+	margin: 6px 0 4px;
+	padding: 3px 8px;
+	height: 22px;
+	font-weight: 600;
+	font-size: inherit;
 }
 
 /* -------------- */
