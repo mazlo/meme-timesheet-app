@@ -1,3 +1,4 @@
+<h3>Columns</h3>
 <ul>
 @foreach( $columns as $column )
     <li class='column js-column' id='{{ $column->id }}'><input class='column-label js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>

@@ -260,7 +260,7 @@ ul.list-inline {
 
 /* additional class to give more space */
 ul.list-inline-padded {
-	margin: 13px;
+	margin: 0 13px 13px;
 }
 
 /* additional constraint for right-floated option list */
@@ -358,7 +358,7 @@ div.summary-table div.variable-background span {
 /* -------------- */
 
 div.columns {
-	margin-top: 23px;
+	margin-top: 48px;
 }
 
 div.columns ul {
