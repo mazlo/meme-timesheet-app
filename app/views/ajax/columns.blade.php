@@ -87,9 +87,6 @@
             if ( column.next( '.js-column-clonable' ).length > 0 )
                 return; // nothing to clone
 
-            if ( oldColumnLabel != undefined )
-                return; // nothing to clone
-
             // clone 
             column.find( 'input' ).val( '' );
             column.removeAttr( 'id' );
