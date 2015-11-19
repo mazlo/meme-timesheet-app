@@ -149,6 +149,8 @@
         var columnItem = $jQ(this).closest( 'li.js-column-item' );
         var column = columnItem.closest( 'li.js-column' );
         
+        columnItem.hide();
+
         $jQ.ajax({
             url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ) +'/item/'+ columnItem.attr( 'id' ),
             type: 'delete',
