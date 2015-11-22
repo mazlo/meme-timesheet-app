@@ -361,6 +361,9 @@ div.summary-table div.variable-background span {
 div.columns {
 	margin-top: 48px;
 }
+div.columns:hover > ul > li.element-invisible {
+	visibility: visible;
+}
 
 div.columns ul {
     list-style-type: none;
@@ -381,6 +384,9 @@ li.column {
 }
 li.column ul {
     padding-left: 0;
+}
+li.column:hover > ul > li.element-invisible {
+	visibility: visible;
 }
 
 li.column-item {

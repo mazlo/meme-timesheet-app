@@ -32,20 +32,8 @@
 
     $jQ = jQuery.noConflict();
 
-    // show clonable column on hover of wrapper
-    $jQ( document ).on( 'hover', 'div.js-columns', function()
-    {
-        $jQ(this).find( 'li.js-column-clonable' ).toggleClass( 'element-invisible' );
-    });
-
     $jQ( function()
     {
-        //
-        $jQ( document ).on( 'hover', 'li.js-column', function() 
-        {
-            $jQ(this).find( 'li.js-column-item-clonable' ).toggleClass( 'element-invisible' );
-        });
-
         $jQ( document ).on( 'focusin', 'input.js-column-label', function()
         {
             oldColumnLabel = $jQ( this ).val();
@@ -90,6 +78,7 @@
             // clone 
             column.find( 'input' ).val( '' );
             column.removeAttr( 'id' );
+
             clonedColumn.removeClass( 'js-column-clonable element-invisible' );
             clonedColumn.insertBefore( column );
         });
