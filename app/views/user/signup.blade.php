@@ -43,7 +43,7 @@
             @endif
 
             <input type='checkbox' name='terms' id='terms' />
-            <label for='terms'>I accept the <a href='{{ url("terms-and-conditions") }}'>terms and conditions</a> of yatimesheet.de.</label>
+            <label for='terms'>I accept the <a href='{{ url("terms-and-conditions") }}'>terms and conditions</a> of tim.mazlo.de.</label>
         </p>
 
         <div>

@@ -2,7 +2,7 @@
 
 @section( 'content' )
 
-    <h2>Sign in <span style='font-size: 13px'>to gain access to</span> ya timesheet</h2>
+    <h2>Sign in <span style='font-size: 13px'>to gain access to</span> tim.mazlo.de</h2>
 
     <p>Have you <a href='{{ url( "signup" ) }}'>signed up</a> already?</p>
 
