@@ -662,12 +662,6 @@
 		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 
-	//
-	$jQ( document ).on( 'hover', '.js-tisheet-options', function() 
-	{
-		$jQ(this).find( '.octicon-trashcan, .octicon-info, .js-octicon-stopwatch, .octicon-arrow-right' ).not( 'element-visible' ).toggleClass( 'element-invisible' );
-	});
-
 	var interval;
 	var minutesByTisheets = [];
 

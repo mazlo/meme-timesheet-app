@@ -60,13 +60,13 @@
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='tisheet js-tisheet js-tisheet-options' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 				<td>
-					<span class='octicon octicon-trashcan element-invisible'></span>
-					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-invisible @endif'></span>
+					<span class='octicon octicon-trashcan element-toggable'></span>
+					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
 				</td>
 				
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
 					<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
 						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
@@ -100,7 +100,7 @@
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
-					<span class='octicon octicon-arrow-right js-tisheet-move element-invisible'></span>
+					<span class='octicon octicon-arrow-right js-tisheet-move element-toggable'></span>
 				</td>
 			</tr>
 		@endforeach
@@ -108,12 +108,12 @@
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
 			<tr class='tisheet js-tisheet js-tisheet-options js-tisheet-clonable element-hidden' id='undefined'>
 				<td>
-					<span class='octicon octicon-trashcan element-invisible'></span>
-					<span class='octicon octicon-info element-invisible'></span>
+					<span class='octicon octicon-trashcan element-toggable'></span>
+					<span class='octicon octicon-info element-toggable'></span>
 				</td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-invisible'></span>
+					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
 						<textarea class='tisheet-note'></textarea>
@@ -145,7 +145,7 @@
 				<td>
 					<span class='octicon octicon-check element-hidden'></span>
 					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
-					<span class='octicon octicon-arrow-right js-tisheet-move element-invisible'></span>
+					<span class='octicon octicon-arrow-right js-tisheet-move element-toggable'></span>
 				</td>
 			</tr>
 

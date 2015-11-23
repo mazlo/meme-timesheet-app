@@ -293,6 +293,13 @@ ul.list-inline li .js-button-active {
 tr.tisheet {
 	vertical-align: top;
 }
+tr.tisheet:hover span.octicon-trashcan:not(.element-visible),
+tr.tisheet:hover span.octicon-info:not(.element-visible),
+tr.tisheet:hover span.octicon-playback-play:not(.element-visible),
+tr.tisheet:hover span.octicon-arrow-right:not(.element-visible) {
+	visibility: visible;
+}
+
 
 tr.tisheet td span.tisheet-time-start,
 tr.tisheet td span.tisheet-time-spent {
@@ -435,7 +442,8 @@ input.column-label {
 	display: none;
 }
 
-.element-invisible {
+.element-invisible,
+.element-toggable {
 	visibility: hidden;
 }
 
