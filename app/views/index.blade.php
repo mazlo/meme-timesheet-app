@@ -58,7 +58,7 @@
 			</tr>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='tisheet js-tisheet js-tisheet-options' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
+			<tr class='tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 				<td>
 					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
@@ -106,7 +106,7 @@
 		@endforeach
 
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
-			<tr class='tisheet js-tisheet js-tisheet-options js-tisheet-clonable element-hidden' id='undefined'>
+			<tr class='tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
 				<td>
 					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info element-toggable'></span>
