@@ -20,7 +20,10 @@ class BaseController extends Controller {
 	*/
 	public function terms()
     {
-        return View::make( 'terms-and-conditions' );
+    	$day = date( 'Y-m-d', time() );
+        return View::make( 'terms-and-conditions' )
+        	->with( 'today', $day )
+        	->with( 'todayForReal', $day === date( 'Y-m-d', time() ) );
     }
 
 }

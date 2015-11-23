@@ -35,7 +35,7 @@
 
 		<div class='options element-float-left'>
 			<ul class='list-inline'>
-				<li><a href='{{ url( "terms-and-conditions" ) }}' class='option'>about yatimesheet.de</a></li>
+				<li><a href='{{ url( "terms-and-conditions" ) }}' class='option'>about tim.mazlo.de</a></li>
 			</ul>
 		</div>
 
