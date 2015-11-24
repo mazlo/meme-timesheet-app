@@ -411,6 +411,9 @@ li.column-item span {
 li.column-item:not(.js-column-item-clonable):hover > span {
 	visibility: visible;
 }
+li.column-item span.octicon-trashcan:hover {
+	opacity: 1;
+}
 
 input.column-label,
 textarea.column-item-label {
