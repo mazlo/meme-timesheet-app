@@ -838,6 +838,15 @@
 	    });
 	}
 
+	//
+	var getBaseUrl = function( value )
+	{
+		if ( value )
+			return '{{ url( "'+ value +'" ) }}/';
+		else
+			return '{{ url( "tisheets" ) }}/';
+	}
+
 @endif
 
 </script>
