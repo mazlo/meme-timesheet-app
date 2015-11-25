@@ -408,7 +408,7 @@ li.column-item span {
 	z-index: 20;
 	opacity: 0.6;
 }
-li.column-item:not(.js-column-item-clonable):hover > span {
+li.column-item:not(.js-column-item-empty):hover > span {
 	visibility: visible;
 }
 li.column-item span.octicon-trashcan:hover {

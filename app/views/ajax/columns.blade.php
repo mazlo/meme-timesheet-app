@@ -10,8 +10,8 @@
             </li>
             @endforeach
 
-            {{-- this is empty and clonable --}}
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'>
+            {{-- this is empty and empty --}}
+            <li class='column-item js-column-item js-column-item-empty element-invisible'>
                 <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea>
                 <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
             </li>
@@ -19,11 +19,11 @@
     </li>
 @endforeach
 
-    {{-- this is empty and clonable --}}
-    <li class='column js-column js-column-clonable element-invisible' id='undefined'>
+    {{-- this is empty and empty --}}
+    <li class='column js-column js-column-empty element-invisible' id='undefined'>
         <input class='column-label js-column-label' type='text' placeholder='column label'>
         <ul>
-            <li class='column-item js-column-item js-column-item-clonable element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
+            <li class='column-item js-column-item js-column-item-empty element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
     </li>
 </ul>
@@ -72,14 +72,15 @@
                 }
             });
 
-            if ( column.next( '.js-column-clonable' ).length > 0 )
-                return; // nothing to clone
+            // ignore cloning when we are not in an empty column
+            if ( column.is( ':not( .js-column-empty )' ) )
+                return;
 
             // clone 
             column.find( 'input' ).val( '' );
             column.removeAttr( 'id' );
 
-            clonedColumn.removeClass( 'js-column-clonable element-invisible' );
+            clonedColumn.removeClass( 'js-column-empty element-invisible' );
             clonedColumn.insertBefore( column );
         });
 
@@ -117,14 +118,15 @@
                 }
             });
 
-            // ignore when there is already a cloned column-item
-            if ( columnItem.next( '.js-column-item-clonable' ).length > 0 )
+            // ignore cloning when we are not in an empty column-item
+            if ( columnItem.is( ':not( .js-column-item-empty )' ) )
                 return;
 
             columnItem.find( 'textarea' ).val( '' );
+            columnItem.removeAttr( 'id' );
 
             clonedItem.find( 'textarea' ).val( label );
-            clonedItem.removeClass( 'js-column-item-clonable element-invisible' );
+            clonedItem.removeClass( 'js-column-item-empty element-invisible' );
             clonedItem.insertBefore( columnItem );
         });
 
