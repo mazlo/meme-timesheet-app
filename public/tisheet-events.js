@@ -28,3 +28,13 @@ $jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
     // update total time spent for the day -> static
     updateTisheetTimeSpentToday();
 });
+
+/** EVENTS ON OCTICONS */
+
+/**
+*
+*/
+$jQ( document ).on( 'mouseout', 'span.octicon-red', function()
+{
+    $jQ(this).removeClass( 'octicon-red' );
+});

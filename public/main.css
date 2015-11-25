@@ -172,6 +172,10 @@ td span.octicon {
 	cursor: pointer;
 }
 
+.octicon-red {
+	color: red;
+}
+
 .ajax-loader {
 	display: inline-block;
 	margin: 6px 0 0 23px;
