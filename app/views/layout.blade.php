@@ -531,6 +531,13 @@
 	//
 	$jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 	{
+		// first: mark as red to indicate warning
+		if ( $jQ(this).is( ':not( .octicon-red )' ) )
+		{
+			$jQ(this).toggleClass( 'octicon-red' );
+			return;
+		}
+		
 		var item = getTisheet( this );
 
 		// do not delete items with no id
