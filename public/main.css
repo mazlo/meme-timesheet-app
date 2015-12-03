@@ -141,6 +141,10 @@ span.notification-negativ {
 	display: inline-block;
 }
 
+#columns h3 {
+	display: inline-block;
+}
+
 /* -------------- */
 
 a.option {

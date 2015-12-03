@@ -177,6 +177,7 @@
 	</div>
 
 	<div id='columns' class='columns js-columns'>
+		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
 

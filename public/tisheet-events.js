@@ -56,6 +56,8 @@ $jQ( document ).on( 'focusout', 'input.js-column-label', function()
     if ( oldColumnLabel == label )
         return; // ignore if nothing changed
 
+    toggleLoadingIcon( '#columns' );
+    
     var column = $jQ(this).closest( 'li.js-column' );
     var clonedColumn = column.clone();
 
@@ -70,6 +72,8 @@ $jQ( document ).on( 'focusout', 'input.js-column-label', function()
                 return;
 
             clonedColumn.attr( 'id', data.id );
+
+            toggleLoadingIcon( '#columns' );
         }
     });
 
@@ -105,6 +109,8 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     if ( column.hasClass( 'element-invisible' ) )
         return;
 
+    toggleLoadingIcon( '#columns' );
+
     var clonedItem = columnItem.clone();
 
     // post label and update id
@@ -118,6 +124,8 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
                 return;
 
             clonedItem.attr( 'id', data.id );
+
+            toggleLoadingIcon( '#columns' );
         }
     });
 
@@ -143,6 +151,8 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
         return;
     }
 
+    toggleLoadingIcon( '#columns' );
+
     var columnItem = $jQ(this).closest( 'li.js-column-item' );
     var column = columnItem.closest( 'li.js-column' );
 
@@ -157,6 +167,8 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
                 return;
 
             columnItem.remove();
+
+            toggleLoadingIcon( '#columns' );
         }
     });
 });

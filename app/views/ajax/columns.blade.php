@@ -1,4 +1,4 @@
-<h3>Columns</h3>
+<h3>Columns</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 <ul>
 @foreach( $columns as $column )
     <li class='column js-column' id='{{ $column->id }}'><input class='column-label js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>

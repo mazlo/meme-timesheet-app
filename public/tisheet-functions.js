@@ -152,3 +152,15 @@ var makeColumnsSortable = function()
         }
     });
 }
+
+/**
+*
+*/
+var toggleLoadingIcon = function( baseElement )
+{
+    if ( baseElement === undefined )
+        return;
+
+    $jQ( baseElement +' span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+    
+}
