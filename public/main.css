@@ -1,3 +1,11 @@
+/*
+*	COLORS (picked from http://www.dtelepathy.com/blog/inspiration/beautiful-color-palettes-for-your-next-web-project)
+*
+*	timeline context background : #C9D4CD;
+*	column background : #E1E2CD;
+*	timespent quarter active background : #006699;
+*/
+
 
 /*
 *	GLOBAL HTML COMPONENTS
@@ -112,7 +120,7 @@ span.notification-negativ {
 }
 #timeline-today.timeline-today div {
 	display: inline-block; 
-	background: #c0c0c0; 
+	background: #c9d4cd; 
 	border-radius: 0 13px 13px 0;
 	
 	margin-left: 13px;
@@ -384,7 +392,7 @@ div.columns ul {
 
 li.column {
     display: inline-block;
-    background-color: #ddd;
+    background-color: #e1e2cd;
     box-shadow: 1px 1px 1px #bbb;
     width: 236px;
     padding: 0 1px 8px 10px;
@@ -434,7 +442,7 @@ textarea.column-item-label {
 }
 
 input.column-label {
-	background-color: #ddd;
+	background-color: #e1e2cd;
 	box-shadow: none;
 	margin: 6px 0 4px;
 	padding: 3px 8px;
