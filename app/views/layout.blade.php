@@ -75,6 +75,9 @@
 				if ( this.prop( 'tagName' ) === 'TR' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
+				if ( this.prop( 'tagName' ) === 'LI' && this.attr( 'id' ) !== undefined )
+					return this.attr( 'id' );
+
 				return 'undefined';
 			},
 			today: function()
@@ -149,6 +152,34 @@
 			success: function( data )
 			{
 				$jQ( '#columns' ).html( data );
+
+				$jQ( '#columns' ).sortable(
+				{ 
+					cursor: 'move',
+					items: $jQ( 'li.js-column' ).not( '.js-column-empty' ),
+					update: function( e, ui )
+					{
+						var cids = {};
+						var items = $jQ(this).find( 'li.js-column' ).not( '.js-column-empty' );
+
+						var position = 1;
+						
+						// collect all ids in the correct order and btw. reset position value
+						items.each( function()
+						{
+							cids[$jQ(this).id()] = position++;
+						});
+
+						var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/columns';
+
+						// update backend
+						$jQ.ajax({
+							url: url,
+							type: 'put',
+							data: { cids: cids }
+						});
+					}
+				})
 			}
 		});
 	});

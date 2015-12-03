@@ -12,6 +12,27 @@ class ColumnController extends BaseController
     }
 
     /**
+    *   @RequestMethod => PUT
+    */
+    public function update( $day )
+    {
+        // update positions of columns
+        if ( Input::has( 'cids' ) )
+        {
+            $cids = Input::get( 'cids' );
+
+            foreach( $cids as $id => $position )
+            {
+                // TODO ZL restrict to user
+                $column = Column::where( 'id', $id )->first();
+                
+                $column->position = $position;
+                $column->save();
+            }
+        }
+    }
+
+    /**
     *   Inserts or updates a column
     */
     public function insertOrUpdate( $day, $cid )
