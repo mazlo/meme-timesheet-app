@@ -83,6 +83,8 @@ $jQ( document ).on( 'focusout', 'input.js-column-label', function()
 
     clonedColumn.removeClass( 'js-column-empty element-invisible' );
     clonedColumn.insertBefore( column );
+
+    makeColumnsSortable();
 });
 
 // 
