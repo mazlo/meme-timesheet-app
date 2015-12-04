@@ -34,8 +34,6 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     }
 
     tisheet.find( '.js-tisheet-description' ).val( obj.desc );
-    
-    hideTisheetErrorMessages();
 }
 
 // HELPER FUNCTIONS

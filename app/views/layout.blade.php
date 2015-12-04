@@ -253,16 +253,22 @@
 	$jQ( document ).on( 'focusin', 'input.tisheet-description', function()
 	{
 		oldDescription = $jQ( this ).val();
+        
+        hideTisheetErrorMessages();
 	});
 
 	$jQ( document ).on( 'focusin', 'textarea.tisheet-note', function()
 	{
 		oldNote = $jQ( this ).val();
+        
+        hideTisheetErrorMessages();
 	});
 
 	$jQ( document ).on( 'focusin', 'textarea.timesheet-topic', function()
 	{
 		oldTopic = $jQ( this ).val();
+        
+        hideTisheetErrorMessages();
 	});
 
 	//
