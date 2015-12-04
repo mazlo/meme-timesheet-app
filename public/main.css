@@ -98,7 +98,8 @@ span.notification-negativ {
 }
 
 #timesheet.timesheet {
-	margin: 23px 0;
+    position: relative;
+    margin: 23px 0;
 }
 
 #timesheet.timesheet table {
@@ -316,17 +317,23 @@ tr.tisheet:hover span.octicon-arrow-right:not(.element-visible) {
 	visibility: visible;
 }
 
-
 tr.tisheet td span.tisheet-time-start,
 tr.tisheet td span.tisheet-time-spent {
 	display: inline-block;
 	margin-top: 6px;
 }
-
 tr.tisheet td span.tisheet-time-start
 {
 	font-weight: lighter;
 	color: #ccc;
+}
+tr.tisheet td span.tisheet-error {
+    position: absolute; 
+    left: -100px; 
+    background-color: #fff; 
+    width: 90px; 
+    text-align: right;
+    cursor: pointer;
 }
 
 tr.tisheet td {

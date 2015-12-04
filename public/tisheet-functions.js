@@ -6,6 +6,7 @@
 var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 {
     if ( obj.callback == undefined || obj.callback == '' )
+        // '==' also matches null
         return;
 
     var command = obj.callback.command;
@@ -41,6 +42,12 @@ var runStopwatch = function( tisheet, command, startOnly )
 var updateQuarterOfTime = function ( tisheet, obj, recentTisheet ) 
 {
     var param = obj.callback.param;
+
+    if ( param == undefined )
+    {
+        showTisheetErrorMessage( tisheet, '/took requires an argument. Use it like this: /took 1h or /took 20min' );
+        return;
+    }
 
     // if value is given in minutes
     if ( param.indexOf( 'min' ) > 0 )
@@ -163,4 +170,18 @@ var toggleLoadingIcon = function( baseElement )
 
     $jQ( baseElement +' span.js-ajax-loader' ).toggleClass( 'element-hidden' );
     
+}
+
+/**
+ * 
+ */
+var showTisheetErrorMessage = function( tisheet, message )
+{
+    var errorSpan = tisheet.find( 'span.js-tisheet-error' );
+    errorSpan.toggleClass( 'element-invisible' );
+    errorSpan.text( message );
+    errorSpan.click( function()
+    {
+        $jQ(this).toggleClass( 'element-invisible' );
+    });
 }

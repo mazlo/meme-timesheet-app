@@ -60,6 +60,7 @@
 		@foreach( $tisheets as $key => $tisheet )
 			<tr class='tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 				<td>
+                    <span class='tisheet-error js-tisheet-error element-invisible'></span>
 					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
 				</td>
