@@ -11,6 +11,16 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 
     var command = obj.callback.command;
 
+    if ( !commandValid( command ) )
+    {
+        // display error message
+        showTisheetErrorMessage( tisheet, 'unknown command. use one of: now, took, spent, since' );
+        // display description
+        tisheet.find( '.js-tisheet-description' ).val( obj.desc );
+        
+        return;
+    }
+
     if ( command === 'now' || command === 'go' || command === 'run' )
         runStopwatch( tisheet, command, true );
 
@@ -24,6 +34,8 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     }
 
     tisheet.find( '.js-tisheet-description' ).val( obj.desc );
+    
+    hideTisheetErrorMessages();
 }
 
 // HELPER FUNCTIONS
@@ -174,14 +186,51 @@ var toggleLoadingIcon = function( baseElement )
 
 /**
  * 
+ * @param {type} command
+ * @returns {Boolean}
+ */
+var commandValid = function( command )
+{
+    if ([ 'run', 'now', 'go' ]
+        .concat([ 'took', 'spent', 'takes', 'planned' ])
+        .concat([ 'since' ]).indexOf( command ) > -1 )
+        return true;
+    
+    return false;
+}
+
+/**
+ * 
+ * @param {type} tisheet
+ * @param {type} message
+ * @returns {undefined}
  */
 var showTisheetErrorMessage = function( tisheet, message )
 {
+    // first hide all errors
+    hideTisheetErrorMessages();
+    
+    // now get the specific one
     var errorSpan = tisheet.find( 'span.js-tisheet-error' );
-    errorSpan.toggleClass( 'element-invisible' );
-    errorSpan.text( message );
+    
+    // show it
+    if ( errorSpan.hasClass( 'element-invisible' ) )
+        errorSpan.toggleClass( 'element-invisible' );
+    
+    errorSpan.html( '<span class="octicon octicon-alert octicon-no-padding-left octicon-padding-right"></span>'+ message );
+    
+    // close on click
     errorSpan.click( function()
     {
-        $jQ(this).toggleClass( 'element-invisible' );
+        $jQ(this).addClass( 'element-invisible' );
     });
+}
+
+/**
+ * 
+ * @returns {undefined}
+ */
+var hideTisheetErrorMessages = function()
+{
+    $jQ( '#timesheet span.js-tisheet-error' ).addClass( 'element-invisible' );
 }

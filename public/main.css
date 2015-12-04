@@ -179,6 +179,10 @@ td span.octicon {
 	padding-left: 0;
 }
 
+.octicon-padding-right {
+    padding-right: 6px;
+}
+
 .octicon-text {
 	padding-left: 23px;
 	line-height: 15px;
@@ -331,8 +335,9 @@ tr.tisheet td span.tisheet-error {
     position: absolute; 
     left: -100px; 
     background-color: #fff; 
-    width: 90px; 
+    width: 85px; 
     text-align: right;
+    color: #aaa;
     cursor: pointer;
 }
 
