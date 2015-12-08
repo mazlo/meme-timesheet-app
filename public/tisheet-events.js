@@ -96,10 +96,10 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
 {
     var label = $jQ(this).val().trim();
 
-    if ( label == '' )
+    if ( label === '' )
         return; // ignore empty values
 
-    if ( oldColumnItemLabel == label )
+    if ( oldColumnItemLabel === label )
         return; // ignore if nothing changed
 
     var columnItem = $jQ(this).closest( 'li.js-column-item' );
