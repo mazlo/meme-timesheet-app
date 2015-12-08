@@ -448,6 +448,7 @@ textarea.column-item-label {
 	border: none;
 	box-shadow: 0 0 1px;
 	resize: none;
+        overflow-y: hidden;
 
 	width: 90%;
 	height: 43px;
@@ -455,6 +456,9 @@ textarea.column-item-label {
 
 	font-family: inherit;
 	color: #525252;
+}
+textarea.column-item-label {
+    min-height: 18px;
 }
 
 input.column-label {

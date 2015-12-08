@@ -27,3 +27,16 @@
         </ul>
     </li>
 </ul>
+
+<script type="text/javascript">
+
+    $jQ(function()
+    {
+        // adjust height of all textareas on load
+        $jQ( '#columns textarea' ).each( function()
+        {
+            adjustHeightOfTextarea( this );
+        })
+    });
+
+</script>

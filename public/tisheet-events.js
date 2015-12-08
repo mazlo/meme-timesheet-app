@@ -173,6 +173,12 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
     });
 });
 
+//
+$jQ( document ).on( 'keydown', '#columns textarea', function()
+{
+    adjustHeightOfTextarea( this );
+});
+
 /** EVENTS ON OCTICONS */
 
 /**

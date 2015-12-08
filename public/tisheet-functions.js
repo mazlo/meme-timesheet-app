@@ -232,3 +232,14 @@ var hideTisheetErrorMessages = function()
 {
     $jQ( '#timesheet span.js-tisheet-error' ).addClass( 'element-invisible' );
 }
+
+/**
+ * 
+ * @param {type} textarea
+ * @returns {adjustHeightOfTextarea}
+ */
+var adjustHeightOfTextarea = function( textarea )
+{
+    textarea.style.height = "1px";
+    textarea.style.height = (textarea.scrollHeight) + "px"; 
+}
