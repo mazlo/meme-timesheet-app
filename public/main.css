@@ -431,7 +431,7 @@ li.column-item {
 }
 li.column-item span {
 	position: absolute;
-	top: 3px;
+	top: 6px;
 	right: 13px;
 	z-index: 20;
 	opacity: 0.6;
@@ -450,9 +450,9 @@ textarea.column-item-label {
 	resize: none;
         overflow-y: hidden;
 
-	width: 90%;
+	width: 84%;
 	height: 43px;
-	padding: 3px 8px;
+	padding: 4px 23px 0 8px;
 
 	font-family: inherit;
 	color: #525252;
