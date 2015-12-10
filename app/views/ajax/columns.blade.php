@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
 
-    $jQ(function()
+    $jQ( function()
     {
         // adjust height of all textareas on load
         $jQ( '#columns textarea' ).each( function()
