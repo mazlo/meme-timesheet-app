@@ -87,6 +87,9 @@ var updateQuarterOfTime = function ( tisheet, obj, recentTisheet )
     var time = new Date( Date.now() - (60000*param) ).toTimeString().slice( 0,5 )
     tisheet.find( 'span.js-tisheet-time-start' ).text( time );
 
+    if ( isPastOrFutureCommand( obj.callback.command ) )
+        return;
+
     // update recent tisheet that was running, i.e. substract used time
     
     var recentTisheet = getRunningStopwatch();
