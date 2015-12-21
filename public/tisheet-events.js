@@ -60,12 +60,12 @@ $jQ( document ).on( 'focusout', 'input.js-column-label', function()
     
     var column = $jQ(this).closest( 'li.js-column' );
     var clonedColumn = column.clone();
-
+    
     // post label and update id
     $jQ.ajax({
         url: getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ),
         type: 'put',
-        data: { lb: label },
+        data: { lb: label, ps: column.index()+1 },
         success: function( data )
         {
             if ( data.status == 'error' )

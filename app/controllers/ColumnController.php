@@ -51,6 +51,7 @@ class ColumnController extends BaseController
             $column->user()->associate( Auth::user() );
         } else {
             $column->label = Input::get( 'lb' );
+            $column->position = Input::get( 'ps' );
         }
 
         $column->save();
