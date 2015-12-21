@@ -68,6 +68,14 @@ var updateQuarterOfTime = function ( tisheet, obj, recentTisheet )
             param = 226;    // roundToQuarterOfHour divides by 15 and applies Math.ceil()
     }
     
+    else if ( param.indexOf( 'm' ) > 0 )
+    {
+        param = param.split( 'm' )[0];
+
+        if ( param > 240 )
+            param = 226;    // roundToQuarterOfHour divides by 15 and applies Math.ceil()
+    }
+    
     // else it is expected to be given in hours
     else
     {
