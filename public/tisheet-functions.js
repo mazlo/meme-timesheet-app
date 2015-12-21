@@ -24,7 +24,7 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     if ( command === 'now' || command === 'go' || command === 'run' )
         runStopwatch( tisheet, command, true );
 
-    else if ( command === 'spent' || command === 'took' || command === 'planned' )
+    else if ( isPastOrFutureCommand( command ) )
         updateQuarterOfTime( tisheet, obj );
 
     else if ( command === 'since' && obj.callback.param != undefined )
@@ -108,6 +108,48 @@ var updateQuarterOfTime = function ( tisheet, obj, recentTisheet )
         recentTook = ( recentTook - roundToQuarterOfHour( param ) );
 
     recentTisheet.find( 'span.js-time-spent-quarter:eq('+ ( recentTook-1 ) +')' ).click();
+}
+
+/**
+ *
+ * @param {type} command
+ * @returns {undefined} 
+ */
+var isPastOrFutureCommand = function( command )
+{
+    if ( isPastCommand( command ) )
+        return true;
+    
+    if ( isFutureCommand( command ) )
+        return true;
+    
+    return false;
+}
+
+/**
+ * 
+ * @param {type} command
+ * @returns {Boolean} 
+ */
+var isPastCommand = function( command )
+{
+    if ( command === 'took' || command === 'spent' )
+        return true;
+    
+    return false;
+}
+
+/**
+ * 
+ * @param {type} command
+ * @returns {Boolean} 
+ */
+var isFutureCommand = function( command )
+{
+    if ( command === 'planned' )
+        return true;
+    
+    return false;
 }
 
 /**
