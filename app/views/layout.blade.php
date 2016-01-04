@@ -23,8 +23,8 @@
 	</script>
 
 	<!-- js-functions for tisheets -->
-	<script type='text/javascript' src='{{ url( "tisheet-events.js" ) }}'></script>
 	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
+	<script type='text/javascript' src='{{ url( "tisheet-events.js" ) }}'></script>
 </head>
 
 <body>
@@ -538,88 +538,6 @@
 
     	return false;
 	}
-
-	//
-	$jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
-	{
-		// first: mark as red to indicate warning
-		if ( $jQ(this).is( ':not( .octicon-red )' ) )
-		{
-			$jQ(this).toggleClass( 'octicon-red' );
-			return;
-		}
-		
-		var item = getTisheet( this );
-
-		// do not delete items with no id
-		if ( item.id() === undefined )
-			return;
-
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
-
-		$jQ.ajax({
-			url: url,
-			type: 'delete',
-			success: function( data )
-			{
-				if ( data != 'true' )
-					return;
-
-				item.remove();
-
-				// update total time spent for the day
-				updateTisheetTimeSpentToday();
-
-				updateTisheetTimeline();
-				updateTisheetSummary();
-			}
-		});
-	});
-
-	//
-	$jQ( document ).on( 'click', '.octicon-info', function()
-	{
-		var item = getTisheet( this );
-		var note = item.find( '.js-tisheet-note' );
-
-		note.toggleClass( 'element-hidden' );
-		note.find( 'textarea' ).focus();
-
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
-		
-		$jQ.ajax({
-			url: url,
-			type: 'put',
-			data: { na: note.is( ':visible' ) }
-		});
-	});
-
-	//
-	$jQ( document ).on( 'click', '.js-tisheet-move', function()
-	{
-		var tisheet = getTisheet( this );
-
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
-
-		$jQ.ajax({
-			url: url,
-			type: 'put',
-			data: { mv: 'tomorrow' },
-			success: function( data )
-			{
-				// remove current element
-				tisheet.remove();
-
-				var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
-
-				if ( tisheetToClone.index() == 1 )
-					// clone empty element
-					cloneTisheet( tisheetToClone, undefined );
-			}
-		});
-
-		return false;
-	});
 
 	//
 	$jQ( document ).on( 'click', '.js-button-summary', function()
