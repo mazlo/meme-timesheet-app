@@ -41,6 +41,32 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 /**
 *
 */
+var cloneTisheet = function( elementToClone, latestElement )
+{
+    var clonedElement = elementToClone.clone();
+
+    clonedElement.insertBefore( elementToClone );
+    clonedElement.removeClass( 'js-tisheet-clonable element-hidden' );
+    
+    if ( latestElement !== undefined )
+        // invoke manually to prevent asynchronous side effects
+        latestElement.blur();
+
+    clonedElement.find( 'input.tisheet-description' ).focus();
+
+    // add autocomplete functionality
+    clonedElement.find( 'input.tisheet-description' ).autocomplete(
+    {
+        source: autocompleteItems,
+        minLength: 2,
+        delay: 100
+    });
+}
+
+
+/**
+*
+*/
 var runStopwatch = function( tisheet, command, startOnly )
 {
     tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: command, startOnly: startOnly } );
