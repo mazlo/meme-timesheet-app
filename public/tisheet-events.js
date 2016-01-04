@@ -18,7 +18,7 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
     if ( item.id() === "undefined" )
         return;
 
-    var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
 
     $jQ.ajax({
         url: url,
@@ -48,7 +48,7 @@ $jQ( document ).on( 'click', '.octicon-info', function()
     note.toggleClass( 'element-hidden' );
     note.find( 'textarea' ).focus();
 
-    var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
     
     $jQ.ajax({
         url: url,
@@ -62,7 +62,7 @@ $jQ( document ).on( 'click', '.js-tisheet-move', function()
 {
     var tisheet = getTisheet( this );
 
-    var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
 
     $jQ.ajax({
         url: url,
