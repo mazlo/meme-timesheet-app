@@ -15,7 +15,7 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
     var item = getTisheet( this );
 
     // do not delete items with no id
-    if ( item.id() === undefined )
+    if ( item.id() === "undefined" )
         return;
 
     var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
