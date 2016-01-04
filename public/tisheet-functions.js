@@ -63,6 +63,17 @@ var cloneTisheet = function( elementToClone, latestElement )
     });
 }
 
+/**
+*
+*/
+var cloneTisheetIfLastOne = function( elementToClone, latestElement )
+{
+    var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+
+    if ( tisheetToClone.index() == 1 )
+        // clone empty element
+        cloneTisheet( tisheetToClone, undefined );
+}
 
 /**
 *

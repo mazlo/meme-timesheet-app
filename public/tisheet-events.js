@@ -30,6 +30,9 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 
             item.remove();
 
+            // please new tisheet
+            cloneTisheetIfLastOne();
+
             // update total time spent for the day
             updateTisheetTimeSpentToday();
 
@@ -72,12 +75,8 @@ $jQ( document ).on( 'click', '.js-tisheet-move', function()
         {
             // remove current element
             tisheet.remove();
-
-            var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
-
-            if ( tisheetToClone.index() == 1 )
-                // clone empty element
-                cloneTisheet( tisheetToClone, undefined );
+            // please new tisheet
+            cloneTisheetIfLastOne();
         }
     });
 
