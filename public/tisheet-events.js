@@ -227,6 +227,17 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
 });
 
 //
+$jQ( document ).on( 'click', 'div.js-column-label span.octicon-trashcan', function()
+{
+    // first: mark as red to indicate warning
+    if ( $jQ(this).is( ':not( .octicon-red )' ) )
+    {
+        $jQ(this).toggleClass( 'octicon-red' );
+        return;
+    }
+});
+
+//
 $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function()
 {
     // first: mark as red to indicate warning

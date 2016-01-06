@@ -417,11 +417,11 @@ li.column {
 
     vertical-align: top;
 }
-li.column ul {
-    padding-left: 0;
-}
 li.column:hover > ul > li.element-invisible {
 	visibility: visible;
+}
+li.column ul {
+    padding-left: 0;
 }
 
 li.column-item {
@@ -429,17 +429,20 @@ li.column-item {
 	z-index: 10;
 	margin-top: 3px;
 }
-li.column-item span {
+li.column-item:not(.js-column-item-empty):hover > span {
+	visibility: visible;
+}
+
+/* all spans within the column */
+li.column span {
 	position: absolute;
 	top: 6px;
 	right: 13px;
 	z-index: 20;
 	opacity: 0.6;
 }
-li.column-item:not(.js-column-item-empty):hover > span {
-	visibility: visible;
-}
-li.column-item span.octicon-trashcan:hover {
+/* emphasize trashcan on hover -> all spans with the column */
+li.column span.octicon-trashcan:hover {
 	opacity: 1;
 }
 
