@@ -173,7 +173,7 @@
 		var target = $jQ( event.target );
 		var tisheet = target.closest( 'tr.js-tisheet' );
 
-		if ( target.hasClass( 'js-column-label' ) || target.hasClass( 'js-column-item-label' ) )
+		if ( target.hasClass( 'js-column-label-input' ) || target.hasClass( 'js-column-item-label' ) )
 		{
 			target.blur();
 			return;

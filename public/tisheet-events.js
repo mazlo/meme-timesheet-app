@@ -119,7 +119,7 @@ $jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 /**
 *
 */
-$jQ( document ).on( 'focusin', 'input.js-column-label', function()
+$jQ( document ).on( 'focusin', 'div.js-column-label input', function()
 {
     oldColumnLabel = $jQ( this ).val();
 });
@@ -131,7 +131,7 @@ $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
 });
 
 //
-$jQ( document ).on( 'focusout', 'input.js-column-label', function()
+$jQ( document ).on( 'focusout', 'div.js-column-label input', function()
 {
     var label = $jQ(this).val().trim();
     
