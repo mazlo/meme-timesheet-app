@@ -1,7 +1,11 @@
 <h3>Columns</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 <ul>
 @foreach( $columns as $column )
-    <li class='column js-column' id='{{ $column->id }}'><input class='column-label js-column-label' type='text' placeholder='item description' value='{{ $column->label }}'>
+    <li class='column js-column' id='{{ $column->id }}'>
+        <div class='column-label js-column-label'>
+            <input type='text' placeholder='item description' value='{{ $column->label }}'>
+            <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
+        </div>
         <ul>
             @foreach( $column->items as $item )
             <li class='column-item js-column-item' id='{{ $item->id }}'>

@@ -443,12 +443,12 @@ li.column-item span.octicon-trashcan:hover {
 	opacity: 1;
 }
 
-input.column-label,
+div.column-label input,
 textarea.column-item-label {
 	border: none;
 	box-shadow: 0 0 1px;
 	resize: none;
-        overflow-y: hidden;
+	overflow-y: hidden;
 
 	width: 84%;
 	height: 43px;
@@ -461,14 +461,27 @@ textarea.column-item-label {
     min-height: 18px;
 }
 
-input.column-label {
+div.column-label {
+	position: relative;
+}
+div.column-label input {
 	background-color: #e1e2cd;
 	box-shadow: none;
 	margin: 6px 0 4px;
 	padding: 3px 8px;
+	width: 82%;
 	height: 22px;
 	font-weight: 600;
 	font-size: inherit;
+}
+div.column-label > span {
+	top: 12px;
+	right: 13px;
+	z-index: 20;
+	opacity: 0.6;
+}
+div.column-label:hover > span {
+	visibility: visible;
 }
 
 /* -------------- */
