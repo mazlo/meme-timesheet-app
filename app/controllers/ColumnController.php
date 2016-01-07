@@ -99,7 +99,7 @@ class ColumnController extends BaseController
     }
 
     /**
-    *   Deletes an item with the given columnItem-id
+    *   Deletes a Column and all ColumnItems associated with that Column
     */
     public function delete( $day, $cid )
     {
