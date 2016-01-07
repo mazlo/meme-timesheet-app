@@ -235,6 +235,26 @@ $jQ( document ).on( 'click', 'div.js-column-label span.octicon-trashcan', functi
         $jQ(this).toggleClass( 'octicon-red' );
         return;
     }
+
+    toggleLoadingIcon( '#columns' );
+
+    var column = $jQ(this).closest( 'li.js-column' );
+
+    column.hide();
+
+    $jQ.ajax({
+        url: getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' ),
+        type: 'delete',
+        success: function( data )
+        {
+            if ( data.status != 'ok' )
+                return;
+
+            column.remove();
+
+            toggleLoadingIcon( '#columns' );
+        }
+    });
 });
 
 //

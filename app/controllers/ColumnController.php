@@ -101,6 +101,36 @@ class ColumnController extends BaseController
     /**
     *   Deletes an item with the given columnItem-id
     */
+    public function delete( $day, $cid )
+    {
+        // get associated column
+        $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+
+        if ( empty( $column ) )
+            return Response::json( array(
+                'status' => 'error',
+                'action' => 'delete',
+                'message' => 'no column associated with given id '. $cid
+            ) );
+
+        // delete all related ColumnItems
+        foreach( $column->items as $item )
+        {
+            $item->delete();
+        }
+
+        // delete the Column
+        $column->delete();
+
+        return Response::json( array(
+            'status' => 'ok',
+            'action' => 'delete'
+        ) );
+    }
+
+    /**
+    *   Deletes an item with the given columnItem-id
+    */
     public function deleteItem( $day, $cid, $iid )
     {
         $columnItem = ColumnItem::find( $iid );

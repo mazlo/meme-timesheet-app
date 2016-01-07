@@ -56,6 +56,8 @@ Route::group( array( 'before' => 'auth' ), function()
 	Route::put( '/tisheets/{day}/columns', 'ColumnController@update' );
 	
 	Route::put( '/tisheets/{day}/columns/{id}', 'ColumnController@insertOrUpdate' );
+	Route::delete( '/tisheets/{day}/columns/{id}', 'ColumnController@delete' );
+	
 	Route::put( '/tisheets/{day}/columns/{id}/item/{cid}', 'ColumnController@insertOrUpdateItem' );
 	Route::delete( '/tisheets/{day}/columns/{id}/item/{cid}', 'ColumnController@deleteItem' );
 
