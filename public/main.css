@@ -483,7 +483,8 @@ div.column-label > span {
 	z-index: 20;
 	opacity: 0.6;
 }
-div.column-label:hover > span {
+/* column: show trashcan on hover, but only for those columns that are not empty */
+li.column:not(.js-column-empty) div.column-label:hover > span {
 	visibility: visible;
 }
 
