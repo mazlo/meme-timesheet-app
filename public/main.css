@@ -314,10 +314,7 @@ ul.list-inline li .js-button-active {
 tr.tisheet {
 	vertical-align: top;
 }
-tr.tisheet:hover span.octicon-trashcan:not(.element-visible),
-tr.tisheet:hover span.octicon-info:not(.element-visible),
-tr.tisheet:hover span.octicon-playback-play:not(.element-visible),
-tr.tisheet:hover span.octicon-arrow-right:not(.element-visible) {
+tr.tisheet:hover td > span.octicon:not(.element-visible) {
 	visibility: visible;
 }
 
