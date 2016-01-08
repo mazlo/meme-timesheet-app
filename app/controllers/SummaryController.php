@@ -5,6 +5,30 @@ class SummaryController extends BaseController
     /**
     *
     */
+    public function sameAs( $day, $tid )
+    {
+        $tisheet = Tisheet::where( 'user_id', Auth::user()->id )->where( 'id', $tid )->first();
+
+        if ( empty( $tisheet ) )
+            return Response::json( array( 'error' => 'no tisheet with this id '. $tid ) );
+
+        $sameAsTisheets = DB::table( 'tisheets as ts ')
+            ->join( 'notes AS ns', 'ts.id', '=', 'ns.tisheet_id' )
+            ->select( 'ts.*', 'ns.content' )
+            ->where( 'ts.user_id', Auth::user()->id )
+            ->where( 'ts.description', $tisheet->description )
+            ->whereNotNull( 'ns.content' )
+            ->orderBy( 'ts.updated_at' )
+            ->get();
+
+        return View::make( 'ajax.summary-same-as' )
+            ->with( 'tisheets', $sameAsTisheets )
+            ->with( 'refTisheet', $tisheet );
+    }
+
+    /**
+    *
+    */
     public static function byDayAndPeriodGroupByContext( $day, $period )
     {
         $relativeDayAsTime = strtotime( $day );

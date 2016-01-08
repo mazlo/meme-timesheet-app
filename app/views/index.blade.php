@@ -182,6 +182,10 @@
 		{{-- ajax content here --}}
 	</div>
 
+	<div id='summary-same-as'>
+		{{-- ajax content here --}}
+	</div>
+
 
 <script type='text/javascript'>
 

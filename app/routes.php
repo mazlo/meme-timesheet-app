@@ -51,7 +51,7 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}/autocomplete', 'TisheetController@autocomplete' );
 	Route::get( '/tisheets/{day}/timeline', 'TisheetController@timeline' );
-	
+
 	Route::get( '/tisheets/{day}/columns', 'ColumnController@columns' );
 	Route::put( '/tisheets/{day}/columns', 'ColumnController@update' );
 	
@@ -66,6 +66,8 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::put( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@update' );
 	Route::delete( '/tisheets/{day}/tisheet/{id}/note', 'NoteController@delete' );
+
+	Route::get( '/tisheets/{day}/tisheet/{id}/same-as', 'SummaryController@sameAs' );
 
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupByContextByDayAndPeriod' );
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/days/contexts/{context}', 'SummaryController@byContextGroupByDaysGroupByContexts' );
