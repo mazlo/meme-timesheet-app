@@ -279,6 +279,9 @@ var toggleLoadingIcon = function( baseElement )
  */
 var commandValid = function( command )
 {
+    if ( command === null || command === undefined )
+        return true;
+
     if ([ 'run', 'now', 'go' ]
         .concat([ 'took', 'spent', 'takes', 'planned' ])
         .concat([ 'since' ]).indexOf( command ) > -1 )
