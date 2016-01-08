@@ -39,8 +39,8 @@
 		<table cellpadding='0' cellspacing='0'>
 			
 			<colgroup>
-				<col width='4%'>
-				<col width='52%'>
+				<col width='6%'>
+				<col width='50%'>
 				<col width='24%'>
 				<col width='6%'>
 				<col width='4%'>
@@ -61,6 +61,7 @@
 			<tr class='tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 				<td>
                     <span class='tisheet-error js-tisheet-error element-invisible'></span>
+                    <span class='octicon octicon-arrow-left element-toggable'></span>
 					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
 				</td>
@@ -109,6 +110,7 @@
 			{{-- insert an empty cloneable tr that is cloned when needed --}}
 			<tr class='tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
 				<td>
+					<span class='octicon octicon-left element-toggable'></span>
 					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info element-toggable'></span>
 				</td>

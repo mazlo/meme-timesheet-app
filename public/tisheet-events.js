@@ -3,6 +3,22 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
+$jQ( document ).on( 'click', '.tisheet span.octicon-arrow-left', function()
+{
+    var item = getTisheet( this );
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id() +'/same-as';
+
+    $jQ.ajax({
+        url: url,
+        success: function( data )
+        {
+            $jQ( '#summary-same-as' ).html( data );
+        }
+    });
+});
+
+
+//
 $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 {
     // first: mark as red to indicate warning
@@ -304,3 +320,4 @@ $jQ( document ).on( 'mouseout', 'span.octicon-red', function()
 {
     $jQ(this).removeClass( 'octicon-red' );
 });
+
