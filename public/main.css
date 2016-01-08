@@ -390,6 +390,15 @@ div.summary-table div.variable-background span {
 
 /* -------------- */
 
+div#summary-same-as table {
+	margin-left: 8px;
+}
+div#summary-same-as table tr {
+	vertical-align: top;
+}
+
+/* -------------- */
+
 div.columns {
 	margin-top: 48px;
 }
