@@ -3,9 +3,14 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
-$jQ( document ).on( 'click', '.tisheet span.octicon-arrow-left', function()
+$jQ( document ).on( 'click', '.tisheet span.octicon-list-unordered', function()
 {
     var item = getTisheet( this );
+
+    // do not handle items with no id
+    if ( item.id() === 'undefined' )
+        return;
+
     var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id() +'/same-as';
 
     $jQ.ajax({
@@ -30,7 +35,7 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
     
     var item = getTisheet( this );
 
-    // do not delete items with no id
+    // do not handle items with no id
     if ( item.id() === "undefined" )
         return;
 
@@ -62,6 +67,11 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 $jQ( document ).on( 'click', '.octicon-info', function()
 {
     var item = getTisheet( this );
+
+    // do not handle items with no id
+    if ( item.id() === "undefined" )
+        return;
+
     var note = item.find( '.js-tisheet-note' );
 
     note.toggleClass( 'element-hidden' );
@@ -80,6 +90,10 @@ $jQ( document ).on( 'click', '.octicon-info', function()
 $jQ( document ).on( 'click', '.js-tisheet-move', function()
 {
     var tisheet = getTisheet( this );
+
+    // do not handle items with no id
+    if( tisheet.id() === 'undefined' )
+        return;
 
     var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
 
