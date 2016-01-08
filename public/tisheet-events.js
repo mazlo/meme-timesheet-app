@@ -63,7 +63,9 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
     });
 }); 
 
-//
+/**
+* persists the status of the info box for the Tisheet
+*/
 $jQ( document ).on( 'click', '.octicon-info', function()
 {
     var item = getTisheet( this );
