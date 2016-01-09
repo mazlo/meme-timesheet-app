@@ -77,7 +77,17 @@ $jQ( document ).on( 'click', '.octicon-info', function()
     var note = item.find( '.js-tisheet-note' );
 
     note.toggleClass( 'element-hidden' );
-    note.find( 'textarea' ).focus();
+
+    if ( note.is( ':visible' ) )
+    {
+        note.find( 'textarea' ).each( function()
+        {
+            // workaround because function adjustHeightOfTextarea cannot deal with jQuery objects
+            adjustHeightOfTextarea( this );
+            
+            this.focus();
+        })
+    }
 
     var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
     
@@ -322,7 +332,7 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
 });
 
 //
-$jQ( document ).on( 'keydown', '#columns textarea', function()
+$jQ( document ).on( 'keydown', '#columns textarea, div.js-tisheet-note textarea', function()
 {
     adjustHeightOfTextarea( this );
 });

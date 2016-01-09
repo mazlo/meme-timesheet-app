@@ -205,6 +205,15 @@
 	});
 @endif
 
+    $jQ( function()
+    {
+        // adjust height of all visible textareas on load
+        $jQ( '#timesheet textarea:visible' ).each( function()
+        {
+            adjustHeightOfTextarea( this );
+        })
+    });
+
 </script>
 
 
