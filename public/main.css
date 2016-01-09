@@ -393,17 +393,24 @@ div.summary-table div.variable-background span {
 
 /* -------------- */
 
+div#summary-same-as {
+	margin-top: 32px;
+}
 div#summary-same-as table {
-	margin-left: 8px;
+	margin: 13px 8px 0;
 }
 div#summary-same-as table tr {
 	vertical-align: top;
+}
+div#summary-same-as table tr td {
+	border-top: 1px solid #ccc;
+	padding: 8px 0;
 }
 
 /* -------------- */
 
 div.columns {
-	margin-top: 48px;
+	margin-top: 32px;
 }
 div.columns:hover > ul > li.element-invisible {
 	visibility: visible;
