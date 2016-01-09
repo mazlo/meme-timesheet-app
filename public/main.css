@@ -250,8 +250,10 @@ textarea {
 	border: 1px solid #ddd; 
 	
 	width: 91%; 
-	height: 128px; 
-	padding: 5px 10px; 
+	min-height: 73px; 
+	padding: 5px 10px 0; 
+	resize: none;
+	overflow-y: hidden;
 	
 	line-height: 21px;
 	font-size: inherit;
@@ -267,6 +269,7 @@ textarea.timesheet-topic {
 	padding: 0;
 	width: 50%;
 	height: 42px;
+	min-height: 42px;
 
 	resize: none;
 }
