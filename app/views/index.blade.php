@@ -39,8 +39,8 @@
 		<table cellpadding='0' cellspacing='0'>
 			
 			<colgroup>
-				<col width='6%'>
-				<col width='50%'>
+				<col width='4%'>
+				<col width='52%'>
 				<col width='24%'>
 				<col width='6%'>
 				<col width='4%'>
@@ -62,12 +62,12 @@
 				<td>
                     <span class='tisheet-error js-tisheet-error element-invisible'></span>
                     <span class='octicon octicon-list-unordered element-toggable'></span>
-					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
 				</td>
 				
 				<td>
 					{{ Form::text( 'description', $tisheet->description, array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
 					<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
@@ -111,11 +111,11 @@
 			<tr class='tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
 				<td>
 					<span class='octicon octicon-list-unordered element-toggable'></span>
-					<span class='octicon octicon-trashcan element-toggable'></span>
 					<span class='octicon octicon-info element-toggable'></span>
 				</td>
 				<td>
 					{{ Form::text( 'description', '', array( 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
 					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>

@@ -317,21 +317,34 @@ ul.list-inline li .js-button-active {
 tr.tisheet {
 	vertical-align: top;
 }
-tr.tisheet:hover td > span.octicon:not(.element-visible) {
+tr.tisheet > td {
+	position: relative;
+	padding: 4px 0;
+}
+/* show trashcan at the right end of the tisheet input */
+tr.tisheet > td > span.octicon-trashcan {
+	position: absolute;
+	top: 4px;
+	right: 38px;
+	z-index: 20;
+	opacity: 0.6;
+}
+/* on hover of tisheet -> show all octicons (options) */
+tr.tisheet:hover > td > span.octicon:not(.element-visible) {
 	visibility: visible;
 }
 
-tr.tisheet td span.tisheet-time-start,
-tr.tisheet td span.tisheet-time-spent {
+tr.tisheet > td span.tisheet-time-start,
+tr.tisheet > td span.tisheet-time-spent {
 	display: inline-block;
 	margin-top: 6px;
 }
-tr.tisheet td span.tisheet-time-start
+tr.tisheet > td span.tisheet-time-start
 {
 	font-weight: lighter;
 	color: #ccc;
 }
-tr.tisheet td span.tisheet-error {
+tr.tisheet > td span.tisheet-error {
     position: absolute; 
     left: -100px; 
     background-color: #fff; 
@@ -341,8 +354,12 @@ tr.tisheet td span.tisheet-error {
     cursor: pointer;
 }
 
-tr.tisheet td {
-	padding: 4px 0;
+tr.tisheet > td input.textfield {
+	width: 512px;
+	padding-right: 28px;
+}
+tr.tisheet > td textarea.tisheet-note {
+	width: 530px; /* width of textfield + 28px padding */
 }
 
 td span.time-spent-quarter {
