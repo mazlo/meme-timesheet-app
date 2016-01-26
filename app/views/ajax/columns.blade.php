@@ -1,6 +1,7 @@
 <h3>Columns</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 <ul>
 @foreach( $columns as $column )
+    @if ( !$column->trashed )
     <li class='column js-column' id='{{ $column->id }}'>
         <div class='column-label js-column-label'>
             <input class='js-column-label-input' type='text' placeholder='item description' value='{{ $column->label }}'>
@@ -21,6 +22,7 @@
             </li>
         </ul>
     </li>
+    @endif
 @endforeach
 
     {{-- this is empty and empty --}}
