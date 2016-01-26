@@ -24,7 +24,7 @@ class AddTrashedColumnToColumnItems extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table( 'ColumnItems', function( $table )
+		Schema::table( 'column_items', function( $table )
 		{
 			$table->dropColumn( 'trashed' );
 		});
