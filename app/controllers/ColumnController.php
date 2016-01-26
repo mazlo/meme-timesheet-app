@@ -5,7 +5,10 @@ class ColumnController extends BaseController
 
     public function columns()
     {
-        $columns = Column::where( 'user_id', Auth::user()->id )->orderBy( 'position' )->get();
+        $columns = Column::where( 'user_id', Auth::user()->id )
+            ->where( 'trashed', '0' )
+            ->orderBy( 'position' )
+            ->get();
 
         return View::make( 'ajax.columns' )
             ->with( 'columns', $columns );
