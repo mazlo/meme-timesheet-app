@@ -5,7 +5,10 @@ class ColumnController extends BaseController
 
     public function columns()
     {
-        $columns = Column::where( 'user_id', Auth::user()->id )->orderBy( 'position' )->get();
+        $columns = Column::where( 'user_id', Auth::user()->id )
+            ->where( 'trashed', '0' )
+            ->orderBy( 'position' )
+            ->get();
 
         return View::make( 'ajax.columns' )
             ->with( 'columns', $columns );
@@ -116,11 +119,13 @@ class ColumnController extends BaseController
         // delete all related ColumnItems
         foreach( $column->items as $item )
         {
-            $item->delete();
+            $item->trashed = 1;
+            $item->save();
         }
 
         // delete the Column
-        $column->delete();
+        $column->trashed = 1;
+        $column->save();
 
         return Response::json( array(
             'status' => 'ok',
@@ -129,13 +134,15 @@ class ColumnController extends BaseController
     }
 
     /**
-    *   Deletes an item with the given columnItem-id
+    *   Deletes an item with the given columnItem-id. 
+    *   Altough, it is not deleted forever, just set to 'trashed'.
     */
     public function deleteItem( $day, $cid, $iid )
     {
         $columnItem = ColumnItem::find( $iid );
 
-        $columnItem->delete();
+        $columnItem->trashed = 1;
+        $columnItem->save();
 
         return Response::json( array( 
             'status' => 'ok'
