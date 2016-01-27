@@ -9,10 +9,12 @@
         </div>
         <ul>
             @foreach( $column->items as $item )
+                @if ( !$item->trashed )
             <li class='column-item js-column-item' id='{{ $item->id }}'>
                 <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
                 <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
             </li>
+                @endif
             @endforeach
 
             {{-- this is empty and empty --}}
