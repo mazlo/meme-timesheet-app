@@ -18,7 +18,7 @@ class SummaryController extends BaseController
             ->where( 'ts.user_id', Auth::user()->id )
             ->where( 'ts.description', $tisheet->description )
             ->whereNotNull( 'ns.content' )
-            ->orderBy( 'ts.updated_at' )
+            ->orderBy( 'ts.created_at', 'desc' )
             ->get();
 
         return View::make( 'ajax.summary-same-as' )
