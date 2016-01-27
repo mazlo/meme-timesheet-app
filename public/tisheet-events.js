@@ -261,6 +261,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
         return;
 
     columnItem.find( 'textarea' ).val( '' );
+    columnItem.find( 'textarea' ).css( 'height', '25px' );
     columnItem.removeAttr( 'id' );
 
     clonedItem.find( 'textarea' ).val( label );
