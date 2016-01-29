@@ -56,11 +56,13 @@ class TisheetController extends BaseController
 
         // TODO ZL distinct
         $tisheets = Tisheet::where( 'user_id', Auth::user()->id )
+            ->select( '*', DB::raw( 'count(description) AS c' ) )
             ->where( 'day', '>=', date( 'Y-m-d', strtotime( '-1 month', $dayAsTime ) ) )
             ->where( 'day', '<=', $day )
             ->whereNotNull( 'description' )
-            ->orderBy( 'updated_at', 'desc' )
             ->groupBy( 'description' )
+            ->orderBy( 'c', 'desc' )
+            ->orderBy( 'id', 'desc' )
             ->get();
 
         return View::make( 'ajax.tisheets-autocomplete' )
