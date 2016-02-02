@@ -35,7 +35,7 @@
 	</div>
 
 	<div id='topic'>
-		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Did something special happen today?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
+		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Did something special happen today?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
