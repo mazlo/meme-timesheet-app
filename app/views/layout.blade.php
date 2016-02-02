@@ -754,8 +754,8 @@
 	//
 	var getBaseUrl = function( value )
 	{
-		if ( value )
-			return '{{ url( "'+ value +'" ) }}/';
+		if ( value != undefined )
+			return '{{ url( "'+ value +'" ) }}';
 		else
 			return '{{ url( "tisheets" ) }}/';
 	}
