@@ -26,7 +26,7 @@
 			<span class='element-invisible element-float-right' id='datepicker'></span>
 		</div>
 
-		<div id='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
+		<div class='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
 			<span class='octicon octicon-book @if( Auth::user()->showStory )octicon-active@endif'></span>
 			<span class='octicon octicon-server @if( Auth::user()->showColumns )octicon-active@endif'></span>
 		</div>
