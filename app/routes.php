@@ -35,6 +35,7 @@ Route::any( '/terms-and-conditions', 'BaseController@terms' );
 */
 Route::group( array( 'before' => 'auth' ), function()
 {
+	Route::put( '/user/profile', 'UserController@update' );
 
 	Route::get( '/tisheets', function()
 	{

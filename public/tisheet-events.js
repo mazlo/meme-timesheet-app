@@ -3,6 +3,36 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
+$jQ( document ).on( 'click', '.timesheet-options span.octicon-book', function()
+{
+    var octicon = $jQ(this);
+    var status = octicon.hasClass( 'octicon-active' ) ? true : false;
+
+    var url = getBaseUrl( '' ) + 'user/profile';
+
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: {
+            gl: !status
+        },
+        success: function()
+        {
+            if ( status )
+            {
+                $jQ( '#topic' ).hide()
+                octicon.removeClass( 'octicon-active' )
+            }
+            else
+            {
+                $jQ( '#topic' ).show()
+                octicon.addClass( 'octicon-active' )
+            }
+        }
+    });
+});
+
+//
 $jQ( document ).on( 'click', '.tisheet span.octicon-list-unordered', function()
 {
     var item = getTisheet( this );

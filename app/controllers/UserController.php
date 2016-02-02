@@ -8,6 +8,19 @@ class UserController extends Controller
     /**
     *
     */
+    public function update()
+    {
+        $user = Auth::user();
+
+        if ( Input::has( 'gl' ) )
+            $user->showStory = Input::get( 'gl' ) == 'true' ? 1 : 0;
+
+        $user->save();
+    }
+
+    /**
+    *
+    */
 	public function login()
     {
         $data = array();
