@@ -178,19 +178,19 @@ td span.octicon {
 .octicon-no-padding-left {
 	padding-left: 0;
 }
-
 .octicon-padding-right {
     padding-right: 6px;
 }
-
 .octicon-text {
 	padding-left: 23px;
 	line-height: 15px;
 	cursor: pointer;
 }
-
 .octicon-red {
 	color: red;
+}
+.octicon-active {
+	color: #006699;
 }
 
 .ajax-loader {
