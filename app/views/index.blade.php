@@ -27,15 +27,15 @@
 		</div>
 
 		<div id='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
-			<span class='octicon octicon-book'></span>
-			<span class='octicon octicon-server'></span>
+			<span class='octicon octicon-book @if( Auth::user()->showStory )octicon-active@endif'></span>
+			<span class='octicon octicon-server @if( Auth::user()->showColumns )octicon-active@endif'></span>
 		</div>
 
 		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
 	<div id='topic'>
-		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Do you want this day to have a special aim?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
+		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Did something special happen today?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
