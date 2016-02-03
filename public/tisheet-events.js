@@ -3,29 +3,37 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
-$jQ( document ).on( 'click', '.timesheet-options span.octicon-book', function()
+$jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
 {
     var octicon = $jQ(this);
     var status = octicon.hasClass( 'octicon-active' ) ? true : false;
 
     var url = getBaseUrl( '' ) + 'user/profile';
 
+    var icon = octicon.hasClass( 'octicon-server' ) ? 'cl' : 'gl';
+
+    if( icon == '' )
+        return;
+
     $jQ.ajax({
         url: url,
         type: 'put',
         data: {
-            gl: !status
+            lm: icon,
+            vl: !status
         },
         success: function()
         {
+            var element = octicon.hasClass( 'octicon-server' ) ? '#columns' : '#topic';
+
             if ( status )
             {
-                $jQ( '#topic' ).hide()
+                $jQ( element ).hide()
                 octicon.removeClass( 'octicon-active' )
             }
             else
             {
-                $jQ( '#topic' ).show()
+                $jQ( element ).show()
                 octicon.addClass( 'octicon-active' )
             }
         }

@@ -12,8 +12,16 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        if ( Input::has( 'gl' ) )
-            $user->showStory = Input::get( 'gl' ) == 'true' ? 1 : 0;
+        if ( Input::has( 'lm' ) )
+        {
+            $element = Input::get( 'lm' );
+            $value = Input::get( 'vl' );
+
+            if ( $element == 'gl' )
+                $user->showStory = $value == 'true' ? 1 : 0;
+            else if ( $element == 'cl' )
+                $user->showColumns = $value == 'true' ? 1 : 0;
+        }
 
         $user->save();
     }
