@@ -189,7 +189,11 @@ td span.octicon {
 .octicon-red {
 	color: red;
 }
+.octicon-light {
+	opacity: 0.5;
+}
 .octicon-active {
+	opacity: 1;
 	color: #006699;
 }
 

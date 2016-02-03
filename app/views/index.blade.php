@@ -27,8 +27,8 @@
 		</div>
 
 		<div class='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
-			<span class='octicon octicon-book @if( Auth::user()->showStory )octicon-active@endif'></span>
-			<span class='octicon octicon-server @if( Auth::user()->showColumns )octicon-active@endif'></span>
+			<span class='octicon octicon-book octicon-light @if( Auth::user()->showStory )octicon-active@endif'></span>
+			<span class='octicon octicon-server octicon-light @if( Auth::user()->showColumns )octicon-active@endif'></span>
 		</div>
 
 		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
