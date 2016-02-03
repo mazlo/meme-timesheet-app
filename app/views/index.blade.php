@@ -34,7 +34,7 @@
 		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
-	<div id='topic'>
+	<div id='topic' @if ( !Auth::user()->showStory ) style='display: none' @endif>
 		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Did something special happen today?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
@@ -186,7 +186,7 @@
 		</div>
 	</div>
 
-	<div id='columns' class='columns js-columns'>
+	<div id='columns' class='columns js-columns' @if( !Auth::user()->showColumns ) style='display: none' @endif>
 		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
