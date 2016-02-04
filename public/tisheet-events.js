@@ -382,11 +382,20 @@ $jQ( document ).on( 'keydown', '#columns textarea, div.js-tisheet-note textarea'
 //
 $jQ( document ).on( 'click', 'li.js-column div.column-item-color-palette span', function()
 {
-    var newBackground = $jQ(this).css( 'background-color' );
+    var color = $jQ(this).attr( 'color' );
     var column = $jQ(this).closest( '.js-column' );
 
-    column.css( 'background-color', newBackground );
-    column.find( '.js-column-label-input' ).css( 'background-color', newBackground );
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' );
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: { cl : color },
+        success: function( data )
+        {
+            column.css( 'background-color', color );
+            column.find( '.js-column-label-input' ).css( 'background-color', color );
+        }
+    });
 });
 
 /** EVENTS ON OCTICONS */

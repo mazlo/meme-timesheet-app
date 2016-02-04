@@ -2,14 +2,14 @@
 <ul>
 @foreach( $columns as $column )
     @if ( !$column->trashed )
-    <li class='column js-column' id='{{ $column->id }}'>
+    <li class='column js-column' id='{{ $column->id }}' @if( $column->color ) style='background-color: {{ $column->color }}' @endif>
         <div class='column-label js-column-label'>
-            <input class='js-column-label-input' type='text' placeholder='item description' value='{{ $column->label }}'>
+            <input class='js-column-label-input' type='text' placeholder='item description' value='{{ $column->label }}' @if( $column->color ) style='background-color: {{ $column->color }}' @endif>
             <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>
         </div>
         <ul>
             @foreach( $column->items as $item )
-                @if ( !$item->trashed )
+                @if ( !$item->trashed ) 
             <li class='column-item js-column-item' id='{{ $item->id }}'>
                 <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
                 <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible'></span>

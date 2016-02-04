@@ -59,9 +59,24 @@ class ColumnController extends BaseController
         {
             $column = new Column();
             $column->user()->associate( Auth::user() );
-        } else {
-            $column->label = Input::get( 'lb' );
-            $column->position = Input::get( 'ps' );
+        } 
+
+        else 
+        {
+            // label and position
+            if ( Input::has( 'lb' ) )
+            {
+                $column->label = Input::get( 'lb' );
+                $column->position = Input::get( 'ps' );
+            }
+
+            // update background color
+            else if ( Input::has( 'cl' ) )
+            {
+                $column->color = Input::get( 'cl' );
+            }
+
+            $action = 'update';
         }
 
         $column->save();
