@@ -25,11 +25,8 @@
         </ul>
 
         <div class='column-item-color-palette'>
-            <span style='background-color: #c2e59c'>&nbsp;</span>
             <span style='background-color: #e1e2cd'>&nbsp;</span>
-            <span style='background-color: #F1F2B5'>&nbsp;</span>
             <span style='background-color: #FFD194'>&nbsp;</span>
-            <span style='background-color: #FFB75E'>&nbsp;</span>
             <span style='background-color: #d7d2cc'>&nbsp;</span>
             <span style='background-color: #8e9eab'>&nbsp;</span>
             <span style='background-color: #948E99'>&nbsp;</span>
