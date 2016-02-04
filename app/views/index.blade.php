@@ -182,9 +182,9 @@
 		</div>
 	</div>
 
-	<div id='topic' class='timesheet-topic' @if ( !Auth::user()->showStory ) style='display: none' @endif>
+	<div id='story' class='timesheet-story' @if ( !Auth::user()->showStory ) style='display: none' @endif>
 		<h3>What happened?</h3>
-		<textarea class='js-timesheet-topic' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
+		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
 	<div id='columns' class='columns js-columns' @if( !Auth::user()->showColumns ) style='display: none' @endif>

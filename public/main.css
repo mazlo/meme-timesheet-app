@@ -265,10 +265,10 @@ textarea {
 	color: inherit;
 }
 
-div.timesheet-topic {
+div.timesheet-story {
 	margin-top: 43px;
 }
-div.timesheet-topic textarea {
+div.timesheet-story textarea {
 	border: none;
 	outline: none;
 	overflow: hidden;
