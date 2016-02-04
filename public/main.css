@@ -178,19 +178,23 @@ td span.octicon {
 .octicon-no-padding-left {
 	padding-left: 0;
 }
-
 .octicon-padding-right {
     padding-right: 6px;
 }
-
 .octicon-text {
 	padding-left: 23px;
 	line-height: 15px;
 	cursor: pointer;
 }
-
 .octicon-red {
 	color: red;
+}
+.octicon-light {
+	opacity: 0.5;
+}
+.octicon-active {
+	opacity: 1;
+	color: #006699;
 }
 
 .ajax-loader {
@@ -261,15 +265,18 @@ textarea {
 	color: inherit;
 }
 
-textarea.timesheet-topic {
+div.timesheet-story {
+	margin-top: 43px;
+}
+div.timesheet-story textarea {
 	border: none;
 	outline: none;
 	overflow: hidden;
 
 	padding: 0;
 	width: 50%;
-	height: 42px;
-	min-height: 42px;
+	height: 18px;
+	min-height: 18px;
 
 	resize: none;
 }

@@ -17,18 +17,21 @@
 
 @section( 'content' )
 
-	<div class='title'>
-		<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-arrow-right element-float-right' title='{{ $tomorrow }}'></span></a>
-		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text js-tisheet-today element-float-right'>today</span></a>
-		<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-arrow-left element-float-right' title='{{ $yesterday }}'></span></a>
-		<span class='octicon octicon-plus datepicker element-float-right'></span>
-		<span class='element-invisible element-float-right' id='datepicker'></span>
-	</div>
-	
-	<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
+	<div style='position: relative'>
+		<div class='title'>
+			<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-arrow-right element-float-right' title='{{ $tomorrow }}'></span></a>
+			<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text js-tisheet-today element-float-right'>today</span></a>
+			<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-arrow-left element-float-right' title='{{ $yesterday }}'></span></a>
+			<span class='octicon octicon-plus datepicker element-float-right'></span>
+			<span class='element-invisible element-float-right' id='datepicker'></span>
+		</div>
 
-	<div id='topic'>
-		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Do you want this day to have a special aim?'>@if( isset( $timesheet ) && $timesheet->topic ){{ $timesheet->topic }}@endif</textarea>
+		<div class='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
+			<span class='octicon octicon-book octicon-light @if( Auth::user()->showStory )octicon-active@endif'></span>
+			<span class='octicon octicon-server octicon-light @if( Auth::user()->showColumns )octicon-active@endif'></span>
+		</div>
+
+		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
@@ -179,7 +182,12 @@
 		</div>
 	</div>
 
-	<div id='columns' class='columns js-columns'>
+	<div id='story' class='timesheet-story' @if ( !Auth::user()->showStory ) style='display: none' @endif>
+		<h3>What happened?</h3>
+		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
+	</div>
+
+	<div id='columns' class='columns js-columns' @if( !Auth::user()->showColumns ) style='display: none' @endif>
 		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>

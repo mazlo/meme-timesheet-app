@@ -264,7 +264,7 @@
         hideTisheetErrorMessages();
 	});
 
-	$jQ( document ).on( 'focusin', 'textarea.timesheet-topic', function()
+	$jQ( document ).on( 'focusin', 'div.timesheet-story textarea', function()
 	{
 		oldTopic = $jQ( this ).val();
         
@@ -384,7 +384,7 @@
 	});
 
 	//
-	$jQ( document ).on( 'focusout', 'textarea.timesheet-topic', function()
+	$jQ( document ).on( 'focusout', 'div.timesheet-story textarea', function()
 	{
 		var value = $jQ(this).val();
 
@@ -754,8 +754,8 @@
 	//
 	var getBaseUrl = function( value )
 	{
-		if ( value )
-			return '{{ url( "'+ value +'" ) }}/';
+		if ( value != undefined )
+			return '{{ url( "'+ value +'" ) }}';
 		else
 			return '{{ url( "tisheets" ) }}/';
 	}

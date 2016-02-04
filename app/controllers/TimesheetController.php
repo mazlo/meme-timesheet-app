@@ -23,7 +23,7 @@ class TimesheetController extends BaseController
 	        }
 	    }
 
-	    // update today's topic
+	    // update today's story
 	    else if ( Input::has( 'gl' ) )
 	    {
 	    	$timesheet = Timesheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->first();
@@ -36,7 +36,7 @@ class TimesheetController extends BaseController
 	    		$timesheet->day = $day;
 	    	}
 
-	    	$timesheet->topic = Input::get( 'gl' );
+	    	$timesheet->story = Input::get( 'gl' );
 	    	$timesheet->save();
 	    }
 
@@ -53,7 +53,7 @@ class TimesheetController extends BaseController
     	if ( empty( $timesheet ) )
     		return 'true';
 
-    	$timesheet->topic = null;
+    	$timesheet->story = null;
 	    $timesheet->save();
 
     	return 'true';

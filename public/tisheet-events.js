@@ -3,6 +3,47 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
+$jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
+{
+    var octicon = $jQ(this);
+    var status = octicon.hasClass( 'octicon-active' ) ? true : false;
+
+    var url = getBaseUrl( '' ) + 'user/profile';
+
+    var icon = octicon.hasClass( 'octicon-server' ) ? 'cl' : 'gl';
+
+    if( icon == '' )
+        return;
+
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: {
+            lm: icon,
+            vl: !status
+        },
+        success: function()
+        {
+            var element = octicon.hasClass( 'octicon-server' ) ? '#columns' : '#topic';
+
+            if ( status )
+            {
+                $jQ( element ).hide()
+                octicon.removeClass( 'octicon-active' )
+            }
+            else
+            {
+                $jQ( element ).show()
+                octicon.addClass( 'octicon-active' )
+
+                if ( element == '#columns' )
+                	adjustHeightOfEachTextarea( element );
+            }
+        }
+    });
+});
+
+//
 $jQ( document ).on( 'click', '.tisheet span.octicon-list-unordered', function()
 {
     var item = getTisheet( this );
