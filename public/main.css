@@ -451,7 +451,7 @@ li.column {
     background-color: #e1e2cd;
     box-shadow: 1px 1px 1px #bbb;
     width: 236px;
-    padding: 0 1px 8px 10px;
+    padding: 0 1px 0px 10px;
     margin-top: 18px;
     margin-right: 13px;
 
@@ -464,6 +464,16 @@ li.column ul {
     padding-left: 0;
 }
 
+li.column div.column-item-color-palette {
+	margin-top: 8px;	
+}
+li.column div.column-item-color-palette span {
+	display: inline-block;
+	width: 13px;
+	height: 13px;
+	cursor: pointer;
+}
+
 li.column-item {
 	position: relative;
 	z-index: 10;
@@ -474,7 +484,8 @@ li.column-item:not(.js-column-item-empty):hover > span {
 }
 
 /* all spans within the column */
-li.column span {
+li.column > span,
+li.column-item > span {
 	position: absolute;
 	top: 6px;
 	right: 13px;

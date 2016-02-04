@@ -40,28 +40,50 @@ class ColumnController extends BaseController
     */
     public function insertOrUpdate( $day, $cid )
     {
+        $action = 'add';
+
         if ( $cid == 'undefined' )
         {
             $column = new Column();
             $column->user()->associate( Auth::user() );
         }
+        
         else
+        {
             $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+            $action = 'update';
+        }
 
+        // if the column does not exist it gets created
         if ( empty( $column ) )
         {
             $column = new Column();
             $column->user()->associate( Auth::user() );
-        } else {
-            $column->label = Input::get( 'lb' );
-            $column->position = Input::get( 'ps' );
+        } 
+
+        else 
+        {
+            // label and position
+            if ( Input::has( 'lb' ) )
+            {
+                $column->label = Input::get( 'lb' );
+                $column->position = Input::get( 'ps' );
+            }
+
+            // update background color
+            else if ( Input::has( 'cl' ) )
+            {
+                $column->color = Input::get( 'cl' );
+            }
+
+            $action = 'update';
         }
 
         $column->save();
 
         return Response::json( array( 
             'status' => 'ok', 
-            'action' => 'add', 
+            'action' => $action, 
             'id' => $column->id
         ) );
     }

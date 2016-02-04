@@ -379,6 +379,25 @@ $jQ( document ).on( 'keydown', '#columns textarea, div.js-tisheet-note textarea'
     adjustHeightOfTextarea( this );
 });
 
+//
+$jQ( document ).on( 'click', 'li.js-column div.column-item-color-palette span', function()
+{
+    var color = $jQ(this).attr( 'color' );
+    var column = $jQ(this).closest( '.js-column' );
+
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.attr( 'id' );
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: { cl : color },
+        success: function( data )
+        {
+            column.css( 'background-color', color );
+            column.find( '.js-column-label-input' ).css( 'background-color', color );
+        }
+    });
+});
+
 /** EVENTS ON OCTICONS */
 
 /**
