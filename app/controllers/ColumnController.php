@@ -40,14 +40,21 @@ class ColumnController extends BaseController
     */
     public function insertOrUpdate( $day, $cid )
     {
+        $action = 'add';
+
         if ( $cid == 'undefined' )
         {
             $column = new Column();
             $column->user()->associate( Auth::user() );
         }
+        
         else
+        {
             $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+            $action = 'update';
+        }
 
+        // if the column does not exist it gets created
         if ( empty( $column ) )
         {
             $column = new Column();
@@ -61,7 +68,7 @@ class ColumnController extends BaseController
 
         return Response::json( array( 
             'status' => 'ok', 
-            'action' => 'add', 
+            'action' => $action, 
             'id' => $column->id
         ) );
     }
