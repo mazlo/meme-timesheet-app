@@ -34,10 +34,6 @@
 		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
-	<div id='topic' @if ( !Auth::user()->showStory ) style='display: none' @endif>
-		<textarea class='timesheet-topic js-timesheet-topic' placeholder='Did something special happen today?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
-	</div>
-
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
@@ -184,6 +180,11 @@
 		<div id='summary'>
 			{{-- ajax content here --}}
 		</div>
+	</div>
+
+	<div id='topic' class='timesheet-topic' @if ( !Auth::user()->showStory ) style='display: none' @endif>
+		<h3>What happened?</h3>
+		<textarea class='js-timesheet-topic' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
 	<div id='columns' class='columns js-columns' @if( !Auth::user()->showColumns ) style='display: none' @endif>

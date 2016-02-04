@@ -265,15 +265,18 @@ textarea {
 	color: inherit;
 }
 
-textarea.timesheet-topic {
+div.timesheet-topic {
+	margin-top: 43px;
+}
+div.timesheet-topic textarea {
 	border: none;
 	outline: none;
 	overflow: hidden;
 
 	padding: 0;
 	width: 50%;
-	height: 42px;
-	min-height: 42px;
+	height: 18px;
+	min-height: 18px;
 
 	resize: none;
 }
