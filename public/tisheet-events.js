@@ -379,6 +379,16 @@ $jQ( document ).on( 'keydown', '#columns textarea, div.js-tisheet-note textarea'
     adjustHeightOfTextarea( this );
 });
 
+//
+$jQ( document ).on( 'click', 'li.js-column div.column-item-color-palette span', function()
+{
+    var newBackground = $jQ(this).css( 'background-color' );
+    var column = $jQ(this).closest( '.js-column' );
+
+    column.css( 'background-color', newBackground );
+    column.find( '.js-column-label-input' ).css( 'background-color', newBackground );
+});
+
 /** EVENTS ON OCTICONS */
 
 /**

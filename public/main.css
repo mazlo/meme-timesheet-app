@@ -471,6 +471,7 @@ li.column div.column-item-color-palette span {
 	display: inline-block;
 	width: 13px;
 	height: 13px;
+	cursor: pointer;
 }
 
 li.column-item {
