@@ -35,6 +35,9 @@ $jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
             {
                 $jQ( element ).show()
                 octicon.addClass( 'octicon-active' )
+
+                if ( element == '#columns' )
+                	adjustHeightOfEachTextarea( element );
             }
         }
     });

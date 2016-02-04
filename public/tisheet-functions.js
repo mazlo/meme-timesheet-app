@@ -336,3 +336,17 @@ var adjustHeightOfTextarea = function( textarea )
     textarea.style.height = "1px";
     textarea.style.height = (textarea.scrollHeight) + "px"; 
 }
+
+/**
+ * adjust height of all visible textareas on load
+ */
+var adjustHeightOfEachTextarea = function( rootElement )
+{
+    if ( rootElement == undefined )
+        rootElement = '#columns';
+
+    $jQ( rootElement +' textarea:visible' ).each( function()
+    {
+        adjustHeightOfTextarea( this );
+    });
+}
