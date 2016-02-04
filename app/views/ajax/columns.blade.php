@@ -25,12 +25,12 @@
         </ul>
 
         <div class='column-item-color-palette'>
-            <span style='background-color: #e1e2cd'>&nbsp;</span>
-            <span style='background-color: #FFD194'>&nbsp;</span>
-            <span style='background-color: #d7d2cc'>&nbsp;</span>
-            <span style='background-color: #8e9eab'>&nbsp;</span>
-            <span style='background-color: #948E99'>&nbsp;</span>
-            <span style='background-color: #eef2f3'>&nbsp;</span>
+            <span style='background-color: #e1e2cd' color='#e1e2cd'>&nbsp;</span>
+            <span style='background-color: #FFD194' color='#FFD194'>&nbsp;</span>
+            <span style='background-color: #d7d2cc' color='#d7d2cc'>&nbsp;</span>
+            <span style='background-color: #8e9eab' color='#8e9eab'>&nbsp;</span>
+            <span style='background-color: #948E99' color='#948E99'>&nbsp;</span>
+            <span style='background-color: #eef2f3' color='#eef2f3'>&nbsp;</span>
         </div>
     </li>
     @endif
@@ -45,6 +45,15 @@
         <ul>
             <li class='column-item js-column-item js-column-item-empty element-invisible'><textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'></textarea></li>
         </ul>
+
+        <div class='column-item-color-palette'>
+            <span style='background-color: #e1e2cd' color='#e1e2cd'>&nbsp;</span>
+            <span style='background-color: #FFD194' color='#FFD194'>&nbsp;</span>
+            <span style='background-color: #d7d2cc' color='#d7d2cc'>&nbsp;</span>
+            <span style='background-color: #8e9eab' color='#8e9eab'>&nbsp;</span>
+            <span style='background-color: #948E99' color='#948E99'>&nbsp;</span>
+            <span style='background-color: #eef2f3' color='#eef2f3'>&nbsp;</span>
+        </div>
     </li>
 </ul>
 
