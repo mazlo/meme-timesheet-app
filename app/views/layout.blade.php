@@ -264,7 +264,7 @@
         hideTisheetErrorMessages();
 	});
 
-	$jQ( document ).on( 'focusin', 'textarea.timesheet-topic', function()
+	$jQ( document ).on( 'focusin', 'div.timesheet-topic textarea', function()
 	{
 		oldTopic = $jQ( this ).val();
         
@@ -384,7 +384,7 @@
 	});
 
 	//
-	$jQ( document ).on( 'focusout', 'textarea.timesheet-topic', function()
+	$jQ( document ).on( 'focusout', 'div.timesheet-topic textarea', function()
 	{
 		var value = $jQ(this).val();
 
