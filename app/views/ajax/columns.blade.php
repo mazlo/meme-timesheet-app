@@ -26,7 +26,7 @@
 
         <div class='column-item-color-palette'>
             <span style='background-color: #e1e2cd' color='#e1e2cd'>&nbsp;</span>
-            <span style='background-color: #FFD194' color='#FFD194'>&nbsp;</span>
+            <span style='background-color: #efe292' color='#efe292'>&nbsp;</span>
             <span style='background-color: #d7d2cc' color='#d7d2cc'>&nbsp;</span>
             <span style='background-color: #8e9eab' color='#8e9eab'>&nbsp;</span>
             <span style='background-color: #948E99' color='#948E99'>&nbsp;</span>
@@ -48,7 +48,7 @@
 
         <div class='column-item-color-palette'>
             <span style='background-color: #e1e2cd' color='#e1e2cd'>&nbsp;</span>
-            <span style='background-color: #FFD194' color='#FFD194'>&nbsp;</span>
+            <span style='background-color: #efe292' color='#efe292'>&nbsp;</span>
             <span style='background-color: #d7d2cc' color='#d7d2cc'>&nbsp;</span>
             <span style='background-color: #8e9eab' color='#8e9eab'>&nbsp;</span>
             <span style='background-color: #948E99' color='#948E99'>&nbsp;</span>
