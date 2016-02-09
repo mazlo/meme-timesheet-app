@@ -24,7 +24,7 @@ $jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
         },
         success: function()
         {
-            var element = octicon.hasClass( 'octicon-server' ) ? '#columns' : '#topic';
+            var element = octicon.hasClass( 'octicon-server' ) ? '#columns' : '#story';
 
             if ( status )
             {
