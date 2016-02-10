@@ -167,15 +167,11 @@
 	// add new line to table or focus next textfield of next line
 	$jQ( document ).keydown( function( event )
 	{
-		if ( event.keyCode != 13 && event.keyCode != 27 )
-			return;
-
 		var target = $jQ( event.target );
 		var tisheet = target.closest( 'tr.js-tisheet' );
 
-		if ( target.hasClass( 'js-column-label-input' ) || target.hasClass( 'js-column-item-label' ) )
+		if ( meetsKeydownExitCriteria( event, target ) )
 		{
-			target.blur();
 			return;
 		}
 

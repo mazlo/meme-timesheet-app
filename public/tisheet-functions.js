@@ -200,6 +200,47 @@ var isFutureCommand = function( command )
     return false;
 }
 
+var meetsKeydownExitCriteria = function( event, target )
+{
+    if ( meetsKeydownWrongKeyExitCriteria( event ) )
+    {
+        return true;
+    }
+
+    if ( meetsKeydownWrongFieldExitCriteria( target ) )
+    {
+        target.blur();
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ *
+ */
+var meetsKeydownWrongKeyExitCriteria = function( event )
+{
+    if ( event.keyCode != 13 && event.keyCode != 27 )
+        return true;
+
+    return false;
+}
+
+/**
+ *
+ */
+var meetsKeydownWrongFieldExitCriteria = function( target )
+{
+    if ( target.hasClass( 'js-column-label-input' ) )
+        return true; 
+
+    if ( target.hasClass( 'js-column-item-label' ) )
+        return true;
+
+    return false;
+}
+
 /**
 *
 */
