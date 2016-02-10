@@ -221,7 +221,7 @@ var meetsKeydownExitCriteria = function( event, target )
  */
 var meetsKeydownWrongKeyExitCriteria = function( event )
 {
-    if ( event.keyCode != 13 && event.keyCode != 27 )
+    if ( !enterKeyCode( event ) && !escapeKeyCode( event ) )
         return true;
 
     return false;
@@ -236,6 +236,28 @@ var meetsKeydownWrongFieldExitCriteria = function( target )
         return true; 
 
     if ( target.hasClass( 'js-column-item-label' ) )
+        return true;
+
+    return false;
+}
+
+/**
+ *
+ */
+var enterKeyCode = function( event )
+{
+    if ( event.keyCode == 13 )
+        retuen true;
+
+    return false;
+}
+
+/**
+ *
+ */
+var escapeKeyCode = function( event )
+{
+    if ( event.keyCode == 27 )
         return true;
 
     return false;

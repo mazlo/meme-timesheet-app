@@ -176,7 +176,7 @@
 		}
 
 		// focusout on escape key
-		if ( event.keyCode == 27 )
+		if ( escapeKeyCode( event ) )
 		{
 			if ( target.hasClass( 'tisheet-note' ) )
 				target.val( oldNote );
