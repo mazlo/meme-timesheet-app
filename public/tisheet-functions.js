@@ -247,7 +247,7 @@ var meetsKeydownWrongFieldExitCriteria = function( target )
 var enterKeyCode = function( event )
 {
     if ( event.keyCode == 13 )
-        retuen true;
+        return true;
 
     return false;
 }
