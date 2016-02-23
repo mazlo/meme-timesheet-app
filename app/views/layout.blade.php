@@ -218,7 +218,10 @@
 		{
 			// ignore when fired from empty textfield
 			if ( target.val() == '' )
+			{
+				target.val( 'TODO: describe' );
 				return;
+			}
 
 			// focus next textfield when fired NOT from the last textfield
 			if ( tr.index() - tisheet.index() > 1 )
