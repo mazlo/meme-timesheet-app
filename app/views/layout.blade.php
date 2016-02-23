@@ -187,6 +187,10 @@
 				if ( target.val() == '' && tisheet.index() != 1 && tisheet.id() == 'undefined' )
 					tisheet.remove();
 
+				// remove whole line in case old description is empty
+				else if ( oldDescription == '' && tisheet.index() != 1 )
+					tisheet.remove();
+
 				// replace with old value and blur
 				else
 				{
