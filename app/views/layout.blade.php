@@ -223,18 +223,6 @@
 				return;
 			}
 
-			// focus next textfield when fired NOT from the last textfield
-			if ( tr.index() - tisheet.index() > 1 )
-			{
-				target.blur(); // first focusout, then focus in. otherwise request of change will fire
-				
-				var nextTisheet = tisheet.next().find( 'input.tisheet-description' );
-				nextTisheet.focus();
-				nextTisheet[0].setSelectionRange( nextTisheet.val().length, nextTisheet.val().length );
-
-				return;
-			}
-
 			// focus out after hitting enter
 			target.blur();
 			return;
