@@ -189,7 +189,11 @@
 
 				// remove whole line in case old description is empty
 				else if ( oldDescription == '' && tisheet.index() != 1 )
+				{
+					// reset description here, otherwise focusout will send value to backend
+					target.val( '' );
 					tisheet.remove();
+				}
 
 				// replace with old value and blur
 				else
