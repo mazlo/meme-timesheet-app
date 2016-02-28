@@ -16,6 +16,7 @@
 	<script type='text/javascript' src='{{ url( "jquery-ui-1.9.2.custom.js" ) }}'></script>
 
 	<script type='text/javascript' src='{{ url( "jquery.datepicker.min.js" ) }}'></script>
+	<script type="text/javascript" src='{{ url( "brain-socket.min.js" ) }}'></script>
 
 	<script type='text/javascript'>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
@@ -25,6 +26,7 @@
 	<!-- js-functions for tisheets -->
 	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
 	<script type='text/javascript' src='{{ url( "tisheet-events.js" ) }}'></script>
+	<script type='text/javascript' src='{{ url( "tisheet-sockets.js" ) }}'></script>
 </head>
 
 <body>
@@ -94,6 +96,9 @@
 
 		// 
 		addAutocompleteOnTisheetDescription();
+
+		// 
+		initWebsocketConnection();
 
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
@@ -335,6 +340,12 @@
 				showAndFadeOutOkIcon( tisheet );
 
 				invokeDescriptionChangeListener( tisheet );
+
+				app.BrainSocket.message( 'tisheet.update.event',
+				{
+					'value': value,
+					'tid': tisheet.id()
+				});
 			}
 		});
 	});
