@@ -81,18 +81,21 @@ var initWebsocketConnection = function()
         
         if ( data.value == 'running' )
         {
+            // do not use toggleClass, which leads to inconsistent behaviour
             requestedStopwatch.addClass( 'octicon-playback-pause element-visible' );
             requestedStopwatch.removeClass( 'octicon-playback-play' );
         }
-        else {
+        else /* stopped */ {
+            // do not use toggleClass, which leads to inconsistent behaviour
             requestedStopwatch.addClass( 'octicon-playback-play' );
             requestedStopwatch.removeClass( 'octicon-playback-pause element-visible' );
         }
 
-        // stop other running stopwatch if it is running
+        // stop other running stopwatch if it is given
         if ( data.tido != undefined )
         {
             var runningStopwatch = $jQ( '#'+ data.tido ).find( 'span.js-octicon-stopwatch' );
+            // do not use toggleClass, which leads to inconsistent behaviour
             runningStopwatch.addClass( 'octicon-playback-play' );
             runningStopwatch.removeClass( 'octicon-playback-pause element-visible' );
         }
