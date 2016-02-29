@@ -22,7 +22,7 @@ var initWebsocketConnection = function()
         tisheet.find( 'input.js-tisheet-description' ).val( data.value );
     });
 
-    // starts a tisheet
+    // updates a tisheet time spent quarter
     app.BrainSocket.Event.listen( 'tisheet.time.update.event', function( msg )
     {
         if ( !validEvent( msg ) )
@@ -38,6 +38,32 @@ var initWebsocketConnection = function()
 
         updateTisheetTimeline();
         updateTisheetSummary();
+    });
+
+    // 
+    app.BrainSocket.Event.listen( 'tisheet.note.update.event', function( msg )
+    {
+        // - check if is visible 
+        // -- if yes: update in that case
+        // -- if no: mark info-icon
+
+        if ( !validEvent( msg ) )
+            return;
+
+        var data = msg.client.data;
+
+        // get tisheet with given id, get time quarter and activate it
+        var tisheet = $jQ( 'tr[id="'+ data.tid +'"]' );
+        var note = tisheet.find( 'div.js-tisheet-note' );
+        
+        // update info icon
+        if ( data.value == '' )
+            tisheet.find( 'span.octicon-info' ).removeClass( 'element-visible' );
+        else 
+            tisheet.find( 'span.octicon-info' ).addClass( 'element-visible' );
+        
+        // update textarea value
+        note.find( 'textarea' ).val( data.value );
     });
 
     /*

@@ -379,6 +379,12 @@
 
 				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
+
+				app.BrainSocket.message( 'tisheet.note.update.event',
+			    {   
+			        'value': value.trim(),
+			        'tid': tisheet.id()
+			    });
 			}
 		});
 	});
