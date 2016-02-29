@@ -439,36 +439,6 @@
 	};
 
 	//
-	var updateTisheetTimeSpentQuarter = function( tisheet )
-	{
-		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id();
-		var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
-		var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
-
-		$jQ.ajax({
-			url: url,
-			type: 'put',
-			data: {
-				ts: count,
-				tm: time
-			},
-			success: function( data )
-			{
-				updateTisheetTimeline();
-				updateTisheetSummary();
-			}
-		});
-	};
-
-	//
-	var updateTisheetTimeSpentToday = function()
-	{
-		count = $jQ( '#timesheet' ).find( 'span.time-spent-quarter-active' ).length;
-		$jQ( 'span.js-time-spent-today' ).text( count/4 + 'h');
-	}
-
-	//
 	var updateTisheetTimeline = function()
 	{
 		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/timeline';

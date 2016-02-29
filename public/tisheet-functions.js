@@ -84,6 +84,46 @@ var runStopwatch = function( tisheet, command, startOnly )
 }
 
 /**
+*   Sends an http put-request with time spent and when it has started.
+*/
+var updateTisheetTimeSpentQuarter = function( tisheet )
+{
+    // update object
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id();
+    var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
+    var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
+
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: {
+            ts: count,
+            tm: time
+        },
+        success: function( data )
+        {
+            updateTisheetTimeline();
+            updateTisheetSummary();
+
+            app.BrainSocket.message( 'tisheet.time.update.event',
+            {
+                'value': count,
+                'tid': tisheet.id()
+            });
+        }
+    });
+};
+
+/**
+*
+*/
+var updateTisheetTimeSpentToday = function()
+{
+    count = $jQ( '#timesheet' ).find( 'span.time-spent-quarter-active' ).length;
+    $jQ( 'span.js-time-spent-today' ).text( count/4 + 'h');
+}
+
+/**
 *
 */
 var updateQuarterOfTime = function ( tisheet, obj, recentTisheet ) 
