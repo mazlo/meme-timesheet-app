@@ -35,6 +35,9 @@ var initWebsocketConnection = function()
         var quarter = tisheet.find( 'span.js-time-spent-quarter' ).eq( data.value - 1 );
         
         markTimeSpentQuarterAsActive( quarter );
+
+        updateTisheetTimeline();
+        updateTisheetSummary();
     });
 
     /*
