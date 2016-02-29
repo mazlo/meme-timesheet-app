@@ -41,7 +41,8 @@ class NoteController extends BaseController
 		if ( $tisheet->user->id != Auth::user()->id )
 			return 'false';
 
-        $tisheet->note->delete();
+        if ( $tisheet->note )
+            $tisheet->note->delete();
 
         return 'true';
 	}
