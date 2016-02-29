@@ -18,7 +18,7 @@ var initWebsocketConnection = function()
         var data = msg.client.data;
 
         // get the tisheet with given id and update value
-        var tisheet = $jQ( 'tr[id="'+ data.tid +'"]' );
+        var tisheet = $jQ( '#'+ data.id );
         tisheet.find( 'input.js-tisheet-description' ).val( data.value );
     });
 
@@ -31,7 +31,7 @@ var initWebsocketConnection = function()
         var data = msg.client.data;
 
         // get tisheet with given id, get time quarter and activate it
-        var tisheet = $jQ( 'tr[id="'+ data.tid +'"]' );
+        var tisheet = $jQ( '#'+ data.tid );
         var quarter = tisheet.find( 'span.js-time-spent-quarter' ).eq( data.value - 1 );
         
         markTimeSpentQuarterAsActive( quarter );
@@ -53,7 +53,7 @@ var initWebsocketConnection = function()
         var data = msg.client.data;
 
         // get tisheet with given id, get time quarter and activate it
-        var tisheet = $jQ( 'tr[id="'+ data.tid +'"]' );
+        var tisheet = $jQ( '#'+ data.id );
         var note = tisheet.find( 'div.js-tisheet-note' );
         
         // update info icon
