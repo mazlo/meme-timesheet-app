@@ -166,6 +166,135 @@ $jQ( document ).on( 'click', '.js-tisheet-move', function()
     return false;
 });
 
+var interval;
+var minutesByTisheets = [];
+
+//
+$jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
+{
+    startOnly = ( action != undefined && action.startOnly != undefined ? action.startOnly : false );
+
+    var requestedStopwatch = $jQ(this);
+    var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
+
+    var requestedStopwatchId = getTisheetId( requestedStopwatch );
+
+    // change status of running stopwatch
+
+    var runningStopwatch = getRunningStopwatch();
+    var runningStopwatchId = undefined;
+
+    if ( runningStopwatch != undefined )
+    {
+        runningStopwatchId = runningStopwatch.id();
+
+        // but only if it's not the current stopwatch
+        if ( runningStopwatchId != requestedStopwatchId )
+            toggleStopwatchStatus( runningStopwatch, false );
+    }
+
+    // change status of stopwatch now
+
+    if ( requestedStopwatchId == 'undefined' )
+        // register for post update description field
+        descriptionChangeListener.push( { callback: toggleStopwatchStatus, startOnly: startOnly } );
+    else
+        // change status of pressed stopwatch now
+        toggleStopwatchStatus( tisheet, startOnly );
+
+    var statusNew = requestedStopwatch.hasClass( 'octicon-playback-play' ) ? 'stopped' : 'running';
+
+    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
+    {
+        'lead': getSessionToken(),
+        'tido': runningStopwatchId != requestedStopwatchId ? runningStopwatchId : undefined,
+        'tidr': requestedStopwatchId,
+        'value': statusNew
+    });
+});
+
+// starts or stops the stopwatch for the given tisheet
+var toggleStopwatchStatus = function ( tisheet, startOnly )
+{
+    var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+    
+    if ( stopwatch.hasClass( 'octicon-playback-pause' ) && !startOnly )
+        startStopwatch( tisheet, stopwatch );
+    else if ( !stopwatch.hasClass( 'octicon-playback-pause' ) )
+        stopStopwatch( tisheet, stopwatch );
+};
+
+/**
+ * 
+ */
+var startStopwatch = function( tisheet, stopwatch )
+{
+    var tisheet = stopwatch.closest( 'tr.js-tisheet' );
+
+    // completes the quarter if it's done more than the half
+    if ( minutesByTisheets[ tisheet.id() ] > 7 )
+        triggerQuarterTimeSpentClick( tisheet );
+
+    minutesByTisheets[ tisheet.id() ] = 0;
+
+    // reset stopwatch
+    clearInterval( interval );
+
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+}
+
+/**
+ * 
+ */
+var stopStopwatch = function( tisheet, stopwatch )
+{
+    var tisheet = stopwatch.closest( 'tr.js-tisheet' );
+    
+    // start stopwatch with handler
+    interval = setInterval( function()
+    {
+        checkTriggerQuarterTimeSpent( tisheet );
+    }, 1000*60 );
+
+    if ( minutesByTisheets[ tisheet.id() ] == undefined ) 
+        minutesByTisheets[ tisheet.id() ] = 1;
+
+    // update tisheet start field only once
+    var time = tisheet.find( 'span.js-tisheet-time-start' );
+    if ( time.text() == '' )
+        time.text( new Date().toTimeString().substring(0,5) );
+
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+}
+
+// check whether a quarter of an hour has passed
+var checkTriggerQuarterTimeSpent = function( tisheet )
+{   
+    var minutesCounter = minutesByTisheets[ tisheet.id() ] + 1;
+
+    if ( minutesCounter <= 15 )
+    {
+        minutesByTisheets[ tisheet.id() ] = minutesCounter;
+        return;
+    }
+
+    var nextQuarter = triggerQuarterTimeSpentClick( tisheet );
+
+    // if the end was reached reset the interval and stopwatch icon
+    if ( nextQuarter == undefined )
+    {
+        clearInterval( interval );
+
+        toggleStopwatchStatus( tisheet );
+
+        // TODO ZL write email or something
+
+        return;
+    }
+
+    minutesByTisheets[ tisheet.id() ] = 0;
+};
+
 /**
 *
 */
