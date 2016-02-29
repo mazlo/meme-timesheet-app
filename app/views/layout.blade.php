@@ -619,6 +619,12 @@
 			return '{{ url( "tisheets" ) }}/';
 	}
 
+	//
+	var getSessionToken = function()
+	{
+		return '{{ Session::token() }}';
+	}
+
 @endif
 
 </script>
