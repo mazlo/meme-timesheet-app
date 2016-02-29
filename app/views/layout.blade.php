@@ -340,12 +340,6 @@
 				showAndFadeOutOkIcon( tisheet );
 
 				invokeDescriptionChangeListener( tisheet );
-
-				app.BrainSocket.message( 'tisheet.update.event',
-				{
-					'value': value,
-					'tid': tisheet.id()
-				});
 			}
 		});
 	});
