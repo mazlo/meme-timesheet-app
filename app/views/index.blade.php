@@ -65,7 +65,7 @@
 				<td>
                     <span class='tisheet-error js-tisheet-error element-invisible'></span>
                     <span class='octicon octicon-list-unordered element-toggable'></span>
-					<span class='octicon octicon-info @if( $tisheet->note ) element-visible @else element-toggable @endif'></span>
+					<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) element-visible @else element-toggable @endif'></span>
 				</td>
 				
 				<td>
