@@ -348,16 +348,16 @@
 	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
 	{
 		var value = $jQ(this).val();
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
+		var tisheet = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id() +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
 		// show loading icon
-		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -371,11 +371,11 @@
 				if ( data == 'false' )
 					alert( 'error' );
 
-				showAndFadeOutOkIcon( item );
+				showAndFadeOutOkIcon( tisheet );
 
 				// show/hide octicon-info
 				if ( value == '' || ( value != '' && oldNote == '' ) )
-					item.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
+					tisheet.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
 
 				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
