@@ -22,6 +22,27 @@ var initWebsocketConnection = function()
         tisheet.find( 'input.js-tisheet-description' ).val( data.value );
     });
 
+    // starts a tisheet
+    app.BrainSocket.Event.listen( 'tisheet.time.update.event', function( msg )
+    {
+        if ( !validEvent( msg ) )
+            return;
+
+        var data = msg.client.data;
+
+        // get tisheet with given id, get time quarter and activate it
+        var tisheet = $jQ( 'tr[id="'+ data.tid +'"]' );
+        var quarter = tisheet.find( 'span.js-time-spent-quarter' ).eq( data.value - 1 );
+        
+        markTimeSpentQuarterAsActive( quarter );
+    });
+
+    /*
+    * Planned events:
+    * - lock tisheet if user is editing
+    * - ...
+    */
+
     app.BrainSocket.Event.listen('app.success',function(msg)
     {
         console.log(msg);
