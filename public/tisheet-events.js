@@ -171,13 +171,8 @@ $jQ( document ).on( 'click', '.js-tisheet-move', function()
 */
 $jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 {
-    // reset all coming quarters
-    $jQ(this).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
-
-    // update current
-    $jQ(this).addClass( 'time-spent-quarter-active' );
-    // update all previous quarters
-    $jQ(this).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
+    // mark time spent quarter as active
+    markTimeSpentQuarterAsActive( this );
 
     // update ui
     var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;

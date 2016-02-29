@@ -199,6 +199,20 @@ var updateQuarterOfTime = function ( tisheet, obj, recentTisheet )
 }
 
 /**
+*
+*/
+var markTimeSpentQuarterAsActive = function( span )
+{
+    // reset all coming quarters
+    $jQ( span ).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
+
+    // update current
+    $jQ( span ).addClass( 'time-spent-quarter-active' );
+    // update all previous quarters
+    $jQ( span ).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
+}
+
+/**
  *
  * @param {type} command
  * @returns {undefined} 
