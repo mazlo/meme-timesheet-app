@@ -174,6 +174,8 @@ $jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
 {
     startOnly = ( action != undefined && action.startOnly != undefined ? action.startOnly : false );
 
+    var triggerEvent = ( action != undefined && action.triggerEvent != undefined ? action.triggerEvent : true );
+
     var requestedStopwatch = $jQ(this);
     var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
 
@@ -190,7 +192,7 @@ $jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
 
         // but only if it's not the current stopwatch
         if ( runningStopwatchId != requestedStopwatchId )
-            toggleStopwatchStatus( runningStopwatch, false );
+            toggleStopwatchStatus( runningStopwatch, false, triggerEvent );
     }
 
     // change status of stopwatch now
@@ -200,36 +202,33 @@ $jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
         descriptionChangeListener.push( { callback: toggleStopwatchStatus, startOnly: startOnly } );
     else
         // change status of pressed stopwatch now
-        toggleStopwatchStatus( tisheet, startOnly );
-
-    var statusNew = requestedStopwatch.hasClass( 'octicon-playback-play' ) ? 'stopped' : 'running';
-
-    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
-    {
-        'lead': getSessionToken(),
-        'tido': runningStopwatchId != requestedStopwatchId ? runningStopwatchId : undefined,
-        'tidr': requestedStopwatchId,
-        'value': statusNew
-    });
+        toggleStopwatchStatus( tisheet, startOnly, triggerEvent );
 });
 
-// starts or stops the stopwatch for the given tisheet
-var toggleStopwatchStatus = function ( tisheet, startOnly )
+/** 
+ * starts or stops the stopwatch for the given tisheet
+ * 
+ * @tisheet
+ * @startOnly
+ * @triggerEvent
+ */
+var toggleStopwatchStatus = function ( tisheet, startOnly, triggerEvent )
 {
     var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
     
-    if ( stopwatch.hasClass( 'octicon-playback-pause' ) && !startOnly )
-        startStopwatch( tisheet, stopwatch );
-    else if ( !stopwatch.hasClass( 'octicon-playback-pause' ) )
-        stopStopwatch( tisheet, stopwatch );
+    if ( stopwatch.isRunning() && !startOnly )
+        stopStopwatch( tisheet, stopwatch, triggerEvent );
+    else if ( !stopwatch.isRunning() )
+        startStopwatch( tisheet, stopwatch, triggerEvent );
 };
 
 /**
  * 
  */
-var startStopwatch = function( tisheet, stopwatch )
+var stopStopwatch = function( tisheet, stopwatch, triggerEvent )
 {
-    var tisheet = stopwatch.closest( 'tr.js-tisheet' );
+    if ( tisheet == undefined )
+        tisheet = stopwatch.closest( 'tr.js-tisheet' );
 
     // completes the quarter if it's done more than the half
     if ( minutesByTisheets[ tisheet.id() ] > 7 )
@@ -241,14 +240,25 @@ var startStopwatch = function( tisheet, stopwatch )
     clearInterval( interval );
 
     stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+
+    if ( !triggerEvent )
+        return;
+
+    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
+    {
+        'tid': tisheet.id(),
+        'lead': getSessionToken(),
+        'trigger': !triggerEvent
+    });
 }
 
 /**
  * 
  */
-var stopStopwatch = function( tisheet, stopwatch )
+var startStopwatch = function( tisheet, stopwatch, triggerEvent )
 {
-    var tisheet = stopwatch.closest( 'tr.js-tisheet' );
+    if ( tisheet == undefined )
+        tisheet = stopwatch.closest( 'tr.js-tisheet' );
     
     // start stopwatch with handler
     interval = setInterval( function()
@@ -265,6 +275,16 @@ var stopStopwatch = function( tisheet, stopwatch )
         time.text( new Date().toTimeString().substring(0,5) );
 
     stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+
+    if ( !triggerEvent )
+        return;
+
+    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
+    {
+        'tid': tisheet.id(),
+        'lead': getSessionToken(),
+        'trigger': !triggerEvent
+    });
 }
 
 // check whether a quarter of an hour has passed

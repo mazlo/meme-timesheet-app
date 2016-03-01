@@ -66,7 +66,7 @@ var initWebsocketConnection = function()
         note.find( 'textarea' ).val( data.value );
     });
 
-    //
+    // 
     app.BrainSocket.Event.listen( 'tisheet.stopwatch.update.event', function( msg )
     {
         if ( !validEvent( msg ) )
@@ -75,31 +75,16 @@ var initWebsocketConnection = function()
         var data = msg.client.data;
 
         // 
-        
-        var requestedStopwatchId = data.tidr;
-        var requestedStopwatch = $jQ( '#'+ requestedStopwatchId ).find( 'span.js-octicon-stopwatch' );
-        
-        if ( data.value == 'running' )
-        {
-            // do not use toggleClass, which leads to inconsistent behaviour
-            requestedStopwatch.addClass( 'octicon-playback-pause element-visible' );
-            requestedStopwatch.removeClass( 'octicon-playback-play' );
-        }
-        else /* stopped */ {
-            // do not use toggleClass, which leads to inconsistent behaviour
-            requestedStopwatch.addClass( 'octicon-playback-play' );
-            requestedStopwatch.removeClass( 'octicon-playback-pause element-visible' );
-        }
 
-        // stop other running stopwatch if it is given
-        if ( data.tido != undefined )
-        {
-            var runningStopwatch = $jQ( '#'+ data.tido ).find( 'span.js-octicon-stopwatch' );
-            // do not use toggleClass, which leads to inconsistent behaviour
-            runningStopwatch.addClass( 'octicon-playback-play' );
-            runningStopwatch.removeClass( 'octicon-playback-pause element-visible' );
-        }
+        var iAmLead = data.lead === getSessionToken();
 
+        if ( iAmLead )
+            return;
+
+        // simulate click
+
+        var requestedStopwatch = $jQ( '#'+ data.tid ).find( 'span.js-octicon-stopwatch' );
+        requestedStopwatch.trigger( 'click', { startOnly: false, triggerEvent: false } );
     });
 
     /*
