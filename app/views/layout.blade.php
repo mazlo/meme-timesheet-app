@@ -88,6 +88,16 @@
 					return this.attr( 'day' );
 
 				return 'undefined';
+			},
+			isRunning: function()
+			{
+				if ( this.prop( 'tagName' ) === 'span' && this.classList.contains( 'js-octicon-stopwatch' ) )
+				{
+					if ( this.classList.contains( 'octicon-playback-play' ) )
+						return false;
+					else if ( this.classList.contains( 'octicon-playback-pause') )
+						return true;
+				}
 			}
 		});
 
