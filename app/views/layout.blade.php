@@ -591,30 +591,6 @@
 		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 
-	// updates the next time spent quarter
-	var triggerQuarterTimeSpentClick = function( tisheet )
-	{
-		// find the next not active quarter
-		var nextQuarter = tisheet.find( 'span.js-time-spent-quarter' ).filter( function()
-		{
-			if ( !$jQ(this).hasClass( 'js-time-spent-quarter' ) )
-				return false;
-
-			if ( $jQ(this).hasClass( 'time-spent-quarter-active' ) )
-				return false;
-
-			return true;
-		}).first();
-
-		// if we've reached the end return undefined
-		if ( nextQuarter.length == 0 )
-			return undefined;
-
-		nextQuarter.click();
-
-		return nextQuarter;
-	};
-
 	// 
 	var getTisheetId = function( element )
 	{
