@@ -20,7 +20,7 @@ class NoteController extends BaseController
             $note = new Note();
         
         if ( Input::has( 'nt' ) )
-            $note->content = Input::get( 'nt' );
+            $note->content = empty( Input::get( 'nt' ) ) ? '' : Input::get( 'nt' );
 
         if ( Input::has( 'na' ) )
             $note->visible = Input::get( 'na' ) == 'true' ? true : false;
@@ -41,7 +41,8 @@ class NoteController extends BaseController
 		if ( $tisheet->user->id != Auth::user()->id )
 			return 'false';
 
-        $tisheet->note->delete();
+        if ( $tisheet->note )
+            $tisheet->note->delete();
 
         return 'true';
 	}

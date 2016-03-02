@@ -166,18 +166,52 @@ $jQ( document ).on( 'click', '.js-tisheet-move', function()
     return false;
 });
 
+var interval;
+var minutesByTisheets = [];
+
+//
+$jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
+{
+    startOnly = ( action != undefined && action.startOnly != undefined ? action.startOnly : false );
+
+    var triggerEvent = ( action != undefined && action.triggerEvent != undefined ? action.triggerEvent : true );
+
+    var requestedStopwatch = $jQ(this);
+    var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
+
+    var requestedStopwatchId = getTisheetId( requestedStopwatch );
+
+    // change status of running stopwatch
+
+    var runningStopwatch = getRunningStopwatch();
+    var runningStopwatchId = undefined;
+
+    if ( runningStopwatch != undefined )
+    {
+        runningStopwatchId = runningStopwatch.id();
+
+        // but only if it's not the current stopwatch
+        if ( runningStopwatchId != requestedStopwatchId )
+            toggleStopwatchStatus( runningStopwatch, false, triggerEvent );
+    }
+
+    // change status of stopwatch now
+
+    if ( requestedStopwatchId == 'undefined' )
+        // register for post update description field
+        descriptionChangeListener.push( { callback: toggleStopwatchStatus, startOnly: startOnly } );
+    else
+        // change status of pressed stopwatch now
+        toggleStopwatchStatus( tisheet, startOnly, triggerEvent );
+});
+
 /**
 *
 */
 $jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 {
-    // reset all coming quarters
-    $jQ(this).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
-
-    // update current
-    $jQ(this).addClass( 'time-spent-quarter-active' );
-    // update all previous quarters
-    $jQ(this).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
+    // mark time spent quarter as active
+    markTimeSpentQuarterAsActive( this );
 
     // update ui
     var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;

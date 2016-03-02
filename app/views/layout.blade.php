@@ -16,6 +16,7 @@
 	<script type='text/javascript' src='{{ url( "jquery-ui-1.9.2.custom.js" ) }}'></script>
 
 	<script type='text/javascript' src='{{ url( "jquery.datepicker.min.js" ) }}'></script>
+	<script type="text/javascript" src='{{ url( "brain-socket.min.js" ) }}'></script>
 
 	<script type='text/javascript'>
 		<!-- this is to prevent conflicts with prototype and jquerytools -->
@@ -25,6 +26,7 @@
 	<!-- js-functions for tisheets -->
 	<script type='text/javascript' src='{{ url( "tisheet-functions.js" ) }}'></script>
 	<script type='text/javascript' src='{{ url( "tisheet-events.js" ) }}'></script>
+	<script type='text/javascript' src='{{ url( "tisheet-sockets.js" ) }}'></script>
 </head>
 
 <body>
@@ -72,20 +74,37 @@
 		{
 			id: function()
 			{
+				// used on <tr> with id-attribute
 				if ( this.prop( 'tagName' ) === 'TR' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
+				// used on <li> with id-attribute
 				if ( this.prop( 'tagName' ) === 'LI' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
 				return 'undefined';
 			},
+
+			// used on <div.timesheet> with day-attribute
 			today: function()
 			{
 				if ( this.prop( 'tagName' ) === 'DIV' && this.attr( 'id' ) !== undefined && this.attr( 'id' ) == 'timesheet' )
 					return this.attr( 'day' );
 
 				return 'undefined';
+			},
+
+			// used on a <span.js-octicon-stopwatch>
+			isRunning: function()
+			{
+				if ( this.prop( 'tagName' ) === 'SPAN' && $jQ(this).hasClass( 'js-octicon-stopwatch' ) )
+				{
+					if ( $jQ(this).hasClass( 'octicon-playback-play' ) )
+						return false;	// is not running
+
+					else if ( $jQ(this).hasClass( 'octicon-playback-pause' ) )
+						return true;	// is running
+				}
 			}
 		});
 
@@ -94,6 +113,9 @@
 
 		// 
 		addAutocompleteOnTisheetDescription();
+
+		// 
+		initWebsocketConnection();
 
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
@@ -343,16 +365,16 @@
 	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
 	{
 		var value = $jQ(this).val();
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
+		var tisheet = $jQ(this).closest( 'tr.js-tisheet' );
 
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
 
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ item.id() +'/note';
+		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id() +'/note';
 		var type = value.trim() == '' ? 'delete' : 'put';
 
 		// show loading icon
-		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -366,14 +388,20 @@
 				if ( data == 'false' )
 					alert( 'error' );
 
-				showAndFadeOutOkIcon( item );
+				showAndFadeOutOkIcon( tisheet );
 
 				// show/hide octicon-info
 				if ( value == '' || ( value != '' && oldNote == '' ) )
-					item.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
+					tisheet.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
 
 				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
+
+				app.BrainSocket.message( 'tisheet.note.update.event',
+			    {   
+			        'value': value.trim(),
+			        'tid': tisheet.id()
+			    });
 			}
 		});
 	});
@@ -426,36 +454,6 @@
 			}
 		});
 	};
-
-	//
-	var updateTisheetTimeSpentQuarter = function( tisheet )
-	{
-		// update object
-		var url = '{{ url( "tisheets" ) }}/' + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id();
-		var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
-		var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
-
-		$jQ.ajax({
-			url: url,
-			type: 'put',
-			data: {
-				ts: count,
-				tm: time
-			},
-			success: function( data )
-			{
-				updateTisheetTimeline();
-				updateTisheetSummary();
-			}
-		});
-	};
-
-	//
-	var updateTisheetTimeSpentToday = function()
-	{
-		count = $jQ( '#timesheet' ).find( 'span.time-spent-quarter-active' ).length;
-		$jQ( 'span.js-time-spent-today' ).text( count/4 + 'h');
-	}
 
 	//
 	var updateTisheetTimeline = function()
@@ -593,147 +591,6 @@
 		$jQ( this ).toggleClass( 'js-button-active' );
 	});
 
-	var interval;
-	var minutesByTisheets = [];
-
-	//
-	$jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
-	{
-		startOnly = ( action != undefined && action.startOnly != undefined ? action.startOnly : false );
-
-		var requestedStopwatch = $jQ(this);
-		var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
-
-		var requestedStopwatchId = getTisheetId( requestedStopwatch );
-
-		// change status of running stopwatch
-
-		var runningStopwatch = getRunningStopwatch();
-		if ( runningStopwatch != undefined )
-		{
-			var runningStopwatchId = runningStopwatch.id();
-			
-			// but only if it's not the current stopwatch
-			if ( runningStopwatchId != requestedStopwatchId )
-				toggleStopwatchStatus( runningStopwatch, false );
-		}
-
-		// change status of stopwatch now
-
-		if ( requestedStopwatchId == 'undefined' )
-			// register for post update description field
-			descriptionChangeListener.push( { callback: toggleStopwatchStatus, startOnly: startOnly } );
-		else
-			// change status of pressed stopwatch now
-			toggleStopwatchStatus( tisheet, startOnly );
-	});
-
-	// starts or stops the stopwatch for the given tisheet
-	var toggleStopwatchStatus = function ( tisheet, startOnly )
-	{
-		var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
-		
-		if ( stopwatch.hasClass( 'octicon-playback-pause' ) && !startOnly )
-			startStopwatch( tisheet, stopwatch );
-		else if ( !stopwatch.hasClass( 'octicon-playback-pause' ) )
-			stopStopwatch( tisheet, stopwatch );
-	};
-	
-	/**
-	 * 
-	 */
-	var startStopwatch = function( tisheet, stopwatch )
-	{
-		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
-
-		// completes the quarter if it's done more than the half
-		if ( minutesByTisheets[ tisheet.id() ] > 7 )
-			triggerQuarterTimeSpentClick( tisheet );
-
-		minutesByTisheets[ tisheet.id() ] = 0;
-
-		// reset stopwatch
-		clearInterval( interval );
-
-		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
-	}
-	
-	/**
-	 * 
-	 */
-	var stopStopwatch = function( tisheet, stopwatch )
-	{
-		var tisheet = stopwatch.closest( 'tr.js-tisheet' );
-		
-		// start stopwatch with handler
-		interval = setInterval( function()
-		{
-			checkTriggerQuarterTimeSpent( tisheet );
-		}, 1000*60 );
-
-		if ( minutesByTisheets[ tisheet.id() ] == undefined ) 
-			minutesByTisheets[ tisheet.id() ] = 1;
-
-		// update tisheet start field only once
-		var time = tisheet.find( 'span.js-tisheet-time-start' );
-		if ( time.text() == '' )
-			time.text( new Date().toTimeString().substring(0,5) );
-
-		stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
-	}
-
-	// check whether a quarter of an hour has passed
-	var checkTriggerQuarterTimeSpent = function( tisheet )
-	{	
-		var minutesCounter = minutesByTisheets[ tisheet.id() ] + 1;
-
-		if ( minutesCounter <= 15 )
-		{
-			minutesByTisheets[ tisheet.id() ] = minutesCounter;
-			return;
-		}
-
-		var nextQuarter = triggerQuarterTimeSpentClick( tisheet );
-
-		// if the end was reached reset the interval and stopwatch icon
-		if ( nextQuarter == undefined )
-		{
-			clearInterval( interval );
-
-			toggleStopwatchStatus( tisheet );
-
-			// TODO ZL write email or something
-
-			return;
-		}
-
-		minutesByTisheets[ tisheet.id() ] = 0;
-	};
-	
-	// updates the next time spent quarter
-	var triggerQuarterTimeSpentClick = function( tisheet )
-	{
-		// find the next not active quarter
-		var nextQuarter = tisheet.find( 'span.js-time-spent-quarter' ).filter( function()
-		{
-			if ( !$jQ(this).hasClass( 'js-time-spent-quarter' ) )
-				return false;
-
-			if ( $jQ(this).hasClass( 'time-spent-quarter-active' ) )
-				return false;
-
-			return true;
-		}).first();
-
-		// if we've reached the end return undefined
-		if ( nextQuarter.length == 0 )
-			return undefined;
-
-		nextQuarter.click();
-
-		return nextQuarter;
-	};
-
 	// 
 	var getTisheetId = function( element )
 	{
@@ -753,6 +610,12 @@
 			return '{{ url( "'+ value +'" ) }}';
 		else
 			return '{{ url( "tisheets" ) }}/';
+	}
+
+	//
+	var getSessionToken = function()
+	{
+		return '{{ Session::token() }}';
 	}
 
 @endif

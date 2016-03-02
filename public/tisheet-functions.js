@@ -34,6 +34,12 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     }
 
     tisheet.find( '.js-tisheet-description' ).val( obj.desc );
+
+    app.BrainSocket.message( 'tisheet.update.event',
+    {   
+        'tid': tisheet.id(),
+        'value': obj.desc
+    });
 }
 
 // HELPER FUNCTIONS
@@ -75,12 +81,190 @@ var cloneTisheetIfLastOne = function( elementToClone, latestElement )
         cloneTisheet( tisheetToClone, undefined );
 }
 
+// HELPER FUNCTIONS FOR STOPWATCHES
+
+/** 
+ * starts or stops the stopwatch for the given tisheet
+ * 
+ * @tisheet
+ * @startOnly
+ * @triggerEvent
+ */
+var toggleStopwatchStatus = function ( tisheet, startOnly, triggerEvent )
+{
+    var stopwatch = tisheet.find( 'span.js-octicon-stopwatch' );
+    
+    if ( stopwatch.isRunning() && !startOnly )
+        stopStopwatch( tisheet, stopwatch, triggerEvent );
+    else if ( !stopwatch.isRunning() )
+        startStopwatch( tisheet, stopwatch, triggerEvent );
+};
+
+/**
+ * 
+ */
+var stopStopwatch = function( tisheet, stopwatch, triggerEvent )
+{
+    if ( tisheet == undefined )
+        tisheet = stopwatch.closest( 'tr.js-tisheet' );
+
+    // completes the quarter if it's done more than the half
+    if ( minutesByTisheets[ tisheet.id() ] > 7 )
+        triggerQuarterTimeSpentClick( tisheet );
+
+    minutesByTisheets[ tisheet.id() ] = 0;
+
+    // reset stopwatch
+    clearInterval( interval );
+
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+
+    if ( !triggerEvent )
+        return;
+
+    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
+    {
+        'tid': tisheet.id(),
+        'lead': getSessionToken(),
+        'trigger': !triggerEvent
+    });
+}
+
+/**
+ * 
+ */
+var startStopwatch = function( tisheet, stopwatch, triggerEvent )
+{
+    if ( tisheet == undefined )
+        tisheet = stopwatch.closest( 'tr.js-tisheet' );
+    
+    // start stopwatch with handler
+    interval = setInterval( function()
+    {
+        checkTriggerQuarterTimeSpent( tisheet );
+    }, 1000*60 );
+
+    if ( minutesByTisheets[ tisheet.id() ] == undefined ) 
+        minutesByTisheets[ tisheet.id() ] = 1;
+
+    // update tisheet start field only once
+    var time = tisheet.find( 'span.js-tisheet-time-start' );
+    if ( time.text() == '' )
+        time.text( new Date().toTimeString().substring(0,5) );
+
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+
+    if ( !triggerEvent )
+        return;
+
+    app.BrainSocket.message( 'tisheet.stopwatch.update.event',
+    {
+        'tid': tisheet.id(),
+        'lead': getSessionToken(),
+        'trigger': !triggerEvent
+    });
+}
+
+// check whether a quarter of an hour has passed
+var checkTriggerQuarterTimeSpent = function( tisheet )
+{   
+    var minutesCounter = minutesByTisheets[ tisheet.id() ] + 1;
+
+    if ( minutesCounter <= 15 )
+    {
+        minutesByTisheets[ tisheet.id() ] = minutesCounter;
+        return;
+    }
+
+    var nextQuarter = triggerQuarterTimeSpentClick( tisheet );
+
+    // if the end was reached reset the interval and stopwatch icon
+    if ( nextQuarter == undefined )
+    {
+        clearInterval( interval );
+
+        toggleStopwatchStatus( tisheet );
+
+        // TODO ZL write email or something
+
+        return;
+    }
+
+    minutesByTisheets[ tisheet.id() ] = 0;
+};
+
+/**
+ * updates the next time spent quarter
+ */
+var triggerQuarterTimeSpentClick = function( tisheet )
+{
+    // find the next not active quarter
+    var nextQuarter = tisheet.find( 'span.js-time-spent-quarter' ).filter( function()
+    {
+        if ( !$jQ(this).hasClass( 'js-time-spent-quarter' ) )
+            return false;
+
+        if ( $jQ(this).hasClass( 'time-spent-quarter-active' ) )
+            return false;
+
+        return true;
+    }).first();
+
+    // if we've reached the end return undefined
+    if ( nextQuarter.length == 0 )
+        return undefined;
+
+    nextQuarter.click();
+
+    return nextQuarter;
+};
+
 /**
 *
 */
 var runStopwatch = function( tisheet, command, startOnly )
 {
     tisheet.find( '.js-octicon-stopwatch' ).trigger( 'click', { name: command, startOnly: startOnly } );
+}
+
+/**
+*   Sends an http put-request with time spent and when it has started.
+*/
+var updateTisheetTimeSpentQuarter = function( tisheet )
+{
+    // update object
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/tisheet/'+ tisheet.id();
+    var count = tisheet.find( 'span.time-spent-quarter-active' ).length;
+    var time = tisheet.find( 'span.js-tisheet-time-start' ).text();
+
+    $jQ.ajax({
+        url: url,
+        type: 'put',
+        data: {
+            ts: count,
+            tm: time
+        },
+        success: function( data )
+        {
+            updateTisheetTimeline();
+            updateTisheetSummary();
+
+            app.BrainSocket.message( 'tisheet.time.update.event',
+            {
+                'value': count,
+                'tid': tisheet.id()
+            });
+        }
+    });
+};
+
+/**
+*
+*/
+var updateTisheetTimeSpentToday = function()
+{
+    count = $jQ( '#timesheet' ).find( 'span.time-spent-quarter-active' ).length;
+    $jQ( 'span.js-time-spent-today' ).text( count/4 + 'h');
 }
 
 /**
@@ -156,6 +340,20 @@ var updateQuarterOfTime = function ( tisheet, obj, recentTisheet )
         recentTook = ( recentTook - roundToQuarterOfHour( param ) );
 
     recentTisheet.find( 'span.js-time-spent-quarter:eq('+ ( recentTook-1 ) +')' ).click();
+}
+
+/**
+*
+*/
+var markTimeSpentQuarterAsActive = function( span )
+{
+    // reset all coming quarters
+    $jQ( span ).nextAll( 'span.js-time-spent-quarter' ).removeClass( 'time-spent-quarter-active' );
+
+    // update current
+    $jQ( span ).addClass( 'time-spent-quarter-active' );
+    // update all previous quarters
+    $jQ( span ).prevAll( 'span.js-time-spent-quarter' ).addClass( 'time-spent-quarter-active' );
 }
 
 /**
