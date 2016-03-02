@@ -37,8 +37,8 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 
     app.BrainSocket.message( 'tisheet.update.event',
     {   
-        'value': obj.desc,
-        'tid': tisheet.id()
+        'tid': tisheet.id(),
+        'value': obj.desc
     });
 }
 

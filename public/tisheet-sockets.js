@@ -18,7 +18,7 @@ var initWebsocketConnection = function()
         var data = msg.client.data;
 
         // get the tisheet with given id and update value
-        var tisheet = $jQ( '#'+ data.id );
+        var tisheet = $jQ( '#'+ data.tid );
         tisheet.find( 'input.js-tisheet-description' ).val( data.value );
     });
 
@@ -30,8 +30,9 @@ var initWebsocketConnection = function()
 
         var data = msg.client.data;
 
-        // get tisheet with given id, get time quarter and activate it
+        // tisheet with given id
         var tisheet = $jQ( '#'+ data.tid );
+        // time quarter to be activated
         var quarter = tisheet.find( 'span.js-time-spent-quarter' ).eq( data.value - 1 );
         
         markTimeSpentQuarterAsActive( quarter );
@@ -43,26 +44,22 @@ var initWebsocketConnection = function()
     // 
     app.BrainSocket.Event.listen( 'tisheet.note.update.event', function( msg )
     {
-        // - check if is visible 
-        // -- if yes: update in that case
-        // -- if no: mark info-icon
-
         if ( !validEvent( msg ) )
             return;
 
         var data = msg.client.data;
 
-        // get tisheet with given id, get time quarter and activate it
-        var tisheet = $jQ( '#'+ data.id );
+        var tisheet = $jQ( '#'+ data.tid );
         var note = tisheet.find( 'div.js-tisheet-note' );
         
-        // update info icon
         if ( data.value == '' )
+            // disable octicon-info icon
             tisheet.find( 'span.octicon-info' ).removeClass( 'element-visible' );
         else 
+            // enable octicon-info icon
             tisheet.find( 'span.octicon-info' ).addClass( 'element-visible' );
         
-        // update textarea value
+        // update textarea value, no matter is octicon-icon is visible
         note.find( 'textarea' ).val( data.value );
     });
 
@@ -74,8 +71,8 @@ var initWebsocketConnection = function()
 
         var data = msg.client.data;
 
-        // 
-
+        // indicates whether the stopwatch was started from THIS client, 
+        // which means that we do not need to trigger it again
         var iAmLead = data.lead === getSessionToken();
 
         if ( iAmLead )
@@ -83,6 +80,8 @@ var initWebsocketConnection = function()
 
         // simulate click
 
+        // I am not the lead, thus the click on the stopwatch has to be simulated. 
+        // In case the other client disconnects, we can handle the stop by ourself
         var requestedStopwatch = $jQ( '#'+ data.tid ).find( 'span.js-octicon-stopwatch' );
         requestedStopwatch.trigger( 'click', { startOnly: false, triggerEvent: false } );
     });
