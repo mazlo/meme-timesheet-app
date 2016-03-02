@@ -74,14 +74,18 @@
 		{
 			id: function()
 			{
+				// used on <tr> with id-attribute
 				if ( this.prop( 'tagName' ) === 'TR' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
+				// used on <li> with id-attribute
 				if ( this.prop( 'tagName' ) === 'LI' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
 				return 'undefined';
 			},
+
+			// used on <div.timesheet> with day-attribute
 			today: function()
 			{
 				if ( this.prop( 'tagName' ) === 'DIV' && this.attr( 'id' ) !== undefined && this.attr( 'id' ) == 'timesheet' )
@@ -89,14 +93,17 @@
 
 				return 'undefined';
 			},
+
+			// used on a <span.js-octicon-stopwatch>
 			isRunning: function()
 			{
-				if ( this.prop( 'tagName' ) === 'span' && this.classList.contains( 'js-octicon-stopwatch' ) )
+				if ( this.prop( 'tagName' ) === 'SPAN' && $jQ(this).hasClass( 'js-octicon-stopwatch' ) )
 				{
-					if ( this.classList.contains( 'octicon-playback-play' ) )
-						return false;
-					else if ( this.classList.contains( 'octicon-playback-pause') )
-						return true;
+					if ( $jQ(this).hasClass( 'octicon-playback-play' ) )
+						return false;	// is not running
+
+					else if ( $jQ(this).hasClass( 'octicon-playback-pause' ) )
+						return true;	// is running
 				}
 			}
 		});
