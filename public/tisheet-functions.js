@@ -92,8 +92,22 @@ var cloneTisheetIfLastOne = function( elementToClone, latestElement )
 var blankTisheet = function( initialData )
 {
     var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+    var tisheet = undefined;
 
-    var tisheet = cloneTisheet( tisheetToClone );
+    // do not clone if there are no tisheets yet!
+    if ( tisheetToClone.index() >= 2 ) 
+    {
+        // first tisheet
+        tisheet = tisheetToClone.prev();
+        
+        var textfield = tisheet.find( 'input.js-tisheet-description' );
+
+        if ( textfield.val() == '' )
+            textfield.focus();
+    }
+    else 
+        // clone one
+        tisheet = cloneTisheet( tisheetToClone );
 
     if ( initialData == undefined )
         return tisheet;
