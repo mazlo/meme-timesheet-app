@@ -95,18 +95,17 @@ var blankTisheet = function( initialData )
     var tisheet = undefined;
 
     // do not clone if there are no tisheets yet!
+    // >= because there might be an empty one at the end ..
     if ( tisheetToClone.index() >= 2 ) 
     {
-        // first tisheet
         tisheet = tisheetToClone.prev();
-        
-        var textfield = tisheet.find( 'input.js-tisheet-description' );
 
-        if ( textfield.val() == '' )
-            textfield.focus();
+        // value and id, further down the code, are only set, if this first tisheet has no value
+        if ( tisheet.find( 'input.js-tisheet-description' ).val() != '' )
+            tisheet = undefined;
     }
-    else 
-        // clone one
+
+    if ( tisheet == undefined )
         tisheet = cloneTisheet( tisheetToClone );
 
     if ( initialData == undefined )
