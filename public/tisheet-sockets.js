@@ -24,7 +24,18 @@ var initWebsocketConnection = function()
 
         // get the tisheet with given id and update value
         var tisheet = $jQ( '#'+ data.tid );
-        tisheet.find( 'input.js-tisheet-description' ).val( data.value );
+
+        // element exists: update
+        if ( tisheet.length > 0 )
+        {
+            tisheet.find( 'input.js-tisheet-description' ).val( data.value );
+        }
+
+        // element has to be created first    
+        else 
+        {
+            tisheet = blankTisheet( data );
+        }
     });
 
     // updates a tisheet time spent quarter
