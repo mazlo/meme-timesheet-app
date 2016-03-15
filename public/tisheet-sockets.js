@@ -17,6 +17,11 @@ var initWebsocketConnection = function()
 
         var data = msg.client.data;
 
+        // indicates whether the update came from THIS client, 
+        // which means that we do not need to trigger it again
+        if ( iAmLead( data ) )
+            return;
+
         // get the tisheet with given id and update value
         var tisheet = $jQ( '#'+ data.tid );
         tisheet.find( 'input.js-tisheet-description' ).val( data.value );
@@ -73,10 +78,7 @@ var initWebsocketConnection = function()
 
         // indicates whether the stopwatch was started from THIS client, 
         // which means that we do not need to trigger it again
-        var iAmLead = data.lead === getSessionToken();
-
-        if ( iAmLead )
-            return;
+        iAmLead( data );
 
         // simulate click
 
@@ -104,12 +106,30 @@ var initWebsocketConnection = function()
 }
 
 /**
-*
-*/
+ *
+ */
 var validEvent = function( msg )
 {
     if ( !msg.client.data )
         return false;
 
     return true;
+}
+
+/**
+ */
+var iAmLead = function ( data )
+{
+    if ( data == undefined )
+        return false;
+
+    if ( data.lead == undefined )
+        return false;
+
+    var iAmLead = data.lead === getSessionToken();
+
+    if ( iAmLead )
+        return true;
+
+    return false;
 }
