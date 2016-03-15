@@ -55,6 +55,9 @@ var initWebsocketConnection = function()
         var tisheet = $jQ( '#'+ data.tid );
 
         tisheet.remove();
+        
+        // place new tisheet if last one
+        cloneTisheetIfLastOne();
     });
 
     // updates a tisheet time spent quarter
