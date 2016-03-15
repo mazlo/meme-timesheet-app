@@ -38,6 +38,7 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
     app.BrainSocket.message( 'tisheet.update.event',
     {   
         'tid': tisheet.id(),
+        'lead': getSessionToken(),
         'value': obj.desc
     });
 }
@@ -47,7 +48,7 @@ var descriptionFocusoutSuccessCallbackHandler = function( tisheet, obj )
 /**
 *
 */
-var cloneTisheet = function( elementToClone, latestElement )
+var cloneTisheet = function( elementToClone, latestElement, focus )
 {
     var clonedElement = elementToClone.clone();
 
@@ -58,7 +59,8 @@ var cloneTisheet = function( elementToClone, latestElement )
         // invoke manually to prevent asynchronous side effects
         latestElement.blur();
 
-    clonedElement.find( 'input.tisheet-description' ).focus();
+    if ( focus === undefined || focus )
+        clonedElement.find( 'input.tisheet-description' ).focus();
 
     // add autocomplete functionality
     clonedElement.find( 'input.tisheet-description' ).autocomplete(
@@ -67,18 +69,39 @@ var cloneTisheet = function( elementToClone, latestElement )
         minLength: 2,
         delay: 100
     });
+
+    return clonedElement;
 }
 
 /**
-*
-*/
+ */
 var cloneTisheetIfLastOne = function( elementToClone, latestElement )
 {
     var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
-
+ 
     if ( tisheetToClone.index() == 1 )
         // clone empty element
         cloneTisheet( tisheetToClone, undefined );
+ }
+
+/**
+ * Creates a blank tisheet, by getting the hidden tr.js-tisheet-clonable 
+ * and invoking function cloneTisheet().
+ *
+ */
+var blankTisheet = function( initialData )
+{
+    var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+
+    var tisheet = cloneTisheet( tisheetToClone );
+
+    if ( initialData == undefined )
+        return tisheet;
+
+    tisheet.attr( 'id', initialData.tid );
+    tisheet.find( 'input.js-tisheet-description' ).val( initialData.value );
+
+    return tisheet;
 }
 
 // HELPER FUNCTIONS FOR STOPWATCHES
