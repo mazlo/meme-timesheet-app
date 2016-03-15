@@ -38,6 +38,25 @@ var initWebsocketConnection = function()
         }
     });
 
+    //
+    app.BrainSocket.Event.listen( 'tisheet.delete.event', function( msg ) 
+    {
+        if ( !validEvent( msg ) )
+            return;
+
+        var data = msg.client.data;
+
+        // indicates whether the update came from THIS client, 
+        // which means that we do not need to trigger it again
+        if ( iAmLead( data ) )
+            return;
+
+        // get the tisheet with given id and update value
+        var tisheet = $jQ( '#'+ data.tid );
+
+        tisheet.remove();
+    });
+
     // updates a tisheet time spent quarter
     app.BrainSocket.Event.listen( 'tisheet.time.update.event', function( msg )
     {

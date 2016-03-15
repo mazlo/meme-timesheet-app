@@ -74,13 +74,13 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
         return;
     }
     
-    var item = getTisheet( this );
+    var tisheet = getTisheet( this );
 
     // do not handle items with no id
-    if ( item.id() === "undefined" )
+    if ( tisheet.id() === "undefined" )
         return;
 
-    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ item.id();
+    var url = getBaseUrl() + $jQ( '#timesheet' ).today() +'/tisheet/'+ tisheet.id();
 
     $jQ.ajax({
         url: url,
@@ -90,7 +90,7 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
             if ( data != 'true' )
                 return;
 
-            item.remove();
+            tisheet.remove();
 
             // place new tisheet
             cloneTisheetIfLastOne();
@@ -100,6 +100,12 @@ $jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
 
             updateTisheetTimeline();
             updateTisheetSummary();
+
+            app.BrainSocket.message( 'tisheet.delete.event',
+            {
+                'tid': tisheet.id(),
+                'lead': getSessionToken()
+            });
         }
     });
 }); 
