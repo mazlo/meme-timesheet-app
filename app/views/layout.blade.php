@@ -9,6 +9,7 @@
 
 	<link rel='stylesheet' type='text/css' href='{{ url( "jquery-ui.css" ) }}' />
 	<link rel='stylesheet' type='text/css' href='{{ url( "octicons.css" ) }}' />
+	<link rel='stylesheet' type='text/css' href='{{ url( "ionicons.css" ) }}' />
     <link rel='stylesheet' type='text/css' href='{{ url( "main.css" ) }}' />
     <link rel='stylesheet' type='text/css' href='{{ url( "datepicker.css" ) }}' />
 	
