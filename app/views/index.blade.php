@@ -2,6 +2,8 @@
 
 <?php
 	$todayAsTime = strtotime( $today );
+	$todayForReal = date( 'Y-m-d', time() );
+	$todayForRealAsTime = strtotime( $todayForReal );
 ?>
 
 @section( 'header' )
@@ -33,7 +35,7 @@
 			<span class='ionicons ion-medkit'></span>
 		</div>
 
-		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
+		<h2>ya timesheet for @if( $today == $todayForReal ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
