@@ -3,14 +3,15 @@
 /** EVENTS ON TISHEET OCTICONS */
 
 //
-$jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
+$jQ( document ).on( 'click', '.timesheet-options span.octicon, .timesheet-options span.ionicons', function()
 {
     var octicon = $jQ(this);
-    var status = octicon.hasClass( 'octicon-active' ) ? true : false;
+    var octiconActive = octicon.hasClass( 'octicon-active' ) ? true : false;
 
     var url = getBaseUrl( '' ) + 'user/profile';
 
     var icon = octicon.hasClass( 'octicon-server' ) ? 'cl' : 'gl';
+    icon = octicon.hasClass( 'ion-medkit' ) ? 'md' : icon;
 
     if( icon == '' )
         return;
@@ -20,20 +21,36 @@ $jQ( document ).on( 'click', '.timesheet-options span.octicon', function()
         type: 'put',
         data: {
             lm: icon,
-            vl: !status
+            vl: !octiconActive
         },
         success: function()
         {
             var element = octicon.hasClass( 'octicon-server' ) ? '#columns' : '#story';
 
-            if ( status )
+            if ( octiconActive )
             {
-                $jQ( element ).hide()
+                if ( icon == 'md' )
+                    $jQ( '.element-collectable' ).slideDown()
+                
+                else 
+                    $jQ( element ).hide()
+              
                 octicon.removeClass( 'octicon-active' )
             }
             else
             {
-                $jQ( element ).show()
+                if ( icon == 'md' )
+                {
+                    $jQ( '.element-collectable:visible' ).slideUp( function()
+                    {
+                        story = $jQ( '#story' )
+                        story.show()
+                    })
+                }
+                
+                else
+                    $jQ( element ).show()
+                
                 octicon.addClass( 'octicon-active' )
 
                 if ( element == '#columns' )
