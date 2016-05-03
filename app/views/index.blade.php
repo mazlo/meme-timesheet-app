@@ -73,7 +73,8 @@
 				</td>
 				
 				<td>
-					{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => 'I am about to ...', 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+					{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
@@ -121,7 +122,8 @@
 					<span class='octicon octicon-info element-toggable'></span>
 				</td>
 				<td>
-					{{ Form::text( 'description', '', array( 'placeholder' => 'I am about to ...', 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+					{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
