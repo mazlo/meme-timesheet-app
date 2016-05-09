@@ -26,16 +26,7 @@ class TimesheetController extends BaseController
 	    // update today's story
 	    else if ( Input::has( 'gl' ) )
 	    {
-	    	$timesheet = Timesheet::where( 'day', $day )->where( 'user_id', Auth::user()->id )->first();
-
-	    	if ( empty( $timesheet ) )
-	    	{
-	    		$timesheet = new Timesheet();
-	    		$timesheet->user()->associate( Auth::user() );
-
-	    		$timesheet->day = $day;
-	    	}
-
+	    	$timesheet = Timesheet::getNonEmptyByDay( $day );
 	    	$timesheet->story = Input::get( 'gl' );
 	    	$timesheet->save();
 	    }

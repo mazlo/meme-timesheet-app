@@ -170,7 +170,7 @@ td span.octicon {
 	line-height: 30px;
 }
 
-.octicon {
+.octicon, .ionicons {
 	padding-left: 23px;
 	
 	cursor: pointer;
@@ -192,9 +192,15 @@ td span.octicon {
 .octicon-light {
 	opacity: 0.5;
 }
-.octicon-active {
+.octicon-active, .ionicons-active {
 	opacity: 1;
 	color: #006699;
+}
+.octicon-splitter {
+	display: inline-block;
+	border-bottom: 1px #ccc solid;
+	width: 23px;
+	margin: 0 0 18px 18px;
 }
 
 .ajax-loader {

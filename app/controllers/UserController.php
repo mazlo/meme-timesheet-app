@@ -19,8 +19,17 @@ class UserController extends Controller
 
             if ( $element == 'gl' )
                 $user->showStory = $value == 'true' ? 1 : 0;
+
             else if ( $element == 'cl' )
                 $user->showColumns = $value == 'true' ? 1 : 0;
+
+            else if ( $element == 'md' )
+            {
+                $day = Session::get( 'today', function() { return date( 'Y-m-d', time() ); } );
+                $timesheet = Timesheet::getNonEmptyByDay( $day );
+                $timesheet->sick = $value == 'true' ? 1 : 0;
+                $timesheet->save();
+            }
         }
 
         $user->save();

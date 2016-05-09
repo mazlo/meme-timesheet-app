@@ -2,6 +2,8 @@
 
 <?php
 	$todayAsTime = strtotime( $today );
+	$todayForReal = date( 'Y-m-d', time() );
+	$todayForRealAsTime = strtotime( $todayForReal );
 ?>
 
 @section( 'header' )
@@ -29,16 +31,18 @@
 		<div class='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
 			<span class='octicon octicon-book octicon-light @if( Auth::user()->showStory )octicon-active@endif'></span>
 			<span class='octicon octicon-server octicon-light @if( Auth::user()->showColumns )octicon-active@endif'></span>
+			<span class='octicon-splitter'>&nbsp;</span>
+			<span class='ionicons ion-medkit'></span>
 		</div>
 
-		<h2>ya timesheet for @if( $today == date( 'Y-m-d', time() ) ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
+		<h2>ya timesheet for @if( $today == $todayForReal ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
 
-	<div id='timesheet' class='timesheet' day='{{ $today }}'>
+	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}'>
 		<table cellpadding='0' cellspacing='0'>
 			
 			<colgroup>
@@ -69,7 +73,8 @@
 				</td>
 				
 				<td>
-					{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => 'I am about to ...', 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+					{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
@@ -117,7 +122,8 @@
 					<span class='octicon octicon-info element-toggable'></span>
 				</td>
 				<td>
-					{{ Form::text( 'description', '', array( 'placeholder' => 'I am about to ...', 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+					{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
 					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
@@ -165,16 +171,16 @@
 
 	</div>
 
-	<div id='timeline-today' class='timeline-today'>
+	<div id='timeline-today' class='timeline-today element-collectable'>
 		@include( 'ajax.timeline' )
 	</div>
 
-	<ul class='list-inline js-button-group' style='margin-left: 11px'>
+	<ul class='list-inline js-button-group element-collectable' style='margin-left: 11px'>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button js-button-summary'>show summary by contexts</a></li>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
 	</ul>
 
-	<div id='summaryWrapper' class='element-hidden'>
+	<div id='summaryWrapper' class='element-hidden element-collectable'>
 		<h3>Summary</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 
 		<div id='summary'>
@@ -187,12 +193,12 @@
 		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
-	<div id='columns' class='columns js-columns' @if( !Auth::user()->showColumns ) style='display: none' @endif>
+	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns ) style='display: none' @endif>
 		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
 
-	<div id='summary-same-as'>
+	<div id='summary-same-as element-collectable'>
 		{{-- ajax content here --}}
 	</div>
 

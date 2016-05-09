@@ -9,7 +9,10 @@ class TisheetController extends BaseController
     public function index( $day = '' )
     {
         if ( empty( $day ) || $day == 'today' )
+        {
             $day = date( 'Y-m-d', time() );
+            Session::put( 'today', $day );
+        }
         
         $tisheets = Tisheet::where( 'day', $day )
             ->where( 'user_id', Auth::user()->id )
