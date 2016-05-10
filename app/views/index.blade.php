@@ -188,7 +188,7 @@
 		</div>
 	</div>
 
-	<div id='story' class='timesheet-story' @if ( !Auth::user()->showStory ) style='display: none' @endif>
+	<div id='story' class='timesheet-story' @if ( !Auth::user()->showStory && !$sickToday ) style='display: none' @endif>
 		<h3>What happened?</h3>
 		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
