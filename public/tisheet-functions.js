@@ -528,14 +528,27 @@ var getRunningStopwatch = function ()
 */
 var makeColumnsSortable = function()
 {
-    $jQ( '#columns' ).sortable(
+    $jQ( '#columns ul' ).sortable(
     { 
         cursor: 'move',
-        items: $jQ( 'li.js-column' ).not( '.js-column-empty' ),
+        items: '> li:not( .js-column-empty, .js-column-item-empty )',
         update: function( e, ui )
         {
+            if ( $jQ( ui.item ).hasClass( 'js-column' ) )
+            {
+                var elementClass = 'js-column'
+                var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/columns'
+            }
+            else if ( $jQ( ui.item ).hasClass( 'js-column-item' ) )
+            {
+                var elementClass = 'js-column-item'
+                var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/columns/'+ $jQ(this).closest( 'li.js-column' ).attr( 'id' ) + '/items'
+            }
+            else
+                return;
+
             var cids = {};
-            var items = $jQ(this).find( 'li.js-column' ).not( '.js-column-empty' );
+            var items = $jQ(this).find( 'li.'+ elementClass ).not( '.js-column-empty, .js-column-item-empty' );
 
             var position = 1;
             
@@ -545,7 +558,6 @@ var makeColumnsSortable = function()
                 cids[$jQ(this).id()] = position++;
             });
 
-            var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/columns';
 
             // update backend
             $jQ.ajax({
