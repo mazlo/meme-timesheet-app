@@ -15,7 +15,7 @@ class ColumnController extends BaseController
     }
 
     /**
-    *   @RequestMethod => PUT
+    *   @RequestMethod => PUT /tisheets/{day}/columns
     */
     public function update( $day )
     {
