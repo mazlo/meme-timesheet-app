@@ -31,8 +31,8 @@
 		<div class='timesheet-options' style='position: absolute; left: -75px; width: 32px; text-align: center'>
 			<span class='octicon octicon-book octicon-light @if( Auth::user()->showStory )octicon-active@endif'></span>
 			<span class='octicon octicon-server octicon-light @if( Auth::user()->showColumns )octicon-active@endif'></span>
-			<span class='octicon-splitter'>&nbsp;</span>
-			<span class='ionicons ion-medkit'></span>
+			<span class='octicon-splitter'>&nbsp;</span>	<?php $sickToday = isset( $timesheet ) && $timesheet->sick ?>
+			<span class='ionicons ion-medkit @if( $sickToday )octicon-active@endif'></span>
 		</div>
 
 		<h2>ya timesheet for @if( $today == $todayForReal ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
