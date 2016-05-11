@@ -14,7 +14,9 @@
                 <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
 
                 <div class='column-item-options js-column-item-options element-hidden-toggable'>
-                    <span class='octicon octicon-trashcan octicon-no-padding-left'></span>                    
+                    <span class='octicon octicon-trashcan octicon-no-padding-left'></span>
+                    <span class='ionicons ion-alert octicon-lower-padding-left'></span>
+                    <span class='ionicons ion-arrow-move octicon-lower-padding-left'></span>
                 </div>
 
             </li>
