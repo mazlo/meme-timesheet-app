@@ -457,10 +457,6 @@ li.column:not(.js-column-empty) div.column-label:hover > span {
 li.column-item:not(.js-column-item-empty):hover > span {
 	visibility: visible;
 }
-/* display divs.element-hidden-toggable on hover on li.column-item, but only those li.column-item that are not li.js-column-item-empty */
-li.column-item:not(.js-column-item-empty):hover > div.element-hidden-toggable {
-	display: inline-block;
-}
 
 /* other column classes */
 
