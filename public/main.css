@@ -503,11 +503,6 @@ li.column-item {
 	z-index: 10;
 	margin-top: 3px;
 }
-/* recycle-bin of column-item */
-li.column-item:not(.js-column-item-empty):hover > span,
-li.column-item:not(.js-column-item-empty):hover > div.element-hidden {
-	visibility: visible;
-}
 
 /* all spans within the column */
 li.column > span,
