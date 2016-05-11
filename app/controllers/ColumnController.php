@@ -94,25 +94,13 @@ class ColumnController extends BaseController
     public function insertOrUpdateItem( $day, $cid, $iid )
     {
         // get associated column
-        $column = Column::where( 'user_id', Auth::user()->id )->where( 'id', $cid )->first();
+        $columnItem = ColumnItem::getNonEmptyByIdAndColumnId( $iid, $cid );
 
-        // create item if necessary
-        if ( $iid == 'undefined' )
-        {
-            $columnItem = new ColumnItem();
-            $columnItem->column()->associate( $column );
-        }
-        else
-            $columnItem = ColumnItem::find( $iid );
-
-        // still empty?
-        if ( empty( $columnItem ) )
-        {
-            $columnItem = new ColumnItem();
-            $columnItem->column()->associate( $column );
-        }
-        else 
+        if ( Input::has( 'lb' ) )
             $columnItem->label = Input::get( 'lb' );
+
+        else if ( Input::has( 'mp' ) )
+            $columnItem->important = Input::get( 'mp' ) == 'true' ? true : false;
 
         $columnItem->save();
 

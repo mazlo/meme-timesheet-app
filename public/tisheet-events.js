@@ -271,6 +271,15 @@ $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
 });
 
 //
+$jQ( document ).on( 'click', 'textarea.js-column-item-label', function()
+{
+    if ( $jQ(this).parent().hasClass( 'js-column-item-focused' ) )
+        $jQ(this).next( 'div.js-column-item-options' ).toggleClass( 'element-hidden-toggable' )
+    else
+        $jQ(this).parent().addClass( 'js-column-item-focused' )
+});
+
+//
 $jQ( document ).on( 'focusout', 'div.js-column-label input', function()
 {
     var label = $jQ(this).val().trim();
@@ -319,6 +328,13 @@ $jQ( document ).on( 'focusout', 'div.js-column-label input', function()
 // 
 $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
 {
+    // hide options first
+
+    $jQ(this).parent().removeClass( 'js-column-item-focused' )
+    $jQ(this).next( 'div.js-column-item-options' ).addClass( 'element-hidden-toggable' )
+
+    // take care of saving the changes to this column-item now
+
     var label = $jQ(this).val().trim();
 
     if ( label === '' )
@@ -425,6 +441,29 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
 
             columnItem.remove();
 
+            toggleLoadingIcon( '#columns' );
+        }
+    });
+});
+
+//
+$jQ( document ).on( 'click', 'div.js-column-item-options span.ion-alert', function()
+{
+    $jQ(this).parent().prev().toggleClass( 'column-item-label-important' );
+
+    // post important flag
+
+    toggleLoadingIcon( '#columns' );
+
+    var columnItem = $jQ(this).closest( 'li.js-column-item' );
+    var column = columnItem.closest( 'li.js-column' );
+
+    $jQ.ajax({
+        url: getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.id() +'/item/'+ columnItem.id(),
+        type: 'put',
+        data: { mp: true },
+        success: function( data )
+        {
             toggleLoadingIcon( '#columns' );
         }
     });
