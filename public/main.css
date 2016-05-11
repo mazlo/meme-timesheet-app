@@ -542,6 +542,9 @@ textarea.column-item-label {
 textarea.column-item-label {
     min-height: 18px;
 }
+textarea.column-item-label-important {
+	border-right: 3px solid #f05;
+}
 
 div.column-label {
 	position: relative;

@@ -447,6 +447,29 @@ $jQ( document ).on( 'click', 'li.js-column-item span.octicon-trashcan', function
 });
 
 //
+$jQ( document ).on( 'click', 'div.js-column-item-options span.ion-alert', function()
+{
+    $jQ(this).parent().prev().toggleClass( 'column-item-label-important' );
+
+    // post important flag
+
+    toggleLoadingIcon( '#columns' );
+
+    var columnItem = $jQ(this).closest( 'li.js-column-item' );
+    var column = columnItem.closest( 'li.js-column' );
+
+    $jQ.ajax({
+        url: getBaseUrl() + $jQ( '#timesheet' ).today() +'/columns/'+ column.id() +'/item/'+ columnItem.id(),
+        type: 'put',
+        data: { mp: true },
+        success: function( data )
+        {
+            toggleLoadingIcon( '#columns' );
+        }
+    });
+});
+
+//
 $jQ( document ).on( 'keydown', '#columns textarea, div.js-tisheet-note textarea', function()
 {
     adjustHeightOfTextarea( this );

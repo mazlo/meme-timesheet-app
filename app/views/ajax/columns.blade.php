@@ -11,7 +11,7 @@
             @foreach( $column->items as $item )
                 @if ( !$item->trashed ) 
             <li class='column-item js-column-item' id='{{ $item->id }}'>
-                <textarea class='column-item-label js-column-item-label' type='text' placeholder='item description'>{{ $item->label }}</textarea>
+                <textarea class='column-item-label js-column-item-label @if ( $item->important )column-item-label-important@endif' type='text' placeholder='item description'>{{ $item->label }}</textarea>
 
                 <div class='column-item-options js-column-item-options element-hidden-toggable'>
                     <span class='octicon octicon-trashcan octicon-no-padding-left'></span>

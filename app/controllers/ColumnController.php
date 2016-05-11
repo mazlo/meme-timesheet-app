@@ -96,7 +96,11 @@ class ColumnController extends BaseController
         // get associated column
         $columnItem = ColumnItem::getNonEmptyByIdAndColumnId( $iid, $cid );
 
-        $columnItem->label = Input::get( 'lb' );
+        if ( Input::has( 'lb' ) )
+            $columnItem->label = Input::get( 'lb' );
+
+        else if ( Input::has( 'mp' ) )
+            $columnItem->important = Input::get( 'mp' ) == 'true' ? true : false;
 
         $columnItem->save();
 
