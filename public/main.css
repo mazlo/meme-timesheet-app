@@ -178,6 +178,9 @@ td span.octicon {
 .octicon-no-padding-left {
 	padding-left: 0;
 }
+.octicon-lower-padding-left {
+	padding-left: 12px;
+}
 .octicon-padding-right {
     padding-right: 6px;
 }
@@ -498,6 +501,14 @@ li.column-item {
 	position: relative;
 	z-index: 10;
 	margin-top: 3px;
+}
+li.column-item > div.column-item-options {
+	border: 1px solid #ccc;
+	background-color: #ecb;
+	
+	margin-bottom: 8px;
+	padding: 0 8px;
+	width: 60px;
 }
 
 /* all spans within the column */
