@@ -439,13 +439,27 @@ div#summary-same-as table tr td {
 
 /* -------------- */
 
-div.columns {
-	margin-top: 32px;
+/* hover effects on columns */
+
+/* display empty li.column on hover on div#columns */
+div.columns:hover > ul > li.column.element-invisible-toggable {
+	visibility: visible;
 }
-div.columns:hover > ul > li.element-invisible {
+/* display empty li.column-item on hover on li.column */
+li.column:hover > ul > li.column-item.element-invisible-toggable {
+	visibility: visible;
+}
+/* display spans on hover on li.column, but only for those li.column that are not li.js-column-empty */
+li.column:not(.js-column-empty) div.column-label:hover > span {
 	visibility: visible;
 }
 
+
+/* other column classes */
+
+div.columns {
+	margin-top: 32px;
+}
 div.columns ul {
     list-style-type: none;
     margin-top: 0;
@@ -462,9 +476,6 @@ li.column {
     margin-right: 13px;
 
     vertical-align: top;
-}
-li.column:hover > ul > li.element-invisible {
-	visibility: visible;
 }
 li.column ul {
     padding-left: 0;
@@ -485,7 +496,9 @@ li.column-item {
 	z-index: 10;
 	margin-top: 3px;
 }
-li.column-item:not(.js-column-item-empty):hover > span {
+/* recycle-bin of column-item */
+li.column-item:not(.js-column-item-empty):hover > span,
+li.column-item:not(.js-column-item-empty):hover > div.element-hidden {
 	visibility: visible;
 }
 
@@ -540,25 +553,30 @@ div.column-label > span {
 	z-index: 20;
 	opacity: 0.6;
 }
-/* column: show trashcan on hover, but only for those columns that are not empty */
-li.column:not(.js-column-empty) div.column-label:hover > span {
-	visibility: visible;
-}
 
 /* -------------- */
 
-.element-hidden {
+/* hide an element */
+.element-hidden,
+.element-hidden-toggable {
 	display: none;
 }
 
+/* hide an element, but preserve the space on display */
 .element-invisible,
+.element-invisible-toggable,
 .element-toggable {
 	visibility: hidden;
 }
 
+/* .element-hidden-toggable and .element-invisible-toggable are resuable classes */
+
+/* show an invisible element */
 .element-visible {
 	visibility: visible;
 }
+
+/*  */
 
 .element-float-left {
 	float: left;
