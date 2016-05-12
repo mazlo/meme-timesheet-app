@@ -198,7 +198,7 @@
 		{{-- ajax content here --}}
 	</div>
 
-	<div id='summary-same-as element-collectable'>
+	<div id='summary-same-as' class='element-collectable'>
 		{{-- ajax content here --}}
 	</div>
 
