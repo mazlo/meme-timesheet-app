@@ -42,7 +42,7 @@
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
 
-	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}'>
+	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
 		<table cellpadding='0' cellspacing='0'>
 			
 			<colgroup>
@@ -171,16 +171,16 @@
 
 	</div>
 
-	<div id='timeline-today' class='timeline-today element-collectable'>
+	<div id='timeline-today' class='timeline-today element-collectable' @if( $sickToday )style='display: none'@endif>
 		@include( 'ajax.timeline' )
 	</div>
 
-	<ul class='list-inline js-button-group element-collectable' style='margin-left: 11px'>
+	<ul class='list-inline js-button-group element-collectable' style='margin-left: 11px; @if( $sickToday )display: none;@endif'>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button js-button-summary'>show summary by contexts</a></li>
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
 	</ul>
 
-	<div id='summaryWrapper' class='element-hidden element-collectable'>
+	<div id='summaryWrapper' class='element-hidden element-collectable' @if( $sickToday )style='display: none'@endif>
 		<h3>Summary</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 
 		<div id='summary'>
@@ -193,7 +193,7 @@
 		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
-	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns ) style='display: none' @endif>
+	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns && !sickToday) style='display: none' @endif>
 		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
