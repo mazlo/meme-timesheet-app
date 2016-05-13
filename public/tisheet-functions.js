@@ -534,12 +534,12 @@ var makeColumnsSortable = function()
         items: '> li:not( .js-column-empty, .js-column-item-empty )',
         update: function( e, ui )
         {
-            if ( $jQ( ui.item ).hasClass( 'js-column' ) )
+            if ( ui.item.hasClass( 'js-column' ) )
             {
                 var elementClass = 'js-column'
                 var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/columns'
             }
-            else if ( $jQ( ui.item ).hasClass( 'js-column-item' ) )
+            else if ( ui.item.hasClass( 'js-column-item' ) )
             {
                 var elementClass = 'js-column-item'
                 var url = getBaseUrl() + $jQ( '#timesheet' ).today() + '/columns/'+ $jQ(this).closest( 'li.js-column' ).attr( 'id' ) + '/items'
@@ -565,7 +565,13 @@ var makeColumnsSortable = function()
                 type: 'put',
                 data: { cids: cids }
             });
-        }
+        },
+        stop: function( e, ui )
+        {
+            if ( ui.item.hasClass( 'js-column' ) && ui.item.parent().hasClass( 'js-column-items' ) )
+                $jQ(this).sortable( 'cancel' )
+        },
+        connectWith: '#columns ul li ul'
     });
 }
 

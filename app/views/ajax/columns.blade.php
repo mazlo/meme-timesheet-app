@@ -7,7 +7,7 @@
             <input class='js-column-label-input' type='text' placeholder='item description' value='{{ $column->label }}' @if( $column->color ) style='background-color: {{ $column->color }}' @endif>
             <span class='octicon octicon-trashcan octicon-no-padding-left element-invisible-toggable'></span>
         </div>
-        <ul>
+        <ul class='js-column-items'>
             @foreach( $column->items as $item )
                 @if ( !$item->trashed ) 
             <li class='column-item js-column-item' id='{{ $item->id }}'>
