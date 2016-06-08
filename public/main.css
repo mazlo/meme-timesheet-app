@@ -448,6 +448,10 @@ div#summary-same-as table tr td {
 div.columns:hover > ul > li.column.element-invisible-toggable {
 	visibility: visible;
 }
+/* display color-palette on hover on li.column */
+li.column:hover > div.column-item-color-palette {
+	visibility: visible;
+}
 /* display empty li.column-item on hover on li.column */
 li.column:hover > ul > li.column-item.element-invisible-toggable {
 	visibility: visible;

@@ -41,7 +41,7 @@
             </li>
         </ul>
 
-        <div class='column-item-color-palette'>
+        <div class='column-item-color-palette element-invisible-toggable'>
             <span style='background-color: #e1e2cd' color='#e1e2cd'>&nbsp;</span>
             <span style='background-color: #efe292' color='#efe292'>&nbsp;</span>
             <span style='background-color: #d7d2cc' color='#d7d2cc'>&nbsp;</span>
