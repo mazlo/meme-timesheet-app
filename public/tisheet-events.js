@@ -273,7 +273,7 @@ $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
 //
 $jQ( document ).on( 'click', 'textarea.js-column-item-label', function()
 {
-    if ( $jQ(this).parent().hasClass( 'js-column-item-focused' ) )
+    if ( $jQ(this).parent().is( '.js-column-item-focused:not(.element-invisible-toggable)' ) )
         $jQ(this).next( 'div.js-column-item-options' ).toggleClass( 'element-hidden-toggable' )
     else
         $jQ(this).parent().addClass( 'js-column-item-focused' )
@@ -319,7 +319,7 @@ $jQ( document ).on( 'focusout', 'div.js-column-label input', function()
     column.find( 'input' ).val( '' );
     column.removeAttr( 'id' );
 
-    clonedColumn.removeClass( 'js-column-empty element-invisible' );
+    clonedColumn.removeClass( 'js-column-empty element-invisible-toggable' );
     clonedColumn.insertBefore( column );
 
     makeColumnsSortable();
@@ -347,7 +347,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     var column = columnItem.closest( 'li.js-column' )
 
     // ignore when parent is not saved yet
-    if ( column.hasClass( 'element-invisible' ) )
+    if ( column.hasClass( 'element-invisible-toggable' ) )
         return;
 
     toggleLoadingIcon( '#columns' );
@@ -379,7 +379,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     columnItem.removeAttr( 'id' );
 
     clonedItem.find( 'textarea' ).val( label );
-    clonedItem.removeClass( 'js-column-item-empty element-invisible' );
+    clonedItem.removeClass( 'js-column-item-empty element-invisible-toggable' );
     clonedItem.insertBefore( columnItem );
 });
 
