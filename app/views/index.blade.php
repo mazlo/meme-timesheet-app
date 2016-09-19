@@ -193,7 +193,7 @@
 		<textarea class='js-timesheet-story' placeholder='You like to give a feedback on this day?'>@if( isset( $timesheet ) && $timesheet->story ){{ $timesheet->story }}@endif</textarea>
 	</div>
 
-	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns && !sickToday) style='display: none' @endif>
+	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns && !$sickToday) style='display: none' @endif>
 		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
