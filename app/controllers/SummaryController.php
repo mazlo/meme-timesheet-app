@@ -89,7 +89,7 @@ class SummaryController extends BaseController
     *   This method handles requests for
     *   -> show summary by contexts -> current $period -> Main Context $context.
     */
-    public function byContextGroupByDaysGroupByContexts( $day, $period, $context )
+    public function groupbyContextFilterContext( $day, $period, $context )
     {
         $relativeDayAsTime = strtotime( $day );
 
