@@ -1,3 +1,5 @@
+{{-- returned when user clicks on the time period, e.g. 'current week', 'current month', after clicking on 'Summary by Context' --}}
+
 <ul class='list-inline list-inline-padded js-button-group'>
 	<li><a href='{{ url( "tisheets/$today/summary/today/groupby/contexts" ) }}' class='js-button @if( $option == "today" ) js-button-active @endif js-button-summary'>today</a></li>
 	<li><a href='{{ url( "tisheets/$today/summary/week/groupby/contexts" ) }}' class='js-button @if( $option == "week" ) js-button-active @endif js-button-summary'>current week</a></li>

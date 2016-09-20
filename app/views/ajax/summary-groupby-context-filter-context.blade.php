@@ -1,3 +1,5 @@
+{{-- returned when user selects Main Context from the table on the left side --}}
+
 <table>
 	<colgroup>
 		<col width='50%'>
