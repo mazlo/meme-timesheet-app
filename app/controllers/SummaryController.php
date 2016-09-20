@@ -90,7 +90,7 @@ class SummaryController extends BaseController
     *   This method handles requests for
     *   -> show summary by contexts -> current $period -> Main Context $context.
     */
-    public function groupbyContextFilterContext( $day, $period, $context )
+    public function groupbyContextFilterContext( $day, $period, $cid )
     {
         $relativeDayAsTime = strtotime( $day );
 
@@ -109,14 +109,16 @@ class SummaryController extends BaseController
         $sum = DB::table( 'time_spent_in_contexts as s' )
             ->select( 's.day', 's.time_spent', 's.context_prefLabel' )
             ->where( 's.user_id', Auth::user()->id )
-            ->where( 's.context', '#'. $context )
+            ->where( 's.context_id', $cid )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
             ->get();
 
+        $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
+
         return View::make( 'ajax.summary-groupby-context-filter-context' )
             ->with( 'summary', $sum )
             ->with( 'tts', $tts )
-            ->with( 'context', '#'. $context );
+            ->with( 'context', $context_prefLabel );
     }
 }
