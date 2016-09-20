@@ -25,7 +25,7 @@
 
 		<tr>
 			<td>
-				<? if( $tisheet->prefLabel ) $label=$tisheet->prefLabel; else $label='w/o context'; ?>
+				<? if( $tisheet->context_prefLabel ) $label=$tisheet->context_prefLabel; else $label='w/o context'; ?>
 				{{-- display link only in option 'week' --}}
 				@if( $label != 'w/o context' )
 				<a id='{{ substr( $tisheet->prefLabel, 1 ) }}' href='{{ url( "tisheets/$today/summary/$option/groupby/contexts/". substr( $tisheet->prefLabel, 1 ) ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-button-summary-by-context'>{{ $label }}</a>

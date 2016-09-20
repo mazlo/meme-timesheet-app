@@ -1,5 +1,5 @@
 @foreach( $timeline as $element )
-	<div class='js-timeline-element' ts='{{ $element->total_time_spent }}' ctx='{{ substr( $element->prefLabel, 1 ) }}'><span>{{ $element->prefLabel }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
+	<div class='js-timeline-element' ts='{{ $element->total_time_spent }}' ctx='{{ substr( $element->context_prefLabel, 1 ) }}'><span>{{ $element->context_prefLabel }}</span><span>{{ $element->total_time_spent/4 }}h</span></div>
 @endforeach
 
 <script type="text/javascript">
