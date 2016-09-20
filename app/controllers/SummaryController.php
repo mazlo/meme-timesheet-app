@@ -51,9 +51,10 @@ class SummaryController extends BaseController
     }
 
     /**
-    *
+    *   This method handles requests for
+    *   -> show summary by contexts -> current $period
     */
-    public function groupByContextByDayAndPeriod( $day, $period )
+    public function groupbyContext( $day, $period )
     {
         $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
 

@@ -73,7 +73,7 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}/tisheet/{id}/same-as', 'SummaryController@sameAs' );
 
-	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupByContextByDayAndPeriod' );
+	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupbyContext' );
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts/{context}', 'SummaryController@groupbyContextFilterContext' );
 
 	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@forWeekGroupByDaysAndContexts' );
