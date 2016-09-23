@@ -106,6 +106,7 @@ class SummaryController extends BaseController
         // total time spent
         $tts = Input::get( 'tts' );
 
+        // query time spent per context
         $sum = DB::table( 'time_spent_in_contexts as s' )
             ->select( 's.day', 's.time_spent', 's.context_prefLabel' )
             ->where( 's.user_id', Auth::user()->id )
@@ -116,8 +117,19 @@ class SummaryController extends BaseController
 
         $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
 
+        // query words mentioned in contexts
+        $words = DB::table( 'filter_by_words AS words' )
+            ->select( 'words.value' )
+            ->where( 'words.user_id', Auth::user()->id )
+            ->where( 'words.context_id', $cid )
+            ->where( 'words.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 'words.day', '<=', $day )
+            ->distinct()
+            ->get();
+
         return View::make( 'ajax.summary-groupby-context-filter-context' )
             ->with( 'summary', $sum )
+            ->with( 'words', $words )
             ->with( 'tts', $tts )
             ->with( 'context', $context_prefLabel );
     }
