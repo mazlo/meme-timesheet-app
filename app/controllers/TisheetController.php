@@ -416,7 +416,7 @@ class TisheetController extends BaseController
     */
     public static function normalizeWord( $value )
     {
-        $value = str_replace( array( ";", ",", ":", ".", "(", ")", "=", "\"", "'", "?", "!",  ), array( "" ), $value );
+        $value = str_replace( array( ";", ",", ":", ".", "(", ")", "=", "\"", "'", "?", "!", "->", "-" ), array( "" ), $value );
         $value = trim( $value );
 
         return $value;
