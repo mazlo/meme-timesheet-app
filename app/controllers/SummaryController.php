@@ -118,15 +118,21 @@ class SummaryController extends BaseController
         $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
         $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
 
-        // query words mentioned in contexts
-        $words = DB::table( 'filter_by_words AS words' )
-            ->select( 'words.value' )
-            ->where( 'words.user_id', Auth::user()->id )
-            ->where( 'words.context_id', $cid )
-            ->where( 'words.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
-            ->where( 'words.day', '<=', $day )
-            ->distinct()
-            ->get();
+        // get words mentioned in contexts
+        $words = array_reduce( $sum, function( $words, $current_tisheet )
+        {
+            if ( empty( $words ) )
+                $words = array();
+
+            $tisheetWords = TisheetUtils::filter_controls( explode( ' ', $current_tisheet->description ) );
+
+            foreach ( $tisheetWords as $word )
+            {
+                $words[$word] = $word;
+            }
+
+            return $words;
+        });
 
         return View::make( 'ajax.summary-groupby-context-filter-context' )
             ->with( 'today', $day )
