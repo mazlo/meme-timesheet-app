@@ -107,14 +107,15 @@ class SummaryController extends BaseController
         $tts = Input::get( 'tts' );
 
         // query time spent per context
-        $sum = DB::table( 'time_spent_in_contexts as s' )
-            ->select( 's.day', 's.time_spent', 's.context_prefLabel' )
+        $sum = DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.context_id', $cid )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
             ->get();
 
+        $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
         $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
 
         // query words mentioned in contexts
