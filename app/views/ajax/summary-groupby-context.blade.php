@@ -7,10 +7,11 @@
 	<li><a href='{{ url( "tisheets/$today/summary/year/groupby/contexts" ) }}' class='js-button @if( $option == "year" ) js-button-active @endif js-button-summary'>current year</a></li>
 </ul>
 
-<div id='summary-by-context' tts='' class='summary-table element-float-left'>
+<div id='summary-by-context' tts='' class='summary-table'>
 	<table>
 		<colgroup>
-			<col width='50%'>
+			<col width='20%'>
+			<col width='30%'>
 			<col width='50%'>
 		</colgroup>
 		
@@ -39,6 +40,8 @@
 					<span>{{ $tisheet->total_time_spent/4 }}h</span>
 				</div>
 			</td>
+
+			<td>&nbsp;</td>
 		</tr>
 
 		{{-- sum up all tisheets to total time spent --}}
@@ -55,7 +58,7 @@
 	</table>
 </div>
 
-<div id='summary-by-context-details' class='summary-table element-float-right'>
+<div id='summary-by-context-details' class='summary-table'>
 	{{-- ajax response here --}}
 </div>
 
