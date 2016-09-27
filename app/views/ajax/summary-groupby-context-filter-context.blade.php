@@ -1,43 +1,49 @@
 {{-- returned when user selects Main Context from the table on the left side --}}
 
-<table>
-	<colgroup>
-		<col width='50%'>
-		<col width='50%'>
-	</colgroup>
-
-	<tr>
-		<th>Days Spent with {{ $context }}</th>
-		<th>Time Spent in Context</th>
-	</tr>
-
-	<? $day = '' ?>
-	@foreach( $summary as $key => $tisheet )
-	<tr>
-
-		<? $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
-		<td>@if ( $day != $currentDay ) <a href='{{ url( "tisheets/". substr( $tisheet->day, 0, 10 ) ) }}'>{{ $currentDay }}</a> <? $day = $currentDay ?> @endif</td>
-		<td>
-			<div class='js-variable-background variable-background' ts='{{ $tisheet->time_spent }}'>
-				<span>{{ $tisheet->time_spent/4 }}h {{ $tisheet->subContext }}</span>
-			</div>
-		</td>
-
-	</tr>
+<div class='button-group' ts='{{ $tts }}'>
+	@foreach ( $words as $word )
+	<button>{{ $word->value }}</button>
 	@endforeach
+</div>
 
-</table>
+<div id='summary-by-context-words' style='margin-top: 18px'>
+	@include( 'ajax.summary-groupby-context-filter-words' )
+</div>
 
 <script type="text/javascript">
 
 	$jQ( function()
 	{
-		{{-- set background to proportional with of total time spent --}}
-		$jQ( '#summary-by-context-details .js-variable-background' ).each( function()
+		$jQ( document ).on( 'click', 'div.button-group > button', function () 
 		{
-			var width = ($jQ(this).attr( 'ts' ) / {{ $tts }}) * 100;
-			$jQ(this).css( 'width', width + '%' );
-		});
+			$jQ(this).toggleClass( 'button-active' )
+
+			var url = '{{ url( "tisheets/$today/summary/$option/groupby/contexts/" . $context_id . "/words" ) }}'
+			var time = $jQ(this).parent().attr( 'ts' );
+
+			var buttons = []
+			$jQ(this).parent().find( 'button.button-active' ).each( function()
+			{
+				buttons.push( $jQ(this).text() )
+			});
+
+			var words = buttons.join( ',' )
+
+			$jQ.ajax({
+				url: url,
+				type: 'get',
+				data: {
+					ws: words,
+					tts: time
+				},
+				success: function( data )
+				{
+					$jQ( '#summary-by-context-words' ).html( data )
+				}
+			});
+
+			return false;
+		})
 	});
 
 </script>

@@ -129,9 +129,78 @@ class SummaryController extends BaseController
             ->get();
 
         return View::make( 'ajax.summary-groupby-context-filter-context' )
+            ->with( 'today', $day )
+            ->with( 'option', $period )
             ->with( 'summary', $sum )
             ->with( 'words', $words )
             ->with( 'tts', $tts )
-            ->with( 'context', $context_prefLabel );
+            ->with( 'context', $context_prefLabel )
+            ->with( 'context_id', $context_id );
+    }
+
+    /**
+     *  This method handles requests for
+     *  
+     */
+    public function groupbyContextFilterContextFilterWord( $day, $period, $cid )
+    {
+        $relativeDayAsTime = strtotime( $day );
+
+        if ( $period == 'week' )
+            $startDate = 'last monday';
+        else if ( $period == 'month' )
+            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
+        else if ( $period == 'year' )
+            $startDate = 'first day of Jan';
+        else
+            $startDate = 'today';
+
+        // total time spent
+        $tts = Input::get( 'tts' );
+
+        $words = Input::get( 'ws' );
+
+        // query time spent per context
+        $sum = DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description', DB::raw( 'GROUP_CONCAT( words.value SEPARATOR "," ) AS words_concat' ) )
+            ->where( 's.user_id', Auth::user()->id )
+            ->where( 's.context_id', $cid )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
+            ->join( 'filter_by_words AS words', 's.tisheet_id', '=', 'words.tisheet_id' )
+            ->groupBy( 'words.tisheet_id' )
+            ->get();
+
+        $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
+        $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
+
+        $wordsToFilter = explode( ',', $words );
+
+        if ( !empty( $words ) && count( $wordsToFilter ) > 0 )
+        {
+            $sum = array_filter( $sum, function( $elem ) use ( $wordsToFilter )
+            {
+                $wordsInTisheet = explode( ',', $elem->words_concat );
+                $criteria = 0;
+
+                foreach ( $wordsToFilter as $wordToFilter ) 
+                {
+                    $criteria += array_search( $wordToFilter, $wordsInTisheet );
+                }
+
+                if ( $criteria > 0 )
+                    return true;
+                
+                return false;
+            });
+        }
+
+        return View::make( 'ajax.summary-groupby-context-filter-words' )
+            ->with( 'today', $day )
+            ->with( 'option', $period )
+            ->with( 'summary', $sum )
+            ->with( 'tts', $tts )
+            ->with( 'context', $context_prefLabel )
+            ->with( 'context_id', $context_id );
     }
 }

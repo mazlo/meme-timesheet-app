@@ -75,6 +75,7 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupbyContext' );
 	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts/{cid}', 'SummaryController@groupbyContextFilterContext' );
+	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts/{cid}/words', 'SummaryController@groupbyContextFilterContextFilterWord' );
 
 	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@forWeekGroupByDaysAndContexts' );
 
