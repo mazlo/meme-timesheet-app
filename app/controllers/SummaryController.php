@@ -195,7 +195,14 @@ class SummaryController extends BaseController
 
         return array_filter( $sum, function( $elem ) use ( $wordsToFilter )
         {
-            $wordsInTisheet = explode( ',', $elem->words_concat );
+            $wordsInTisheet = array_filter( explode( ' ', $elem->description ), function( $wordInTisheet )
+            {
+                if ( preg_match( '/@[0-9:]+/', $wordInTisheet ) )
+                    return false;
+                
+                return true;
+            });
+            
             $criteria = 0;
 
             foreach ( $wordsToFilter as $wordToFilter ) 
