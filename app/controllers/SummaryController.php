@@ -158,8 +158,6 @@ class SummaryController extends BaseController
         // total time spent
         $tts = Input::get( 'tts' );
 
-        $words = Input::get( 'ws' );
-
         // query time spent per context
         $sum = DB::table( 'time_spent_in_contexts AS s' )
             ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description', DB::raw( 'GROUP_CONCAT( words.value SEPARATOR "," ) AS words_concat' ) )
@@ -174,33 +172,44 @@ class SummaryController extends BaseController
         $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
         $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
 
-        $wordsToFilter = explode( ',', $words );
-
-        if ( !empty( $words ) && count( $wordsToFilter ) > 0 )
-        {
-            $sum = array_filter( $sum, function( $elem ) use ( $wordsToFilter )
-            {
-                $wordsInTisheet = explode( ',', $elem->words_concat );
-                $criteria = 0;
-
-                foreach ( $wordsToFilter as $wordToFilter ) 
-                {
-                    $criteria += array_search( $wordToFilter, $wordsInTisheet );
-                }
-
-                if ( $criteria > 0 )
-                    return true;
-                
-                return false;
-            });
-        }
+        $filtered_sum = SummaryController::filter_selected_words( Input::get( 'ws' ), $sum );
 
         return View::make( 'ajax.summary-groupby-context-filter-words' )
             ->with( 'today', $day )
             ->with( 'option', $period )
-            ->with( 'summary', $sum )
+            ->with( 'summary', $filtered_sum )
             ->with( 'tts', $tts )
             ->with( 'context', $context_prefLabel )
             ->with( 'context_id', $context_id );
+    }
+
+    /**
+     *  Filters words selected by the user from the obtained query results.
+     */
+    public static function filter_selected_words( $words, &$sum )
+    {
+        $wordsToFilter = explode( ',', $words );
+
+        if ( empty( $words ) || count( $wordsToFilter ) == 0 )
+            return $sum;
+
+        return array_filter( $sum, function( $elem ) use ( $wordsToFilter )
+        {
+            $wordsInTisheet = explode( ',', $elem->words_concat );
+            $criteria = 0;
+
+            foreach ( $wordsToFilter as $wordToFilter ) 
+            {
+                $found = in_array( $wordToFilter, $wordsInTisheet );
+                
+                if ( $found )
+                    $criteria += 1;
+            }
+
+            if ( $criteria > 0 )
+                return true;
+            
+            return false;
+        });
     }
 }

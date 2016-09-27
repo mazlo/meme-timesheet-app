@@ -12,7 +12,7 @@
     </tr>
 
     <? $day = '' ?>
-    @foreach( $summary as $key => $tisheet )
+    @foreach( $summary as $tisheet )
     <tr>
 
         <? $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
