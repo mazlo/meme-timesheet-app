@@ -494,6 +494,44 @@ $jQ( document ).on( 'click', 'li.js-column div.column-item-color-palette span', 
     });
 });
 
+/** EVENTS IN SUMMARY SECTION */
+$jQ( document ).on( 'click', 'div.button-group.js-button-group-words > button', function ()
+{
+    var url = $jQ(this).parent().attr( 'url' );
+    var time = $jQ(this).parent().attr( 'ts' );
+    var operatorButton = $jQ(document).find( 'button.js-button-summary-and-operator' );
+
+    if ( operatorButton.hasClass( 'button-active' ) )
+        operatorButton = 'and'
+    else
+        operatorButton = 'or'
+
+    var buttons = []
+    
+    $jQ(this).parent().find( 'button.button-active' ).each( function()
+    {
+        buttons.push( $jQ(this).text() )
+    });
+
+    var words = buttons.join( ',' )
+
+    $jQ.ajax({
+        url: url,
+        type: 'get',
+        data: {
+            ws: words,
+            tts: time,
+            and: operatorButton
+        },
+        success: function( data )
+        {
+            $jQ( '#summary-by-context-words' ).html( data )
+        }
+    });
+
+    return false;
+})
+
 /** EVENTS ON OCTICONS */
 
 /**
