@@ -1,3 +1,11 @@
+/** EVENTS ON GLOBAL ELEMENTS */
+
+//
+$jQ( document ).on( 'click', 'div.button-group > button', function () 
+{
+    $jQ(this).toggleClass( 'button-active' )
+});
+
 /** EVENTS ON TISHEETS */
 
 /** EVENTS ON TISHEET OCTICONS */
