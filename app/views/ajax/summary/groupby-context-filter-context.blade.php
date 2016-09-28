@@ -11,5 +11,5 @@
 </div>
 
 <div id='summary-by-context-words' style='margin-top: 18px'>
-	@include( 'ajax.summary-groupby-context-filter-words' )
+    @include( 'ajax.summary.groupby-context-filter-words' )
 </div>

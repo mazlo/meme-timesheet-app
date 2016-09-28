@@ -58,7 +58,7 @@ class SummaryController extends BaseController
     {
         $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
 
-        return View::make( 'ajax.summary-groupby-context' )
+        return View::make( 'ajax.summary.groupby-context' )
             ->with( 'summary', $sum )
             ->with( 'today', $day )
             ->with( 'option', $period );
@@ -81,7 +81,7 @@ class SummaryController extends BaseController
             ->groupBy( 'contexts.prefLabel' )
             ->get();
 
-        return View::make( 'ajax.summary-groupby-day' )
+        return View::make( 'ajax.summary.groupby-day' )
             ->with( 'summary', $sum )
             ->with( 'today', $day );
 	}
@@ -134,7 +134,7 @@ class SummaryController extends BaseController
             return $words;
         });
 
-        return View::make( 'ajax.summary-groupby-context-filter-context' )
+        return View::make( 'ajax.summary.groupby-context-filter-context' )
             ->with( 'today', $day )
             ->with( 'option', $period )
             ->with( 'summary', $sum )
@@ -181,7 +181,7 @@ class SummaryController extends BaseController
 
         $filtered_sum = SummaryController::filter_selected_words( Input::get( 'ws' ), $sum, $andOperator );
 
-        return View::make( 'ajax.summary-groupby-context-filter-words' )
+        return View::make( 'ajax.summary.groupby-context-filter-words' )
             ->with( 'today', $day )
             ->with( 'option', $period )
             ->with( 'summary', $filtered_sum )
