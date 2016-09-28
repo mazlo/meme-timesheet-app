@@ -163,6 +163,7 @@ class SummaryController extends BaseController
 
         // total time spent
         $tts = Input::get( 'tts' );
+        $andOperator = Input::get( 'and' ) ? true : true;
 
         // query time spent per context
         $sum = DB::table( 'time_spent_in_contexts AS s' )
@@ -178,7 +179,7 @@ class SummaryController extends BaseController
         $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
         $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
 
-        $filtered_sum = SummaryController::filter_selected_words( Input::get( 'ws' ), $sum );
+        $filtered_sum = SummaryController::filter_selected_words( Input::get( 'ws' ), $sum, $andOperator );
 
         return View::make( 'ajax.summary-groupby-context-filter-words' )
             ->with( 'today', $day )
@@ -192,14 +193,14 @@ class SummaryController extends BaseController
     /**
      *  Filters words selected by the user from the obtained query results.
      */
-    public static function filter_selected_words( $words, &$sum )
+    public static function filter_selected_words( $words, &$sum, $andOperator = true )
     {
         $wordsToFilter = explode( ',', $words );
 
         if ( empty( $words ) || count( $wordsToFilter ) == 0 )
             return $sum;
 
-        return array_filter( $sum, function( $elem ) use ( $wordsToFilter )
+        return array_filter( $sum, function( $elem ) use ( $wordsToFilter, $andOperator )
         {
             $wordsInTisheet = array_filter( explode( ' ', $elem->description ), function( $wordInTisheet )
             {
@@ -207,21 +208,13 @@ class SummaryController extends BaseController
                     return false;
                 
                 return true;
-            });
-            
-            $criteria = 0;
+            } );
 
-            foreach ( $wordsToFilter as $wordToFilter ) 
-            {
-                $found = in_array( $wordToFilter, $wordsInTisheet );
-                
-                if ( $found )
-                    $criteria += 1;
-            }
+            $criteriaMet = TisheetUtils::filter_words( $wordsInTisheet, $wordsToFilter, $andOperator );
 
-            if ( $criteria > 0 )
+            if ( $criteriaMet )
                 return true;
-            
+
             return false;
         });
     }

@@ -36,4 +36,51 @@ class TisheetUtils
         return array_diff( array_diff( explode( ' ', $value ), Stopwords::$en ), Stopwords::$de );
     }
 
+    public static function filter_words( $wordsInTisheet, $wordsToFilter, $andOperator )
+    {
+        $diff = array_diff( $wordsInTisheet, $wordsToFilter );
+
+        if ( $andOperator )
+        {
+            if ( self::and_criteria_met( $diff, $wordsInTisheet, $wordsToFilter ) )
+                return true;
+
+            return false;
+        }
+        else 
+        {
+            if ( self::or_criteria_met( $diff, $wordsInTisheet ) )
+                return true;
+
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * If diff has same size as substracted sizes of arrays.
+     *
+     * @param type $diff
+     * @param type $wordsInTisheet
+     * @param type $wordsToFilter
+     * @return type
+     */
+    static function and_criteria_met( $diff, $wordsInTisheet, $wordsToFilter )
+    {
+        return count( $diff ) == ( count( $wordsInTisheet ) - count( $wordsToFilter ) );
+    }
+
+    /**
+     * If diff is at least smaller than original, or criteria is met.
+     *
+     * @param type $diff
+     * @param type $wordsInTisheet
+     * @return type
+     */
+    static function or_criteria_met( $diff, $wordsInTisheet )
+    {
+        return count( $diff ) < count( $wordsInTisheet );
+    }
+
 }
