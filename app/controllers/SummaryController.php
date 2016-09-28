@@ -163,7 +163,7 @@ class SummaryController extends BaseController
 
         // total time spent
         $tts = Input::get( 'tts' );
-        $andOperator = Input::get( 'and' ) ? true : true;
+        $andOperator = Input::get( 'and' ) == 'and' ? true : false;
 
         // query time spent per context
         $sum = DB::table( 'time_spent_in_contexts AS s' )

@@ -1,8 +1,12 @@
 {{-- returned when user selects Main Context from the table on the left side --}}
 
+<div class='button-group'>
+    <button class='button button-active js-button-summary-and-operator' style='width: 96px'>Match all</button>
+</div>
+
 <div class='button-group' ts='{{ $tts }}'>
 	@foreach ( $words as $word )
-	<button>{{ $word->value }}</button>
+	<button>{{ $word }}</button>
 	@endforeach
 </div>
 
@@ -20,6 +24,12 @@
 
 			var url = '{{ url( "tisheets/$today/summary/$option/groupby/contexts/" . $context_id . "/words" ) }}'
 			var time = $jQ(this).parent().attr( 'ts' );
+            var operatorButton = $jQ(document).find( 'button.js-button-summary-and-operator' );
+
+            if ( operatorButton.hasClass( 'button-active' ) )
+                operatorButton = 'and'
+            else
+                operatorButton = 'or'
 
 			var buttons = []
 			$jQ(this).parent().find( 'button.button-active' ).each( function()
@@ -34,7 +44,8 @@
 				type: 'get',
 				data: {
 					ws: words,
-					tts: time
+					tts: time,
+                    and: operatorButton
 				},
 				success: function( data )
 				{
