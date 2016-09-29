@@ -27,16 +27,30 @@ class SummaryController extends BaseController
     }
 
     /**
-    *
+    *   This method handles requests for
+    *   -> show summary by contexts -> current $period
     */
+    public function groupby_context( $day, $period )
+    {
+        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
+
+        return View::make( 'ajax.summary.groupby-context' )
+            ->with( 'summary', $sum )
+            ->with( 'today', $day )
+            ->with( 'option', $period );
+    }
+
+    /**
+     *
+     */
     public static function byDayAndPeriodGroupByContext( $day, $period )
     {
         $relativeDayAsTime = strtotime( $day );
-        
+
         if ( $period == 'week' )
             $startDate = 'last monday';
         else if ( $period == 'month' )
-            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
+            $startDate = 'first day of ' . date( 'M', $relativeDayAsTime );
         else if ( $period == 'year' )
             $startDate = 'first day of Jan';
         else
@@ -48,20 +62,6 @@ class SummaryController extends BaseController
             ->where( 'ctx.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 'ctx.day', '<=', $day )
             ->groupBy( 'ctx.context_prefLabel' );
-    }
-
-    /**
-    *   This method handles requests for
-    *   -> show summary by contexts -> current $period
-    */
-    public function groupbyContext( $day, $period )
-    {
-        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
-
-        return View::make( 'ajax.summary.groupby-context' )
-            ->with( 'summary', $sum )
-            ->with( 'today', $day )
-            ->with( 'option', $period );
     }
 
     /**
@@ -90,7 +90,7 @@ class SummaryController extends BaseController
     *   This method handles requests for
     *   -> show summary by contexts -> current $period -> Main Context $context.
     */
-    public function groupbyContextFilterContext( $day, $period, $cid )
+    public function groupby_context_filter_context( $day, $period, $cid )
     {
         $relativeDayAsTime = strtotime( $day );
 
@@ -149,7 +149,7 @@ class SummaryController extends BaseController
      * -> show summary by context -> current $period -> $context -> list of words
      *  
      */
-    public function groupbyContextFilterContextFilterWord( $day, $period, $cid )
+    public function groupby_context_filter_context_filter_word( $day, $period, $cid )
     {
         $relativeDayAsTime = strtotime( $day );
 
