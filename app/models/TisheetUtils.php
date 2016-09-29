@@ -36,8 +36,17 @@ class TisheetUtils
         return array_diff( array_diff( explode( ' ', $value ), Stopwords::$en ), Stopwords::$de );
     }
 
+    /**
+     * Returns true or false, with respect to the operation.
+     *
+     * @param type $wordsInTisheet
+     * @param type $wordsToFilter
+     * @param type $andOperator
+     * @return boolean
+     */
     public static function filter_words( $wordsInTisheet, $wordsToFilter, $andOperator )
     {
+        // substract $wordsToFilter from $wordsInTisheet
         $diff = array_diff( $wordsInTisheet, $wordsToFilter );
 
         if ( $andOperator )

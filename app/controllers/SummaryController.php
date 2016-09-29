@@ -145,7 +145,8 @@ class SummaryController extends BaseController
     }
 
     /**
-     *  This method handles requests for
+     * This method handles requests for
+     * -> show summary by context -> current $period -> $context -> list of words
      *  
      */
     public function groupbyContextFilterContextFilterWord( $day, $period, $cid )
@@ -191,7 +192,12 @@ class SummaryController extends BaseController
     }
 
     /**
-     *  Filters words selected by the user from the obtained query results.
+     * Filters words selected by the user from the obtained query results.
+     *
+     * @param type $words
+     * @param type $sum
+     * @param type $andOperator
+     * @return type
      */
     public static function filter_selected_words( $words, &$sum, $andOperator = true )
     {
@@ -200,8 +206,10 @@ class SummaryController extends BaseController
         if ( empty( $words ) || count( $wordsToFilter ) == 0 )
             return $sum;
 
+        // for each tisheet in the sum, filter all words with respect to the operator (and,or)
         return array_filter( $sum, function( $elem ) use ( $wordsToFilter, $andOperator )
         {
+            // ignore time-operator
             $wordsInTisheet = array_filter( explode( ' ', $elem->description ), function( $wordInTisheet )
             {
                 if ( preg_match( '/@[0-9:]+/', $wordInTisheet ) )
@@ -210,6 +218,7 @@ class SummaryController extends BaseController
                 return true;
             } );
 
+            // indicates whether this tisheet should be taken into the result
             $criteriaMet = TisheetUtils::filter_words( $wordsInTisheet, $wordsToFilter, $andOperator );
 
             if ( $criteriaMet )
