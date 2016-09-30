@@ -73,10 +73,11 @@ Route::group( array( 'before' => 'auth' ), function()
 
 	Route::get( '/tisheets/{day}/tisheet/{id}/same-as', 'SummaryController@sameAs' );
 
-	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupByContextByDayAndPeriod' );
-	Route::get( '/tisheets/{day}/summary/{period}/groupby/days/contexts/{context}', 'SummaryController@byContextGroupByDaysGroupByContexts' );
+	Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts', 'SummaryController@groupby_context' );
+    Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts/{cid}', 'SummaryController@groupby_context_filter_context' );
+    Route::get( '/tisheets/{day}/summary/{period}/groupby/contexts/{cid}/words', 'SummaryController@groupby_context_filter_context_filter_word' );
 
-	Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@forWeekGroupByDaysAndContexts' );
+    Route::get( '/tisheets/{day}/summary/week/groupby/days/contexts', 'SummaryController@forWeekGroupByDaysAndContexts' );
 
 	// admin functions
 	Route::get( '/admin/tisheets/words/sync', 'AdminController@syncWords' );

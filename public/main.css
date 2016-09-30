@@ -405,7 +405,6 @@ td span.time-spent-quarter-active {
 
 div.summary-table {
 	vertical-align: top; 
-	width: 48%;
 }
 div.summary-table table {
 	border: 1px #ccc solid; 
@@ -568,6 +567,29 @@ div.column-label > span {
 	right: 13px;
 	z-index: 20;
 	opacity: 0.6;
+}
+
+/* -------------- */
+
+div.button-group {
+	display: block;
+	margin: 13px 0;
+}
+div.button-group button {
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+
+	margin: 3px;
+	padding: 6px 13px;
+	color: #565656;
+}
+div.button-group button:focus {
+	outline: 0;
+}
+div.button-group button.button-active {
+	background: #006699;
+	color: #fff;
 }
 
 /* -------------- */

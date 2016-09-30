@@ -27,40 +27,41 @@ class SummaryController extends BaseController
     }
 
     /**
-    *
+    *   This method handles requests for
+    *   -> show summary by contexts -> current $period
     */
+    public function groupby_context( $day, $period )
+    {
+        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
+
+        return View::make( 'ajax.summary.groupby-context' )
+            ->with( 'summary', $sum )
+            ->with( 'today', $day )
+            ->with( 'option', $period );
+    }
+
+    /**
+     *
+     */
     public static function byDayAndPeriodGroupByContext( $day, $period )
     {
         $relativeDayAsTime = strtotime( $day );
-        
+
         if ( $period == 'week' )
             $startDate = 'last monday';
         else if ( $period == 'month' )
-            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
+            $startDate = 'first day of ' . date( 'M', $relativeDayAsTime );
         else if ( $period == 'year' )
             $startDate = 'first day of Jan';
         else
             $startDate = 'today';
 
-        return DB::table( 'time_spent_in_contexts AS ctx' )
-            ->select( 'ctx.prefLabel', DB::raw( 'SUM( ctx.time_spent ) AS total_time_spent' ) )
-            ->where( 'ctx.user_id', Auth::user()->id )
-            ->where( 'ctx.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
-            ->where( 'ctx.day', '<=', $day )
-            ->groupBy( 'ctx.prefLabel' );
-    }
-
-    /**
-    *
-    */
-    public function groupByContextByDayAndPeriod( $day, $period )
-    {
-        $sum = SummaryController::byDayAndPeriodGroupByContext( $day, $period )->orderBy( 'total_time_spent', 'desc' )->get();
-
-        return View::make( 'ajax.summary-groupby-context' )
-            ->with( 'summary', $sum )
-            ->with( 'today', $day )
-            ->with( 'option', $period );
+        return DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.context_prefLabel', 's.context_id', DB::raw( 'SUM( s.time_spent ) AS total_time_spent' ) )
+            ->where( 's.user_id', Auth::user()->id )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
+            ->groupBy( 's.context_prefLabel' );
     }
 
     /**
@@ -80,7 +81,7 @@ class SummaryController extends BaseController
             ->groupBy( 'contexts.prefLabel' )
             ->get();
 
-        return View::make( 'ajax.summary-groupby-day' )
+        return View::make( 'ajax.summary.groupby-day' )
             ->with( 'summary', $sum )
             ->with( 'today', $day );
 	}
@@ -89,7 +90,7 @@ class SummaryController extends BaseController
     *   This method handles requests for
     *   -> show summary by contexts -> current $period -> Main Context $context.
     */
-    public function byContextGroupByDaysGroupByContexts( $day, $period, $context )
+    public function groupby_context_filter_context( $day, $period, $cid )
     {
         $relativeDayAsTime = strtotime( $day );
 
@@ -105,17 +106,125 @@ class SummaryController extends BaseController
         // total time spent
         $tts = Input::get( 'tts' );
 
-        $sum = DB::table( 'summary_by_context as s' )
-            ->select( 's.day', 's.time_spent', 's.context', 's.subContext' )
+        // query time spent per context
+        $sum = DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
             ->where( 's.user_id', Auth::user()->id )
-            ->where( 's.context', '#'. $context )
+            ->where( 's.context_id', $cid )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
+            ->orderBy( 's.day', 'desc' )
             ->get();
 
-        return View::make( 'ajax.summary-groupby-context-filter-context' )
+        $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
+        $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
+
+        // get words mentioned in contexts
+        $words = array_reduce( $sum, function( $words, $current_tisheet )
+        {
+            if ( empty( $words ) )
+                $words = array();
+
+            $tisheetWords = TisheetUtils::filter_controls( explode( ' ', $current_tisheet->description ) );
+
+            foreach ( $tisheetWords as $word )
+            {
+                $words[$word] = $word;
+            }
+
+            return $words;
+        });
+
+        return View::make( 'ajax.summary.groupby-context-filter-context' )
+            ->with( 'today', $day )
+            ->with( 'option', $period )
             ->with( 'summary', $sum )
+            ->with( 'words', $words )
             ->with( 'tts', $tts )
-            ->with( 'context', '#'. $context );
+            ->with( 'context', $context_prefLabel )
+            ->with( 'context_id', $context_id );
+    }
+
+    /**
+     * This method handles requests for
+     * -> show summary by context -> current $period -> $context -> list of words
+     *  
+     */
+    public function groupby_context_filter_context_filter_word( $day, $period, $cid )
+    {
+        $relativeDayAsTime = strtotime( $day );
+
+        if ( $period == 'week' )
+            $startDate = 'last monday';
+        else if ( $period == 'month' )
+            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
+        else if ( $period == 'year' )
+            $startDate = 'first day of Jan';
+        else
+            $startDate = 'today';
+
+        // total time spent
+        $tts = Input::get( 'tts' );
+        $andOperator = Input::get( 'and' ) == 'and' ? true : false;
+
+        // query time spent per context
+        $sum = DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
+            ->where( 's.user_id', Auth::user()->id )
+            ->where( 's.context_id', $cid )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
+            ->orderBy( 's.day', 'desc' )
+            ->get();
+
+        $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
+        $context_prefLabel = count( $sum ) > 0 ? $sum[0]->context_prefLabel : 'no context';
+
+        $filtered_sum = SummaryController::filter_selected_words( Input::get( 'ws' ), $sum, $andOperator );
+
+        return View::make( 'ajax.summary.groupby-context-filter-words' )
+            ->with( 'today', $day )
+            ->with( 'option', $period )
+            ->with( 'summary', $filtered_sum )
+            ->with( 'tts', $tts )
+            ->with( 'context', $context_prefLabel )
+            ->with( 'context_id', $context_id );
+    }
+
+    /**
+     * Filters words selected by the user from the obtained query results.
+     *
+     * @param type $words
+     * @param type $sum
+     * @param type $andOperator
+     * @return type
+     */
+    public static function filter_selected_words( $words, &$sum, $andOperator = true )
+    {
+        $wordsToFilter = explode( ',', $words );
+
+        if ( empty( $words ) || count( $wordsToFilter ) == 0 )
+            return $sum;
+
+        // for each tisheet in the sum, filter all words with respect to the operator (and,or)
+        return array_filter( $sum, function( $elem ) use ( $wordsToFilter, $andOperator )
+        {
+            // ignore time-operator
+            $wordsInTisheet = array_filter( explode( ' ', $elem->description ), function( $wordInTisheet )
+            {
+                if ( preg_match( '/@[0-9:]+/', $wordInTisheet ) )
+                    return false;
+                
+                return true;
+            } );
+
+            // indicates whether this tisheet should be taken into the result
+            $criteriaMet = TisheetUtils::filter_words( $wordsInTisheet, $wordsToFilter, $andOperator );
+
+            if ( $criteriaMet )
+                return true;
+
+            return false;
+        });
     }
 }

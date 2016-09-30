@@ -7,10 +7,11 @@
 	<li><a href='{{ url( "tisheets/$today/summary/year/groupby/contexts" ) }}' class='js-button @if( $option == "year" ) js-button-active @endif js-button-summary'>current year</a></li>
 </ul>
 
-<div id='summary-by-context' tts='' class='summary-table element-float-left'>
+<div id='summary-by-context' tts='' class='summary-table'>
 	<table>
 		<colgroup>
-			<col width='50%'>
+			<col width='20%'>
+			<col width='30%'>
 			<col width='50%'>
 		</colgroup>
 		
@@ -19,16 +20,17 @@
 			<th>Total Time Spent in Context</th>
 		</tr>
 
-	<? $tts = 0 ?>
+	<?php $tts = 0 ?>
 	@if ( count( $summary ) > 0 )
 		@foreach( $summary as $key => $tisheet )
 
 		<tr>
 			<td>
-				<? if( $tisheet->prefLabel ) $label=$tisheet->prefLabel; else $label='w/o context'; ?>
+				<?php $label = 'w/o context' ?>
+				<?php if( $tisheet->context_prefLabel ) { $label=$tisheet->context_prefLabel; } ?>
 				{{-- display link only in option 'week' --}}
 				@if( $label != 'w/o context' )
-				<a id='{{ substr( $tisheet->prefLabel, 1 ) }}' href='{{ url( "tisheets/$today/summary/$option/groupby/days/contexts/". substr( $tisheet->prefLabel, 1 ) ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-button-summary-by-context'>{{ $label }}</a>
+				<a id='{{ $tisheet->context_id }}' href='{{ url( "tisheets/$today/summary/$option/groupby/contexts/". $tisheet->context_id ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-button-summary-by-context'>{{ $label }}</a>
 				@else
 					{{ $label }}
 				@endif
@@ -39,10 +41,12 @@
 					<span>{{ $tisheet->total_time_spent/4 }}h</span>
 				</div>
 			</td>
+
+			<td>&nbsp;</td>
 		</tr>
 
 		{{-- sum up all tisheets to total time spent --}}
-		<? $tts += $tisheet->total_time_spent ?>
+		<?php $tts += $tisheet->total_time_spent ?>
 
 		@endforeach
 
@@ -55,7 +59,7 @@
 	</table>
 </div>
 
-<div id='summary-by-context-details' class='summary-table element-float-right'>
+<div id='summary-by-context-details' class='summary-table'>
 	{{-- ajax response here --}}
 </div>
 
