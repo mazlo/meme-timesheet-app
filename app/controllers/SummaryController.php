@@ -56,12 +56,12 @@ class SummaryController extends BaseController
         else
             $startDate = 'today';
 
-        return DB::table( 'time_spent_in_contexts AS ctx' )
-            ->select( 'ctx.context_prefLabel', 'ctx.context_id', DB::raw( 'SUM( ctx.time_spent ) AS total_time_spent' ) )
-            ->where( 'ctx.user_id', Auth::user()->id )
-            ->where( 'ctx.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
-            ->where( 'ctx.day', '<=', $day )
-            ->groupBy( 'ctx.context_prefLabel' );
+        return DB::table( 'time_spent_in_contexts AS s' )
+            ->select( 's.context_prefLabel', 's.context_id', DB::raw( 'SUM( s.time_spent ) AS total_time_spent' ) )
+            ->where( 's.user_id', Auth::user()->id )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '<=', $day )
+            ->groupBy( 's.context_prefLabel' );
     }
 
     /**
