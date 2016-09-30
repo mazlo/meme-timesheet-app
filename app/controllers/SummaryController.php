@@ -113,6 +113,7 @@ class SummaryController extends BaseController
             ->where( 's.context_id', $cid )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
+            ->orderBy( 's.day', 'desc' )
             ->get();
 
         $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
@@ -168,13 +169,12 @@ class SummaryController extends BaseController
 
         // query time spent per context
         $sum = DB::table( 'time_spent_in_contexts AS s' )
-            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description', DB::raw( 'GROUP_CONCAT( words.value SEPARATOR "," ) AS words_concat' ) )
+            ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.context_id', $cid )
             ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
             ->where( 's.day', '<=', $day )
-            ->join( 'filter_by_words AS words', 's.tisheet_id', '=', 'words.tisheet_id' )
-            ->groupBy( 'words.tisheet_id' )
+            ->orderBy( 's.day', 'desc' )
             ->get();
 
         $context_id = count( $sum ) > 0 ? $sum[0]->context_id : 'id';
