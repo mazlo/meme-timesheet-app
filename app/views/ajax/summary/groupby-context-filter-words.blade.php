@@ -11,11 +11,11 @@
         <th>Description</th>
     </tr>
 
-    <? $day = '' ?>
+    <?php $day = '' ?>
     @foreach( $summary as $tisheet )
     <tr>
 
-        <? $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
+        <?php $currentDay = date( 'l, dS M.', strtotime( $tisheet->day ) ) ?>
         <td>@if ( $day != $currentDay ) <a href='{{ url( "tisheets/". substr( $tisheet->day, 0, 10 ) ) }}'>{{ $currentDay }}</a> <? $day = $currentDay ?> @endif</td>
         <td>
             <div class='js-variable-background variable-background' ts='{{ $tisheet->time_spent }}'>

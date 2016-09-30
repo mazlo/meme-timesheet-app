@@ -20,13 +20,14 @@
 			<th>Total Time Spent in Context</th>
 		</tr>
 
-	<? $tts = 0 ?>
+	<?php $tts = 0 ?>
 	@if ( count( $summary ) > 0 )
 		@foreach( $summary as $key => $tisheet )
 
 		<tr>
 			<td>
-				<? if( $tisheet->context_prefLabel ) $label=$tisheet->context_prefLabel; else $label='w/o context'; ?>
+				<?php $label = 'w/o context' ?>
+				<?php if( $tisheet->context_prefLabel ) { $label=$tisheet->context_prefLabel; } ?>
 				{{-- display link only in option 'week' --}}
 				@if( $label != 'w/o context' )
 				<a id='{{ $tisheet->context_id }}' href='{{ url( "tisheets/$today/summary/$option/groupby/contexts/". $tisheet->context_id ) }}' ts='{{ $tisheet->total_time_spent }}' class='js-button-summary-by-context'>{{ $label }}</a>
@@ -45,7 +46,7 @@
 		</tr>
 
 		{{-- sum up all tisheets to total time spent --}}
-		<? $tts += $tisheet->total_time_spent ?>
+		<?php $tts += $tisheet->total_time_spent ?>
 
 		@endforeach
 
