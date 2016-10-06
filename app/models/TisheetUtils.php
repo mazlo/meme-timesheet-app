@@ -92,4 +92,22 @@ class TisheetUtils
         return count( $diff ) < count( $wordsInTisheet );
     }
 
+    /**
+     *
+     * @param type $period 
+     */
+    public static function determine_date_literal( $period, $relative_day_as_time )
+    {
+        if ( $period == 'week' )
+            $date_literal = 'last monday';
+        else if ( $period == 'month' )
+            $date_literal = 'first day of ' . date( 'M', $relative_day_as_time );
+        else if ( $period == 'year' )
+            $date_literal = 'first day of Jan';
+        else
+            $date_literal = 'today';
+
+        return $date_literal;
+    }
+
 }

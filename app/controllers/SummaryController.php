@@ -45,21 +45,14 @@ class SummaryController extends BaseController
      */
     public static function byDayAndPeriodGroupByContext( $day, $period )
     {
-        $relativeDayAsTime = strtotime( $day );
+        $relative_day_as_time = strtotime( $day );
 
-        if ( $period == 'week' )
-            $startDate = 'last monday';
-        else if ( $period == 'month' )
-            $startDate = 'first day of ' . date( 'M', $relativeDayAsTime );
-        else if ( $period == 'year' )
-            $startDate = 'first day of Jan';
-        else
-            $startDate = 'today';
+        $date_literal = TisheetUtils::determine_date_literal( $period, $relative_day_as_time );
 
         return DB::table( 'time_spent_in_contexts AS s' )
             ->select( 's.context_prefLabel', 's.context_id', DB::raw( 'SUM( s.time_spent ) AS total_time_spent' ) )
             ->where( 's.user_id', Auth::user()->id )
-            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $date_literal, $relative_day_as_time ) ) )
             ->where( 's.day', '<=', $day )
             ->groupBy( 's.context_prefLabel' );
     }
@@ -69,13 +62,13 @@ class SummaryController extends BaseController
     */
     public function forWeekGroupByDaysAndContexts( $day )
     {
-        $dayAsTime = strtotime( $day );
+        $day_as_time = strtotime( $day );
 
         $sum = DB::table( 'tisheets' )
             ->join( 'contexts', 'tisheets.context_id', '=', 'contexts.id' )
             ->select( 'tisheets.day', DB::raw( 'sum( tisheets.time_spent ) as time_spent' ), 'contexts.prefLabel' )
             ->where( 'tisheets.user_id', Auth::user()->id )
-            ->where( 'tisheets.day', '>=', date( 'Y-m-d', strtotime( 'last monday', $dayAsTime ) ) )
+            ->where( 'tisheets.day', '>=', date( 'Y-m-d', strtotime( 'last monday', $day_as_time ) ) )
             ->where( 'tisheets.day', '<=', $day )
             ->groupBy( 'tisheets.day' )
             ->groupBy( 'contexts.prefLabel' )
@@ -92,16 +85,9 @@ class SummaryController extends BaseController
     */
     public function groupby_context_filter_context( $day, $period, $cid )
     {
-        $relativeDayAsTime = strtotime( $day );
+        $relative_day_as_time = strtotime( $day );
 
-        if ( $period == 'week' )
-            $startDate = 'last monday';
-        else if ( $period == 'month' )
-            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
-        else if ( $period == 'year' )
-            $startDate = 'first day of Jan';
-        else
-            $startDate = 'today';
+        $date_literal = TisheetUtils::determine_date_literal( $period, $relative_day_as_time );
 
         // total time spent
         $tts = Input::get( 'tts' );
@@ -111,7 +97,7 @@ class SummaryController extends BaseController
             ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.context_id', $cid )
-            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $date_literal, $relative_day_as_time ) ) )
             ->where( 's.day', '<=', $day )
             ->orderBy( 's.day', 'desc' )
             ->get();
@@ -152,16 +138,9 @@ class SummaryController extends BaseController
      */
     public function groupby_context_filter_context_filter_word( $day, $period, $cid )
     {
-        $relativeDayAsTime = strtotime( $day );
+        $relative_day_as_time = strtotime( $day );
 
-        if ( $period == 'week' )
-            $startDate = 'last monday';
-        else if ( $period == 'month' )
-            $startDate = 'first day of '. date( 'M', $relativeDayAsTime );
-        else if ( $period == 'year' )
-            $startDate = 'first day of Jan';
-        else
-            $startDate = 'today';
+       $date_literal = TisheetUtils::determine_date_literal( $period, $relative_day_as_time );
 
         // total time spent
         $tts = Input::get( 'tts' );
@@ -172,7 +151,7 @@ class SummaryController extends BaseController
             ->select( 's.day', 's.time_spent', 's.context_id', 's.context_prefLabel', 's.description' )
             ->where( 's.user_id', Auth::user()->id )
             ->where( 's.context_id', $cid )
-            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $startDate, $relativeDayAsTime ) ) )
+            ->where( 's.day', '>=', date( 'Y-m-d', strtotime( $date_literal, $relative_day_as_time ) ) )
             ->where( 's.day', '<=', $day )
             ->orderBy( 's.day', 'desc' )
             ->get();
