@@ -2,6 +2,8 @@
 <html lang='de'>
 <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Timesheet</title>
 
 	<!-- browser icon -->
@@ -10,6 +12,7 @@
 	<link rel='stylesheet' type='text/css' href='{{ url( "jquery-ui.css" ) }}' />
 	<link rel='stylesheet' type='text/css' href='{{ url( "octicons.css" ) }}' />
 	<link rel='stylesheet' type='text/css' href='{{ url( "ionicons.css" ) }}' />
+	<link rel='stylesheet' type='text/css' href='{{ url( "w3.css" ) }}' />
     <link rel='stylesheet' type='text/css' href='{{ url( "main.css" ) }}' />
     <link rel='stylesheet' type='text/css' href='{{ url( "datepicker.css" ) }}' />
 	
