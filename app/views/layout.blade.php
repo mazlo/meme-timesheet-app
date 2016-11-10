@@ -158,20 +158,6 @@
 			}
 		});
 
-		picker = $jQ( '#datepicker' ).datepicker(
-		{
-			selectedDate: new Date( '{{ $today }}' ),
-		    onDateChanged: function ( pickedDate ) 
-		    {
-		    	var date = new Date(pickedDate);
-		    	date = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ date.getDate();
-		    	if ( date == '{{ $today }}' )
-		    		return;
-
-				window.location = '{{ url( "tisheets" ) }}/'+ date; 
-		    },
-		});
-
 		// load columns
 		$jQ.ajax({
 			url: '{{ url( "tisheets" ) }}/'+ $jQ( '#timesheet' ).today() +'/columns',

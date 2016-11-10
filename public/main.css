@@ -648,3 +648,9 @@ div.button-group button.button-active {
 	border: 0;
 	margin: 0;
 }
+
+/* --------------- */
+.ts-margin-top-18 { margin-top: 18px; }
+.ts-margin-top-23 { margin-top: 23px; }
+
+@media screen and (max-width:993px) { .ts-left-align-middle { text-align: left!important } }
