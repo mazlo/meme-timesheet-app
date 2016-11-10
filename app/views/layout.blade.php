@@ -37,7 +37,7 @@
 
 <div id='wrapper'>
 
-	<div id='header'>
+	<div id='header' class='w3-container ts-header'>
 
 		<div class='options element-float-left'>
 			<ul class='list-inline'>
@@ -49,13 +49,13 @@
 
 	</div>
 
-	<div id='content'>
+	<div id='content' class='w3-container'>
 
 		@yield( 'content' )
 
 	</div>
 
-	<div id='footer'>
+	<div id='footer' class='w3-container'>
 
 		@yield( 'footer' )
 		

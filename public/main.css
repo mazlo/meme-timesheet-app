@@ -77,16 +77,6 @@ span.notification-negativ {
 	color: #E56952;
 }
 
-#wrapper {
-	width: 1124px; 
-	margin: auto;
-}
-
-#header {
-	overflow: hidden; 
-	height: 102px;
-}
-
 #content {
 	margin-top: 23px;
 	margin-bottom: 48px; 
@@ -144,6 +134,18 @@ span.notification-negativ {
 
 #columns h3 {
 	display: inline-block;
+}
+
+/* -------------- Timesheet specific classes */
+
+.ts-header {
+	height: 102px;
+}
+
+/* -------------- Overwritten w3-classes */
+
+.w3-container {
+	padding: 0.01em 32px;
 }
 
 /* -------------- */
