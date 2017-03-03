@@ -24,7 +24,7 @@
 	{
 		var context = $jQ(this).attr( 'ctx' );
 
-		$jQ( 'tr[ctx='+ context +']' ).not( ':animated' ).effect( 'highlight', { color: '#c3d69b' }, 10000 );
+		$jQ( 'div[ctx='+ context +']' ).not( ':animated' ).effect( 'highlight', { color: '#c3d69b' }, 10000 );
 	});
 
 </script>

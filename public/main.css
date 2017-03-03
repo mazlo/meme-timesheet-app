@@ -84,17 +84,15 @@ span.notification-negativ { display: block; color: #E56952; }
 }
 
 #timeline-today.timeline-today {
-	width: 100%; 
 	height: 28px; 
-	margin-left: 11px; /* 11px + 13px (first timeline element) = 24px which is the half of left border and first tisheet textfield */
-	margin-bottom: 28px;
+	margin-top: 28px;
 }
 #timeline-today.timeline-today div {
 	display: inline-block; 
 	background: #c9d4cd; 
 	border-radius: 0 13px 13px 0;
 	
-	margin-left: 13px;
+	margin-right: 13px;
 	padding-right: 8px;
 	cursor: pointer;
 }
