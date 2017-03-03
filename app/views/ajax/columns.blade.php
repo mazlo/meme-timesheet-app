@@ -1,4 +1,4 @@
-<h3>Columns</h3><span class='cc-keep-clear js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+<h3 class='w3-show-inline-block'>Columns</h3><span class='cc-keep-clear js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 <ul>
 @foreach( $columns as $column )
     @if ( !$column->trashed )
