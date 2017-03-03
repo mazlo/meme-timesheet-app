@@ -333,14 +333,7 @@ li.column-item:not(.js-column-item-empty):hover > span { visibility: visible!imp
 
 /* other column classes */
 
-div.columns {
-	margin-top: 32px;
-}
-div.columns ul {
-    list-style-type: none;
-    margin-top: 0;
-    padding-left: 6px;
-}
+div.columns ul { list-style-type: none; margin-top: 0; padding: 0; }
 
 li.column {
     display: inline-block;
@@ -353,33 +346,12 @@ li.column {
 
     vertical-align: top;
 }
-li.column ul {
-    padding-left: 0;
-}
+li.column ul { padding-left: 0; }
+li.column div.column-item-color-palette { margin-top: 8px; }
+li.column div.column-item-color-palette span { display: inline-block; width: 13px; height: 13px; cursor: pointer; }
 
-li.column div.column-item-color-palette {
-	margin-top: 8px;	
-}
-li.column div.column-item-color-palette span {
-	display: inline-block;
-	width: 13px;
-	height: 13px;
-	cursor: pointer;
-}
-
-li.column-item {
-	position: relative;
-	z-index: 10;
-	margin-top: 3px;
-}
-li.column-item > div.column-item-options {
-	border: 1px solid #ccc;
-	background-color: #ecb;
-	
-	margin-bottom: 8px;
-	padding: 0 8px;
-	width: 90%;
-}
+li.column-item { position: relative; z-index: 10; margin-top: 3px; }
+li.column-item > div.column-item-options { border: 1px solid #ccc; background-color: #ecb; margin-bottom: 8px; padding: 0 8px; width: 90%; }
 
 /* all spans within the column */
 li.column > span,
