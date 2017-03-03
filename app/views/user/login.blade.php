@@ -22,7 +22,7 @@
 
     <div>
         {{ Form::submit( 'Sign in', array( 'class' => 'button button-submit button-margin' ) ) }}
-        <span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+        <span class='js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
     </div>
 
     {{ Form::close() }}
@@ -38,7 +38,7 @@
     //
     $jQ( 'form' ).submit( function()
     {
-        $jQ( this ).find( 'span.js-ajax-loader' ).toggle( 'element-hidden' );
+        $jQ( this ).find( 'span.js-ajax-loader' ).toggle( 'cc-element-hidden' );
         $jQ( this ).attr( 'disabled', 'disabled' );
 
         return true;

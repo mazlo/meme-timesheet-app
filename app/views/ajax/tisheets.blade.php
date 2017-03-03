@@ -6,7 +6,7 @@
 		@include( 'ajax.post' )
 	</div>
 
-	<div class='tags element-invisible'>
+	<div class='tags cc-element-invisible'>
 		<ul class='list-inline' style='padding-left: 23px'>
 			<li>{{ $post->tags }}</li>
 		</ul>

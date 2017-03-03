@@ -47,17 +47,17 @@
 		@foreach( $tisheets as $key => $tisheet )
 		<div class='w3-row tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
 			<div class='w3-col l7'>
-                <span class='tisheet-error js-tisheet-error element-invisible'></span>
+                <span class='tisheet-error js-tisheet-error cc-element-invisible'></span>
                 
 				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
 				{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'cc-keep-clear-content-little textfield tisheet-description js-tisheet-description' ) ) }}
 				
-				<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) element-visible @else element-toggable @endif'></span>
-    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
-    			<span class='octicon octicon-list-unordered element-toggable'></span>
-				<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
+				<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) cc-element-visible @else element-toggable @endif'></span>
+    			<span class='octicon octicon-playback-play js-octicon-stopwatch cc-element-toggable'></span>
+    			<span class='octicon octicon-list-unordered cc-element-toggable'></span>
+				<span class='octicon octicon-trashcan octicon-no-padding-left cc-element-toggable'></span>
 				
-				<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
+				<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) cc-element-hidden @endif' style='margin-top: 8px'>
 					<textarea class='cc-keep-clear-content-little tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
 				</div>
 			</div>
@@ -87,23 +87,25 @@
 				<div class='w3-col l4 m7'>
 					<span class='cc-keep-clear-little js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
 					<span class='cc-keep-clear-little js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
+
+					<span class='cc-keep-clear-little js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 				</div>
 			</div>
 		</div>
 		@endforeach
 
 		{{-- insert an empty cloneable tr that is cloned when needed --}}
-		<div class='w3-row tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
+		<div class='w3-row tisheet js-tisheet js-tisheet-clonable cc-element-hidden' id='undefined'>
 			<div class='w3-col l7'>
 				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
 				{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'cc-keep-clear-content-little textfield tisheet-description js-tisheet-description' ) ) }}
 				
-				<span class='octicon octicon-info element-toggable'></span>
-    			<span class='octicon octicon-list-unordered element-toggable'></span>
-				<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
-    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
+				<span class='octicon octicon-info cc-element-toggable'></span>
+    			<span class='octicon octicon-playback-play js-octicon-stopwatch cc-element-toggable'></span>
+    			<span class='octicon octicon-list-unordered cc-element-toggable'></span>
+				<span class='octicon octicon-trashcan octicon-no-padding-left cc-element-toggable'></span>
 
-				<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+				<div class='js-tisheet-note cc-element-hidden' style='margin-top: 8px'>
 					<textarea class='cc-keep-clear-content tisheet-note'></textarea>
 				</div>
 			</div>
@@ -149,8 +151,8 @@
 		<li><a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-summary'>show summary by days</a></li>
 	</ul>
 
-	<div id='summaryWrapper' class='element-hidden element-collectable' @if( $sickToday )style='display: none'@endif>
-		<h3>Summary</h3><span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+	<div id='summaryWrapper' class='cc-element-hidden element-collectable' @if( $sickToday )style='display: none'@endif>
+		<h3>Summary</h3><span class='js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 
 		<div id='summary'>
 			{{-- ajax content here --}}
@@ -163,7 +165,7 @@
 	</div>
 
 	<div id='columns' class='columns js-columns element-collectable' @if( !Auth::user()->showColumns && !$sickToday) style='display: none' @endif>
-		<h3>Columns</h3><span class='js-ajax-loader ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
+		<h3>Columns</h3><span class='js-ajax-loader'><img src='{{ url( "loading.gif" ) }}' /></span>
 		{{-- ajax content here --}}
 	</div>
 
@@ -184,7 +186,7 @@
 
 		// insert before the cloneable div and show
 		div_clone.insertBefore( div_empty );
-		div_clone.removeClass( 'js-tisheet-clonable element-hidden' );
+		div_clone.removeClass( 'js-tisheet-clonable cc-element-hidden' );
 	});
 @endif
 

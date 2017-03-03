@@ -53,7 +53,7 @@ var cloneTisheet = function( elementToClone, latestElement, focus )
     var clonedElement = elementToClone.clone();
 
     clonedElement.insertBefore( elementToClone );
-    clonedElement.removeClass( 'js-tisheet-clonable element-hidden' );
+    clonedElement.removeClass( 'js-tisheet-clonable cc-element-hidden' );
     
     if ( latestElement !== undefined )
         // invoke manually to prevent asynchronous side effects
@@ -153,7 +153,7 @@ var stopStopwatch = function( tisheet, stopwatch, triggerEvent )
     // reset stopwatch
     clearInterval( interval );
 
-    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause cc-element-visible' );
 
     if ( !triggerEvent )
         return;
@@ -188,7 +188,7 @@ var startStopwatch = function( tisheet, stopwatch, triggerEvent )
     if ( time.text() == '' )
         time.text( new Date().toTimeString().substring(0,5) );
 
-    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause element-visible' );
+    stopwatch.toggleClass( 'octicon-playback-play octicon-playback-pause cc-element-visible' );
 
     if ( !triggerEvent )
         return;
@@ -583,7 +583,7 @@ var toggleLoadingIcon = function( baseElement )
     if ( baseElement === undefined )
         return;
 
-    $jQ( baseElement +' span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+    $jQ( baseElement +' span.js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
     
 }
 

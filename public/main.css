@@ -105,9 +105,6 @@ span.notification-negativ {
 	margin-left: 11px; /* 11px + 13px (first timeline element) = 24px which is the half of left border and first tisheet textfield */
 	margin-bottom: 28px;
 }
-#timeline-today.timeline-today div.element-hidden {
-	display: none;
-}
 #timeline-today.timeline-today div {
 	display: inline-block; 
 	background: #c9d4cd; 
@@ -201,11 +198,6 @@ a.option-active {
 	border-bottom: 1px #ccc solid;
 	width: 23px;
 	margin: 0 0 18px 18px;
-}
-
-.ajax-loader {
-	display: inline-block;
-	margin: 6px 0 0 23px;
 }
 
 /* -------------- */
@@ -336,7 +328,7 @@ div.tisheet > div textarea.tisheet-note { width: 78%; padding-right: 28px; }
 /* show trashcan at the right end of the tisheet input */
 div.tisheet > div > span.octicon-trashcan { position: absolute; top: 4px; right: 102px; z-index: 20; opacity: 0.6; }
 /* on hover of tisheet -> show all octicons (options) */
-div.tisheet:hover > div > span.octicon:not(.element-visible) { visibility: visible; }
+div.tisheet:hover > div > span.octicon:not(.cc-element-visible) { visibility: visible!important; }
 
 span.time-spent-quarter { display: inline-block; border: 1px #ccc solid; background-color: #fff; width: 8px; height: 18px; margin-top: 6px; cursor: pointer; }
 span.time-spent-quarter-active { background-color: #006699; }
@@ -394,25 +386,15 @@ div#summary-same-as table tr td {
 /* hover effects on columns */
 
 /* display empty li.column on hover on div#columns */
-div.columns:hover > ul > li.column.element-invisible-toggable {
-	visibility: visible;
-}
+div.columns:hover > ul > li.column.cc-element-invisible-toggable { visibility: visible!important; }
 /* display color-palette on hover on li.column */
-li.column:hover > div.column-item-color-palette {
-	visibility: visible;
-}
+li.column:hover > div.column-item-color-palette { visibility: visible!important; }
 /* display empty li.column-item on hover on li.column */
-li.column:hover > ul > li.column-item.element-invisible-toggable {
-	visibility: visible;
-}
+li.column:hover > ul > li.column-item.cc-element-invisible-toggable { visibility: visible!important; }
 /* display spans on hover on li.column, but only for those li.column that are not li.js-column-empty */
-li.column:not(.js-column-empty) div.column-label:hover > span {
-	visibility: visible;
-}
+li.column:not(.js-column-empty) div.column-label:hover > span { visibility: visible!important; }
 /* display spans on hover on li.column-item, but only those li.column-item that are not li.js-column-item-empty */
-li.column-item:not(.js-column-item-empty):hover > span {
-	visibility: visible;
-}
+li.column-item:not(.js-column-item-empty):hover > span { visibility: visible!important; }
 
 /* other column classes */
 
@@ -461,7 +443,7 @@ li.column-item > div.column-item-options {
 	
 	margin-bottom: 8px;
 	padding: 0 8px;
-	width: 60px;
+	width: 90%;
 }
 
 /* all spans within the column */
@@ -544,35 +526,10 @@ div.button-group button.button-active {
 
 /* -------------- */
 
-/* hide an element */
-.element-hidden,
-.element-hidden-toggable {
-	display: none;
-}
-
-/* hide an element, but preserve the space on display */
-.element-invisible,
-.element-invisible-toggable,
-.element-toggable {
-	visibility: hidden;
-}
-
-/* .element-hidden-toggable and .element-invisible-toggable are resuable classes */
-
-/* show an invisible element */
-.element-visible {
-	visibility: visible;
-}
-
 /*  */
+.element-float-left { float: left; }
 
-.element-float-left {
-	float: left;
-}
-
-.element-float-right {
-	float: right;
-}
+.element-float-right { float: right; }
 
 /* -------------- */
 
@@ -608,3 +565,10 @@ span.cc-keep-clear-little { display: inline-block; }
 
 .cc-keep-clear-content-little { padding: 4px 8px; }
 .cc-keep-clear-content { padding: 8px 13px; }
+
+/* hide an element */
+.cc-element-hidden, .cc-element-hidden-toggable { display: none!important; }
+/* hide an element, but preserve the space on display */
+.cc-element-invisible, .cc-element-invisible-toggable, .cc-element-toggable { visibility: hidden!important; }
+/* show an element */
+.cc-element-visible { visibility: visible!important; }

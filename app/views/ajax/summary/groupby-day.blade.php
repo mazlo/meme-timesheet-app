@@ -1,4 +1,4 @@
-<div class='element-hidden'>
+<div class='cc-element-hidden'>
 	<a href='{{ url( "tisheets/$today/summary/week/groupby/days/contexts" ) }}' class='js-button js-button-active js-button-summary'>show summary by days</a>
 </div>
 

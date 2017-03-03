@@ -172,7 +172,7 @@
 
 	$jQ( document ).on( 'click', '.datepicker', function( event )
 	{
-		picker.toggleClass( 'element-invisible' );
+		picker.toggleClass( 'cc-element-invisible' );
 		picker.css( 'left', event.pageX - ( picker.width() / 2 ) );
 	});
 
@@ -215,7 +215,7 @@
 		var type = hasId ? 'put' : 'post';
 
 		// activate loading icon
-		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -283,7 +283,7 @@
 		var type = value.trim() == '' ? 'delete' : 'put';
 
 		// show loading icon
-		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		tisheet.find( 'span.js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
 
 		$jQ.ajax({
 			url: url,
@@ -301,7 +301,7 @@
 
 				// show/hide octicon-info
 				if ( value == '' || ( value != '' && oldNote == '' ) )
-					tisheet.find( 'span.octicon-info' ).toggleClass( 'element-visible element-invisible' );
+					tisheet.find( 'span.octicon-info' ).toggleClass( 'cc-element-visible cc-element-invisible' );
 
 				// we do not need to invokeDescriptionChangeListener here, since the note 
 				// does not change any tisheet properties
@@ -384,7 +384,7 @@
 		if ( item == undefined )
 			return;
 
-		item.find( 'span.js-ajax-loader' ).toggleClass( 'element-hidden' );
+		item.find( 'span.js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
 
 		var check = item.find( '.octicon-check' );
 		check.show();
@@ -445,7 +445,7 @@
 	$jQ( document ).on( 'click', '.js-button-summary', function()
 	{
 		$jQ( '#summaryWrapper' ).show();
-		$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'element-hidden' );
+		$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
 
 		var url = $jQ(this).attr( 'href' );
 
@@ -454,7 +454,7 @@
 			type: 'get',
 			success: function( data )
 			{
-				$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'element-hidden' );
+				$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
 				$jQ( '#summary' ).html( data );
 			}
 		});

@@ -233,7 +233,7 @@ $jQ( document ).on( 'click', '.octicon-info', function()
 
     var note = item.find( '.js-tisheet-note' );
 
-    note.toggleClass( 'element-hidden' );
+    note.toggleClass( 'cc-element-hidden' );
 
     if ( note.is( ':visible' ) )
     {
@@ -366,8 +366,8 @@ $jQ( document ).on( 'focusin', 'textarea.js-column-item-label', function()
 //
 $jQ( document ).on( 'click', 'textarea.js-column-item-label', function()
 {
-    if ( $jQ(this).parent().is( '.js-column-item-focused:not(.element-invisible-toggable)' ) )
-        $jQ(this).next( 'div.js-column-item-options' ).toggleClass( 'element-hidden-toggable' )
+    if ( $jQ(this).parent().is( '.js-column-item-focused:not(.cc-element-invisible-toggable)' ) )
+        $jQ(this).next( 'div.js-column-item-options' ).toggleClass( 'cc-element-hidden-toggable' )
     else
         $jQ(this).parent().addClass( 'js-column-item-focused' )
 });
@@ -412,7 +412,7 @@ $jQ( document ).on( 'focusout', 'div.js-column-label input', function()
     column.find( 'input' ).val( '' );
     column.removeAttr( 'id' );
 
-    clonedColumn.removeClass( 'js-column-empty element-invisible-toggable' );
+    clonedColumn.removeClass( 'js-column-empty cc-element-invisible-toggable' );
     clonedColumn.insertBefore( column );
 
     makeColumnsSortable();
@@ -424,7 +424,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     // hide options first
 
     $jQ(this).parent().removeClass( 'js-column-item-focused' )
-    $jQ(this).next( 'div.js-column-item-options' ).addClass( 'element-hidden-toggable' )
+    $jQ(this).next( 'div.js-column-item-options' ).addClass( 'cc-element-hidden-toggable' )
 
     // take care of saving the changes to this column-item now
 
@@ -440,7 +440,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     var column = columnItem.closest( 'li.js-column' )
 
     // ignore when parent is not saved yet
-    if ( column.hasClass( 'element-invisible-toggable' ) )
+    if ( column.hasClass( 'cc-element-invisible-toggable' ) )
         return;
 
     toggleLoadingIcon( '#columns' );
@@ -472,7 +472,7 @@ $jQ( document ).on( 'focusout', 'textarea.js-column-item-label', function()
     columnItem.removeAttr( 'id' );
 
     clonedItem.find( 'textarea' ).val( label );
-    clonedItem.removeClass( 'js-column-item-empty element-invisible-toggable' );
+    clonedItem.removeClass( 'js-column-item-empty cc-element-invisible-toggable' );
     clonedItem.insertBefore( columnItem );
 });
 
