@@ -124,7 +124,7 @@
 		$jQ( '#timesheet tbody' ).sortable(
 		{ 
 			cursor: 'move',
-			items: $jQ( '#timesheet tr.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' ),
+			items: $jQ( '#timesheet div.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' ),
 			helper: function( e, element ) 
 			{
 				// Return a helper with preserved width of cells
@@ -138,7 +138,7 @@
 			update: function( e, ui )
 			{
 				var tids = [];
-				var items = $jQ(this).find( 'tr.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' );
+				var items = $jQ(this).find( 'div.js-tisheet' ).not( '.js-tisheet-clonable, .timesheet-footer' );
 
 				// collect all ids in the correct order and btw. reset position value
 				var position = 1;
