@@ -77,7 +77,7 @@ var cloneTisheet = function( elementToClone, latestElement, focus )
  */
 var cloneTisheetIfLastOne = function( elementToClone, latestElement )
 {
-    var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+    var tisheetToClone = $jQ( 'div.js-tisheet-clonable' );
  
     if ( tisheetToClone.index() == 1 )
         // clone empty element
@@ -85,13 +85,13 @@ var cloneTisheetIfLastOne = function( elementToClone, latestElement )
  }
 
 /**
- * Creates a blank tisheet, by getting the hidden tr.js-tisheet-clonable 
+ * Creates a blank tisheet, by getting the hidden div.js-tisheet-clonable 
  * and invoking function cloneTisheet().
  *
  */
 var blankTisheet = function( initialData )
 {
-    var tisheetToClone = $jQ( 'tr.js-tisheet-clonable' );
+    var tisheetToClone = $jQ( 'div.js-tisheet-clonable' );
     var tisheet = undefined;
 
     // do not clone if there are no tisheets yet!
@@ -142,7 +142,7 @@ var toggleStopwatchStatus = function ( tisheet, startOnly, triggerEvent )
 var stopStopwatch = function( tisheet, stopwatch, triggerEvent )
 {
     if ( tisheet == undefined )
-        tisheet = stopwatch.closest( 'tr.js-tisheet' );
+        tisheet = stopwatch.closest( 'div.js-tisheet' );
 
     // completes the quarter if it's done more than the half
     if ( minutesByTisheets[ tisheet.id() ] > 7 )
@@ -172,7 +172,7 @@ var stopStopwatch = function( tisheet, stopwatch, triggerEvent )
 var startStopwatch = function( tisheet, stopwatch, triggerEvent )
 {
     if ( tisheet == undefined )
-        tisheet = stopwatch.closest( 'tr.js-tisheet' );
+        tisheet = stopwatch.closest( 'div.js-tisheet' );
     
     // start stopwatch with handler
     interval = setInterval( function()
