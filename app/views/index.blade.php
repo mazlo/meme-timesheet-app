@@ -63,7 +63,7 @@
 			</div>
 			
 			<div class='w3-col l5 w3-row'>
-				<div class='w3-col l8 m8'>
+				<div class='w3-col l8 m5'>
 
 			{{-- render actual time spent --}}
 			@for( $i=0; $i<$tisheet->time_spent; $i++ )
@@ -84,7 +84,7 @@
 			@endfor
 				</div>
 
-				<div class='w3-col l4 m4'>
+				<div class='w3-col l4 m7'>
 					<span class='tisheet-time-start js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
 					<span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
 				</div>
