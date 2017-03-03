@@ -75,11 +75,6 @@ span.notification-negativ { display: block; color: #E56952; }
 
 .options { margin-top: 32px; }
 
-#timesheet.timesheet {
-    position: relative;
-    margin: 0 0 23px;
-}
-
 #timesheet.timesheet table {
 	border: 0; 
 	width: 100%; 
@@ -106,10 +101,6 @@ span.notification-negativ { display: block; color: #E56952; }
 #timeline-today.timeline-today div span {
 	padding: 0 4px 0 8px;
 	white-space: nowrap;
-}
-
-#columns h3 {
-	display: inline-block;
 }
 
 /* -------------- Overwritten w3-classes */
