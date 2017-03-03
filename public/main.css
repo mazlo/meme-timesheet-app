@@ -345,41 +345,19 @@ div.tisheet > div span.tisheet-error {
     cursor: pointer;
 }
 
-div.summary-table {
-	vertical-align: top; 
-}
-div.summary-table table {
-	border: 1px #ccc solid; 
-	
-	width: 100%; 
-	padding: 3px 13px 8px; 
-	
-	text-align: left;
-}
+div.summary-table table { vertical-align: top; border: 1px #ccc solid; padding: 3px 13px 8px; text-align: left; }
+div.summary-table table th,
+div.summary-table table td { padding: 8px 13px; }
 
-div.summary-table div.variable-background {
-	background-color: #c0c0c0;
-}
-div.summary-table div.variable-background span {
-	padding: 0 8px;
-	white-space: nowrap;
-}
+div.summary-table div.variable-background { background-color: #c0c0c0; }
+div.summary-table div.variable-background span { padding: 0 8px; white-space: nowrap; }
 
 /* -------------- */
 
-div#summary-same-as {
-	margin-top: 32px;
-}
-div#summary-same-as table {
-	margin: 13px 8px 0;
-}
-div#summary-same-as table tr {
-	vertical-align: top;
-}
-div#summary-same-as table tr td {
-	border-top: 1px solid #ccc;
-	padding: 8px 0;
-}
+div#summary-same-as { margin-top: 32px; }
+div#summary-same-as table { margin: 13px 8px 0; }
+div#summary-same-as table tr { vertical-align: top; }
+div#summary-same-as table tr td { border-top: 1px solid #ccc; padding: 8px 0; }
 
 /* -------------- */
 
@@ -565,6 +543,7 @@ span.cc-keep-clear-little { display: inline-block; }
 
 .cc-keep-clear-content-little { padding: 4px 8px; }
 .cc-keep-clear-content { padding: 8px 13px; }
+.cc-keep-clear-content-more { padding: 13px 18px; }
 
 /* hide an element */
 .cc-element-hidden, .cc-element-hidden-toggable { display: none!important; }

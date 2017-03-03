@@ -8,7 +8,7 @@
 </ul>
 
 <div id='summary-by-context' tts='' class='summary-table'>
-	<table>
+	<table style='width: 60%;'>
 		<colgroup>
 			<col width='20%'>
 			<col width='30%'>
@@ -41,8 +41,6 @@
 					<span>{{ $tisheet->total_time_spent/4 }}h</span>
 				</div>
 			</td>
-
-			<td>&nbsp;</td>
 		</tr>
 
 		{{-- sum up all tisheets to total time spent --}}

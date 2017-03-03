@@ -1,13 +1,13 @@
 <table>
     <colgroup>
-        <col width='20%'>
         <col width='30%'>
+        <col width='20%'>
         <col width='50%'>
     </colgroup>
 
     <tr>
         <th>Days Spent with {{ $context }}</th>
-        <th>Time Spent in Context</th>
+        <th>Time Spent</th>
         <th>Description</th>
     </tr>
 
