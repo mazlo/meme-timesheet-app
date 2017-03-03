@@ -88,7 +88,7 @@ span.notification-negativ {
 
 #timesheet.timesheet {
     position: relative;
-    margin: 23px 0;
+    margin: 0 0 23px;
 }
 
 #timesheet.timesheet table {
@@ -214,8 +214,7 @@ input.textfield {
 	border: 1px solid #ddd; 
 	
 	width: 91%; 
-	height: 26px; 
-	padding: 2px 10px 3px; 
+	height: 23px; 
 	
 	font-size: inherit;
 	font-family: inherit;
@@ -261,7 +260,6 @@ textarea {
 	
 	width: 91%; 
 	min-height: 73px; 
-	padding: 5px 10px 0; 
 	resize: none;
 	overflow-y: hidden;
 	
@@ -345,7 +343,7 @@ span.time-spent-quarter { display: inline-block; border: 1px #ccc solid; backgro
 span.time-spent-quarter-active { background-color: #006699; }
 span.time-spent-blank { display: inline-block; background-color: transparent; width: 8px; height: 18px; }
 
-	/* OBSOLETE? */
+/* OBSOLETE? */
 div.tisheet > div span.tisheet-error {
     position: absolute; 
     left: -100px; 
@@ -605,3 +603,9 @@ div.button-group button.button-active {
 .ts-margin-top-23 { margin-top: 23px; }
 
 @media screen and (max-width:993px) { .ts-left-align-middle { text-align: left!important } }
+
+.cc-keep-clear-little { margin: 4px 6px; }
+span.cc-keep-clear-little { display: inline-block; }
+
+.cc-keep-clear-content-little { padding: 4px 8px; }
+.cc-keep-clear-content { padding: 8px 13px; }

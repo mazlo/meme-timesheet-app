@@ -50,15 +50,15 @@
                 <span class='tisheet-error js-tisheet-error element-invisible'></span>
                 
 				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
-				{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+				{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'cc-keep-clear-content-little textfield tisheet-description js-tisheet-description' ) ) }}
 				
-				<span class='octicon octicon-info element-toggable'></span>
+				<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) element-visible @else element-toggable @endif'></span>
+    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
     			<span class='octicon octicon-list-unordered element-toggable'></span>
 				<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
-    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
-
+				
 				<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
-					<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
+					<textarea class='cc-keep-clear-content-little tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
 				</div>
 			</div>
 			
@@ -85,8 +85,8 @@
 				</div>
 
 				<div class='w3-col l4 m7'>
-					<span class='tisheet-time-start js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
-					<span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
+					<span class='cc-keep-clear-little js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
+					<span class='cc-keep-clear-little js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
 				</div>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 		<div class='w3-row tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
 			<div class='w3-col l7'>
 				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
-				{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+				{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'cc-keep-clear-content-little textfield tisheet-description js-tisheet-description' ) ) }}
 				
 				<span class='octicon octicon-info element-toggable'></span>
     			<span class='octicon octicon-list-unordered element-toggable'></span>
@@ -104,7 +104,7 @@
     			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
 				<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
-					<textarea class='tisheet-note'></textarea>
+					<textarea class='cc-keep-clear-content tisheet-note'></textarea>
 				</div>
 			</div>
 
@@ -132,8 +132,8 @@
 				</div>
 
 				<div class='w3-col l4 m4'>
-					<span class='tisheet-time-start js-tisheet-time-start'></span>
-					<span class='tisheet-time-spent js-tisheet-time-spent'></span>
+					<span class='cc-keep-clear-little w3-text-grey tisheet-time-start js-tisheet-time-start'></span>
+					<span class='cc-keep-clear-little js-tisheet-time-spent'></span>
 				</div>
 			</div>
 		</div>
