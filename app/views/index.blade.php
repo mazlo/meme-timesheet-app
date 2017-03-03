@@ -52,7 +52,7 @@
 				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
 				{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'cc-keep-clear-content-little textfield tisheet-description js-tisheet-description' ) ) }}
 				
-				<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) cc-element-visible @else element-toggable @endif'></span>
+				<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) cc-element-visible @else cc-element-toggable @endif'></span>
     			<span class='octicon octicon-playback-play js-octicon-stopwatch cc-element-toggable'></span>
     			<span class='octicon octicon-list-unordered cc-element-toggable'></span>
 				<span class='octicon octicon-trashcan octicon-no-padding-left cc-element-toggable'></span>
