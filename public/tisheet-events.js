@@ -175,7 +175,7 @@ $jQ( document ).on( 'click', '.tisheet span.octicon-list-unordered', function()
 
 
 //
-$jQ( document ).on( 'click', 'tr.js-tisheet span.octicon-trashcan', function()
+$jQ( document ).on( 'click', 'div.js-tisheet span.octicon-trashcan', function()
 {
     // first: mark as red to indicate warning
     if ( $jQ(this).is( ':not( .octicon-red )' ) )
@@ -293,7 +293,7 @@ $jQ( document ).on( 'click', '.js-octicon-stopwatch', function( event, action )
     var triggerEvent = ( action != undefined && action.triggerEvent != undefined ? action.triggerEvent : true );
 
     var requestedStopwatch = $jQ(this);
-    var tisheet = requestedStopwatch.closest( 'tr.js-tisheet' );
+    var tisheet = requestedStopwatch.closest( 'div.js-tisheet' );
 
     var requestedStopwatchId = getTisheetId( requestedStopwatch );
 
@@ -331,11 +331,11 @@ $jQ( document ).on( 'click', 'span.js-time-spent-quarter', function()
 
     // update ui
     var count = $jQ(this).parent().find( 'span.time-spent-quarter-active' ).length;
-    $jQ(this).closest( 'tr.js-tisheet' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
+    $jQ(this).closest( 'div.js-tisheet' ).find( 'span.js-tisheet-time-spent' ).text( count/4 + 'h');
 
     // register feature for post update
 
-    var item = $jQ(this).closest( 'tr.js-tisheet' );
+    var item = $jQ(this).closest( 'div.js-tisheet' );
     
     if ( item.attr( 'id' ) == 'undefined' )
         // tisheet without an id -> update when tisheet was saved

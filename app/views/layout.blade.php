@@ -78,8 +78,8 @@
 		{
 			id: function()
 			{
-				// used on <tr> with id-attribute
-				if ( this.prop( 'tagName' ) === 'TR' && this.attr( 'id' ) !== undefined )
+				// used on <div> with id-attribute
+				if ( this.prop( 'tagName' ) === 'DIV' && this.attr( 'id' ) !== undefined )
 					return this.attr( 'id' );
 
 				// used on <li> with id-attribute
@@ -503,13 +503,13 @@
 	// 
 	var getTisheetId = function( element )
 	{
-		return $jQ( element ).closest( 'tr.js-tisheet' ).id();
+		return $jQ( element ).closest( 'div.js-tisheet' ).id();
 	}
 
 	//
 	var getTisheet = function( element )
 	{
-		return $jQ( element ).closest( 'tr.js-tisheet' );
+		return $jQ( element ).closest( 'div.js-tisheet' );
 	}
 
 	//
