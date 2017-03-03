@@ -588,6 +588,49 @@ $jQ( document ).on( 'click', 'li.js-column div.column-item-color-palette span', 
 });
 
 /** EVENTS IN SUMMARY SECTION */
+
+//
+$jQ( document ).on( 'click', '.js-button-summary', function()
+{
+    $jQ( '#summaryWrapper' ).removeClass( 'cc-element-hidden' );
+    $jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
+
+    var url = $jQ(this).attr( 'href' );
+
+    $jQ.ajax({
+        url: url,
+        type: 'get',
+        success: function( data )
+        {
+            $jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
+            $jQ( '#summary' ).html( data );
+        }
+    });
+
+    return false;
+});
+
+//
+$jQ( document ).on( 'click', '.js-button-summary-by-context', function()
+{
+    var url = $jQ(this).attr( 'href' );
+    var time = $jQ(this).attr( 'ts' );
+
+    $jQ.ajax({
+        url: url,
+        type: 'get',
+        data: {
+            tts: time
+        },
+        success: function( data )
+        {
+            $jQ( '#summary-by-context-details' ).html( data );
+        }
+    });
+
+    return false;
+});
+
 $jQ( document ).on( 'click', 'div.button-group.js-button-group-words > button', function ()
 {
     var url = $jQ(this).parent().attr( 'url' );

@@ -335,19 +335,6 @@
 		});
 	});
 
-	/**
-	*	this handler is currently not used, since the feature was removed
-	*/
-	$jQ( document ).on( 'change', '.js-tisheet-planned', function()
-	{
-		var item = $jQ(this).closest( 'tr.js-tisheet' );
-
-		if ( item.id() == 'undefined' )
-			descriptionChangeListener.push( { callback: updateTisheetIsPlanned } );
-		else
-			updateTisheetIsPlanned( item );
-	});
-
 	//
 	var updateTisheetIsPlanned = function( item )
 	{
@@ -440,48 +427,6 @@
 
     	return false;
 	}
-
-	//
-	$jQ( document ).on( 'click', '.js-button-summary', function()
-	{
-		$jQ( '#summaryWrapper' ).show();
-		$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
-
-		var url = $jQ(this).attr( 'href' );
-
-		$jQ.ajax({
-			url: url,
-			type: 'get',
-			success: function( data )
-			{
-				$jQ( '#summaryWrapper .js-ajax-loader' ).toggleClass( 'cc-element-hidden' );
-				$jQ( '#summary' ).html( data );
-			}
-		});
-
-		return false;
-	});
-
-	//
-	$jQ( document ).on( 'click', '.js-button-summary-by-context', function()
-	{
-		var url = $jQ(this).attr( 'href' );
-		var time = $jQ(this).attr( 'ts' );
-
-		$jQ.ajax({
-			url: url,
-			type: 'get',
-			data: {
-				tts: time
-			},
-			success: function( data )
-			{
-				$jQ( '#summary-by-context-details' ).html( data );
-			}
-		});
-
-		return false;
-	});
 
 	//
 	$jQ( document ).on( 'click', '.js-button', function()
