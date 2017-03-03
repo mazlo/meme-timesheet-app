@@ -8,6 +8,91 @@ $jQ( document ).on( 'click', 'div.button-group > button', function ()
 
 /** EVENTS ON TISHEETS */
 
+// add new line or focus next textfield of next line
+$jQ( document ).keydown( function( event )
+{
+    var target = $jQ( event.target );
+    var tisheet = target.closest( 'div.js-tisheet' );
+
+    if ( meetsKeydownExitCriteria( event, target ) )
+    {
+        return;
+    }
+
+    // focusout on escape key
+    if ( escapeKeyCode( event ) )
+    {
+        focusoutOnEscapeKey( tisheet, target )
+        return;
+    }
+
+    // ignore textareas from here
+    if ( target.hasClass( 'tisheet-note' ) )
+        return;
+
+    // the line to clone
+    var div = $jQ( 'div.js-tisheet-clonable' );
+
+    // event fires in textfield    
+    if ( tisheet.hasClass( 'js-tisheet' ) )
+    {
+        // ignore when fired from empty textfield
+        if ( target.val() == '' )
+        {
+            target.val( 'TODO: describe' );
+            return;
+        }
+
+        // focus out after hitting enter
+        target.blur();
+        return;
+    } 
+
+    // event fires in document
+    else if ( div.index() >= 2 ) 
+    {
+        // focus first textfield if it is empty
+        var textfield = div.prev().find( 'input.tisheet-description' );
+        
+        if ( textfield.val() == '' )
+        {
+            textfield.focus();
+            return;
+        }
+    }
+
+    cloneTisheet( div, target );
+});
+
+//
+var focusoutOnEscapeKey = function( tisheet, target )
+{
+    if ( target.hasClass( 'tisheet-note' ) )
+        target.val( oldNote );
+
+    else if ( target.hasClass( 'tisheet-description' ) )
+    {
+        // either, remove whole line when textfield is empty, but ignore first element and if it has an id
+        if ( target.val() == '' && tisheet.index() != 1 && tisheet.id() == 'undefined' )
+            tisheet.remove();
+
+        // or, remove whole line in case old description is empty
+        else if ( oldDescription == '' && tisheet.index() != 1 )
+        {
+            // reset description here, otherwise focusout will send value to backend
+            target.val( '' );
+            tisheet.remove();
+        }
+
+        // otherwise, replace with old value and blur
+        else
+        {
+            target.val( oldDescription );
+            target.blur();
+        }
+    }
+}
+
 /** EVENTS ON TISHEET OCTICONS */
 
 //
