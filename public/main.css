@@ -67,24 +67,13 @@ p {
 	margin-top: 4px;
 }
 
-span.notification-positiv {
-	display: block;
-	color: #67A921;
-}
+span.notification-positiv { display: block; color: #67A921; }
+span.notification-negativ { display: block; color: #E56952; }
 
-span.notification-negativ {
-	display: block;
-	color: #E56952;
-}
+#content { margin-bottom: 48px; }
+#header { height: 102px; }
 
-#content {
-	margin-top: 23px;
-	margin-bottom: 48px; 
-}
-
-.options {
-	margin-top: 32px;
-}
+.options { margin-top: 32px; }
 
 #timesheet.timesheet {
     position: relative;
@@ -119,30 +108,14 @@ span.notification-negativ {
 	white-space: nowrap;
 }
 
-#summaryWrapper {
-	overflow: hidden;
-	margin-botom: 64px;
-}
-
-#summaryWrapper h3 {
-	display: inline-block;
-}
-
 #columns h3 {
 	display: inline-block;
 }
 
-/* -------------- Timesheet specific classes */
-
-.ts-header {
-	height: 102px;
-}
-
 /* -------------- Overwritten w3-classes */
 
-.w3-container {
-	padding: 0.01em 32px;
-}
+.w3-container { padding: 0.01em 58px; }
+@media screen and (max-width:993px) { .w3-container { padding: 0.01em 32px; } }
 
 /* -------------- */
 
