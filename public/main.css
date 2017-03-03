@@ -467,11 +467,14 @@ div.button-group button.button-active {
 
 @media screen and (max-width:993px) { .ts-left-align-middle { text-align: left!important } }
 
+.cc-margin-top-little { margin-top: 8px; }
+
 .cc-keep-clear-little { margin: 4px 6px; }
+.cc-keep-clear { margin: 8px 10px; }
 span.cc-keep-clear-little { display: inline-block; }
 
 .cc-keep-clear-content-little { padding: 4px 8px; }
-.cc-keep-clear-content { padding: 8px 13px; }
+.cc-keep-clear-content { padding: 8px 10px; }
 .cc-keep-clear-content-more { padding: 13px 18px; }
 
 /* hide an element */
