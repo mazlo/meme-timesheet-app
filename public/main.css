@@ -127,7 +127,7 @@ a.option-active {
 	color: #505050;
 }
 
-.octicon, .ionicons {
+.octicon, .ionicons, .octicon-text {
 	line-height: 30px;
 	padding: 0 8px 0 3px;
 	
@@ -141,11 +141,6 @@ a.option-active {
 }
 .octicon-padding-right {
     padding-right: 6px;
-}
-.octicon-text {
-	padding-left: 23px;
-	line-height: 15px;
-	cursor: pointer;
 }
 .octicon-red {
 	color: red;

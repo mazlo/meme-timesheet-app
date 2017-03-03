@@ -84,11 +84,11 @@
 			@endfor
 				</div>
 
-				<div class='w3-col l4 m7'>
-					<span class='cc-keep-clear-little js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
-					<span class='cc-keep-clear-little js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
+				<div class='w3-col l4 m7 w3-row'>
+					<span class='w3-col l4 m2 s2 cc-keep-clear-little js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
+					<span class='w3-col l4 m2 s2 cc-keep-clear-little js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
 
-					<span class='cc-keep-clear-little js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
+					<span class='w3-display-topright cc-margin-top-little js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 				</div>
 			</div>
 		</div>
@@ -134,8 +134,10 @@
 				</div>
 
 				<div class='w3-col l4 m4'>
-					<span class='cc-keep-clear-little w3-text-grey tisheet-time-start js-tisheet-time-start'></span>
-					<span class='cc-keep-clear-little js-tisheet-time-spent'></span>
+					<span class='w3-col l4 m2 s2 cc-keep-clear-little js-tisheet-time-start'></span>
+					<span class='w3-col l4 m2 s2 cc-keep-clear-little js-tisheet-time-spent'></span>
+
+					<span class='w3-display-topright cc-margin-top-little js-ajax-loader cc-element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
 				</div>
 			</div>
 		</div>
