@@ -258,7 +258,6 @@ button.post-delete {
 textarea {
 	border: 1px solid #ddd; 
 	
-	width: 91%; 
 	min-height: 73px; 
 	resize: none;
 	overflow-y: hidden;
@@ -331,8 +330,8 @@ div.tisheet > div { position: relative; padding: 4px 0; }
 span.tisheet-time-start, span.tisheet-time-spent { display: inline-block; margin-top: 6px; }
 span.tisheet-time-start { font-weight: lighter; color: #ccc; }
 
-div.tisheet > div input.textfield { width: 78%; padding-right: 28px; }
-div.tisheet > div textarea.tisheet-note { width: 530px; /* width of textfield + 28px padding */ }
+div.tisheet > div input.textfield,
+div.tisheet > div textarea.tisheet-note { width: 78%; padding-right: 28px; }
 
 /* show trashcan at the right end of the tisheet input */
 div.tisheet > div > span.octicon-trashcan { position: absolute; top: 4px; right: 102px; z-index: 20; opacity: 0.6; }
