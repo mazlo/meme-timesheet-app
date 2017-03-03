@@ -201,7 +201,7 @@
 	$jQ( document ).on( 'focusout', 'input.tisheet-description', function()
 	{
 		var value = $jQ(this).val();
-		var tisheet = $jQ(this).closest( 'tr.js-tisheet' );
+		var tisheet = $jQ(this).closest( 'div.js-tisheet' );
 
 		if ( oldDescription == value )
 			return;	// ignore if nothing changed
@@ -274,7 +274,7 @@
 	$jQ( document ).on( 'focusout', 'textarea.tisheet-note', function()
 	{
 		var value = $jQ(this).val();
-		var tisheet = $jQ(this).closest( 'tr.js-tisheet' );
+		var tisheet = $jQ(this).closest( 'div.js-tisheet' );
 
 		if ( oldNote == value )
 			return;	// ignore if nothing changed
