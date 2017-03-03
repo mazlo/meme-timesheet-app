@@ -80,7 +80,6 @@ span.notification-negativ {
 #content {
 	margin-top: 23px;
 	margin-bottom: 48px; 
-	padding: 0 32px;
 }
 
 .options {
@@ -167,13 +166,9 @@ a.option-active {
 	color: #505050;
 }
 
-td span.octicon {
-	padding-left: 3px;
-	line-height: 30px;
-}
-
 .octicon, .ionicons {
-	padding-left: 23px;
+	line-height: 30px;
+	padding: 0 8px 0 3px;
 	
 	cursor: pointer;
 }
@@ -332,37 +327,26 @@ ul.list-inline li .js-button-active {
 	color: #565656;
 }
 
-tr.tisheet {
-	vertical-align: top;
-}
-tr.tisheet > td {
-	position: relative;
-	padding: 4px 0;
-}
-/* show trashcan at the right end of the tisheet input */
-tr.tisheet > td > span.octicon-trashcan {
-	position: absolute;
-	top: 4px;
-	right: 38px;
-	z-index: 20;
-	opacity: 0.6;
-}
-/* on hover of tisheet -> show all octicons (options) */
-tr.tisheet:hover > td > span.octicon:not(.element-visible) {
-	visibility: visible;
-}
+div.tisheet { vertical-align: top; }
+div.tisheet > div { position: relative; padding: 4px 0; }
 
-tr.tisheet > td span.tisheet-time-start,
-tr.tisheet > td span.tisheet-time-spent {
-	display: inline-block;
-	margin-top: 6px;
-}
-tr.tisheet > td span.tisheet-time-start
-{
-	font-weight: lighter;
-	color: #ccc;
-}
-tr.tisheet > td span.tisheet-error {
+span.tisheet-time-start, span.tisheet-time-spent { display: inline-block; margin-top: 6px; }
+span.tisheet-time-start { font-weight: lighter; color: #ccc; }
+
+div.tisheet > div input.textfield { width: 78%; padding-right: 28px; }
+div.tisheet > div textarea.tisheet-note { width: 530px; /* width of textfield + 28px padding */ }
+
+/* show trashcan at the right end of the tisheet input */
+div.tisheet > div > span.octicon-trashcan { position: absolute; top: 4px; right: 102px; z-index: 20; opacity: 0.6; }
+/* on hover of tisheet -> show all octicons (options) */
+div.tisheet:hover > div > span.octicon:not(.element-visible) { visibility: visible; }
+
+span.time-spent-quarter { display: inline-block; border: 1px #ccc solid; background-color: #fff; width: 8px; height: 18px; margin-top: 6px; cursor: pointer; }
+span.time-spent-quarter-active { background-color: #006699; }
+span.time-spent-blank { display: inline-block; background-color: transparent; width: 8px; height: 18px; }
+
+	/* OBSOLETE? */
+div.tisheet > div span.tisheet-error {
     position: absolute; 
     left: -100px; 
     background-color: #fff; 
@@ -370,39 +354,6 @@ tr.tisheet > td span.tisheet-error {
     text-align: right;
     color: #aaa;
     cursor: pointer;
-}
-
-tr.tisheet > td input.textfield {
-	width: 512px;
-	padding-right: 28px;
-}
-tr.tisheet > td textarea.tisheet-note {
-	width: 530px; /* width of textfield + 28px padding */
-}
-
-td span.time-spent-quarter {
-	display: inline-block;
-	border: 1px #ccc solid;
-	background-color: #fff;
-	
-	width: 8px;
-	height: 18px;
-
-	margin-top: 6px;
-
-	cursor: pointer;
-}
-
-td span.time-spent-quarter-active {
-	background-color: #006699;
-}
-
-.time-spent-blank {
-	display: inline-block;
-	background-color: transparent;
-	
-	width: 8px;
-	height: 18px;
 }
 
 div.summary-table {

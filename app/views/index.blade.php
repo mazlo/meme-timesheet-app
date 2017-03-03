@@ -35,95 +35,81 @@
 	@endif
 
 	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
-		<table cellpadding='0' cellspacing='0'>
 			
-			<colgroup>
-				<col width='4%'>
-				<col width='52%'>
-				<col width='24%'>
-				<col width='6%'>
-				<col width='4%'>
-				<col width='5%'>
-			</colgroup>
-			
-			<tbody>
-			<tr class='timesheet-header'>
-				<th></th>
-				<th>Task Description (planned?)</th>
-				<th>Time Spent / Estimated Time</th>
-				<th>Begin</th>
-				<th>Total</th>
-				<th></th>
-			</tr>
+		<div class='w3-row timesheet-header'>
+			<h4 class='w3-col l7'>Task Description (planned?)</h4>
+			<div class='w3-col l5 w3-row w3-hide-medium w3-hide-small'>
+				<h4 class='w3-col l8'>Time Spent / Estimated Time</h4>
+				<h4 class='w3-col l4'>Begin / Total Spent</h4>
+			</div>
+		</div>
 
 		@foreach( $tisheets as $key => $tisheet )
-			<tr class='tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
-				<td>
-                    <span class='tisheet-error js-tisheet-error element-invisible'></span>
-                    <span class='octicon octicon-list-unordered element-toggable'></span>
-					<span class='octicon octicon-info @if( $tisheet->note && $tisheet->note->content != '' ) element-visible @else element-toggable @endif'></span>
-				</td>
+		<div class='w3-row tisheet js-tisheet' id='{{ $tisheet->id}}' @if( $tisheet->context ) ctx='{{ substr( $tisheet->context->prefLabel, 1 ) }}' @endif>
+			<div class='w3-col l7'>
+                <span class='tisheet-error js-tisheet-error element-invisible'></span>
+                
+				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+				{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
 				
-				<td>
-					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
-					{{ Form::text( 'description', $tisheet->description, array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
-					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
+				<span class='octicon octicon-info element-toggable'></span>
+    			<span class='octicon octicon-list-unordered element-toggable'></span>
+				<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
+    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
-					<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
-						<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
-					</div>
-				</td>
-				
-				<td>
+				<div class='js-tisheet-note @if( !$tisheet->note || !$tisheet->note->visible ) element-hidden @endif' style='margin-top: 8px'>
+					<textarea class='tisheet-note'>@if ( $tisheet->note ){{ $tisheet->note->content }}@endif</textarea>
+				</div>
+			</div>
+			
+			<div class='w3-col l5 w3-row'>
+				<div class='w3-col l8 m8'>
 
-				{{-- render actual time spent --}}
-				@for( $i=0; $i<$tisheet->time_spent; $i++ )
-					@if( $i != 0 && $i % 4 == 0 )
-						<span class='time-spent-blank'>&nbsp;</span>
-					@endif
+			{{-- render actual time spent --}}
+			@for( $i=0; $i<$tisheet->time_spent; $i++ )
+				@if( $i != 0 && $i % 4 == 0 )
+					<span class='time-spent-blank'>&nbsp;</span>
+				@endif
 
-					<span class='js-time-spent-quarter time-spent-quarter time-spent-quarter-active'>&nbsp;</span>
-				@endfor
+				<span class='js-time-spent-quarter time-spent-quarter time-spent-quarter-active'>&nbsp;</span>
+			@endfor
 
-				{{-- print remaining time spent --}}
-				@for( $i=$tisheet->time_spent; $i<16; $i++ )
-					@if( $i != 0 && $i % 4 == 0 )
-						<span class='time-spent-blank'>&nbsp;</span>
-					@endif
+			{{-- print remaining time spent --}}
+			@for( $i=$tisheet->time_spent; $i<16; $i++ )
+				@if( $i != 0 && $i % 4 == 0 )
+					<span class='time-spent-blank'>&nbsp;</span>
+				@endif
 
-					<span class='js-time-spent-quarter time-spent-quarter'>&nbsp;</span>
-				@endfor
-				</td>
+				<span class='js-time-spent-quarter time-spent-quarter'>&nbsp;</span>
+			@endfor
+				</div>
 
-				<td><span class='tisheet-time-start js-tisheet-time-start'>{{ $tisheet->time_start }}</span></td>
-
-				<td><span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span></td>
-				<td>
-					<span class='octicon octicon-check element-hidden'></span>
-					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
-					<span class='octicon octicon-arrow-right js-tisheet-move element-toggable'></span>
-				</td>
-			</tr>
+				<div class='w3-col l4 m4'>
+					<span class='tisheet-time-start js-tisheet-time-start'>{{ $tisheet->time_start }}</span>
+					<span class='tisheet-time-spent js-tisheet-time-spent'>{{ $tisheet->time_spent*0.25 }}h</span>
+				</div>
+			</div>
+		</div>
 		@endforeach
 
-			{{-- insert an empty cloneable tr that is cloned when needed --}}
-			<tr class='tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
-				<td>
-					<span class='octicon octicon-list-unordered element-toggable'></span>
-					<span class='octicon octicon-info element-toggable'></span>
-				</td>
-				<td>
-					<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
-					{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
-					<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
-					<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
+		{{-- insert an empty cloneable tr that is cloned when needed --}}
+		<div class='w3-row tisheet js-tisheet js-tisheet-clonable element-hidden' id='undefined'>
+			<div class='w3-col l7'>
+				<?php $placeholder = $todayAsTime < $todayForRealAsTime ? 'I managed to ...' : 'I am about to ...'; ?>
+				{{ Form::text( 'description', '', array( 'placeholder' => $placeholder, 'class' => 'textfield tisheet-description js-tisheet-description' ) ) }}
+				
+				<span class='octicon octicon-info element-toggable'></span>
+    			<span class='octicon octicon-list-unordered element-toggable'></span>
+				<span class='octicon octicon-trashcan octicon-no-padding-left element-toggable'></span>
+    			<span class='octicon octicon-playback-play js-octicon-stopwatch element-toggable'></span>
 
-					<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
-						<textarea class='tisheet-note'></textarea>
-					</div>
-				</td>
-				<td>
+				<div class='js-tisheet-note element-hidden' style='margin-top: 8px'>
+					<textarea class='tisheet-note'></textarea>
+				</div>
+			</div>
+
+			<div class='w3-col l5 w3-row'>
+				<div class='w3-col l8 m8'>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
@@ -143,25 +129,16 @@
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
 					<span class='js-time-spent-quarter time-spent-quarter'></span>
-				</td>
-				<td><span class='tisheet-time-start js-tisheet-time-start'></span></td>
-				<td><span class='tisheet-time-spent js-tisheet-time-spent'></span></td>
-				<td>
-					<span class='octicon octicon-check element-hidden'></span>
-					<span class='js-ajax-loader ajax-loader element-hidden'><img src='{{ url( "loading.gif" ) }}' /></span>
-					<span class='octicon octicon-arrow-right js-tisheet-move element-toggable'></span>
-				</td>
-			</tr>
+				</div>
 
-			<tr class='timesheet-footer'>
-				<td colspan='4'>&nbsp;</td>
-				<td><span class='time-spent-today js-time-spent-today'></span></td>
-			</tr>
+				<div class='w3-col l4 m4'>
+					<span class='tisheet-time-start js-tisheet-time-start'></span>
+					<span class='tisheet-time-spent js-tisheet-time-spent'></span>
+				</div>
+			</div>
+		</div>
 
-			</tbody>
-		</table>
-
-	</div>
+	</div> {{-- div#timesheet --}}
 
 	<div id='timeline-today' class='timeline-today element-collectable' @if( $sickToday )style='display: none'@endif>
 		@include( 'ajax.timeline' )
@@ -201,13 +178,13 @@
 @if ( count( $tisheets ) == 0 )
 	$jQ( function()
 	{
-		// find the cloneable tr and clone it
-		var trEmpty = $jQ( 'tr.js-tisheet-clonable' );
-		var trClone = trEmpty.clone();
+		// find the cloneable div and clone it
+		var div_empty = $jQ( 'div.js-tisheet-clonable' );
+		var div_clone = div_empty.clone();
 
-		// insert before the cloneable tr and show
-		trClone.insertBefore( trEmpty );
-		trClone.removeClass( 'js-tisheet-clonable element-hidden' );
+		// insert before the cloneable div and show
+		div_clone.insertBefore( div_empty );
+		div_clone.removeClass( 'js-tisheet-clonable element-hidden' );
 	});
 @endif
 
