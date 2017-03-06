@@ -9,7 +9,7 @@
 @section( 'header' )
 	<div class='w3-col l2 m4 s2 w3-right-align w3-text-light-grey'>
 		<span class='w3-hide-small'>Hello {{ Auth::user()->username }}</span>
-		<a href='{{ url( "logout" ) }}'><span class='octicon octicon-sign-out' style='font-size: 18px'></span></a>
+		<a href='{{ url( "logout" ) }}'><span class='octicon octicon-sign-out' style='padding-top: 7px; font-size: 19px;'></span></a>
 	</div>
 @stop
 
