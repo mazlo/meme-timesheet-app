@@ -37,7 +37,7 @@
 
 <div id='wrapper'>
 
-	<div id='header' class='w3-container w3-padding-hor-16'>
+	<div id='header' class='w3-container w3-padding-hor-12'>
 
 		<div class='w3-col l10 m8 s10  w3-text-light-grey'>
 			<span class='ion-ios-stopwatch-outline' style='font-size: 32px'></span>

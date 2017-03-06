@@ -17,7 +17,7 @@
 
 	<?php $sickToday = isset( $timesheet ) && $timesheet->sick ?>
 
-	<div class='w3-row w3-right-align ts-margin-top-23'>
+	<div class='w3-row w3-right-align cc-margin-top-more'>
 		<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
 		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text js-tisheet-today'>today</span></a>
 		<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>			
@@ -27,7 +27,7 @@
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
 
-	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
+	<div id='timesheet' class='timesheet element-collectable cc-margin-top-little' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
 			
 		<div class='w3-row timesheet-header'>
 			<h4 class='w3-col l7'>Task Description (planned?)</h4>

@@ -114,37 +114,14 @@ a.option-active {
 	color: #505050;
 }
 
-.octicon, .ionicons, .octicon-text {
-	line-height: 30px;
-	padding: 0 8px 0 3px;
-	
-	cursor: pointer;
-}
-.octicon-no-padding-left {
-	padding-left: 0;
-}
-.octicon-lower-padding-left {
-	padding-left: 12px;
-}
-.octicon-padding-right {
-    padding-right: 6px;
-}
-.octicon-red {
-	color: red;
-}
-.octicon-light {
-	opacity: 0.5;
-}
-.octicon-active, .ionicons-active {
-	opacity: 1;
-	color: #006699;
-}
-.octicon-splitter {
-	display: inline-block;
-	border-bottom: 1px #ccc solid;
-	width: 23px;
-	margin: 0 0 18px 18px;
-}
+.octicon, .ionicons, .octicon-text { padding: 0 8px 0 3px; cursor: pointer; }
+.octicon-no-padding-left { padding-left: 0; }
+.octicon-lower-padding-left { padding-left: 12px; }
+.octicon-padding-right { padding-right: 6px; }
+.octicon-red { color: red; }
+.octicon-light { opacity: 0.5; }
+.octicon-active, .ionicons-active { opacity: 1; color: #006699; }
+.octicon-splitter { display: inline-block; border-bottom: 1px #ccc solid; width: 23px; margin: 0 0 18px 18px; }
 
 /* -------------- */
 
@@ -268,7 +245,7 @@ div.tisheet > div input.textfield,
 div.tisheet > div textarea.tisheet-note { width: 78%; padding-right: 28px; }
 
 /* show trashcan at the right end of the tisheet input */
-div.tisheet > div > span.octicon-trashcan { position: absolute; top: 4px; right: 102px; z-index: 20; opacity: 0.6; }
+div.tisheet > div > span.octicon-trashcan { position: absolute; top: 11px; right: 102px; z-index: 20; opacity: 0.6; }
 /* on hover of tisheet -> show all octicons (options) */
 div.tisheet:hover > div > span.octicon:not(.cc-element-visible) { visibility: visible!important; }
 
@@ -447,12 +424,11 @@ div.button-group button.button-active {
 }
 
 /* --------------- */
-.ts-margin-top-18 { margin-top: 18px; }
-.ts-margin-top-23 { margin-top: 23px; }
 
 @media screen and (max-width:993px) { .ts-left-align-middle { text-align: left!important } }
 
 .cc-margin-top-little { margin-top: 8px; }
+.cc-margin-top-more { margin-top: 23px; }
 
 .cc-keep-clear-little { margin: 4px 6px; }
 .cc-keep-clear { margin: 8px 10px; }
