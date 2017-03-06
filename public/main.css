@@ -159,10 +159,6 @@ input.textfield {
 	color: inherit;
 }
 
-input.textfield-narrow {
-	width: 420px;
-}
-
 button.button-submit,
 input.button-submit {
 	margin-top: 8px;
