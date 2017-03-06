@@ -39,21 +39,9 @@ p a:visited {
 	text-decoration: none;
 }
 
-h2 {
-	margin-bottom: 23px;
-	font-size: 25px;
-	font-weight: lighter;
-}
-
-h3 {
-	margin-bottom: 8px;
-	font-size: 19px;
-	font-weight: lighter;
-}
-
-h4 {
-	margin-bottom: 4px;
-}
+h2 { font-weight: lighter; vertical-align: top; }
+h3 { margin-bottom: 8px; font-size: 19px; font-weight: lighter; }
+h4 { margin-bottom: 4px; }
 
 h4 > .created-at {
 	margin-left: 13px;
@@ -70,8 +58,9 @@ p {
 span.notification-positiv { display: block; color: #67A921; }
 span.notification-negativ { display: block; color: #E56952; }
 
+#header { background: #006699; box-shadow: 0px -3px 13px 3px }
+#header h2 { margin: 6px 0 0 23px; }
 #content { margin-bottom: 48px; }
-#header { height: 102px; }
 
 .options { margin-top: 32px; }
 
@@ -125,37 +114,14 @@ a.option-active {
 	color: #505050;
 }
 
-.octicon, .ionicons, .octicon-text {
-	line-height: 30px;
-	padding: 0 8px 0 3px;
-	
-	cursor: pointer;
-}
-.octicon-no-padding-left {
-	padding-left: 0;
-}
-.octicon-lower-padding-left {
-	padding-left: 12px;
-}
-.octicon-padding-right {
-    padding-right: 6px;
-}
-.octicon-red {
-	color: red;
-}
-.octicon-light {
-	opacity: 0.5;
-}
-.octicon-active, .ionicons-active {
-	opacity: 1;
-	color: #006699;
-}
-.octicon-splitter {
-	display: inline-block;
-	border-bottom: 1px #ccc solid;
-	width: 23px;
-	margin: 0 0 18px 18px;
-}
+.octicon, .ionicons, .octicon-text { padding: 0 8px 0 3px; cursor: pointer; }
+.octicon-no-padding-left { padding-left: 0; }
+.octicon-lower-padding-left { padding-left: 12px; }
+.octicon-padding-right { padding-right: 6px; }
+.octicon-red { color: red; }
+.octicon-light { opacity: 0.5; }
+.octicon-active, .ionicons-active { opacity: 1; color: #006699; }
+.octicon-splitter { display: inline-block; border-bottom: 1px #ccc solid; width: 23px; margin: 0 0 18px 18px; }
 
 /* -------------- */
 
@@ -168,10 +134,6 @@ input.textfield {
 	font-size: inherit;
 	font-family: inherit;
 	color: inherit;
-}
-
-input.textfield-narrow {
-	width: 420px;
 }
 
 button.button-submit,
@@ -283,7 +245,7 @@ div.tisheet > div input.textfield,
 div.tisheet > div textarea.tisheet-note { width: 78%; padding-right: 28px; }
 
 /* show trashcan at the right end of the tisheet input */
-div.tisheet > div > span.octicon-trashcan { position: absolute; top: 4px; right: 102px; z-index: 20; opacity: 0.6; }
+div.tisheet > div > span.octicon-trashcan { position: absolute; top: 11px; right: 102px; z-index: 20; opacity: 0.6; }
 /* on hover of tisheet -> show all octicons (options) */
 div.tisheet:hover > div > span.octicon:not(.cc-element-visible) { visibility: visible!important; }
 
@@ -462,12 +424,11 @@ div.button-group button.button-active {
 }
 
 /* --------------- */
-.ts-margin-top-18 { margin-top: 18px; }
-.ts-margin-top-23 { margin-top: 23px; }
 
 @media screen and (max-width:993px) { .ts-left-align-middle { text-align: left!important } }
 
 .cc-margin-top-little { margin-top: 8px; }
+.cc-margin-top-more { margin-top: 23px; }
 
 .cc-keep-clear-little { margin: 4px 6px; }
 .cc-keep-clear { margin: 8px 10px; }

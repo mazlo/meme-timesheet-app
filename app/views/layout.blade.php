@@ -37,12 +37,15 @@
 
 <div id='wrapper'>
 
-	<div id='header' class='w3-container ts-header'>
+	<div id='header' class='w3-container w3-padding-hor-12'>
 
-		<div class='options element-float-left'>
-			<ul class='list-inline'>
-				<li><a href='{{ url( "terms-and-conditions" ) }}' class='option'>about tim.mazlo.de</a></li>
-			</ul>
+		<div class='w3-col l10 m8 s10  w3-text-light-grey'>
+			<span class='ion-ios-stopwatch-outline' style='font-size: 32px'></span>
+			@if ( Auth::check() )
+			<h2 class='w3-show-inline-block'><span class='w3-hide-medium w3-hide-small'>ya timesheet for</span> <span class='w3-hide-small'>@if( $today == $todayForReal ) today - @endif</span> <span class='w3-hide-small'>{{ date( 'l', $todayAsTime ) }},</span> {{ date( 'dS M.', $todayAsTime ) }}</h2>
+			@else
+			<h2 class='w3-show-inline-block'>Welcome<span class='w3-hide-small'> to ya timesheet</span></h2>
+			@endif
 		</div>
 
 		@yield( 'header' )

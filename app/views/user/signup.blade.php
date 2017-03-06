@@ -14,7 +14,7 @@
             <span class='notification-negativ'>{{ $error[0] }}</span>
         @endif
 
-        {{ Form::text( 'username', '', array( 'placeholder' => 'john.smith', 'class' => 'cc-keep-clear-content-little textfield textfield-narrow' ) ) }}
+        {{ Form::text( 'username', '', array( 'placeholder' => 'john.smith', 'class' => 'cc-keep-clear-content-little textfield' ) ) }}
     
         <h4>E-Mail Address</h4>
         @if( $errors->has( 'email' ) )
@@ -22,7 +22,7 @@
             <span class='notification-negativ'>{{ $error[0] }}</span>
         @endif
 
-        {{ Form::text( 'email', '', array( 'placeholder' => 'john.smith@email.com', 'class' => 'cc-keep-clear-content-little textfield textfield-narrow' ) ) }}
+        {{ Form::text( 'email', '', array( 'placeholder' => 'john.smith@email.com', 'class' => 'cc-keep-clear-content-little textfield' ) ) }}
 
         <h4>Password</h4>
         @if( $errors->has( 'password' ) )
@@ -30,11 +30,11 @@
             <span class='notification-negativ'>{{ $error[0] }}</span>
         @endif
 
-        {{ Form::password( 'password', array( 'placeholder' => '●●●●●●●●', 'class' => 'cc-keep-clear-content-little textfield textfield-narrow' ) ) }}
+        {{ Form::password( 'password', array( 'placeholder' => '●●●●●●●●', 'class' => 'cc-keep-clear-content-little textfield' ) ) }}
 
         <h4>Confirm Password</h4>
         
-        {{ Form::password( 'password_confirmation', array( 'class' => 'cc-keep-clear-content-little textfield textfield-narrow' ) ) }}
+        {{ Form::password( 'password_confirmation', array( 'class' => 'cc-keep-clear-content-little textfield' ) ) }}
 
         <p>
             @if( $errors->has( 'terms' ) )

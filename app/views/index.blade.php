@@ -1,40 +1,33 @@
 @extends( 'layout' )
 
 <?php
-	$todayAsTime = strtotime( $today );
 	$todayForReal = date( 'Y-m-d', time() );
+	$todayAsTime = strtotime( isset( $today ) ? $today : $todayForReal );
 	$todayForRealAsTime = strtotime( $todayForReal );
 ?>
 
 @section( 'header' )
-
-	<div class='options options-right-oriented element-float-right'>
-		<ul class='list-inline'>
-			<li>Hello {{ Auth::user()->username }}</li>
-			<li><a href='{{ url( "logout" ) }}' class='option'>logout</a></li>
-		</ul>
+	<div class='w3-col l2 m4 s2 w3-right-align w3-text-light-grey'>
+		<span class='w3-hide-small'>Hello {{ Auth::user()->username }}</span>
+		<a href='{{ url( "logout" ) }}'><span class='octicon octicon-sign-out' style='padding-top: 7px; font-size: 19px;'></span></a>
 	</div>
-
 @stop
 
 @section( 'content' )
 
 	<?php $sickToday = isset( $timesheet ) && $timesheet->sick ?>
 
-	<div class='w3-row'>
-		<h2 class='w3-col l10'>ya timesheet for @if( $today == $todayForReal ) today - @endif {{ date( 'l, dS M.', $todayAsTime ) }}</h2>
-		<div class='w3-col l2 w3-right-align ts-left-align-middle ts-margin-top-23'>
-			<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
-			<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text js-tisheet-today'>today</span></a>
-			<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>			
-		</div>
+	<div class='w3-row w3-right-align cc-margin-top-more'>
+		<a href='{{ url( "tisheets/$yesterday" ) }}'><span class='octicon octicon-arrow-left' title='{{ $yesterday }}'></span></a>
+		<a href='{{ url( "tisheets/today" ) }}'><span class='octicon-text js-tisheet-today'>today</span></a>
+		<a href='{{ url( "tisheets/$tomorrow" ) }}'><span class='octicon octicon-arrow-right' title='{{ $tomorrow }}'></span></a>			
 	</div>
 
 	@if ( date( 'l', $todayAsTime ) == 'Sunday' )
 		<div>Jeez, it's Sunday, why are you working at all?</div>
 	@endif
 
-	<div id='timesheet' class='timesheet element-collectable' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
+	<div id='timesheet' class='timesheet element-collectable cc-margin-top-little' day='{{ $today }}' @if( $sickToday )style='display: none'@endif>
 			
 		<div class='w3-row timesheet-header'>
 			<h4 class='w3-col l7'>Task Description (planned?)</h4>
