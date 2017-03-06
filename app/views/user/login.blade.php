@@ -1,8 +1,14 @@
 @extends ( 'layout' )
 
+@section( 'header' )
+    <div class='w3-col l2 m4 s2 w3-right-align w3-text-light-grey'>
+        <a href='{{ url( "logout" ) }}'><span class='octicon octicon-sign-in' style='font-size: 18px'></span></a>
+    </div>
+@stop
+
 @section( 'content' )
 
-    <h2>Sign in <span style='font-size: 13px'>to gain access to</span> tim.mazlo.de</h2>
+    <h2>Please sign in</h2>
 
     <p>Have you <a href='{{ url( "signup" ) }}'>signed up</a> already?</p>
 
