@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
-		"maxhoffmann/parsedown-laravel": "dev-master",
-		"brainboxlabs/brain-socket": "v1.0.0"
+		"brainboxlabs/brain-socket": "v1.0.0",
+		"erusev/parsedown": "^1.6"
 	},
 	"autoload": {
 		"classmap": [

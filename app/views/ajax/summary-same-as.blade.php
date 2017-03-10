@@ -10,7 +10,7 @@
 @foreach( $tisheets as $tisheet )
     <tr>
         <td>{{ date( 'Y-m-d', strtotime( $tisheet->day ) ) }}</td>
-        <td>{{ Markdown::parse( nl2br( $tisheet->content ) ) }}</td>
+        <td>{{ Parsedown::instance()->setBreaksEnabled( true )->text( $tisheet->content ) }}</td>
         <td>{{ $tisheet->time_spent/4 }}h</td>
     </tr>
 @endforeach
